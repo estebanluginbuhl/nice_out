@@ -30,6 +30,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+<<<<<<< HEAD
     "com.unity.render-pipelines.core": {
       "version": "7.3.1",
       "depth": 1,
@@ -58,6 +59,8 @@
       },
       "url": "https://packages.unity.com"
     },
+=======
+>>>>>>> 6e001dfe2eac106ce6b98d7ed5d94665d5a63807
     "com.unity.test-framework": {
       "version": "1.1.18",
       "depth": 0,
@@ -79,7 +82,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
+<<<<<<< HEAD
       "version": "1.2.16",
+=======
+      "version": "1.2.17",
+>>>>>>> 6e001dfe2eac106ce6b98d7ed5d94665d5a63807
       "depth": 0,
       "source": "registry",
       "dependencies": {},

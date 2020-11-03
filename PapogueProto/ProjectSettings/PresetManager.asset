@@ -3,6 +3,7 @@
 --- !u!1386491679 &1
 PresetManager:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   m_DefaultList:
   - type:
       m_NativeTypeID: 108
@@ -25,3 +26,7 @@ PresetManager:
     defaultPresets:
     - m_Preset: {fileID: 2655988077585873504, guid: e8537455c6c08bd4e8bf0be3707da685,
         type: 2}
+=======
+  serializedVersion: 2
+  m_DefaultPresets: {}
+>>>>>>> 6e001dfe2eac106ce6b98d7ed5d94665d5a63807
