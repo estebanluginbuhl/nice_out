@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Esteban.unity
+=======
+- path: Assets/Scene/esteban.unity
+>>>>>>> 6e001dfe2eac106ce6b98d7ed5d94665d5a63807
   isLoaded: 1
   isActive: 1
   isSubScene: 0

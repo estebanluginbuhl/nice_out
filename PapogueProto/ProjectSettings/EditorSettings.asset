@@ -6,7 +6,11 @@ EditorSettings:
   serializedVersion: 9
   m_ExternalVersionControlSupport: Visible Meta Files
   m_SerializationMode: 2
+<<<<<<< HEAD
   m_LineEndingsForNewScripts: 0
+=======
+  m_LineEndingsForNewScripts: 2
+>>>>>>> 6e001dfe2eac106ce6b98d7ed5d94665d5a63807
   m_DefaultBehaviorMode: 0
   m_PrefabRegularEnvironment: {fileID: 0}
   m_PrefabUIEnvironment: {fileID: 0}
