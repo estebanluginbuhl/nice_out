@@ -1,5 +1,4 @@
-﻿//original
-Shader "Custom/SurfaceShaderTest"
+﻿Shader "Custom/SurfaceShaderTest"
 {
     Properties
     {
@@ -20,8 +19,8 @@ Shader "Custom/SurfaceShaderTest"
 		half4 Lightingfullforwardshadows(SurfaceOutput s, half3 lightDir,  half atten)
 		{
 			half NdotL = dot(s.Normal, lightDir);
-			if (NdotL <= 0.0) NdotL = smoothstep(0, 0.025f, NdotL);
-			//if (NdotL <= 0.0) NdotL = 1 + clamp(floor(NdotL), -1, 0);
+			//if (NdotL <= 0.0) NdotL = smoothstep(0, 0.025f, NdotL);
+			if (NdotL <= 0.0) NdotL = 1 + clamp(floor(NdotL), -1, 0);
 			else NdotL = 1;
 			half4 c;
 			c.rgb = s.Albedo * _LightColor0.rgb * (NdotL * atten * 2);
