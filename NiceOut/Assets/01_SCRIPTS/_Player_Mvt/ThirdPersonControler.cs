@@ -23,9 +23,6 @@ public class ThirdPersonControler : MonoBehaviour
 
         float test = h + v;
 
-
-
-
         if (velocityNormalized != Vector3.zero)
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self); //Mvt du perso
@@ -38,8 +35,6 @@ public class ThirdPersonControler : MonoBehaviour
             Vector3 rotation = new Vector3(transform.rotation.x, targetRotationY, transform.rotation.z); //Vecteur de rotation
 
             transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
-
-            Debug.Log(rotation);
         }
     }
 }
