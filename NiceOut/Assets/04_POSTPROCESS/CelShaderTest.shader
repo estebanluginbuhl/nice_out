@@ -2,7 +2,7 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+		_MainTex("Texture", 2D) = "white" {}
 		_Brightness("Shadow Brightness", Range(0,1)) = 0.3
 		_Strength("Light Strength", Range(0,1)) = 0.5
 		_Color("Light Color", COLOR) = (1,1,1,1)
@@ -10,15 +10,17 @@
 	}
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        LOD 100
+		Tags { "RenderType" = "Opaque" }
+		LOD 100
 
         Pass
         {
+			Tags { "LightMode" = "ForwardBase" }
+
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag
-
+            #pragma fragment frag 
+			
             #include "UnityCG.cginc"
 
             struct appdata
