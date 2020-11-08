@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Trap_Inventory : MonoBehaviour
 {
     public bool full = false;
     public bool[] checkEmpty;
-    public GameObject[] Slots;
+    public GameObject[] slots;
+    public GameObject[] trapsItem;
+
+    public GameObject ui_InventoryPanel;
+
+    public int selectedSlotIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +23,55 @@ public class Trap_Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetButtonDown("Select Right"))
+        {
+            SelectRight();
+        }
+        if(Input.GetButtonDown("Select Left"))
+        {
+            SelectLeft();
+        }
     }
+
+    void SelectRight()//Selectionner l'item de droite
+    {
+        if(selectedSlotIndex >= slots.Length)
+        {
+            selectedSlotIndex = 0;
+        }
+        else
+        {
+            selectedSlotIndex += 1;
+        }
+    }
+    void SelectLeft()//Selectionner l'item de gauche    
+    {
+        if (selectedSlotIndex <= 0)
+        {
+            selectedSlotIndex = slots.Length - 1;
+        }
+        else
+        {
+            selectedSlotIndex -= 1;
+        }
+    }
+
+
+
+
+
+
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     public void AddObjectToStuff(GameObject piegeToAdd)
     {
