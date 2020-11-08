@@ -34,7 +34,6 @@ public class Trap_Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(trapsItem[selectedSlotIndex]);
         if(slots[0] != null)//retour position du selecteur
         {
             if (ui_SelectBox.rectTransform.position != slots[selectedSlotIndex].rectTransform.position) 
@@ -87,6 +86,8 @@ public class Trap_Inventory : MonoBehaviour
         slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
         slots[nbUsedSlots - 1].rectTransform.localPosition = slotPos;
         slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().uiImage;
+
+        trapsItem[nbUsedSlots - 1] = trap;
     }
 
 
