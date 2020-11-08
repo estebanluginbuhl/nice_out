@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-    public GameObject player;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
