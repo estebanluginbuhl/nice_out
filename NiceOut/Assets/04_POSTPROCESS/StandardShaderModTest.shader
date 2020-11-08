@@ -1,4 +1,4 @@
-﻿Shader "StandardShaderMod"
+﻿Shader "ShadowCelShaderMod"
 {
 	Properties
 	{
@@ -16,7 +16,7 @@
 		Pass
 		{
 			Tags { "LightMode" = "ForwardBase" }
-			
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag 
@@ -69,6 +69,7 @@
 			}
 			ENDCG
 
+
 			CGPROGRAM
 			#pragma target 3.0
 
@@ -77,8 +78,71 @@
 			#pragma vertex vertBase
 			#pragma fragment fragBase
 			#include "UnityStandardCoreForward.cginc"
+
+
+			#include "UnityCG.cginc"
+			#include "AutoLight.cginc"
+			#include "Lighting.cginc"
+
 			ENDCG
 		}
+		
+		/*
+		Pass
+		{
+			Tags { "LightMode" = "ForwardBase" }
+
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_fwdbase
+
+			#include "UnityCG.cginc"
+			#include "AutoLight.cginc"
+			#include "Lighting.cginc"
+
+			struct appdata
+			{
+				float4 vertex : POSITION;
+				float3 normal: NORMAL;
+				float2 uv : TEXCOORD0;
+			};
+
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+				float2 uv : TEXCOORD0;
+				float3 normal : TEXCOORD1;
+			};
+
+			v2f vert(appdata v)
+			{
+				v2f o;
+				o.pos = UnityObjectToClipPos(v.vertex);
+				o.uv = v.uv;
+				o.normal = UnityObjectToWorldNormal(v.normal);
+				return o;
+			}
+
+			sampler2D _MainTex;
+			sampler2D _ToonLut;
+			fixed4 _Color;
+
+			fixed4 frag(v2f i) : SV_Target
+			{
+				float3 normal = normalize(i.normal);
+				float ndotl = dot(normal, _WorldSpaceLightPos0);
+				float3 lut = tex2D(_ToonLut, float2(ndotl, 0));
+				float3 directDiffuse = lut * _LightColor0;
+				fixed4 color = tex2D(_MainTex, i.uv) * _Color;
+				color.rgb *= directDiffuse;
+				color.a = 1.0;
+
+				return color;
+			}
+			ENDCG
+		}
+		*/
 	}
 	FallBack "VertexLit"
 }
