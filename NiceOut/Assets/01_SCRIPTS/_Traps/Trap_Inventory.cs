@@ -5,25 +5,44 @@ using UnityEngine.UI;
 
 public class Trap_Inventory : MonoBehaviour
 {
+
+    public int nbTrapMax;
+
     public bool full = false;
-    public bool[] checkEmpty;
-    public GameObject[] slots;
+
+    public Image[] slots;
     public GameObject[] trapsItem;
 
     public GameObject ui_InventoryPanel;
+    public Image ui_SelectBox;
+    public Image slotImage;
+    public float offset; //ecartement en tre les images
 
-    public int selectedSlotIndex = 0;
+
+    public int nbUsedSlots;
+    public int selectedSlotIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        slots = new Image[nbTrapMax];
+        trapsItem = new GameObject[nbTrapMax];
+        nbUsedSlots = 0;
+        selectedSlotIndex = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Select Right"))
+        if(slots[0] != null)//retour position du selecteur
+        {
+            if (ui_SelectBox.rectTransform.position != slots[selectedSlotIndex].rectTransform.position) 
+            {
+                ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
+            }
+        }
+
+        if (Input.GetButtonDown("Select Right"))
         {
             SelectRight();
         }
@@ -35,7 +54,7 @@ public class Trap_Inventory : MonoBehaviour
 
     void SelectRight()//Selectionner l'item de droite
     {
-        if(selectedSlotIndex >= slots.Length)
+        if(selectedSlotIndex >= nbUsedSlots - 1)
         {
             selectedSlotIndex = 0;
         }
@@ -48,7 +67,7 @@ public class Trap_Inventory : MonoBehaviour
     {
         if (selectedSlotIndex <= 0)
         {
-            selectedSlotIndex = slots.Length - 1;
+            selectedSlotIndex = nbUsedSlots - 1;
         }
         else
         {
@@ -56,6 +75,20 @@ public class Trap_Inventory : MonoBehaviour
         }
     }
 
+    public void UpdateInventory(GameObject trap)
+    {
+        nbUsedSlots += 1;
+
+        Vector2 slotPos = slotImage.rectTransform.position;
+        slotPos.x = slotImage.rectTransform.position.x + ((nbUsedSlots - 1) * (slotImage.rectTransform.rect.width + offset));
+
+        slots[nbUsedSlots - 1] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
+        slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
+        slots[nbUsedSlots - 1].rectTransform.localPosition = slotPos;
+        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().uiImage;
+
+        trapsItem[nbUsedSlots - 1] = trap;
+    }
 
 
 

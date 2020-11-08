@@ -303,6 +303,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f12ffc597a30d64483c0a75065dd539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ui_Manager: {fileID: 1524075369}
+  allTraps:
+  - {fileID: 12794261708393267, guid: 0d01967a55f3dfa4d938c2428e1e009b, type: 3}
+  - {fileID: 12794261708393267, guid: ed83447ab4204d743a5a035bceafdf2d, type: 3}
+  - {fileID: 12794261708393267, guid: 4752abdd0f09f614ca602501c6d32e48, type: 3}
+  - {fileID: 12794261708393267, guid: 34ca709e7153a5e47a98fe76f8daceb0, type: 3}
+  - {fileID: 12794261708393267, guid: 0d01967a55f3dfa4d938c2428e1e009b, type: 3}
 --- !u!65 &72060991
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2517,7 +2524,7 @@ GameObject:
   - component: {fileID: 1290384302}
   - component: {fileID: 1290384301}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Select_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3008,8 +3015,9 @@ GameObject:
   - component: {fileID: 1524075369}
   - component: {fileID: 1524075368}
   - component: {fileID: 1524075367}
+  - component: {fileID: 1524075371}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI_Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3095,6 +3103,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1524075371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524075366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1af5d833fa0144eb3b80a6832f3fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbTrapMax: 5
+  full: 0
+  slots: []
+  trapsItem: []
+  ui_InventoryPanel: {fileID: 1408721127}
+  ui_SelectBox: {fileID: 1290384301}
+  slotImage: {fileID: 2053077761153326842, guid: 93e01b04c8441c44ab9588ff5e65c4ec,
+    type: 3}
+  offset: 20
+  nbUsedSlots: 0
+  selectedSlotIndex: 0
 --- !u!1 &1552022082
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,7 +3139,6 @@ GameObject:
   - component: {fileID: 1552022087}
   - component: {fileID: 1552022086}
   - component: {fileID: 1552022088}
-  - component: {fileID: 1552022085}
   m_Layer: 0
   m_Name: ThirdPersonController
   m_TagString: Untagged
@@ -3148,32 +3178,6 @@ MonoBehaviour:
   speed: 14
   turnSmooth: 2.01
   acceleration: 0.1
---- !u!114 &1552022085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552022082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1af5d833fa0144eb3b80a6832f3fe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  full: 0
-  checkEmpty: 
-  slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  trapsItem: []
-  ui_InventoryPanel: {fileID: 0}
-  selectedSlotIndex: 0
 --- !u!114 &1552022086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3207,8 +3211,9 @@ MonoBehaviour:
   selectedPlace: {fileID: 0}
   oldSelection: {fileID: 0}
   desiredVelocity: {x: 0, y: 0, z: 0}
-  selectedTrap: {fileID: 12794261708393267, guid: ed83447ab4204d743a5a035bceafdf2d,
+  selectedTrap: {fileID: 12794261708393267, guid: 34ca709e7153a5e47a98fe76f8daceb0,
     type: 3}
+  ui_Manager: {fileID: 1524075369}
 --- !u!114 &1552022088
 MonoBehaviour:
   m_ObjectHideFlags: 0
