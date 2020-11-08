@@ -15,7 +15,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     public bool stopUpgrade = false; //Quand toute les upgrades ont etait faite, s'adapte au nombre d'upgrade tout seul pas besoin de toucher le code
 
     public GameObject emplacement;
-    static public Sprite uiImage;
+    public Sprite uiImage;
 
     private void Start()
     {
