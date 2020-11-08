@@ -1,0 +1,11 @@
+Mesh = SM_Nom
+Material = M_Nom
+Texture = T_Nom_Type (type = D (diffuse), a (si alpha)...)
+
+Animation = AN_Nom_Paramètre (Paramètre = forward...)
+Personnage = CHR_Nom
+Visual FX = VFX_Nom
+Sound FX = SFX_Nom
+
+UI Element = UI_Nom
+Prefab = PFB_Nom
