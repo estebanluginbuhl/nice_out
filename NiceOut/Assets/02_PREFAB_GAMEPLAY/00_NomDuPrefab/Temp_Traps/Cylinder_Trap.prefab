@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 12794261708393269}
   - component: {fileID: 12794261708393266}
   m_Layer: 0
-  m_Name: Cube_Trap
+  m_Name: Cylinder_Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,19 +44,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 0
-  life: 64000000c80000002c010000
+  life: 320000004600000064000000
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: 140000002800000050000000
   sellCosts: 0a0000001400000028000000
   trapAndUpgrades:
-  - {fileID: 54136085106173888, guid: 2b12aabae0f1e3245847c38276b471b8, type: 3}
-  - {fileID: 7913296967588983606, guid: 966e0228a196d304ebed78266205f064, type: 3}
-  - {fileID: 1703307944574809747, guid: 0ed2fe97e552f8a4ba32932133c44eb7, type: 3}
+  - {fileID: 8768221929285261097, guid: bc75001a8a1d18f4cb8472db0a5a2d6f, type: 3}
+  - {fileID: 2136484921231422590, guid: f733407c919d0444f9ae80ebd97b9ddd, type: 3}
+  - {fileID: 6305272458821328750, guid: feced9f8f66d17f46aecfd24416ade2d, type: 3}
   offsetPositions:
-  - 0.5
   - 1
-  - 1.5
-  upgradeIndex: 2
+  - 2
+  - 3
+  upgradeIndex: 0
   stopUpgrade: 0
   emplacement: {fileID: 0}
+  uiImage: {fileID: 21300000, guid: e354e74f1f7ab8240ac4c7bb12ccfd66, type: 3}

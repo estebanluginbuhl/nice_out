@@ -11,6 +11,7 @@ public class Trap_Manager : MonoBehaviour
     public GameObject oldSelection = null;
     public Vector3 desiredVelocity;
     public GameObject selectedTrap;
+    public Canvas ui_Manager;
 
     void Update()
     {
@@ -32,7 +33,9 @@ public class Trap_Manager : MonoBehaviour
                 }
             }
 
-            if(selectedPlaces.Length == 0)
+            selectedTrap = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
+            Debug.Log(selectedTrap);
+            if (selectedPlaces.Length == 0)
             {
                 selectedPlace = null;
             }

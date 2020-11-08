@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 12794261708393269}
   - component: {fileID: 12794261708393266}
   m_Layer: 0
-  m_Name: Sphere_Trap
+  m_Name: Capsule_Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,13 +50,14 @@ MonoBehaviour:
   costs: 140000002800000050000000
   sellCosts: 0a0000001400000028000000
   trapAndUpgrades:
-  - {fileID: 8768221929285261097, guid: 17877797a9830014385ff08385609d09, type: 3}
-  - {fileID: 2136484921231422590, guid: f3fa7e468b5e2474c8fe902d8ddda81a, type: 3}
-  - {fileID: 6305272458821328750, guid: 5e8d2a82b3b7bc94691fbb35b2b7943a, type: 3}
+  - {fileID: 8768221929285261097, guid: d872d097f73ae044e91bc7921b2f6284, type: 3}
+  - {fileID: 2136484921231422590, guid: 96b70d4935091814fadcced55bbbd0b4, type: 3}
+  - {fileID: 6305272458821328750, guid: 92371e88b44b63143b3e1f3e4393cf24, type: 3}
   offsetPositions:
-  - 0.5
   - 1
-  - 1.5
+  - 2
+  - 3
   upgradeIndex: 0
   stopUpgrade: 0
   emplacement: {fileID: 0}
+  uiImage: {fileID: 21300000, guid: b8bd2145a3c7ca54b9bcd7c4c5bda0fd, type: 3}
