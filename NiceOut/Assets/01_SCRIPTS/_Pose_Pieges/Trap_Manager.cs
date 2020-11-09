@@ -12,11 +12,25 @@ public class Trap_Manager : MonoBehaviour
     public Vector3 desiredVelocity;
     public GameObject selectedTrap;
     public Canvas ui_Manager;
+    public GameObject ui_Inventory;
+    bool inventoryActive;
+
+    private void Start()
+    {
+        ui_Inventory.SetActive(false);
+        inventoryActive = false;
+    }
 
     void Update()
     {
         if (GetComponent<Switch_Mode>().mode)
         {
+            if (inventoryActive == false)
+            {
+                ui_Inventory.SetActive(true);
+                inventoryActive = true;
+            }
+
             float minDist = Mathf.Infinity;
 
             Collider[] selectedPlaces = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, emplacements); // sphere de detection d'emplacements
@@ -34,7 +48,7 @@ public class Trap_Manager : MonoBehaviour
             }
 
             selectedTrap = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
-            Debug.Log(selectedTrap);
+
             if (selectedPlaces.Length == 0)
             {
                 selectedPlace = null;
@@ -60,7 +74,13 @@ public class Trap_Manager : MonoBehaviour
         }
         else //deselectionne l'emplacment selectionné en mode combat
         {
-            if(selectedPlace != null)
+            if (inventoryActive == true)
+            {
+                ui_Inventory.SetActive(false);
+                inventoryActive = false;
+            }
+
+            if (selectedPlace != null)
             {
                 selectedPlace = null;
             }

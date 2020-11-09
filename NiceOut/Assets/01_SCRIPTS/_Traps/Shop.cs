@@ -12,6 +12,11 @@ public class Shop : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("ThirdPersonController");
+        if (i < allTraps.Length)
+        {
+            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i]);
+            i += 1;
+        }
     }
 
     // Update is called once per frame
