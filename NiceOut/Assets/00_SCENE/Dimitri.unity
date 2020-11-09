@@ -309,7 +309,7 @@ MonoBehaviour:
   - {fileID: 12794261708393267, guid: ed83447ab4204d743a5a035bceafdf2d, type: 3}
   - {fileID: 12794261708393267, guid: 4752abdd0f09f614ca602501c6d32e48, type: 3}
   - {fileID: 12794261708393267, guid: 34ca709e7153a5e47a98fe76f8daceb0, type: 3}
-  - {fileID: 12794261708393267, guid: 0d01967a55f3dfa4d938c2428e1e009b, type: 3}
+  - {fileID: 12794261708393267, guid: 014677b4dea89f340aa1cc1eadad3fba, type: 3}
 --- !u!65 &72060991
 BoxCollider:
   m_ObjectHideFlags: 0
