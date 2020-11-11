@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Trap_Manager : MonoBehaviour
 {
+    Inputs inputs;
     public LayerMask emplacements;
     public float detectionRadius; //Variables sphere de detection
     public GameObject spherePosition;
@@ -14,6 +16,20 @@ public class Trap_Manager : MonoBehaviour
     public Canvas ui_Manager;
     public GameObject ui_Inventory;
     bool inventoryActive;
+
+    bool sell, upgrade, place;
+
+    private void Awake()
+    {
+        inputs = new Inputs();
+
+        inputs.Actions.Sell.started += ctx => sell = true;
+        inputs.Actions.Sell.canceled += ctx => sell = false;
+        inputs.Actions.Upgrade.started += ctx => upgrade = true;
+        inputs.Actions.Upgrade.canceled += ctx => upgrade = false;
+        inputs.Actions.Place.started += ctx => place = true;
+        inputs.Actions.Place.canceled += ctx => place = false;
+    }
 
     private void Start()
     {
@@ -53,20 +69,31 @@ public class Trap_Manager : MonoBehaviour
             {
                 selectedPlace = null;
             }
-
+            
             if (selectedPlace != null) //appel du placement et de l'amelioration des pieges
             {
-                if (Input.GetButtonDown("Place"))
+                if (selectedPlace.tag.Equals("FreeSpace"))
                 {
-                    if (selectedPlace.tag.Equals("FreeSpace"))
+                    if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == false)
                     {
-                        if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == false)
+                        if (place) 
                         {
                             PlaceTrap(selectedTrap);
+                            place = false;
                         }
-                        else
+                    }
+                    if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == true)
+                    {
+
+                        if (upgrade)
                         {
                             UpgradeTrap();
+                            upgrade = false;
+                        }
+                        if (sell)
+                        {
+                            SellTrap();
+                            sell = false;
                         }
                     }
                 }
@@ -116,7 +143,11 @@ public class Trap_Manager : MonoBehaviour
     
     }
 
-    
+    void Place()
+    {
+        PlaceTrap(selectedTrap);
+    }
+
     public void PlaceTrap(GameObject selectedTrap)//Methode de placement du piège selectionné
     {
         if (GetComponent<StatsPlayer>().gold >= selectedTrap.GetComponent<Traps>().costs[0])//vérifie que le joueur a assez d'argent pour payer le piège
@@ -185,5 +216,14 @@ public class Trap_Manager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spherePosition.transform.position, detectionRadius);
+    }
+
+    private void OnEnable()
+    {
+        inputs.Actions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Actions.Disable();
     }
 }
