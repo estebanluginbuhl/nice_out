@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 12794261708393269}
   - component: {fileID: 12794261708393266}
   m_Layer: 0
-  m_Name: Wall_Trap
+  m_Name: PFB_Wall_Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,4 +60,4 @@ MonoBehaviour:
   upgradeIndex: 0
   stopUpgrade: 0
   emplacement: {fileID: 0}
-  uiImage: {fileID: 21300000, guid: e354e74f1f7ab8240ac4c7bb12ccfd66, type: 3}
+  uiImage: {fileID: 21300000, guid: f5a48421b63526445bd5c087a4eaa135, type: 3}

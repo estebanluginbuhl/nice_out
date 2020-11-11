@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Trap_Inventory : MonoBehaviour
 {
 
+    Inputs inputs;
     public int nbTrapMax;
 
     public bool full = false;
@@ -30,6 +32,11 @@ public class Trap_Inventory : MonoBehaviour
         trapsItem = new GameObject[nbTrapMax];
         nbUsedSlots = 0;
         selectedSlotIndex = 0;
+
+        inputs = new Inputs();
+
+        inputs.Actions.SelectLeft.performed += ctx => SelectLeft();
+        inputs.Actions.SelectRight.started += ctx => SelectRight();
     }
 
     // Update is called once per frame
@@ -41,15 +48,6 @@ public class Trap_Inventory : MonoBehaviour
             {
                 ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
             }
-        }
-
-        if (Input.GetButtonDown("Select Right"))
-        {
-            SelectRight();
-        }
-        if (Input.GetButtonDown("Select Left"))
-        {
-            SelectLeft();
         }
     }
 
@@ -101,5 +99,14 @@ public class Trap_Inventory : MonoBehaviour
             slotPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * i));
             slots[i].rectTransform.localPosition = slotPos;
         }
+    }
+
+    private void OnEnable()
+    {
+        inputs.Actions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Actions.Disable();
     }
 }
