@@ -78,7 +78,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Add",
+                    "name": "Shop",
                     "type": "Button",
                     "id": "6b527345-9e15-41d6-8b38-f1f07d3ef9f5",
                     "expectedControlType": "Button",
@@ -297,7 +297,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Add",
+                    "action": "Shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -308,7 +308,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Add",
+                    "action": "Shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

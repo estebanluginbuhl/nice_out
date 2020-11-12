@@ -6,8 +6,11 @@ using UnityEngine.InputSystem;
 public class Switch_Mode : MonoBehaviour
 {
     Inputs inputs;
-    bool test;
+ 
     public bool mode = false; //variable du mode de gameplay : true = posage de piège / false = combat
+    public bool pause = false;
+
+
 
     private void Awake()
     {
@@ -18,11 +21,29 @@ public class Switch_Mode : MonoBehaviour
 
     public bool SwitchMode()// passage du mode combat au mode pose de piège
     {
-        return mode = !mode;
+        if(pause == false)
+        {
+            return mode = !mode;
+        }
+        else
+        {
+            return mode;
+        }
+
     }
     public bool GetMode()
     {
         return mode;
+    }
+
+    public void SetPause()
+    {
+        pause = !pause;
+    }
+
+    public bool GetPause()
+    {
+        return pause;
     }
 
     private void OnEnable()

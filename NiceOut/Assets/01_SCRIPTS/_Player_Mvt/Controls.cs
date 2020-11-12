@@ -91,7 +91,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Add"",
+                    ""name"": ""Shop"",
                     ""type"": ""Button"",
                     ""id"": ""6b527345-9e15-41d6-8b38-f1f07d3ef9f5"",
                     ""expectedControlType"": ""Button"",
@@ -310,7 +310,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Add"",
+                    ""action"": ""Shop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -321,7 +321,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Add"",
+                    ""action"": ""Shop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -622,7 +622,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Actions_SelectRight = m_Actions.FindAction("SelectRight", throwIfNotFound: true);
         m_Actions_Scroll = m_Actions.FindAction("Scroll", throwIfNotFound: true);
         m_Actions_MouseScroll = m_Actions.FindAction("MouseScroll", throwIfNotFound: true);
-        m_Actions_Add = m_Actions.FindAction("Add", throwIfNotFound: true);
+        m_Actions_Shop = m_Actions.FindAction("Shop", throwIfNotFound: true);
         m_Actions_CameraMove = m_Actions.FindAction("CameraMove", throwIfNotFound: true);
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
     }
@@ -683,7 +683,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Actions_SelectRight;
     private readonly InputAction m_Actions_Scroll;
     private readonly InputAction m_Actions_MouseScroll;
-    private readonly InputAction m_Actions_Add;
+    private readonly InputAction m_Actions_Shop;
     private readonly InputAction m_Actions_CameraMove;
     private readonly InputAction m_Actions_Move;
     public struct ActionsActions
@@ -699,7 +699,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @SelectRight => m_Wrapper.m_Actions_SelectRight;
         public InputAction @Scroll => m_Wrapper.m_Actions_Scroll;
         public InputAction @MouseScroll => m_Wrapper.m_Actions_MouseScroll;
-        public InputAction @Add => m_Wrapper.m_Actions_Add;
+        public InputAction @Shop => m_Wrapper.m_Actions_Shop;
         public InputAction @CameraMove => m_Wrapper.m_Actions_CameraMove;
         public InputAction @Move => m_Wrapper.m_Actions_Move;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
@@ -738,9 +738,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @MouseScroll.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
                 @MouseScroll.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
                 @MouseScroll.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
-                @Add.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAdd;
-                @Add.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAdd;
-                @Add.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAdd;
+                @Shop.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
+                @Shop.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
+                @Shop.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
                 @CameraMove.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnCameraMove;
                 @CameraMove.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnCameraMove;
                 @CameraMove.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnCameraMove;
@@ -778,9 +778,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @MouseScroll.started += instance.OnMouseScroll;
                 @MouseScroll.performed += instance.OnMouseScroll;
                 @MouseScroll.canceled += instance.OnMouseScroll;
-                @Add.started += instance.OnAdd;
-                @Add.performed += instance.OnAdd;
-                @Add.canceled += instance.OnAdd;
+                @Shop.started += instance.OnShop;
+                @Shop.performed += instance.OnShop;
+                @Shop.canceled += instance.OnShop;
                 @CameraMove.started += instance.OnCameraMove;
                 @CameraMove.performed += instance.OnCameraMove;
                 @CameraMove.canceled += instance.OnCameraMove;
@@ -820,7 +820,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnSelectRight(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
-        void OnAdd(InputAction.CallbackContext context);
+        void OnShop(InputAction.CallbackContext context);
         void OnCameraMove(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
     }
