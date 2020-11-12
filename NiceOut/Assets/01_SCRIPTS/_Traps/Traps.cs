@@ -1,73 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 {
-    GameObject player, shop;
-    GameObject child;
-    public Sprite uiImage;
-    public float[] offsetPositions;
     public int trapType; //Le type de piège sert à verif si on l'a deja dans l'inventaire
+    public int[] life;
+    public GameObject child;
+    public Vector3 transformTrap;
     public int[] costs;
     public int[] sellCosts;
-    public int upgradeIndex = 0;
     public GameObject[] trapAndUpgrades;
-    public bool canUpgrade;
-    public int life;
+    public float[] offsetPositions;
+    public int upgradeIndex = 0; //Numero d'upgrade
+    public bool stopUpgrade = false; //Quand toute les upgrades ont etait faite, s'adapte au nombre d'upgrade tout seul pas besoin de toucher le code
+
     public GameObject emplacement;
+    public Sprite uiImage;
 
     private void Start()
     {
-        upgradeIndex += 1;
-        player = GameObject.Find("ThirdPersonController");
-        shop = GameObject.Find("Shop");
-        child = GameObject.Instantiate(trapAndUpgrades[0], transform.position + Vector3.up * offsetPositions[0], Quaternion.identity);
+        this.upgradeIndex = 0;
+        this.child = GameObject.Instantiate(this.trapAndUpgrades[0], this.transform.position + Vector3.up * offsetPositions[0], Quaternion.identity);
     }
 
     private void Update()
     {
-        //Check for upgrade
-        if(shop.GetComponent<Upgrade_Gestion>().CheckForUpgrade(trapType, upgradeIndex) == true)
+        if(this.upgradeIndex > this.trapAndUpgrades.Length -1)
         {
-            if (player.GetComponent<StatsPlayer>().gold >= costs[upgradeIndex])
-            {
-                if (canUpgrade != true)
-                {
-                    canUpgrade = true;
-                }
-            }
-            else
-            {
-                if (canUpgrade != false)
-                {
-                    canUpgrade = false;
-                }
-            }
+            this.upgradeIndex = this.trapAndUpgrades.Length - 1;
         }
-    }
-
-    public void Upgrade()//Upgrade le piège
-    {
-        if (canUpgrade)
-        {
-            Destroy(child);
-            child = GameObject.Instantiate(trapAndUpgrades[upgradeIndex], transform.position + Vector3.up * offsetPositions[upgradeIndex], Quaternion.identity);
-            upgradeIndex += 1;
-        }
-        else
-        {
-            return;
-        }
+        transformTrap = transform.position;
     }
 
     public void DamageTrap(int value)
     {
-        life -= value;
-        if(life <= 0)
+        this.life[this.upgradeIndex] -= value;
+        if(this.life[this.upgradeIndex] <= 0)
         {
-            Destroy(this.gameObject);
+            this.emplacement.GetComponent<Emplacement_Material_Change>().isOccupied = false;
+            this.emplacement.GetComponent<Emplacement_Material_Change>().ChangeMat(1);
+            Destroy(this.child);
+            Destroy(this);
         }
     }
 }
