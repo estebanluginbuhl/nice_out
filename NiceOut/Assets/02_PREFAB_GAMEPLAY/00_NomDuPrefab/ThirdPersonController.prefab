@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413206122574030981}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: spherePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7413206122574030978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7413206124061644210}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 7413206122974435170}
   - component: {fileID: 7413206122974435175}
   - component: {fileID: 7413206122974435172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,8 +123,9 @@ GameObject:
   - component: {fileID: 7413206124061644214}
   - component: {fileID: 7413206124061644215}
   - component: {fileID: 7413206124061644217}
-  - component: {fileID: 5717607086429014737}
-  m_Layer: 0
+  - component: {fileID: 218604032}
+  - component: {fileID: 218604033}
+  m_Layer: 10
   m_Name: ThirdPersonController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,8 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ccb6d5231d8ac48ba8694b3c96db62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 14
-  turnSmooth: 2.01
+  boostSpeed: 0
+  baseSpeed: 5
+  turnSmooth: 2
   acceleration: 0.1
 --- !u!114 &7413206124061644214
 MonoBehaviour:
@@ -175,18 +177,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599e0b0c3806a424faafd2ad1614a1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emplacements:
+  trapped:
+    serializedVersion: 2
+    m_Bits: 512
+  floor:
     serializedVersion: 2
     m_Bits: 256
+  player:
+    serializedVersion: 2
+    m_Bits: 1024
   detectionRadius: 1
   spherePosition: {fileID: 7413206122574030978}
-  selectedPlace: {fileID: 0}
+  selectedTrap: {fileID: 0}
   oldSelection: {fileID: 0}
-  desiredVelocity: {x: 0, y: 0, z: 0}
-  selectedTrap: {fileID: 12794261708393267, guid: 34ca709e7153a5e47a98fe76f8daceb0,
-    type: 3}
+  inventorySelection: {fileID: 0}
   ui_Manager: {fileID: 0}
   ui_Inventory: {fileID: 0}
+  forseeTrap: {fileID: 0}
+  trapOrientation: 0
+  floorInclinaison: {x: 0, y: 0, z: 0}
+  trapPosition: {x: 0, y: 0, z: 0}
+  trapRotation: 0
 --- !u!114 &7413206124061644215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
+  pause: 0
 --- !u!114 &7413206124061644217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,18 +226,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   gold: 10000
---- !u!114 &5717607086429014737
-MonoBehaviour:
+--- !u!54 &218604032
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7413206124061644211}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &218604033
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413206124061644211}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0810a26156cbb4c4287bb45ea574ad1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7413206124288006485
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413206124288006484}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,8 +297,7 @@ GameObject:
   - component: {fileID: 7413206124433005005}
   - component: {fileID: 7413206124433005006}
   - component: {fileID: 7413206124433005007}
-  - component: {fileID: 7413206124433005004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,16 +365,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7413206124433005004
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413206124433005002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

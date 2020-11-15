@@ -6,13 +6,14 @@ public class Shop : MonoBehaviour
 {
     Inputs inputs;
     public Canvas ui_Manager;
-    GameObject player;
+    public GameObject player;
+    public GameObject laCam;
     public GameObject shopPanel, indicateur; //poput c'est le truc qui montre ou est le shop et l'input pour l'ouvrir
-    int i = 0;
+    //int i = 0;
     public GameObject[] allTraps;
     bool open, isOpened, popup;
     public float distancePLayer;
-    float distancePlayerShop;
+    public float distancePlayerShop;
     // Start is called before the first frame update
 
     private void Awake()
@@ -23,17 +24,10 @@ public class Shop : MonoBehaviour
         inputs.Actions.Shop.performed += ctx => ShopPanelOpenClose();
     }
 
-    void Start()
-    {
-        player = GameObject.Find("ThirdPersonController");
-    }
-
     private void Update()
     {
         //Afficher qu'on est en range du shop et aussi l'input pour l'ouvrir
         distancePlayerShop = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(distancePlayerShop);
-
         if (distancePlayerShop <= distancePLayer)
         {
             if (popup == false)
@@ -54,29 +48,33 @@ public class Shop : MonoBehaviour
 
         if (indicateur != null)
         {
-            Vector3 playerPosNoHeight = new Vector3(player.transform.position.x, indicateur.transform.position.y, player.transform.position.z);
+            Vector3 playerPosNoHeight = laCam.transform.position;
             indicateur.transform.LookAt(playerPosNoHeight);
         }
     }
 
     public void ShopPanelOpenClose()
     {
-        if (isOpened == false)
+        if(popup == true)
         {
-            player.GetComponent<Switch_Mode>().SetPause();
-            shopPanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            isOpened = true;
+            if (isOpened == false)
+            {
+                player.GetComponent<Switch_Mode>().SetPause();
+                shopPanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                isOpened = true;
+            }
+            else
+            {
+                player.GetComponent<Switch_Mode>().SetPause();
+                shopPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                isOpened = false;
+            }
         }
-        else
-        {
-            player.GetComponent<Switch_Mode>().SetPause();
-            shopPanel.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            isOpened = false;
-        }
+    
     }
 
     public void AddTrap0()
@@ -102,6 +100,15 @@ public class Shop : MonoBehaviour
     public void AddTrap4()
     {
         ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[4]);
+        ShopPanelOpenClose();
+    }
+
+    public void AllTraps()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i]);
+        }
         ShopPanelOpenClose();
     }
 

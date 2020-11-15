@@ -27,9 +27,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Upgrade"",
+                    ""name"": ""Refill"",
                     ""type"": ""Button"",
                     ""id"": ""08813f4e-b6f8-4639-8075-63112fda1f18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Fix"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd075391-9a02-46ad-81f3-e5d9f5400b96"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -113,6 +121,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f206764-d9bb-498a-a970-a62799491f0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -141,11 +157,11 @@ public class @Inputs : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c5230b43-1aa1-4012-a0fb-f29305471931"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Upgrade"",
+                    ""action"": ""Refill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -156,7 +172,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Upgrade"",
+                    ""action"": ""Refill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -577,6 +593,39 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""action"": ""MouseScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8799d1ed-db2f-484b-9206-25c0ac64051b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Fix"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebfb4457-670b-4982-9618-0dc2df71fb31"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fix"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84023068-d6a1-4ad5-ad16-4b0fef99d84e"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -614,7 +663,8 @@ public class @Inputs : IInputActionCollection, IDisposable
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Place = m_Actions.FindAction("Place", throwIfNotFound: true);
-        m_Actions_Upgrade = m_Actions.FindAction("Upgrade", throwIfNotFound: true);
+        m_Actions_Refill = m_Actions.FindAction("Refill", throwIfNotFound: true);
+        m_Actions_Fix = m_Actions.FindAction("Fix", throwIfNotFound: true);
         m_Actions_Sell = m_Actions.FindAction("Sell", throwIfNotFound: true);
         m_Actions_Jump = m_Actions.FindAction("Jump", throwIfNotFound: true);
         m_Actions_Switch = m_Actions.FindAction("Switch", throwIfNotFound: true);
@@ -625,6 +675,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Actions_Shop = m_Actions.FindAction("Shop", throwIfNotFound: true);
         m_Actions_CameraMove = m_Actions.FindAction("CameraMove", throwIfNotFound: true);
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
+        m_Actions_Rotate = m_Actions.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -675,7 +726,8 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Actions;
     private IActionsActions m_ActionsActionsCallbackInterface;
     private readonly InputAction m_Actions_Place;
-    private readonly InputAction m_Actions_Upgrade;
+    private readonly InputAction m_Actions_Refill;
+    private readonly InputAction m_Actions_Fix;
     private readonly InputAction m_Actions_Sell;
     private readonly InputAction m_Actions_Jump;
     private readonly InputAction m_Actions_Switch;
@@ -686,12 +738,14 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Actions_Shop;
     private readonly InputAction m_Actions_CameraMove;
     private readonly InputAction m_Actions_Move;
+    private readonly InputAction m_Actions_Rotate;
     public struct ActionsActions
     {
         private @Inputs m_Wrapper;
         public ActionsActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Place => m_Wrapper.m_Actions_Place;
-        public InputAction @Upgrade => m_Wrapper.m_Actions_Upgrade;
+        public InputAction @Refill => m_Wrapper.m_Actions_Refill;
+        public InputAction @Fix => m_Wrapper.m_Actions_Fix;
         public InputAction @Sell => m_Wrapper.m_Actions_Sell;
         public InputAction @Jump => m_Wrapper.m_Actions_Jump;
         public InputAction @Switch => m_Wrapper.m_Actions_Switch;
@@ -702,6 +756,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Shop => m_Wrapper.m_Actions_Shop;
         public InputAction @CameraMove => m_Wrapper.m_Actions_CameraMove;
         public InputAction @Move => m_Wrapper.m_Actions_Move;
+        public InputAction @Rotate => m_Wrapper.m_Actions_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -714,9 +769,12 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Place.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
                 @Place.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
                 @Place.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
-                @Upgrade.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnUpgrade;
-                @Upgrade.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnUpgrade;
-                @Upgrade.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnUpgrade;
+                @Refill.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
+                @Refill.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
+                @Refill.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
+                @Fix.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
+                @Fix.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
+                @Fix.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
                 @Sell.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
                 @Sell.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
                 @Sell.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
@@ -747,6 +805,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -754,9 +815,12 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Place.started += instance.OnPlace;
                 @Place.performed += instance.OnPlace;
                 @Place.canceled += instance.OnPlace;
-                @Upgrade.started += instance.OnUpgrade;
-                @Upgrade.performed += instance.OnUpgrade;
-                @Upgrade.canceled += instance.OnUpgrade;
+                @Refill.started += instance.OnRefill;
+                @Refill.performed += instance.OnRefill;
+                @Refill.canceled += instance.OnRefill;
+                @Fix.started += instance.OnFix;
+                @Fix.performed += instance.OnFix;
+                @Fix.canceled += instance.OnFix;
                 @Sell.started += instance.OnSell;
                 @Sell.performed += instance.OnSell;
                 @Sell.canceled += instance.OnSell;
@@ -787,6 +851,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -812,7 +879,8 @@ public class @Inputs : IInputActionCollection, IDisposable
     public interface IActionsActions
     {
         void OnPlace(InputAction.CallbackContext context);
-        void OnUpgrade(InputAction.CallbackContext context);
+        void OnRefill(InputAction.CallbackContext context);
+        void OnFix(InputAction.CallbackContext context);
         void OnSell(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
@@ -823,5 +891,6 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnShop(InputAction.CallbackContext context);
         void OnCameraMove(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

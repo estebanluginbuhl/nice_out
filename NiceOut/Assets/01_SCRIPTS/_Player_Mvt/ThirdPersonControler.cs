@@ -8,9 +8,13 @@ public class ThirdPersonControler : MonoBehaviour
 {
     Inputs inputs;
     Vector2 move;
-    public float speed, turnSmooth, acceleration;
+    public float boostSpeed, baseSpeed, turnSmooth, acceleration;
     Transform cam;
     CharacterController charaCtrl;
+
+
+    Vector3 rotation;
+    //float _rotationSpeed = 8f;
 
     private void Awake()
     {
@@ -34,7 +38,8 @@ public class ThirdPersonControler : MonoBehaviour
 
             if (move != Vector2.zero)
             {
-                transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self); //Mvt du perso
+                //charaCtrl.Move(Vector3.forward * transform.rotation.y * (baseSpeed + boostSpeed) * Time.deltaTime);
+                transform.Translate(Vector3.forward * (baseSpeed + boostSpeed) * Time.deltaTime, Space.Self); //Mvt du perso
 
                 float targetRotationY = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y; //Angle de rotation du perso
 

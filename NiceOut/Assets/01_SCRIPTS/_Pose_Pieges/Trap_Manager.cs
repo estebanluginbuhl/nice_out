@@ -6,29 +6,41 @@ using UnityEngine.InputSystem;
 public class Trap_Manager : MonoBehaviour
 {
     Inputs inputs;
-    public LayerMask emplacements;
+    public LayerMask trapped;//Layer de selection des pièges
+    public LayerMask floor;//Layer du sol
+    public LayerMask player;//Layer du joueur
     public float detectionRadius; //Variables sphere de detection
-    public GameObject spherePosition;
-    public GameObject selectedPlace = null;
-    public GameObject oldSelection = null;
-    public Vector3 desiredVelocity;
-    public GameObject selectedTrap;
-    public Canvas ui_Manager;
-    public GameObject ui_Inventory;
+    public GameObject spherePosition;//Position de la sphere de selection de piège
+    public GameObject selectedTrap = null;//Si vous etes devant un piège il sera selectionné et stocké dans cette variable
+    public GameObject oldSelection = null;//le dernier piège selectionné est stocké dans cette variable
+    public GameObject inventorySelection;//Piège que vous voulez poser
+    public Canvas ui_Manager;//menus en gros
+    public GameObject ui_Inventory;//inventaire
     bool inventoryActive;
 
-    bool sell, upgrade, place;
+    public GameObject forseeTrap;
 
-    private void Awake()
+    public float trapOrientation; //orientation du piege a poser
+    public Vector3 floorInclinaison; //orientation du sol
+    public Vector3 trapPosition; //position au sol du piège
+    public float trapRotation; //Le jour oriente le piege comme il le souhaite
+
+    bool sell, refill, place, fix, rotating;
+
+    private void Awake() //Detection input
     {
         inputs = new Inputs();
 
         inputs.Actions.Sell.started += ctx => sell = true;
         inputs.Actions.Sell.canceled += ctx => sell = false;
-        inputs.Actions.Upgrade.started += ctx => upgrade = true;
-        inputs.Actions.Upgrade.canceled += ctx => upgrade = false;
         inputs.Actions.Place.started += ctx => place = true;
         inputs.Actions.Place.canceled += ctx => place = false;
+        inputs.Actions.Fix.started += ctx => fix = true;
+        inputs.Actions.Fix.canceled += ctx => fix = false;
+        inputs.Actions.Refill.started += ctx => refill = true;
+        inputs.Actions.Refill.canceled += ctx => refill = false;
+        inputs.Actions.Rotate.started += ctx => rotating = true;
+        inputs.Actions.Rotate.canceled += ctx => rotating = false;
     }
 
     private void Start()
@@ -39,7 +51,34 @@ public class Trap_Manager : MonoBehaviour
 
     void Update()
     {
-        if (GetComponent<Switch_Mode>().mode)
+      
+        if(rotating)
+        {
+            trapRotation += 1;
+            if(trapRotation >= 360)
+            {
+                trapRotation = 1;
+            }
+        }
+
+        //Selection de pièges
+        float minDist = Mathf.Infinity;
+
+        Collider[] selectedTraps = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, trapped); // sphere de detection de piège
+
+        oldSelection = selectedTrap;
+
+        foreach (Collider c in selectedTraps) //Selection de l'emplacement le plus proche
+        {
+            float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
+            if (dist < minDist)
+            {
+                selectedTrap = c.gameObject;
+                minDist = dist;
+            }
+        }
+
+        if (GetComponent<Switch_Mode>().mode) //Mode de placement de pièges
         {
             if (inventoryActive == false)
             {
@@ -47,164 +86,102 @@ public class Trap_Manager : MonoBehaviour
                 inventoryActive = true;
             }
 
-            float minDist = Mathf.Infinity;
+            inventorySelection = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
 
-            Collider[] selectedPlaces = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, emplacements); // sphere de detection d'emplacements
-
-            oldSelection = selectedPlace;
-
-            foreach (Collider c in selectedPlaces) //Selection de l'emplacement le plus proche
+            if (selectedTraps.Length == 0)
             {
-                float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
-                if(dist< minDist)
-                {
-                    selectedPlace = c.gameObject;
-                    minDist = dist;
-                }
+                selectedTrap = null;
             }
 
-            selectedTrap = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
-
-            if (selectedPlaces.Length == 0)
+            if (inventorySelection != null) //appel du placement et de l'amelioration des pieges
             {
-                selectedPlace = null;
-            }
-            
-            if (selectedPlace != null) //appel du placement et de l'amelioration des pieges
-            {
-                if (selectedPlace.tag.Equals("FreeSpace"))
+                RaycastHit hit;
+                if (Physics.Raycast(spherePosition.transform.position, Vector3.down, out hit, Mathf.Infinity, floor))
                 {
-                    if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == false)
+                    floorInclinaison = Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles;
+                    trapOrientation = transform.localEulerAngles.y + trapRotation;
+                    trapPosition = hit.point;
+                    if(selectedTrap == null)
                     {
-                        if (place) 
+                        if (forseeTrap.GetComponent<Trap_Forsee>().detectCollision == false)
                         {
-                            PlaceTrap(selectedTrap);
-                            place = false;
-                        }
-                    }
-                    if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == true)
-                    {
-
-                        if (upgrade)
-                        {
-                            UpgradeTrap();
-                            upgrade = false;
-                        }
-                        if (sell)
-                        {
-                            SellTrap();
-                            sell = false;
+                            if (place)
+                            {
+                                PlaceTrap(inventorySelection);
+                                place = false;
+                            }
                         }
                     }
                 }
             }
         }
-        else //deselectionne l'emplacment selectionné en mode combat
+        else //Ferme l'inventaire
         {
             if (inventoryActive == true)
             {
                 ui_Inventory.SetActive(false);
                 inventoryActive = false;
             }
-
-            if (selectedPlace != null)
-            {
-                selectedPlace = null;
-            }
         }
 
-
-        if(selectedPlace != null) //colore l'emplacement selectionné
+        if (selectedTrap != null)
         {
-            if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied)
+            if (refill)
             {
-                selectedPlace.GetComponent<Emplacement_Material_Change>().ChangeMat(4);
+                RefillTrap();
+                refill = false;
             }
-            else
+
+            if (fix)
             {
-                selectedPlace.GetComponent<Emplacement_Material_Change>().ChangeMat(2);
+                FixTrap();
+                fix = false;
             }
-        }
 
-        if(oldSelection != null) //reset la couleur une fois l'emplacement deselectionné
-        {
-            if (oldSelection != selectedPlace || selectedPlace == null)
+            if (sell)
             {
-                if (oldSelection.GetComponent<Emplacement_Material_Change>().isOccupied == true)
-                {
-                    oldSelection.GetComponent<Emplacement_Material_Change>().ChangeMat(3);
-                }
-                else if(oldSelection.GetComponent<Emplacement_Material_Change>().isOccupied == false)
-                {
-                    oldSelection.GetComponent<Emplacement_Material_Change>().ChangeMat(1);
-                }
+                SellTrap();
+                sell = false;
             }
-        }
-    
-    }
-
-    void Place()
-    {
-        PlaceTrap(selectedTrap);
-    }
-
-    public void PlaceTrap(GameObject selectedTrap)//Methode de placement du piège selectionné
-    {
-        if (GetComponent<StatsPlayer>().gold >= selectedTrap.GetComponent<Traps>().costs[0])//vérifie que le joueur a assez d'argent pour payer le piège
-        {
-            GetComponent<StatsPlayer>().PlayerBuy(selectedTrap.GetComponent<Traps>().costs[0]); //Paye le piège
-            GameObject trap = Instantiate(selectedTrap, selectedPlace.transform.position, Quaternion.identity); //Instancie le piège
-            selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap = trap;
-            trap.GetComponent<Traps>().transform.SetParent(selectedPlace.transform); //le piège devient enfant de l'emplacement selectionné
-            trap.GetComponent<Traps>().emplacement = selectedPlace.gameObject;
-            selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied = true; // definie l'emplacement comme occupé
         }
     }
 
-    public void UpgradeTrap() //Methode d'upgrade du piège selectionné
+    public void PlaceTrap(GameObject _inventorySelection)//Methode de placement du piège selectionné
     {
-        Traps trapStats = selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
-
-        if (trapStats.stopUpgrade == false)
+        Traps trapStats = _inventorySelection.GetComponent<Traps>();
+        if (GetComponent<StatsPlayer>().gold >= trapStats.costs)//vérifie que le joueur a assez d'argent pour payer le piège
         {
-            if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex + 1])//Check l'argent du joueur
-            {
-                Destroy(trapStats.child); //Detruit l'ancienne upgrade du piège
-                trapStats.child = GameObject.Instantiate(trapStats.trapAndUpgrades[trapStats.upgradeIndex + 1], trapStats.transformTrap + Vector3.up * trapStats.offsetPositions[trapStats.upgradeIndex + 1], Quaternion.identity);//instancie la nouvelle upgrade du piège
-                GetComponent<StatsPlayer>().PlayerBuy(trapStats.costs[trapStats.upgradeIndex + 1]); //Paye l'upgrade
+            GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
+            billy.transform.Rotate(floorInclinaison);
+            billy.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+            GetComponent<StatsPlayer>().gold -= trapStats.costs;
+        }
+    }
 
-                if (trapStats.upgradeIndex + 1 >= trapStats.trapAndUpgrades.Length - 1)//Augmente l'index de l'upgrade du trap, puis quand on a atteint le niveau max, arrete les upgrades.
-                {
-                    trapStats.upgradeIndex += 1;
-                    trapStats.stopUpgrade = true;
-                }
-                else
-                {
-                    trapStats.upgradeIndex += 1;
-                }
-            }
-            else
-            {
-                Debug.Log("Bro ya plus d'argent dans les caisses la");
-                return;
-            }
+    public void RefillTrap() //Methode d'upgrade du piège selectionné
+    {
+        Traps trapStats = selectedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
+        if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt(trapStats.ammoPercentage * trapStats.costs))
+        {
+
         }
         else
         {
-            Debug.Log("Bro ya plus rien à upgrade");
             return;
         }
     }
 
     public void SellTrap() //Vends ton piège
     {
-        if(selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == true)
+        Traps trapStats = selectedTrap.GetComponent<Traps>();
+    }
+
+    public void FixTrap() //Vends ton piège
+    {
+        Traps trapStats = selectedTrap.GetComponent<Traps>();
+        if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt(trapStats.lifePercentage * trapStats.costs))
         {
-            Traps trapStats = selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
-            GetComponent<StatsPlayer>().gold += trapStats.sellCosts[trapStats.upgradeIndex]; //rembourse le joueur
-            Destroy(trapStats.child);
-            Destroy(trapStats.gameObject);//Detruit le piège
-            selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied = false; // definie l'emplacement comme libre
+
         }
         else
         {
@@ -216,8 +193,10 @@ public class Trap_Manager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spherePosition.transform.position, detectionRadius);
+        Gizmos.DrawRay(spherePosition.transform.position, Vector3.down);
     }
 
+    //Pas touche c'est pour les inputs
     private void OnEnable()
     {
         inputs.Actions.Enable();

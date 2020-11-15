@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 public class Camera_TP : MonoBehaviour
 {
     Inputs inputs;
-    Transform turningPoint;
-    GameObject player;
+    public Transform turningPoint;
+    public GameObject player;
+
+    //movement
     float h, v, scroll;
     Vector2 moveCam;
     Vector2 scroll2;
@@ -34,9 +36,6 @@ public class Camera_TP : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("ThirdPersonController");
-        turningPoint = GameObject.Find("Target").transform; // Attention à appeller cet objet Target
-
         if(Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;

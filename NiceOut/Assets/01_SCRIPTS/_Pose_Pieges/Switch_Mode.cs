@@ -19,15 +19,15 @@ public class Switch_Mode : MonoBehaviour
         inputs.Actions.Switch.started += ctx => SwitchMode();
     }
 
-    public bool SwitchMode()// passage du mode combat au mode pose de piège
+    public void SwitchMode()// passage du mode combat au mode pose de piège
     {
         if(pause == false)
         {
-            return mode = !mode;
+            mode = !mode;
         }
         else
         {
-            return mode;
+            return;
         }
 
     }
