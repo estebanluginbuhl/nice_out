@@ -6,7 +6,10 @@ using UnityEngine.InputSystem;
 public class Camera_TP : MonoBehaviour
 {
     Inputs inputs;
-    Transform turningPoint;
+    public Transform turningPoint;
+    public GameObject player;
+
+    //movement
     float h, v, scroll;
     Vector2 moveCam;
     Vector2 scroll2;
@@ -33,8 +36,6 @@ public class Camera_TP : MonoBehaviour
 
     void Start()
     {
-        turningPoint = GameObject.Find("Target").transform; // Attention à appeller cet objet Target
-
         if(Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -44,34 +45,35 @@ public class Camera_TP : MonoBehaviour
 
     void Update()
     {
-        h += moveCam.x * Time.deltaTime;
-        v += moveCam.y * Time.deltaTime;
-
-        v = Mathf.Clamp(v , vMinMax.x, vMinMax.y);// bloque rotation haut bas
-
-        Debug.Log(v);
- 
-        if (moveCam.x !=0 || moveCam.y != 0)
+        if(player.GetComponent<Switch_Mode>().GetPause() == false)
         {
-            transform.rotation = Quaternion.Euler(desiredRotation);
-        }
-        desiredRotation = new Vector3(-v, h, 0) * sensitivity;
+            h += moveCam.x * Time.deltaTime;
+            v += moveCam.y * Time.deltaTime;
 
-        //Camera suis le joueur
-        if(scroll != 0)
-        {
-            distance -= scroll * scrollSpeed * Time.deltaTime;
-        }
-        if (scroll2.y < 0)
-        {
-            distance -= 1 * scrollSpeed * Time.deltaTime;
-        }
-        if (scroll2.y > 0)
-        {
-            distance += 1 * scrollSpeed * Time.deltaTime;
-        }
+            v = Mathf.Clamp(v, vMinMax.x, vMinMax.y);// bloque rotation haut bas
 
-        transform.position = Vector3.SlerpUnclamped(transform.position, turningPoint.transform.position - transform.forward * distance + transform.up * height, followSpeed);
+            if (moveCam.x != 0 || moveCam.y != 0)
+            {
+                transform.rotation = Quaternion.Euler(desiredRotation);
+            }
+            desiredRotation = new Vector3(-v, h, 0) * sensitivity;
+
+            //Camera suis le joueur
+            if (scroll != 0)
+            {
+                distance -= scroll * scrollSpeed * Time.deltaTime;
+            }
+            if (scroll2.y < 0)
+            {
+                distance -= 1 * scrollSpeed * Time.deltaTime;
+            }
+            if (scroll2.y > 0)
+            {
+                distance += 1 * scrollSpeed * Time.deltaTime;
+            }
+
+            transform.position = Vector3.SlerpUnclamped(transform.position, turningPoint.transform.position - transform.forward * distance + transform.up * height, followSpeed);
+        }
     }
 
     private void OnEnable()

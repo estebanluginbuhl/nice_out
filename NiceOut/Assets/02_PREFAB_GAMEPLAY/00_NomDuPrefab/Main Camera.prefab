@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14b2b2c5445e0648bc2569949a65636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turningPoint: {fileID: 0}
+  player: {fileID: 0}
   scrollSpeed: 5
   followSpeed: 0.8
   vMinMax: {x: -1.5, y: 0.5}

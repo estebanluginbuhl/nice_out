@@ -14,9 +14,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Upgrade",
+                    "name": "Refill",
                     "type": "Button",
                     "id": "08813f4e-b6f8-4639-8075-63112fda1f18",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Fix",
+                    "type": "Button",
+                    "id": "cd075391-9a02-46ad-81f3-e5d9f5400b96",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -78,7 +86,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Add",
+                    "name": "Shop",
                     "type": "Button",
                     "id": "6b527345-9e15-41d6-8b38-f1f07d3ef9f5",
                     "expectedControlType": "Button",
@@ -98,6 +106,14 @@
                     "type": "Value",
                     "id": "1d2eb5b6-051b-4dd3-be12-10639ce0af4d",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "9f206764-d9bb-498a-a970-a62799491f0e",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -128,11 +144,11 @@
                 {
                     "name": "",
                     "id": "c5230b43-1aa1-4012-a0fb-f29305471931",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Upgrade",
+                    "action": "Refill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -143,7 +159,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Upgrade",
+                    "action": "Refill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -297,7 +313,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Add",
+                    "action": "Shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -308,7 +324,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Add",
+                    "action": "Shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -562,6 +578,39 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "MouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8799d1ed-db2f-484b-9206-25c0ac64051b",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Fix",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebfb4457-670b-4982-9618-0dc2df71fb31",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fix",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84023068-d6a1-4ad5-ad16-4b0fef99d84e",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
