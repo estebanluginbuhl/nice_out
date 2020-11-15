@@ -1,4 +1,4 @@
-﻿Shader "StandardShaderMod"
+﻿Shader "Unlit/CelShaderTest"
 {
 	Properties
 	{
@@ -16,7 +16,7 @@
 		Pass
 		{
 			Tags { "LightMode" = "ForwardBase" }
-			
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag 
@@ -70,13 +70,13 @@
 			ENDCG
 
 			CGPROGRAM
-			#pragma target 3.0
+				#pragma target 3.0
 
-			#pragma multi_compile_fwdbase
+				#pragma multi_compile_fwdbase
 
-			#pragma vertex vertBase
-			#pragma fragment fragBase
-			#include "UnityStandardCoreForward.cginc"
+				#pragma vertex vertBase
+				#pragma fragment fragBase
+				#include "UnityStandardCoreForward.cginc"
 			ENDCG
 		}
 	}

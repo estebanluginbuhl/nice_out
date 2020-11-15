@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class ThirdPersonControler : MonoBehaviour
 {
-    float h, v;
-    public float speed, turnSmooth, acceleration;
+    Inputs inputs;
+    Vector2 move;
+    public float boostSpeed, baseSpeed, turnSmooth, acceleration;
     Transform cam;
     CharacterController charaCtrl;
-    // Update is called once per frame
+
+
+    Vector3 rotation;
+    //float _rotationSpeed = 8f;
+
+    private void Awake()
+    {
+        inputs = new Inputs();
+
+        inputs.Actions.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        inputs.Actions.Move.canceled += ctx => move = Vector2.zero;
+
+    }
     private void Start()
     {
         cam = Camera.main.transform;
@@ -14,27 +31,31 @@ public class ThirdPersonControler : MonoBehaviour
     }
     void Update()
     {
-        //Mouvement
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-
-        Vector3 desiredVelocity = new Vector3(h, 0, v); //Vecteur de mouvement
-        Vector3 velocityNormalized = desiredVelocity.normalized; //Normale du Vecteur de mouvement
-
-        float test = h + v;
-
-        if (velocityNormalized != Vector3.zero)
+        if(GetComponent<Switch_Mode>().GetPause() == false)
         {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self); //Mvt du perso
-            //transform.Translate(velocityNormalized * speed * Time.deltaTime, Space.Self); //Mvt du perso
+            Vector3 desiredVelocity = new Vector3(move.x, 0, move.y); //Vecteur de mouvement
+            Vector3 velocityNormalized = desiredVelocity.normalized; //Normale du Vecteur de mouvement
 
-            //Rotation
+            if (move != Vector2.zero)
+            {
+                //charaCtrl.Move(Vector3.forward * transform.rotation.y * (baseSpeed + boostSpeed) * Time.deltaTime);
+                transform.Translate(Vector3.forward * (baseSpeed + boostSpeed) * Time.deltaTime, Space.Self); //Mvt du perso
 
-            float targetRotationY = Mathf.Atan2(h, v) * Mathf.Rad2Deg + cam.eulerAngles.y; //Angle de rotation du perso
+                float targetRotationY = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y; //Angle de rotation du perso
 
-            Vector3 rotation = new Vector3(transform.rotation.x, targetRotationY, transform.rotation.z); //Vecteur de rotation
+                Vector3 rotation = new Vector3(transform.rotation.x, targetRotationY, transform.rotation.z); //Vecteur de rotation
 
-            transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
+                transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
+            }
         }
+    }
+
+    private void OnEnable()
+    {
+        inputs.Actions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Actions.Disable();
     }
 }
