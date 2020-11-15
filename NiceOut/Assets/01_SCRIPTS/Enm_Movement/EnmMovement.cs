@@ -5,15 +5,34 @@ using UnityEngine.AI;
 
 public class EnmMovement : MonoBehaviour
 {
-    public float enmSpeed;
     public bool pathFinding;
+    public Transform enmTransform;
+    public LayerMask playerDetectionLayer;
+    public float enmSpeed, gizmosRadius;
+    public Color gizmosColor;
 
+    GameObject player;
     private Transform target;
     private int nodeIndex = 0;
 
     private void Start()
     {
         target = PathNode.nodeTransform[0];
+        enmTransform = gameObject.transform;
+    }
+
+    void FixedUpdate()
+    {
+        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmosRadius, playerDetectionLayer);
+        if (PathFinderTrigger.Length != 0)
+        {
+            player = PathFinderTrigger[0].gameObject;
+            pathFinding = true;
+        }
+        else
+        {
+            pathFinding = false;
+        }
     }
 
     void Update()
@@ -21,8 +40,9 @@ public class EnmMovement : MonoBehaviour
         if (pathFinding == true)
         {
             gameObject.GetComponent<PathNode>().enabled = false;
-            //NavMeshAgent agent = GetComponent<NavMeshAgent>();
-            //agent.destination = target.position - transform.position;
+            NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            agent.destination = player.transform.position - transform.position;
+            Debug.Log("trigger in");
         }
         else if (pathFinding == false)
         {
@@ -31,6 +51,7 @@ public class EnmMovement : MonoBehaviour
 
             Vector3 dir = target.position - transform.position;
             transform.Translate(dir.normalized * enmSpeed * Time.deltaTime, Space.World);
+            Debug.Log("trigger off");
 
             if (Vector3.Distance(transform.position, target.position) <= 0.5f)
             {
@@ -50,22 +71,9 @@ public class EnmMovement : MonoBehaviour
         }
     }
 
-    //define if the enemy use the Navmesh system or not
-    public void OnTriggerEnter(Collider PathFinderTriggerIn)
+    void OnDrawGizmos()
     {
-        if (PathFinderTriggerIn.tag == "Player")
-        {
-            pathFinding = true;
-            Debug.Log("trigger in");
-        }
-    }
-
-    public void OnTriggerExit(Collider PathFinderTriggerOut)
-    {
-        if (PathFinderTriggerOut.tag == "Player")
-        {
-            pathFinding = false;
-            Debug.Log("trigger off");
-        }
+        Gizmos.color = gizmosColor;
+        Gizmos.DrawWireSphere(enmTransform.position, gizmosRadius);
     }
 }
