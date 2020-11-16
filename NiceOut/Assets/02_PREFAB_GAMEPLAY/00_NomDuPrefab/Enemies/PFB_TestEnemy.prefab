@@ -166,7 +166,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathFinding: 0
   enmTransform: {fileID: 8539083494893854118}
-  enmSpeed: 5
+  playerDetectionLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  enmSpeed: 3
+  targetTreshold: 0.1
   gizmosRadius: 5
   gizmosColor: {r: 1, g: 0, b: 0.98310184, a: 1}
 --- !u!195 &7014327665131691280
@@ -179,7 +183,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
