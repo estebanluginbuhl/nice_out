@@ -7,6 +7,7 @@
 		_Strength("Light Strength", Range(0,1)) = 0.5
 		_Color("Light Color", COLOR) = (1,1,1,1)
 		_Detail("Shadow Layers", Range(0,1)) = 0.5
+		_LineStrength("Line Thickness", Range (0,1)) = 0.005
 	}
     SubShader
     {
@@ -69,5 +70,52 @@
             }
             ENDCG
         }
+
+		Pass
+		{
+			Cull front
+			Tags { "LightMode" = "ForwardBase" }
+
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_fwdbase
+
+			#include "UnityCG.cginc"
+			#include "AutoLight.cginc"
+			#include "Lighting.cginc"
+
+			float _LineStrength;
+
+			struct appdata
+			{
+				float4 vertex : POSITION;
+				float3 normal: NORMAL;
+			};
+
+			struct v2f
+			{
+				float4 position : SV_POSITION;
+			};
+
+			v2f vert(appdata v)
+			{
+				v2f o;
+				float4 position = UnityObjectToClipPos(v.vertex);
+				//define line thickness
+				o.position = position + _LineStrength * UnityObjectToClipPos(normalize(v.normal));
+				return o;
+			}
+
+			fixed4 _Color2;
+
+			fixed4 frag(v2f i) : SV_Target
+			{
+				fixed4 col = _Color2;
+				col.a = 1.0;
+				return col;
+			}
+			ENDCG
+		}
     }
 }
