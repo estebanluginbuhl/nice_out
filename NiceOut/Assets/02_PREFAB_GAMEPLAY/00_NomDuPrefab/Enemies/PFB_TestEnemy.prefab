@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: -2532462108773432952}
   - component: {fileID: 6343466456876240757}
   - component: {fileID: 7014327665131691280}
-  - component: {fileID: 5071943772816328878}
   m_Layer: 0
   m_Name: PFB_TestEnemy
   m_TagString: Untagged
@@ -165,8 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c879128def1e3f44882d860ab4eeda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enmSpeed: 5
   pathFinding: 0
+  enmTransform: {fileID: 8539083494893854118}
+  enmSpeed: 5
+  gizmosRadius: 5
+  gizmosColor: {r: 1, g: 0, b: 0.98310184, a: 1}
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -189,17 +191,3 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &5071943772816328878
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547376902778127861}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 3
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
