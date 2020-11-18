@@ -1,4 +1,4 @@
-﻿Shader "Unlit/CelShaderTest"
+﻿Shader "Unlit/StandardModShaderTest"
 {
 	Properties
 	{
