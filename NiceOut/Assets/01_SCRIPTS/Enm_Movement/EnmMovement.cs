@@ -31,12 +31,12 @@ public class EnmMovement : MonoBehaviour
         {
             player = PathFinderTrigger[0].gameObject;
             pathFinding = true;
-            Debug.Log("enm detected");
+            //Debug.Log("enm detected");
         }
         else
         {
             pathFinding = false;
-            Debug.Log("next node");
+            //Debug.Log("next node");
         }
     }
 
@@ -45,12 +45,12 @@ public class EnmMovement : MonoBehaviour
         if (pathFinding == true)
         {
             enmNavMesh.destination = player.transform.position;
-            Debug.Log("navmesh");
+            //Debug.Log("navmesh");
         }
         else if (pathFinding == false)
         {
             enmNavMesh.destination = target.position;
-            Debug.Log("node");
+            //Debug.Log("node");
 
             if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
             {
