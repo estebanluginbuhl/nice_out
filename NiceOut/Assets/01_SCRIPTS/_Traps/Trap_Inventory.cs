@@ -28,15 +28,15 @@ public class Trap_Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        slots = new Image[nbTrapMax];
-        trapsItem = new GameObject[nbTrapMax];
-        nbUsedSlots = 0;
-        selectedSlotIndex = 0;
-
         inputs = new Inputs();
 
         inputs.Actions.SelectLeft.performed += ctx => SelectLeft();
         inputs.Actions.SelectRight.started += ctx => SelectRight();
+
+        slots = new Image[nbTrapMax];
+        trapsItem = new GameObject[nbTrapMax];
+        nbUsedSlots = 0;
+        selectedSlotIndex = 0;
     }
 
     // Update is called once per frame
@@ -91,7 +91,7 @@ public class Trap_Inventory : MonoBehaviour
         slots[nbUsedSlots - 1] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
         slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
         slots[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
-        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().uiImage;
+        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().ui_Image;
         trapsItem[nbUsedSlots - 1] = trap;
 
         for(int i = 0; i < nbUsedSlots; i++)

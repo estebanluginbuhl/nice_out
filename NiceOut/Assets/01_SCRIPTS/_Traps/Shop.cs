@@ -10,10 +10,24 @@ public class Shop : MonoBehaviour
     public GameObject laCam;
     public GameObject shopPanel, indicateur; //poput c'est le truc qui montre ou est le shop et l'input pour l'ouvrir
     //int i = 0;
-    public GameObject[] allTraps;
+
     bool open, isOpened, popup;
-    public float distancePLayer;
-    public float distancePlayerShop;
+
+
+
+
+
+
+
+
+
+    public bool canShop;
+    public int trapToAddNumber;
+    public int[] trapUpgradeIndex;
+    public GameObject trapToUpgrade;
+    public GameObject[] allTraps;
+    public float playerSpeed;
+    public float playerLife;
     // Start is called before the first frame update
 
     private void Awake()
@@ -24,33 +38,10 @@ public class Shop : MonoBehaviour
         inputs.Actions.Shop.performed += ctx => ShopPanelOpenClose();
     }
 
-    private void Update()
+
+    private void Start()
     {
-        //Afficher qu'on est en range du shop et aussi l'input pour l'ouvrir
-        distancePlayerShop = Vector3.Distance(transform.position, player.transform.position);
-        if (distancePlayerShop <= distancePLayer)
-        {
-            if (popup == false)
-            {
-                indicateur.SetActive(true);
-                popup = true;
-            }
-
-        }
-        else
-        {
-            if (popup == true)
-            {
-                indicateur.SetActive(false);
-                popup = false;
-            }
-        }
-
-        if (indicateur != null)
-        {
-            Vector3 playerPosNoHeight = laCam.transform.position;
-            indicateur.transform.LookAt(playerPosNoHeight);
-        }
+        AllTraps();
     }
 
     public void ShopPanelOpenClose()
@@ -77,39 +68,31 @@ public class Shop : MonoBehaviour
     
     }
 
-    public void AddTrap0()
+    public void AddTrap()
     {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[0]);
+        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[this.trapToAddNumber]);
         ShopPanelOpenClose();
+        canShop = false;
     }
-    public void AddTrap1()
+
+    public void UpgradeTrap()
     {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[1]);
         ShopPanelOpenClose();
+        canShop = false;
     }
-    public void AddTrap2()
+
+    public void UpStats()
     {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[2]);
-        ShopPanelOpenClose();
-    }
-    public void AddTrap3()
-    {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[3]);
-        ShopPanelOpenClose();
-    }
-    public void AddTrap4()
-    {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[4]);
-        ShopPanelOpenClose();
+
     }
 
     public void AllTraps()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < allTraps.Length; i++)
         {
             ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i]);
         }
-        ShopPanelOpenClose();
+        //ShopPanelOpenClose();
     }
 
     private void OnEnable()

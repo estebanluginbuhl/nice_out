@@ -129,6 +129,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""58dddae6-f3cb-427f-926f-6f7a48640b35"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -157,7 +165,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c5230b43-1aa1-4012-a0fb-f29305471931"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
@@ -626,6 +634,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c94a27fa-a776-4d33-b7d5-aba219c9f250"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -676,6 +695,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Actions_CameraMove = m_Actions.FindAction("CameraMove", throwIfNotFound: true);
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
         m_Actions_Rotate = m_Actions.FindAction("Rotate", throwIfNotFound: true);
+        m_Actions_Test = m_Actions.FindAction("Test", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -739,6 +759,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Actions_CameraMove;
     private readonly InputAction m_Actions_Move;
     private readonly InputAction m_Actions_Rotate;
+    private readonly InputAction m_Actions_Test;
     public struct ActionsActions
     {
         private @Inputs m_Wrapper;
@@ -757,6 +778,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @CameraMove => m_Wrapper.m_Actions_CameraMove;
         public InputAction @Move => m_Wrapper.m_Actions_Move;
         public InputAction @Rotate => m_Wrapper.m_Actions_Rotate;
+        public InputAction @Test => m_Wrapper.m_Actions_Test;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -808,6 +830,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Rotate.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotate;
+                @Test.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnTest;
+                @Test.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnTest;
+                @Test.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnTest;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -854,6 +879,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @Test.started += instance.OnTest;
+                @Test.performed += instance.OnTest;
+                @Test.canceled += instance.OnTest;
             }
         }
     }
@@ -892,5 +920,6 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnCameraMove(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnTest(InputAction.CallbackContext context);
     }
 }
