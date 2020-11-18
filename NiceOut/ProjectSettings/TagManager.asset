@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FreeSpace
   - Trap
+  - Boost
   layers:
   - Default
   - TransparentFX

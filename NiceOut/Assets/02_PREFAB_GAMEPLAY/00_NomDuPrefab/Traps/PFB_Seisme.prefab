@@ -45,29 +45,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 2
-  fullLife: 320000006400000096000000
-  fullAmmo: 010000000100000001000000
+  fullLife:
+  - 40
+  - 80
+  - 120
+  fullAmmo:
+  - 1
+  - 2
+  - 3
   life: 0
   ammo: 0
   lifePercentage: 0
   ammoPercentage: 0
   child: {fileID: 0}
-  colliderSize: {x: 3.75, y: 2.95, z: 3.75}
+  colliderSize: {x: 3.75, y: 2.9, z: 3.75}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: -1881542528
-  sellCosts: 0a0000001400000028000000
+  costs: 80
+  sellCosts: 23000000410000005f000000
   trapAndUpgrades:
   - {fileID: 1401173936192080181, guid: d25d8a45383217e4b9f41cd2b706bf19, type: 3}
   - {fileID: 4420980105038469881, guid: 2f9f2aa4eb82ee74c910c0112a32112c, type: 3}
   - {fileID: 5722652712619018527, guid: 63898f253cd0e954e90c732fbd4babb5, type: 3}
   offsetPositions:
-  - 1.5
+  - 1.55
   - 1.5
   - 1.5
   upgradeIndex: 0
   stopUpgrade: 0
-  uiImage: {fileID: 21300000, guid: 33dbfc9a8e0a752478b78f1eb84b8da4, type: 3}
+  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  ui_hbHeight: 4
+  ui_Image: {fileID: 0}
 --- !u!65 &2937658970468302954
 BoxCollider:
   m_ObjectHideFlags: 0
