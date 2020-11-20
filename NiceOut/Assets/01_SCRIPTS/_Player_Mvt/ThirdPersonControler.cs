@@ -8,17 +8,32 @@ public class ThirdPersonControler : MonoBehaviour
 {
     Inputs inputs;
     Vector2 move;
-    public float boostSpeed, baseSpeed, dashSpeed, turnSmooth, acceleration;
+    public float boostSpeed, baseSpeed, turnSmooth, acceleration;
     Transform cam;
     CharacterController charaCtrl;
-    public Animator PlayerAnimator;
-    bool isRolling, roll, canWalk;
-    public float cdRoll;
+    CapsuleCollider charaColl;
+    StatsPlayer playerStats;
+
     public float gravity;
     Vector3 moveDir;
     Vector3 rotation;
     public LayerMask floor;
     //float _rotationSpeed = 8f;
+
+    //Dash
+    public float dashSpeed;
+
+    bool roll; //input roll
+
+    bool isRolling = false;
+
+    public float cdRoll; // temps entre roulade;
+    public float cdCout; // temps entre roulade;
+
+    public Animator PlayerAnimator;
+    public float invincibleDuration = 0.2f;
+    float invincibleCount;
+
 
     private void Awake()
     {
@@ -33,7 +48,8 @@ public class ThirdPersonControler : MonoBehaviour
     {
         cam = Camera.main.transform;
         charaCtrl = GetComponent<CharacterController>();
-        canWalk = true;
+        charaColl = GetComponent<CapsuleCollider>();
+        playerStats = GetComponent<StatsPlayer>();
     }
     void Update()
     {
@@ -42,12 +58,6 @@ public class ThirdPersonControler : MonoBehaviour
             float targetRotation = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
             Vector3 rotation = new Vector3(transform.rotation.x, cam.eulerAngles.y, transform.rotation.z); //Vecteur de rotation
-
-            if (canWalk)
-            {
-                transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
-                charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
-            }
 
             if (move != Vector2.zero)
             {
@@ -59,18 +69,44 @@ public class ThirdPersonControler : MonoBehaviour
                 PlayerAnimator.SetBool("Forward", false);
                 moveDir = Vector3.down * gravity * Time.deltaTime;
             }
-            /*
+
             if (isRolling == false)
             {
-                StopCoroutine(Roll());
-                StopCoroutine(IsRolling());
+                transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
+                charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
+            }
+
+
+            //Input roulade
+            if (cdCout > 0)
+            {
+                cdCout -= Time.deltaTime;
+            }
+            else
+            {
                 if (roll)
                 {
                     roll = false;
-                    StartCoroutine(Roll());
-                    StartCoroutine(IsRolling());
+                    Roll();
                 }
-            }*/
+            }
+
+            //Mouvement et anim Roulade
+            if (invincibleCount > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
+                charaCtrl.Move(moveDir.normalized * dashSpeed * Time.deltaTime);
+                invincibleCount -= Time.deltaTime;
+            }
+            else
+            {
+                if (isRolling == true)
+                {
+                    charaColl.enabled = true;
+                    PlayerAnimator.ResetTrigger("Roulade");
+                    isRolling = false;
+                }
+            }
         }
     }
 
@@ -82,24 +118,19 @@ public class ThirdPersonControler : MonoBehaviour
 
     }
     //roulade
-    public IEnumerator Roll()
+    public void Roll()
     {
         isRolling = true;
 
-        Debug.Log("benis");
         PlayerAnimator.SetTrigger("Roulade");
-
-        transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
-        charaCtrl.Move(moveDir.normalized * dashSpeed * Time.deltaTime);
-
-        yield return new WaitForSecondsRealtime(cdRoll);
-        isRolling = false;
+        invincibleCount = invincibleDuration;
+        cdCout = cdRoll;
+        charaColl.enabled = false;
     }
-    public IEnumerator IsRolling()
+
+    public void UpgradeSpeed(float _moreSpeed)
     {
-        canWalk = false;
-        yield return new WaitForSecondsRealtime(0.6f);
-        canWalk =true;
+        baseSpeed = baseSpeed * (1 + (_moreSpeed/100));
     }
 
     private void OnTriggerEnter(Collider other)

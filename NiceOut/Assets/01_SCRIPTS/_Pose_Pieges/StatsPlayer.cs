@@ -11,6 +11,9 @@ public class StatsPlayer : MonoBehaviour
     public float healthPercentage;
     public int gold = 35;
 
+    //Invincibility
+    bool isInvincible = false;
+
     public TextMeshProUGUI healthValue;
     public TextMeshProUGUI goldValue;
     public Image healthBar;
@@ -20,7 +23,6 @@ public class StatsPlayer : MonoBehaviour
         goldValue.text = gold.ToString();
         healthValue.text = health.ToString();
         healthPercentage = health / maxHealth;
-
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
     }
 
@@ -46,9 +48,22 @@ public class StatsPlayer : MonoBehaviour
         gold -= cost;
     }
 
+    public void Invincibility(bool _isInvincible)
+    {
+        isInvincible = _isInvincible;
+    }
+
     public void DamagePlayer(int damages)
     {
-        health -= damages;
+
+        if(isInvincible == false)
+        {
+            health -= damages;
+        }
+        else
+        {
+            return; //Mettre un retour du dodge genre texte popup dodge
+        }
     }
 
     public void UpdateGold()
@@ -60,12 +75,12 @@ public class StatsPlayer : MonoBehaviour
         healthValue.text = health.ToString();
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
     }
-
-    public void AddLife(int _LifeValue)
+    public void UpgradeHealth(int _LifeValue)
     {
         maxHealth += _LifeValue;
         health = Mathf.RoundToInt(maxHealth * healthPercentage);
     }
+
 
     public void Death()
     {
