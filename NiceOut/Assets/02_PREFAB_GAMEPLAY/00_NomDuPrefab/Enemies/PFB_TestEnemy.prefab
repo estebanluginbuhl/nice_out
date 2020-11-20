@@ -156,10 +156,12 @@ MonoBehaviour:
   playerDetectionLayer:
     serializedVersion: 2
     m_Bits: 1024
-  enmSpeed: 3
+  enmSpeed: 5
   targetTreshold: 0.5
-  gizmosRadius: 5
-  gizmosColor: {r: 1, g: 0, b: 0.98310184, a: 1}
+  gizmo1Radius: 10
+  gizmo2Radius: 50
+  gizmo1Color: {r: 1, g: 0, b: 1, a: 1}
+  gizmo2Color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0

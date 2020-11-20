@@ -8,8 +8,8 @@ public class EnmMovement : MonoBehaviour
     public bool pathFinding;
     public Transform enmTransform;
     public LayerMask playerDetectionLayer;
-    public float enmSpeed, targetTreshold, gizmosRadius;
-    public Color gizmosColor;
+    public float enmSpeed, targetTreshold, gizmo1Radius, gizmo2Radius;
+    public Color gizmo1Color, gizmo2Color;
 
     GameObject player;
     NavMeshAgent enmNavMesh;
@@ -26,31 +26,29 @@ public class EnmMovement : MonoBehaviour
 
     void FixedUpdate() 
     {
-        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmosRadius, playerDetectionLayer);
+        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmo1Radius, playerDetectionLayer);
         if (PathFinderTrigger.Length != 0)
         {
             player = PathFinderTrigger[0].gameObject;
             pathFinding = true;
-            //Debug.Log("enm detected");
         }
         else
         {
             pathFinding = false;
-            //Debug.Log("next node");
         }
     }
 
     void Update()
     {
+        Debug.Log(enmNavMesh.destination);
+
         if (pathFinding == true)
         {
             enmNavMesh.destination = player.transform.position;
-            //Debug.Log("navmesh");
         }
         else if (pathFinding == false)
         {
             enmNavMesh.destination = target.position;
-            //Debug.Log("node");
 
             if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
             {
@@ -72,7 +70,7 @@ public class EnmMovement : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = gizmosColor;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmosRadius);
+        Gizmos.color = gizmo1Color;
+        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
     }
 }
