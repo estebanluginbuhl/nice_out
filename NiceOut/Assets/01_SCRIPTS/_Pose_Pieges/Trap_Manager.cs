@@ -203,13 +203,13 @@ public class Trap_Manager : MonoBehaviour
     public void PlaceTrap(GameObject _inventorySelection)//Methode de placement du piège selectionné
     {
         Traps trapStats = _inventorySelection.GetComponent<Traps>();
-        if (GetComponent<StatsPlayer>().gold >= trapStats.costs)//vérifie que le joueur a assez d'argent pour payer le piège
+        if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
         {
             GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
             billy.transform.Rotate(floorInclinaison);
             billy.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
             billy.GetComponent<Traps>().player = this.gameObject;
-            GetComponent<StatsPlayer>().PlayerBuy(trapStats.costs);
+            GetComponent<StatsPlayer>().PlayerBuy(trapStats.costs[trapStats.upgradeIndex]);
             return;
         }
     }
@@ -220,10 +220,10 @@ public class Trap_Manager : MonoBehaviour
 
         if(trapStats.ammoPercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs))
+            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 Debug.Log("filled");
-                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs));
+                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]));
                 trapStats.ammo = trapStats.fullAmmo[trapStats.upgradeIndex];
                 return;
             }
@@ -253,10 +253,10 @@ public class Trap_Manager : MonoBehaviour
         Traps trapStats = selectedTrap.GetComponent<Traps>();
         if(trapStats.lifePercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs))
+            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 Debug.Log("fixed");
-                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs));
+                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]));
                 trapStats.life = trapStats.fullLife[trapStats.upgradeIndex];
                 return;
             }

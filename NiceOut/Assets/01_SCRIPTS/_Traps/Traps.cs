@@ -16,7 +16,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     public Vector3 transformTrap;
     public Vector3 rotationTrap;
-    public int costs;
+    public int[] costs;
     public int[] sellCosts;
     public GameObject[] trapAndUpgrades;
     public float[] offsetPositions;
@@ -25,7 +25,9 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     public Canvas ui_healthBar;
     public float ui_hbHeight;
-    public Sprite ui_Image;
+    public Sprite[] ui_Image;
+
+
     BoxCollider box;
 
     private void Start()
@@ -35,12 +37,11 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         {
             box.size = colliderSize;
         }
-        this.life = this.fullLife[0];
-        this.ammo = this.fullAmmo[0];
-        this.lifePercentage = life / fullLife[0];
-        this.ammoPercentage = ammo / fullAmmo[0];
-        this.upgradeIndex = 0;
-
+        this.life = this.fullLife[this.upgradeIndex];
+        this.ammo = this.fullAmmo[this.upgradeIndex];
+        this.lifePercentage = life / fullLife[this.upgradeIndex];
+        this.ammoPercentage = ammo / fullAmmo[this.upgradeIndex];
+        
         this.rotationTrap = new Vector3(this.transform.localEulerAngles.x, this.transform.localEulerAngles.y, this.transform.localEulerAngles.z);
         this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex ], this.transform.position, Quaternion.Euler(this.rotationTrap));
         this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
@@ -79,10 +80,15 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     {
         Destroy(this.child);
         this.upgradeIndex += 1;
-        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position + Vector3.up * offsetPositions[upgradeIndex], Quaternion.Euler(this.rotationTrap));
+        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
         this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
         this.child.GetComponent<Trap_Attack>().type = this.trapType;
         this.life = Mathf.RoundToInt(this.fullLife[upgradeIndex] * this.lifePercentage);
         this.ammo = Mathf.RoundToInt(this.fullAmmo[upgradeIndex] * this.ammoPercentage);
     }
+    public void UpgradeForInventory()
+    {
+        this.upgradeIndex += 1;
+    }
+
 }

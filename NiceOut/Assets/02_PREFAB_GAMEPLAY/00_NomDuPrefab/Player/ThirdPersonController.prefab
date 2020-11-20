@@ -276,15 +276,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostSpeed: 0
   baseSpeed: 20
-  dashSpeed: 1
   turnSmooth: 2
   acceleration: 0.1
-  PlayerAnimator: {fileID: 1140486815}
-  cdRoll: 0.1
   gravity: 60
   floor:
     serializedVersion: 2
     m_Bits: 256
+  dashSpeed: 50
+  cdRoll: 0.1
+  cdCout: 0
+  PlayerAnimator: {fileID: 1140486815}
+  invinsibleDuration: 0.2
 --- !u!114 &7413206124061644214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7413206124288006484}
   m_Layer: 10
-  m_Name: Target
+  m_Name: Turning_Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

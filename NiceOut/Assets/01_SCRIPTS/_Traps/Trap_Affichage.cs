@@ -62,11 +62,11 @@ public class Trap_Affichage : MonoBehaviour
 
                 {
 
-                    if (oldAmmoPercentage != Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs) && prixRechargeAffiche == true)
+                    if (oldAmmoPercentage != Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixRechargeAffiche == true)
                     {
                         prixRechargeAffiche = false;
                     }
-                    if (oldLifePercentage != Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs) && prixReparationAffiche == true)
+                    if (oldLifePercentage != Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixReparationAffiche == true)
                     {
                         prixReparationAffiche = false;
                     }
@@ -75,8 +75,8 @@ public class Trap_Affichage : MonoBehaviour
                     if (_trapStats.lifePercentage != 1 && prixReparationAffiche == false)
                     {
                         _Image_Reparation.color = Color.white;
-                        _PrixReparation.text = "- " + Mathf.RoundToInt((1 - _trapStats.lifePercentage) * _trapStats.costs).ToString();
-                        oldLifePercentage = Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs);
+                        _PrixReparation.text = "- " + Mathf.RoundToInt((1 - _trapStats.lifePercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
+                        oldLifePercentage = Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]);
                         prixReparationAffiche = true;
                     }
                     else
@@ -92,8 +92,8 @@ public class Trap_Affichage : MonoBehaviour
                     if (_trapStats.ammoPercentage != 1 && prixRechargeAffiche == false)
                     {
                         _Image_Rechargement.color = Color.white;
-                        _PrixRechargement.text = "- " + Mathf.RoundToInt((1 - _trapStats.ammoPercentage) * _trapStats.costs).ToString();
-                        oldAmmoPercentage = Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs);
+                        _PrixRechargement.text = "- " + Mathf.RoundToInt((1 - _trapStats.ammoPercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
+                        oldAmmoPercentage = Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]);
                         prixRechargeAffiche = true;
                     }
                     else
@@ -128,13 +128,26 @@ public class Trap_Affichage : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (panelActive == true)
+            {
+                gestionPanel.SetActive(false);
+                panelActive = false;
+            }
+        }
     }
 
     public void damageThisFukinTrap()
     {
+
         _trapManager = player.GetComponent<Trap_Manager>();
-        _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
-        _trapStats.DamageTrap(10);
+        if (_trapManager.selectedTrap != null)
+        {
+            _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
+            _trapStats.DamageTrap(10);
+        }
+
     }
     private void OnEnable()
     {
