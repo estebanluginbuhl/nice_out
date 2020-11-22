@@ -29,6 +29,7 @@ public class Shop : MonoBehaviour
     int nbTrapAdded = 0;
     public Sprite health_Image;
     public Sprite Speed_Image;
+    public Sprite Energy_Image;
     // Start is called before the first frame update
 
     private void Awake()
@@ -172,7 +173,7 @@ public class Shop : MonoBehaviour
             statsButton.SetActive(false);
         }
 
-        rndStat = Random.Range(1, 3);//Choix de la stat à améliorer
+        rndStat = Random.Range(1, 4);//Choix de la stat à améliorer
         rndUpValue = Mathf.RoundToInt(Random.Range(pourcentageUpgradeStatsMinMax.x, pourcentageUpgradeStatsMinMax.y)); //Pourcentage d'augmentation de la stat selectionné (pas de +1 pour le max du random pcq float = max inclu)
 
         if (rndStat == 1)
@@ -184,6 +185,12 @@ public class Shop : MonoBehaviour
         {
             imageStats.sprite = Speed_Image;
             textStats.text = "+ " + rndUpValue + "% MS";
+
+        }
+        if (rndStat == 3)
+        {
+            imageStats.sprite = Energy_Image;
+            textStats.text = "+ " + rndUpValue + " EN/s";
 
         }
     }
@@ -227,6 +234,10 @@ public class Shop : MonoBehaviour
         if(rndStat == 2)
         {
             player.GetComponent<ThirdPersonControler>().UpgradeSpeed(rndUpValue);
+        }
+        if(rndStat == 3)
+        {
+            player.GetComponent<StatsPlayer>().UpgradeChargeSpeed(rndUpValue);
         }
         ShopPanelOpenClose();
         canShop = false;

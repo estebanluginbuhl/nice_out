@@ -63,138 +63,141 @@ public class Trap_Manager : MonoBehaviour
     {
         if(GetComponent<Switch_Mode>().GetPause() == false)
         {
-            if (rotating)
+            if (GetComponent<Switch_Mode>().mort == false)
             {
-                trapRotation += 1;
-                if (trapRotation >= 360)
+                if (rotating)
                 {
-                    trapRotation = 1;
-                }
-            }
-
-            //Selection de pièges
-            float minDist = Mathf.Infinity;
-
-            Collider[] selectedTraps = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, trapped); // sphere de detection de piège
-
-            foreach (Collider c in selectedTraps) //Selection de l'emplacement le plus proche
-            {
-                float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
-                if (dist < minDist)
-                {
-                    selectedTrap = c.gameObject;
-                    minDist = dist;
-                }
-            }
-            //Déselectionne si le joueur n'est pas devant un piege
-            if (selectedTraps.Length == 0)
-            {
-                selectedTrap = null;
-            }
-            if (GetComponent<Switch_Mode>().mode) //Mode de placement de pièges
-            {
-                //Active le panneau d'inventaire 
-                if (inventoryActive == false)
-                {
-                    ui_Inventory.SetActive(true);
-                    inventoryActive = true;
-                }
-
-                inventorySelection = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
-
-                if (inventorySelection != null)
-                {
-                    //Forsee
-                    Traps trapStats = inventorySelection.GetComponent<Traps>();
-                    mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
-                    colliderCube = (trapStats.colliderSize) / 2;
-
-                    Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + Vector3.up * trapStats.offsetPositions[0], colliderCube, forseeTrap.transform.rotation, floor | trapped);
-
-                    if (boxCollider.Length != 0)
+                    trapRotation += 1;
+                    if (trapRotation >= 360)
                     {
-                        if (detectCollision == false)
-                        {
-                            detectCollision = true;
-                        }
+                        trapRotation = 1;
                     }
-                    else
+                }
+
+                //Selection de pièges
+                float minDist = Mathf.Infinity;
+
+                Collider[] selectedTraps = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, trapped); // sphere de detection de piège
+
+                foreach (Collider c in selectedTraps) //Selection de l'emplacement le plus proche
+                {
+                    float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
+                    if (dist < minDist)
                     {
-                        if (detectCollision == true)
-                        {
-                            detectCollision = false;
-                        }
+                        selectedTrap = c.gameObject;
+                        minDist = dist;
+                    }
+                }
+                //Déselectionne si le joueur n'est pas devant un piege
+                if (selectedTraps.Length == 0)
+                {
+                    selectedTrap = null;
+                }
+                if (GetComponent<Switch_Mode>().mode) //Mode de placement de pièges
+                {
+                    //Active le panneau d'inventaire 
+                    if (inventoryActive == false)
+                    {
+                        ui_Inventory.SetActive(true);
+                        inventoryActive = true;
                     }
 
-                    RaycastHit hit;
-                    if (Physics.Raycast(spherePosition.transform.position, Vector3.down, out hit, Mathf.Infinity, floor))
+                    inventorySelection = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
+
+                    if (inventorySelection != null)
                     {
-                        floorInclinaison = Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles;
-                        trapOrientation = transform.localEulerAngles.y + trapRotation;
-                        trapPosition = hit.point;
-                        if (selectedTrap == null)
+                        //Forsee
+                        Traps trapStats = inventorySelection.GetComponent<Traps>();
+                        mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
+                        colliderCube = (trapStats.colliderSize) / 2;
+
+                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + Vector3.up * trapStats.offsetPositions[0], colliderCube, forseeTrap.transform.rotation, floor | trapped);
+
+                        if (boxCollider.Length != 0)
                         {
-                            //appel du placement du pieges
                             if (detectCollision == false)
                             {
-                                if (place)
+                                detectCollision = true;
+                            }
+                        }
+                        else
+                        {
+                            if (detectCollision == true)
+                            {
+                                detectCollision = false;
+                            }
+                        }
+
+                        RaycastHit hit;
+                        if (Physics.Raycast(spherePosition.transform.position, Vector3.down, out hit, Mathf.Infinity, floor))
+                        {
+                            floorInclinaison = Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles;
+                            trapOrientation = transform.localEulerAngles.y + trapRotation;
+                            trapPosition = hit.point;
+                            if (selectedTrap == null)
+                            {
+                                //appel du placement du pieges
+                                if (detectCollision == false)
                                 {
-                                    PlaceTrap(inventorySelection);
-                                    place = false;
+                                    if (place)
+                                    {
+                                        PlaceTrap(inventorySelection);
+                                        place = false;
+                                    }
                                 }
                             }
                         }
+                        forseeTrap.transform.rotation = Quaternion.Euler(Vector3.zero);
+                        forseeTrap.transform.Rotate(floorInclinaison);
+                        forseeTrap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+                        forseeTrap.transform.position = trapPosition;
                     }
-                    forseeTrap.transform.rotation = Quaternion.Euler(Vector3.zero);
-                    forseeTrap.transform.Rotate(floorInclinaison);
-                    forseeTrap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
-                    forseeTrap.transform.position = trapPosition;
                 }
-            }
-            else
-            {
-                //Desactive le Forsee
-                if (mshFlt.mesh)
+                else
                 {
-                    mshFlt.mesh = null;
-                }
-                //Ferme l'inventaire
-                if (inventoryActive == true)
-                {
-                    ui_Inventory.SetActive(false);
-                    inventoryActive = false;
-                }
-            }
-
-            //change la couleur du Forsee
-            if (detectCollision == true)
-            {
-                mshRnd.material = mat[1];
-            }
-            else
-            {
-                mshRnd.material = mat[0];
-            }
-
-            //Gestion du piege selectionné
-            if (selectedTrap != null)
-            {
-                if (refill)
-                {
-                    RefillTrap();
-                    refill = false;
+                    //Desactive le Forsee
+                    if (mshFlt.mesh)
+                    {
+                        mshFlt.mesh = null;
+                    }
+                    //Ferme l'inventaire
+                    if (inventoryActive == true)
+                    {
+                        ui_Inventory.SetActive(false);
+                        inventoryActive = false;
+                    }
                 }
 
-                if (fix)
+                //change la couleur du Forsee
+                if (detectCollision == true)
                 {
-                    FixTrap();
-                    fix = false;
+                    mshRnd.material = mat[1];
+                }
+                else
+                {
+                    mshRnd.material = mat[0];
                 }
 
-                if (sell)
+                //Gestion du piege selectionné
+                if (selectedTrap != null)
                 {
-                    SellTrap();
-                    sell = false;
+                    if (refill)
+                    {
+                        RefillTrap();
+                        refill = false;
+                    }
+
+                    if (fix)
+                    {
+                        FixTrap();
+                        fix = false;
+                    }
+
+                    if (sell)
+                    {
+                        SellTrap();
+                        sell = false;
+                    }
                 }
             }
         }
@@ -203,7 +206,7 @@ public class Trap_Manager : MonoBehaviour
     public void PlaceTrap(GameObject _inventorySelection)//Methode de placement du piège selectionné
     {
         Traps trapStats = _inventorySelection.GetComponent<Traps>();
-        if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
+        if (GetComponent<StatsPlayer>().energy >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
         {
             GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
             billy.transform.Rotate(floorInclinaison);
@@ -220,7 +223,7 @@ public class Trap_Manager : MonoBehaviour
 
         if(trapStats.ammoPercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
+            if (GetComponent<StatsPlayer>().energy >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 Debug.Log("filled");
                 GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]));
@@ -253,7 +256,7 @@ public class Trap_Manager : MonoBehaviour
         Traps trapStats = selectedTrap.GetComponent<Traps>();
         if(trapStats.lifePercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
+            if (GetComponent<StatsPlayer>().energy >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 Debug.Log("fixed");
                 GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]));

@@ -9,43 +9,65 @@ public class StatsPlayer : MonoBehaviour
     public float health;
     public float maxHealth;
     public float healthPercentage;
-    public int gold = 35;
+    public int energy;
+    public int chargeSpeed;
+    public int tempsMort;
 
     //Invincibility
     bool isInvincible = false;
 
     public TextMeshProUGUI healthValue;
-    public TextMeshProUGUI goldValue;
+    public TextMeshProUGUI energyValue_Text;
+    public TextMeshProUGUI chargeSpeed_Text;
     public Image healthBar;
+    Switch_Mode leSwitch;
+    float compteurTempsRecharge = 0f;
 
     private void Start()
     {
-        goldValue.text = gold.ToString();
+        energyValue_Text.text = energy.ToString();
         healthValue.text = health.ToString();
         healthPercentage = health / maxHealth;
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
+        leSwitch = GetComponent<Switch_Mode>();
     }
 
     private void Update()
     {
-
-        healthPercentage = health / maxHealth;
-        UpdateHealth();
-        UpdateGold();
-        if (health <= 0)
+        if(leSwitch.GetPause() == false)
         {
-            Death();
+            if (leSwitch.mort == false)
+            {
+                if (compteurTempsRecharge <= 0)
+                {
+                    energy += chargeSpeed;
+                    compteurTempsRecharge = 1;
+                }
+                else
+                {
+                    compteurTempsRecharge -= Time.deltaTime;
+                }
+
+
+                healthPercentage = health / maxHealth;
+                UpdateHealth();
+                UpdateEnergy();
+                if (health <= 0)
+                {
+                    Death();
+                }
+            }
         }
     }
 
     public void RincePlayer(int monsterValue)
     {
-        gold += monsterValue;
+        energy += monsterValue;
     }
 
     public void PlayerBuy(int cost)
     {
-        gold -= cost;
+        energy -= cost;
     }
 
     public void Invincibility(bool _isInvincible)
@@ -66,9 +88,10 @@ public class StatsPlayer : MonoBehaviour
         }
     }
 
-    public void UpdateGold()
+    public void UpdateEnergy()
     {
-        goldValue.text = gold.ToString();
+        energyValue_Text.text = energy.ToString();
+        chargeSpeed_Text.text = "+ " + chargeSpeed.ToString() + "En/s";
     }
     public void UpdateHealth()
     {
@@ -80,11 +103,19 @@ public class StatsPlayer : MonoBehaviour
         maxHealth += _LifeValue;
         health = Mathf.RoundToInt(maxHealth * healthPercentage);
     }
+    public void UpgradeChargeSpeed(int value)
+    {
+        chargeSpeed += value;
+    }
 
+    public void Respawn()
+    {
+        health = maxHealth;
+    }
 
     public void Death()
     {
-        Debug.Log("death");
-        Application.Quit();
+        leSwitch.mort = true;
+        leSwitch.cptMort = tempsMort;
     }
 }
