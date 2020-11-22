@@ -53,58 +53,61 @@ public class ThirdPersonControler : MonoBehaviour
     }
     void Update()
     {
-        if (GetComponent<Switch_Mode>().GetPause() == false)
+        if(GetComponent<Switch_Mode>().GetPause() == false)
         {
-            float targetRotation = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-
-            Vector3 rotation = new Vector3(transform.rotation.x, cam.eulerAngles.y, transform.rotation.z); //Vecteur de rotation
-
-            if (move != Vector2.zero)
+            if (GetComponent<Switch_Mode>().mort == false)
             {
-                PlayerAnimator.SetBool("Forward", true);
-                moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity * Time.deltaTime;
-            }
-            else
-            {
-                PlayerAnimator.SetBool("Forward", false);
-                moveDir = Vector3.down * gravity * Time.deltaTime;
-            }
+                float targetRotation = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
-            if (isRolling == false)
-            {
-                transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
-                charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
-            }
+                Vector3 rotation = new Vector3(transform.rotation.x, cam.eulerAngles.y, transform.rotation.z); //Vecteur de rotation
 
-
-            //Input roulade
-            if (cdCout > 0)
-            {
-                cdCout -= Time.deltaTime;
-            }
-            else
-            {
-                if (roll)
+                if (move != Vector2.zero)
                 {
-                    roll = false;
-                    Roll();
+                    PlayerAnimator.SetBool("Forward", true);
+                    moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity * Time.deltaTime;
                 }
-            }
-
-            //Mouvement et anim Roulade
-            if (invincibleCount > 0)
-            {
-                transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
-                charaCtrl.Move(moveDir.normalized * dashSpeed * Time.deltaTime);
-                invincibleCount -= Time.deltaTime;
-            }
-            else
-            {
-                if (isRolling == true)
+                else
                 {
-                    charaColl.enabled = true;
-                    PlayerAnimator.ResetTrigger("Roulade");
-                    isRolling = false;
+                    PlayerAnimator.SetBool("Forward", false);
+                    moveDir = Vector3.down * gravity * Time.deltaTime;
+                }
+
+                if (isRolling == false)
+                {
+                    transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
+                    charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
+                }
+
+
+                //Input roulade
+                if (cdCout > 0)
+                {
+                    cdCout -= Time.deltaTime;
+                }
+                else
+                {
+                    if (roll)
+                    {
+                        roll = false;
+                        Roll();
+                    }
+                }
+
+                //Mouvement et anim Roulade
+                if (invincibleCount > 0)
+                {
+                    transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
+                    charaCtrl.Move(moveDir.normalized * dashSpeed * Time.deltaTime);
+                    invincibleCount -= Time.deltaTime;
+                }
+                else
+                {
+                    if (isRolling == true)
+                    {
+                        charaColl.enabled = true;
+                        PlayerAnimator.ResetTrigger("Roulade");
+                        isRolling = false;
+                    }
                 }
             }
         }
