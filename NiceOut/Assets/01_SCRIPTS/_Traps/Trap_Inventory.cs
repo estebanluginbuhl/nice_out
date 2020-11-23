@@ -100,16 +100,16 @@ public class Trap_Inventory : MonoBehaviour
 
         float inventoryWidth = ui_InventoryPanel.rectTransform.rect.width; //Get la largeur du panel inventaire
 
-        slotPos.y = 0;
-        costPos.y = offsetY;
+        slotPos.y = offsetY;
+        costPos.y = offsetY - 80;
 
         slots[nbUsedSlots - 1] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
-        slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
+        slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
         slots[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
         slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().ui_Image[0];
 
         costs[nbUsedSlots - 1] = TextMeshProUGUI.Instantiate(trapCostText, costPos, Quaternion.identity);
-        costs[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
+        costs[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
         costs[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
         costs[nbUsedSlots - 1].text = (trap.GetComponent<Traps>().costs[0]).ToString();
 
