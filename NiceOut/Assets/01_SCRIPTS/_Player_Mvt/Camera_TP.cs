@@ -10,10 +10,10 @@ public class Camera_TP : MonoBehaviour
     public GameObject player;
 
     //movement
-    float h, v, scroll;
+    float h, v;
     Vector2 moveCam;
     Vector2 deathMoveCam;
-    Vector2 scroll2;
+    Vector2 scroll;
     public float scrollSpeed, deathScroll, followSpeed;
     public Vector2 vMinMax;
     Vector3 desiredRotation;
@@ -30,12 +30,8 @@ public class Camera_TP : MonoBehaviour
         inputs.Actions.Move.performed += ctx => deathMoveCam = ctx.ReadValue<Vector2>();
         inputs.Actions.Move.canceled += ctx => deathMoveCam = Vector2.zero;
 
-        //gamepad scroll
-        inputs.Actions.Scroll.performed += ctx => scroll = ctx.ReadValue<float>();
-        inputs.Actions.Scroll.canceled += ctx => scroll = 0;
-        //mouse scroll
-        inputs.Actions.MouseScroll.performed += ctx => scroll2 = ctx.ReadValue<Vector2>();
-        inputs.Actions.MouseScroll.canceled += ctx => scroll2 = Vector2.zero;
+        inputs.Actions.MouseScroll.performed += ctx => scroll = ctx.ReadValue<Vector2>();
+        inputs.Actions.MouseScroll.canceled += ctx => scroll = Vector2.zero;
     }
 
     void Update()
@@ -61,25 +57,11 @@ public class Camera_TP : MonoBehaviour
                 }
                 desiredRotation = new Vector3(-v, h, 0) * sensitivity;
 
-                //Camera suis le joueur
-                if (scroll != 0)
-                {
-                    distance -= scroll * scrollSpeed * Time.deltaTime;
-                }
-                if (scroll2.y < 0)
-                {
-                    distance -= 1 * scrollSpeed * Time.deltaTime;
-                }
-                if (scroll2.y > 0)
-                {
-                    distance += 1 * scrollSpeed * Time.deltaTime;
-                }
-
                 transform.position = Vector3.SlerpUnclamped(transform.position, turningPoint.transform.position - transform.forward * distance + transform.up * height, followSpeed);
             }
             else
             {
-                if(distance > 1)
+                if (distance > 1)
                 {
                     h += deathMoveCam.x * Time.deltaTime * sensitivity * distance;
                     v += deathMoveCam.y * Time.deltaTime * sensitivity * distance;
@@ -90,15 +72,12 @@ public class Camera_TP : MonoBehaviour
                     v += deathMoveCam.y * Time.deltaTime * sensitivity;
                 }
 
-                if (scroll != 0)
-                {
-                    distance -= scroll * deathScroll * Time.deltaTime;
-                }
-                if (scroll2.y < 0)
+
+                if (scroll.y < 0)
                 {
                     distance -= 1 * deathScroll * Time.deltaTime;
                 }
-                if (scroll2.y > 0)
+                if (scroll.y > 0)
                 {
                     distance += 1 * deathScroll * Time.deltaTime;
                 }

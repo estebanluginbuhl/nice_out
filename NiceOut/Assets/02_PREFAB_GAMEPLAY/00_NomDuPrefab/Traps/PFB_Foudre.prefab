@@ -59,7 +59,7 @@ MonoBehaviour:
   ammoPercentage: 0
   player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 2.65, y: 2.9, z: 2.65}
+  colliderSize: {x: 3, y: 2.9, z: 3}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
   costs: 3c0000005000000064000000

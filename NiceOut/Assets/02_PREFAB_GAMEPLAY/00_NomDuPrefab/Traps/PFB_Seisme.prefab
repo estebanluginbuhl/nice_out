@@ -59,7 +59,7 @@ MonoBehaviour:
   ammoPercentage: 0
   player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 3.75, y: 2.9, z: 3.75}
+  colliderSize: {x: 4, y: 2.9, z: 4}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
   costs: 280000003c00000050000000
@@ -72,7 +72,7 @@ MonoBehaviour:
   - 1.55
   - 1.5
   - 1.5
-  upgradeIndex: 2
+  upgradeIndex: 0
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}

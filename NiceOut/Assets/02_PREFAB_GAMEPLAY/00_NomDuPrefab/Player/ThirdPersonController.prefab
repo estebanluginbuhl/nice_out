@@ -283,10 +283,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   dashSpeed: 50
-  cdRoll: 0.1
+  cdRoll: 1
   cdCout: 0
   PlayerAnimator: {fileID: 1140486815}
-  invinsibleDuration: 0.2
+  invincibleDuration: 0.5
 --- !u!114 &7413206124061644214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +318,7 @@ MonoBehaviour:
   mat:
   - {fileID: 2100000, guid: 8f856d6530da85443aab01173af6c089, type: 2}
   - {fileID: 2100000, guid: 552776d7a19631f4f9fd59d6b77b5427, type: 2}
+  rotatingSpeed: 150
 --- !u!114 &7413206124061644215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +333,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   pause: 0
+  mort: 0
+  cptMort: 0
+  ui_deathTimer: {fileID: 0}
+  ui_DeathPanel: {fileID: 0}
 --- !u!114 &7413206124061644217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,9 +352,12 @@ MonoBehaviour:
   health: 20
   maxHealth: 40
   healthPercentage: 0
-  gold: 1000
+  energy: 5000
+  chargeSpeed: 1
+  tempsMort: 20
   healthValue: {fileID: 0}
-  goldValue: {fileID: 0}
+  energyValue_Text: {fileID: 0}
+  chargeSpeed_Text: {fileID: 0}
   healthBar: {fileID: 0}
 --- !u!143 &351840786129866637
 CharacterController:
