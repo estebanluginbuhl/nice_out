@@ -21,12 +21,11 @@ public class Switch_Mode : MonoBehaviour
         inputs = new Inputs();
 
         inputs.Actions.Switch.started += ctx => SwitchMode();
+        ui_DeathPanel.SetActive(false);
     }
 
     private void Update()
     {
-        Debug.Log(ui_DeathPanel.activeInHierarchy);
-        ui_DeathPanel.SetActive(false);
 
         if (cptMort > 0)
         {

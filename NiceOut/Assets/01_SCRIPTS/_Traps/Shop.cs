@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour
     public Canvas ui_Manager;
     public GameObject player;
     public GameObject laCam;
-    public GameObject shopPanel, indicateur, addButton, upgradeButton, statsButton; //poput c'est le truc qui montre ou est le shop et l'input pour l'ouvrir
+    public GameObject shopPanel, addButton, upgradeButton, statsButton; //poput c'est le truc qui montre ou est le shop et l'input pour l'ouvrir
     public Image imageUpgrade, imageAdd, imageStats;
     public Text textStats;
     bool open, isOpened = false;
@@ -35,7 +35,6 @@ public class Shop : MonoBehaviour
     private void Awake()
     {
         shopPanel.SetActive(false);
-        indicateur.SetActive(false);
 
         inputs = new Inputs();
         inputs.Actions.Shop.started += ctx => canShop = true;
