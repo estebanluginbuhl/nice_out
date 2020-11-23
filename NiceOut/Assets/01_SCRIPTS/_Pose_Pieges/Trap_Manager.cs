@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Trap_Manager : MonoBehaviour
 {
     Inputs inputs;
-    bool sell, refill, place, fix, rotating;
+    bool sell, refill, place, fix, rotatingRight, rotatingLeft;
 
     public Canvas ui_Manager;//menus en gros
     public GameObject ui_Inventory;//inventaire
@@ -32,6 +32,7 @@ public class Trap_Manager : MonoBehaviour
     Vector3 floorInclinaison; //orientation du sol
     Vector3 trapPosition; //position au sol du piège
     float trapRotation; //Le jour oriente le piege comme il le souhaite
+    public float rotatingSpeed; //Le jour oriente le piege comme il le souhaite
 
 
 
@@ -47,8 +48,10 @@ public class Trap_Manager : MonoBehaviour
         inputs.Actions.Fix.canceled += ctx => fix = false;
         inputs.Actions.Refill.started += ctx => refill = true;
         inputs.Actions.Refill.canceled += ctx => refill = false;
-        inputs.Actions.Rotate.started += ctx => rotating = true;
-        inputs.Actions.Rotate.canceled += ctx => rotating = false;
+        inputs.Actions.RotateRight.started += ctx => rotatingRight = true;
+        inputs.Actions.RotateRight.canceled += ctx => rotatingRight = false;
+        inputs.Actions.RotateLeft.started += ctx => rotatingLeft = true;
+        inputs.Actions.RotateLeft.canceled += ctx => rotatingLeft = false;
     }
 
     private void Start()
@@ -65,12 +68,20 @@ public class Trap_Manager : MonoBehaviour
         {
             if (GetComponent<Switch_Mode>().mort == false)
             {
-                if (rotating)
+                if (rotatingRight)
                 {
-                    trapRotation += 1;
+                    trapRotation += 1 * rotatingSpeed * Time.deltaTime;
                     if (trapRotation >= 360)
                     {
-                        trapRotation = 1;
+                        trapRotation = 1 + (1 * rotatingSpeed * Time.deltaTime);
+                    }
+                }
+                if (rotatingLeft)
+                {
+                    trapRotation -= 1 * rotatingSpeed * Time.deltaTime;
+                    if (trapRotation <= 0)
+                    {
+                        trapRotation = 360 - (1 * rotatingSpeed * Time.deltaTime);
                     }
                 }
 
@@ -247,7 +258,6 @@ public class Trap_Manager : MonoBehaviour
         GetComponent<StatsPlayer>().RincePlayer(trapStats.sellCosts[trapStats.upgradeIndex]);
         Destroy(trapStats.child.gameObject);
         Destroy(selectedTrap);
-        Debug.Log("sold");
         return;
     }
 
@@ -258,7 +268,6 @@ public class Trap_Manager : MonoBehaviour
         {
             if (GetComponent<StatsPlayer>().energy >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
-                Debug.Log("fixed");
                 GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]));
                 trapStats.life = trapStats.fullLife[trapStats.upgradeIndex];
                 return;

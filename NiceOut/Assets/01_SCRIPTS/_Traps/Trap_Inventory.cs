@@ -23,7 +23,7 @@ public class Trap_Inventory : MonoBehaviour
     public TextMeshProUGUI trapCostText;
     public float offsetX; //ecartement entre les images
     public float offsetY; //hauteur images
-
+    Vector3 scrolling;
 
     public int nbUsedSlots;
     public int selectedSlotIndex;
@@ -33,8 +33,8 @@ public class Trap_Inventory : MonoBehaviour
     {
         inputs = new Inputs();
 
-        inputs.Actions.SelectLeft.performed += ctx => SelectLeft();
-        inputs.Actions.SelectRight.started += ctx => SelectRight();
+        inputs.Actions.MouseScroll.performed += ctx => scrolling = ctx.ReadValue<Vector2>();
+        inputs.Actions.MouseScroll.canceled += ctx => scrolling = Vector2.zero;
 
         slots = new Image[nbTrapMax];
         costs = new TextMeshProUGUI[nbTrapMax];
@@ -52,6 +52,15 @@ public class Trap_Inventory : MonoBehaviour
             {
                 ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
             }
+        }
+
+        if (scrolling.y < 0)
+        {
+            SelectLeft();
+        }
+        if (scrolling.y > 0)
+        {
+            SelectRight();
         }
     }
 
