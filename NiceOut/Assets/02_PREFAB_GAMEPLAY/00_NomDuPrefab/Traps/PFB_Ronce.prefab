@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3386936131121800175}
   m_Layer: 9
   m_Name: PFB_Ronce
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,29 +45,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 0
-  fullLife: 140000001e00000028000000
-  fullAmmo: 010000000100000001000000
+  fullLife:
+  - 40
+  - 80
+  - 120
+  fullAmmo:
+  - 1
+  - 2
+  - 3
   life: 0
   ammo: 0
   lifePercentage: 0
   ammoPercentage: 0
+  player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 3.4, y: 2.95, z: 3.4}
+  colliderSize: {x: 3.4, y: 2.9, z: 3.4}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: -1881542528
-  sellCosts: 0a0000001400000028000000
+  costs: 280000003c00000050000000
+  sellCosts: 2d000000520000006e000000
   trapAndUpgrades:
   - {fileID: 7855102427338592258, guid: d2f1b22981a13a24089b10ee202257ad, type: 3}
   - {fileID: 2227248408303271808, guid: 7b7ec7ebf7ffac140baec52f46e1e7cb, type: 3}
   - {fileID: 9044239570915528872, guid: b6f1bbef439df2e4ebd12c2aaf81049e, type: 3}
   offsetPositions:
-  - 1.5
+  - 1.55
   - 1.5
   - 1.5
   upgradeIndex: 0
   stopUpgrade: 0
-  uiImage: {fileID: 21300000, guid: b101a56547467ee4e8a5056988e77f54, type: 3}
+  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  ui_hbHeight: 4
+  ui_Image:
+  - {fileID: 21300000, guid: 5ac81f17c7295944fa21f1a5729304c4, type: 3}
+  - {fileID: 21300000, guid: f31521e6f0ec341449cf99edf6a53da4, type: 3}
+  - {fileID: 21300000, guid: 321bc1ce4f74ccd4e89eb3605d19ee8e, type: 3}
 --- !u!65 &3386936131121800175
 BoxCollider:
   m_ObjectHideFlags: 0

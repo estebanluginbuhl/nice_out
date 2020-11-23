@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -357905071159575616}
   m_Layer: 9
   m_Name: PFB_Foudre
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,29 +45,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 3
-  fullLife: 3c00000078000000b4000000
-  fullAmmo: 050000000a0000000f000000
+  fullLife:
+  - 40
+  - 80
+  - 120
+  fullAmmo:
+  - 1
+  - 2
+  - 3
   life: 0
   ammo: 0
   lifePercentage: 0
   ammoPercentage: 0
+  player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 2.65, y: 2.95, z: 2.65}
+  colliderSize: {x: 2.65, y: 2.9, z: 2.65}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: -1881542528
-  sellCosts: 0a0000001400000028000000
+  costs: 3c0000005000000064000000
+  sellCosts: 3c00000078000000b4000000
   trapAndUpgrades:
   - {fileID: 3939043822711739126, guid: 198c32917bf45cd4dbf65f66dd990103, type: 3}
   - {fileID: 5957238470777487420, guid: 08617c5f593462449b849795c31263f8, type: 3}
   - {fileID: 3178870958612758482, guid: d5fb147de75dd5947abf93ec573e59de, type: 3}
   offsetPositions:
-  - 1.5
+  - 1.55
   - 1.5
   - 1.5
   upgradeIndex: 0
   stopUpgrade: 0
-  uiImage: {fileID: 21300000, guid: 8b36008770f711e4882269d4d47b71d3, type: 3}
+  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  ui_hbHeight: 4
+  ui_Image:
+  - {fileID: 21300000, guid: ad92cc702aacfed4eb03244904e113bc, type: 3}
+  - {fileID: 21300000, guid: fd72a7bdc3d0d2a4ea1d86ce472167b6, type: 3}
+  - {fileID: 21300000, guid: 8be56ea70f7ed984caeef8ac6f995402, type: 3}
 --- !u!65 &-357905071159575616
 BoxCollider:
   m_ObjectHideFlags: 0

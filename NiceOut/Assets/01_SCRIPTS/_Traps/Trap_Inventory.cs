@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Trap_Inventory : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class Trap_Inventory : MonoBehaviour
     public bool full = false;
 
     public Image[] slots;
+    public TextMeshProUGUI[] costs;
     public GameObject[] trapsItem;
 
     public Image ui_InventoryPanel;
     public Image ui_SelectBox;
     public Image slotImage;
+    public TextMeshProUGUI trapCostText;
     public float offsetX; //ecartement entre les images
     public float offsetY; //hauteur images
 
@@ -28,15 +31,16 @@ public class Trap_Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        slots = new Image[nbTrapMax];
-        trapsItem = new GameObject[nbTrapMax];
-        nbUsedSlots = 0;
-        selectedSlotIndex = 0;
-
         inputs = new Inputs();
 
         inputs.Actions.SelectLeft.performed += ctx => SelectLeft();
         inputs.Actions.SelectRight.started += ctx => SelectRight();
+
+        slots = new Image[nbTrapMax];
+        costs = new TextMeshProUGUI[nbTrapMax];
+        trapsItem = new GameObject[nbTrapMax];
+        nbUsedSlots = 0;
+        selectedSlotIndex = 0;
     }
 
     // Update is called once per frame
@@ -79,6 +83,7 @@ public class Trap_Inventory : MonoBehaviour
         nbUsedSlots += 1;
 
         Vector2 slotPos = slotImage.rectTransform.position;
+        Vector2 costPos = trapCostText.rectTransform.position;
 
         float l = slotImage.rectTransform.rect.width; //largeur d'un slot
 
@@ -86,19 +91,34 @@ public class Trap_Inventory : MonoBehaviour
 
         float inventoryWidth = ui_InventoryPanel.rectTransform.rect.width; //Get la largeur du panel inventaire
 
-        slotPos.y = offsetY;
+        slotPos.y = 0;
+        costPos.y = offsetY;
 
         slots[nbUsedSlots - 1] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
         slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
         slots[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
-        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().uiImage;
+        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().ui_Image[0];
+
+        costs[nbUsedSlots - 1] = TextMeshProUGUI.Instantiate(trapCostText, costPos, Quaternion.identity);
+        costs[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.transform);
+        costs[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
+        costs[nbUsedSlots - 1].text = (trap.GetComponent<Traps>().costs[0]).ToString();
+
         trapsItem[nbUsedSlots - 1] = trap;
 
-        for(int i = 0; i < nbUsedSlots; i++)
+        for (int i = 0; i < nbUsedSlots; i++)
         {
             slotPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * i));
+            costPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * i));
             slots[i].rectTransform.localPosition = slotPos;
+            costs[i].rectTransform.localPosition = costPos;
         }
+    }
+
+    public void UpgradeTrapInventory(int _SlotIndex, int _UpIndex)
+    {
+        slots[_SlotIndex].sprite = trapsItem[_SlotIndex].GetComponent<Traps>().ui_Image[_UpIndex];
+        costs[_SlotIndex].text = (trapsItem[_SlotIndex].GetComponent<Traps>().costs[trapsItem[_SlotIndex].GetComponent<Traps>().upgradeIndex]).ToString();
     }
 
     private void OnEnable()

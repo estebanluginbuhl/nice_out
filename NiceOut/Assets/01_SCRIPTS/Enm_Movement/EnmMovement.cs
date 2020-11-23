@@ -8,22 +8,25 @@ public class EnmMovement : MonoBehaviour
     public bool pathFinding;
     public Transform enmTransform;
     public LayerMask playerDetectionLayer;
-    public float enmSpeed, gizmosRadius;
-    public Color gizmosColor;
+    public float enmSpeed, targetTreshold, gizmo1Radius, gizmo2Radius;
+    public Color gizmo1Color, gizmo2Color;
 
     GameObject player;
+    NavMeshAgent enmNavMesh;
     private Transform target;
     private int nodeIndex = 0;
 
-    private void Start()
+    void Start()
     {
         target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
+        enmNavMesh = GetComponent<NavMeshAgent>();
+        enmNavMesh.speed = enmSpeed;
     }
 
-    void FixedUpdate()
+    void FixedUpdate() 
     {
-        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmosRadius, playerDetectionLayer);
+        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmo1Radius, playerDetectionLayer);
         if (PathFinderTrigger.Length != 0)
         {
             player = PathFinderTrigger[0].gameObject;
@@ -37,23 +40,17 @@ public class EnmMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(enmNavMesh.destination);
+
         if (pathFinding == true)
         {
-            gameObject.GetComponent<PathNode>().enabled = false;
-            NavMeshAgent agent = GetComponent<NavMeshAgent>();
-            agent.destination = player.transform.position - transform.position;
-            Debug.Log("trigger in");
+            enmNavMesh.destination = player.transform.position;
         }
         else if (pathFinding == false)
         {
-            gameObject.GetComponent<PathNode>().enabled = true;
-            gameObject.GetComponent<PathFinder>().enabled = false;
+            enmNavMesh.destination = target.position;
 
-            Vector3 dir = target.position - transform.position;
-            transform.Translate(dir.normalized * enmSpeed * Time.deltaTime, Space.World);
-            Debug.Log("trigger off");
-
-            if (Vector3.Distance(transform.position, target.position) <= 0.5f)
+            if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
             {
                 if (nodeIndex >= PathNode.nodeTransform.Length - 1)
                 {
@@ -73,7 +70,7 @@ public class EnmMovement : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = gizmosColor;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmosRadius);
+        Gizmos.color = gizmo1Color;
+        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
     }
 }
