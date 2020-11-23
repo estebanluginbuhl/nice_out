@@ -44,79 +44,91 @@ public class Trap_Affichage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.GetComponent<Switch_Mode>().GetPause() == false && player.GetComponent<Switch_Mode>().GetMode() == false)
+
+        if (player.GetComponent<Switch_Mode>().GetPause() == false && player.GetComponent<Switch_Mode>().GetMode() == false)
         {
-            if (_trapManager.selectedTrap != null)
+            if (player.GetComponent<Switch_Mode>().mort == false)
             {
-                if (oldTrap != _trapManager.selectedTrap)
+                if (_trapManager.selectedTrap != null)
                 {
-                    prixReparationAffiche = false;
-                    prixRechargeAffiche = false;
-                    gainDemontageAffiche = false;
-                    oldTrap = _trapManager.selectedTrap;
-                }
-
-                _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
-
-                if (_trapStats != null)
-
-                {
-
-                    if (oldAmmoPercentage != Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs) && prixRechargeAffiche == true)
-                    {
-                        prixRechargeAffiche = false;
-                    }
-                    if (oldLifePercentage != Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs) && prixReparationAffiche == true)
+                    if (oldTrap != _trapManager.selectedTrap)
                     {
                         prixReparationAffiche = false;
+                        prixRechargeAffiche = false;
+                        gainDemontageAffiche = false;
+                        oldTrap = _trapManager.selectedTrap;
                     }
 
-                    //Reparation
-                    if (_trapStats.lifePercentage != 1 && prixReparationAffiche == false)
+                    _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
+
+                    if (_trapStats != null)
+
                     {
-                        _Image_Reparation.color = Color.white;
-                        _PrixReparation.text = "- " + Mathf.RoundToInt((1 - _trapStats.lifePercentage) * _trapStats.costs).ToString();
-                        oldLifePercentage = Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs);
-                        prixReparationAffiche = true;
-                    }
-                    else
-                    {
-                        if (prixReparationAffiche == false)
+
+                        if (oldAmmoPercentage != Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixRechargeAffiche == true)
                         {
-                            _Image_Reparation.color = Color.gray;
-                            _PrixReparation.text = "";
+                            prixRechargeAffiche = false;
+                        }
+                        if (oldLifePercentage != Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixReparationAffiche == true)
+                        {
+                            prixReparationAffiche = false;
+                        }
+
+                        //Reparation
+                        if (_trapStats.lifePercentage != 1 && prixReparationAffiche == false)
+                        {
+                            _Image_Reparation.color = Color.white;
+                            _PrixReparation.text = "- " + Mathf.RoundToInt((1 - _trapStats.lifePercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
+                            oldLifePercentage = Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]);
                             prixReparationAffiche = true;
                         }
-                    }
-                    //Rechargement
-                    if (_trapStats.ammoPercentage != 1 && prixRechargeAffiche == false)
-                    {
-                        _Image_Rechargement.color = Color.white;
-                        _PrixRechargement.text = "- " + Mathf.RoundToInt((1 - _trapStats.ammoPercentage) * _trapStats.costs).ToString();
-                        oldAmmoPercentage = Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs);
-                        prixRechargeAffiche = true;
-                    }
-                    else
-                    {
-                        if (prixRechargeAffiche == false)
+                        else
                         {
-                            _Image_Rechargement.color = Color.gray;
-                            _PrixRechargement.text = "";
+                            if (prixReparationAffiche == false)
+                            {
+                                _Image_Reparation.color = Color.gray;
+                                _PrixReparation.text = "";
+                                prixReparationAffiche = true;
+                            }
+                        }
+                        //Rechargement
+                        if (_trapStats.ammoPercentage != 1 && prixRechargeAffiche == false)
+                        {
+                            _Image_Rechargement.color = Color.white;
+                            _PrixRechargement.text = "- " + Mathf.RoundToInt((1 - _trapStats.ammoPercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
+                            oldAmmoPercentage = Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]);
                             prixRechargeAffiche = true;
+                        }
+                        else
+                        {
+                            if (prixRechargeAffiche == false)
+                            {
+                                _Image_Rechargement.color = Color.gray;
+                                _PrixRechargement.text = "";
+                                prixRechargeAffiche = true;
+                            }
+                        }
+
+                        if (gainDemontageAffiche == false)
+                        {
+                            _GainDemontage.text = "+ " + _trapStats.sellCosts[_trapStats.upgradeIndex].ToString();
+                            gainDemontageAffiche = true;
                         }
                     }
 
-                    if (gainDemontageAffiche == false)
+                    if (panelActive == false)
                     {
-                        _GainDemontage.text = "+ " + _trapStats.sellCosts[_trapStats.upgradeIndex].ToString();
-                        gainDemontageAffiche = true;
+                        gestionPanel.SetActive(true);
+                        panelActive = true;
                     }
                 }
-
-                if (panelActive == false)
+                else
                 {
-                    gestionPanel.SetActive(true);
-                    panelActive = true;
+                    if (panelActive == true)
+                    {
+                        gestionPanel.SetActive(false);
+                        panelActive = false;
+                    }
                 }
             }
             else
@@ -127,14 +139,28 @@ public class Trap_Affichage : MonoBehaviour
                     panelActive = false;
                 }
             }
+
+        }
+        else
+        {
+            if (panelActive == true)
+            {
+                gestionPanel.SetActive(false);
+                panelActive = false;
+            }
         }
     }
 
     public void damageThisFukinTrap()
     {
+
         _trapManager = player.GetComponent<Trap_Manager>();
-        _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
-        _trapStats.DamageTrap(10);
+        if (_trapManager.selectedTrap != null)
+        {
+            _trapStats = _trapManager.selectedTrap.GetComponent<Traps>();
+            _trapStats.DamageTrap(10);
+        }
+
     }
     private void OnEnable()
     {

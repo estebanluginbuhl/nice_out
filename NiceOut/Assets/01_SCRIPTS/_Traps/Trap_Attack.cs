@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Trap_Attack : MonoBehaviour
 {
+    //Truc important
     public GameObject parentTrap;
     public int type;
+
+    private void Update()
+    {
+        
+    }
 
     public void Attack()
     {

@@ -99,6 +99,7 @@ MonoBehaviour:
   turningPoint: {fileID: 0}
   player: {fileID: 0}
   scrollSpeed: 5
+  deathScroll: 20
   followSpeed: 1
   vMinMax: {x: -1.5, y: 0.5}
   sensitivity: 15
