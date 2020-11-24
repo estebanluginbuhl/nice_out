@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 7623199504368096721}
   - component: {fileID: 5866072686668005527}
   m_Layer: 5
-  m_Name: Healthbar_Trap
+  m_Name: PFB_UI_Healthbar_Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530133ac33143446a686cd772b7dc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 7413206124061644211, guid: 5597ff108d4f37d489db09c58114e9d8, type: 3}
   trap: {fileID: 0}
   barOlder: {fileID: 7623199503612068505}
   ui_HealthBar: {fileID: 5914048201598737133}
