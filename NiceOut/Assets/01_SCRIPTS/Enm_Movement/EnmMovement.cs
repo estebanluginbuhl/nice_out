@@ -8,8 +8,8 @@ public class EnmMovement : MonoBehaviour
     public bool pathFinding;
     public Transform enmTransform;
     public LayerMask playerDetectionLayer;
-    public float enmSpeed, targetTreshold, gizmo1Radius, gizmo2Radius;
-    public Color gizmo1Color, gizmo2Color;
+    public float enmSpeed, targetTreshold, gizmo1Radius;
+    public Color gizmo1Color;
 
     GameObject player;
     NavMeshAgent enmNavMesh;
@@ -40,8 +40,6 @@ public class EnmMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(enmNavMesh.destination);
-
         if (pathFinding == true)
         {
             enmNavMesh.destination = player.transform.position;

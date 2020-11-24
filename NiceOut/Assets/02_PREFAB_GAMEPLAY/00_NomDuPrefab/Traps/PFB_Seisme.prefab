@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2937658970468302954}
   m_Layer: 9
   m_Name: PFB_Seisme
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,11 +57,12 @@ MonoBehaviour:
   ammo: 0
   lifePercentage: 0
   ammoPercentage: 0
+  player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 3.75, y: 2.9, z: 3.75}
+  colliderSize: {x: 4, y: 2.9, z: 4}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: 80
+  costs: 280000003c00000050000000
   sellCosts: 23000000410000005f000000
   trapAndUpgrades:
   - {fileID: 1401173936192080181, guid: d25d8a45383217e4b9f41cd2b706bf19, type: 3}
@@ -76,7 +77,10 @@ MonoBehaviour:
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}
   ui_hbHeight: 4
-  ui_Image: {fileID: 0}
+  ui_Image:
+  - {fileID: 21300000, guid: 08ca5981410f41f43a0cd31332643b7c, type: 3}
+  - {fileID: 21300000, guid: 8085c87cebffa8f459b5a357169ad12f, type: 3}
+  - {fileID: 21300000, guid: 77333969ee7ff0649acde720bda0b445, type: 3}
 --- !u!65 &2937658970468302954
 BoxCollider:
   m_ObjectHideFlags: 0

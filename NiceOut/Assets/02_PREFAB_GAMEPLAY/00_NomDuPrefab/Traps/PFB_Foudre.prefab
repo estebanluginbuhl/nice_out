@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -357905071159575616}
   m_Layer: 9
   m_Name: PFB_Foudre
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,11 +57,12 @@ MonoBehaviour:
   ammo: 0
   lifePercentage: 0
   ammoPercentage: 0
+  player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 2.65, y: 2.9, z: 2.65}
+  colliderSize: {x: 3, y: 2.9, z: 3}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: 10
+  costs: 3c0000005000000064000000
   sellCosts: 3c00000078000000b4000000
   trapAndUpgrades:
   - {fileID: 3939043822711739126, guid: 198c32917bf45cd4dbf65f66dd990103, type: 3}
@@ -76,7 +77,10 @@ MonoBehaviour:
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}
   ui_hbHeight: 4
-  ui_Image: {fileID: 0}
+  ui_Image:
+  - {fileID: 21300000, guid: ad92cc702aacfed4eb03244904e113bc, type: 3}
+  - {fileID: 21300000, guid: fd72a7bdc3d0d2a4ea1d86ce472167b6, type: 3}
+  - {fileID: 21300000, guid: 8be56ea70f7ed984caeef8ac6f995402, type: 3}
 --- !u!65 &-357905071159575616
 BoxCollider:
   m_ObjectHideFlags: 0
