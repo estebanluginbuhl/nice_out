@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour
+public class Old_Shop : MonoBehaviour
 {
     Inputs inputs;
     public Canvas ui_Manager;
@@ -18,8 +18,8 @@ public class Shop : MonoBehaviour
     bool randomized;
     public GameObject[] allTraps;
 
-    int rndUpgradeTrapIndex;
-    int rndAddTrapIndex;
+    int upgradeTrapIndex;
+    int addTrapIndex;
     int rndStat;
     int rndUpValue;
     public Vector2 pourcentageUpgradeStatsMinMax;
@@ -109,12 +109,12 @@ public class Shop : MonoBehaviour
         
         if(nbTrapAdded < ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax)
         {
-            rndAddTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax); //index du gameobject a ajouter
-            if (addedTraps[rndAddTrapIndex] == 1)
+            addTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax); //index du gameobject a ajouter
+            if (addedTraps[addTrapIndex] == 1)
             {
-                while (addedTraps[rndAddTrapIndex] == 1)
+                while (addedTraps[addTrapIndex] == 1)
                 {
-                    rndAddTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax);
+                    addTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax);
                 }
             } 
         }
@@ -123,14 +123,14 @@ public class Shop : MonoBehaviour
             addButton.SetActive(false);
         }// check si tous l'inventaire est pas plein
 
-        if (allTraps[rndAddTrapIndex] != null)
+        if (allTraps[addTrapIndex] != null)
         {
-            imageAdd.sprite = allTraps[rndAddTrapIndex].GetComponent<Traps>().ui_Image[0];
+            imageAdd.sprite = allTraps[addTrapIndex].GetComponent<Traps>().ui_Image[0];
         }
 
-        rndUpgradeTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbUsedSlots); //index du gameobject a upgrade   
+        upgradeTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbUsedSlots); //index du gameobject a upgrade   
 
-        if (upgradeIndexes[rndUpgradeTrapIndex] == nbUpgradeMax) //check si toute les upgrade sont pas deja faite
+        if (upgradeIndexes[upgradeTrapIndex] == nbUpgradeMax) //check si toute les upgrade sont pas deja faite
         {
             //Debug.Log("peut pas ou plus upgrade");
             bool isUpgradable = false;
@@ -145,12 +145,12 @@ public class Shop : MonoBehaviour
             if (isUpgradable == true)
             {
                 Debug.Log("upgradable");
-                while (upgradeIndexes[rndUpgradeTrapIndex] == nbUpgradeMax)
+                while (upgradeIndexes[upgradeTrapIndex] == nbUpgradeMax)
                 {
-                    Debug.Log("upgrade index " + upgradeIndexes[rndUpgradeTrapIndex]);
+                    Debug.Log("upgrade index " + upgradeIndexes[upgradeTrapIndex]);
 
-                    rndUpgradeTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbUsedSlots);
-                    Debug.Log(upgradeIndexes[rndUpgradeTrapIndex] == nbUpgradeMax);
+                    upgradeTrapIndex = Random.Range(0, ui_Manager.GetComponent<Trap_Inventory>().nbUsedSlots);
+                    Debug.Log(upgradeIndexes[upgradeTrapIndex] == nbUpgradeMax);
                 }
             }
             else
@@ -158,11 +158,11 @@ public class Shop : MonoBehaviour
                 upgradeButton.SetActive(false);
             }
         }
-        if (ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex] != null)
+        if (ui_Manager.GetComponent<Trap_Inventory>().trapsItem[upgradeTrapIndex] != null)
         {
-            if((upgradeIndexes[rndUpgradeTrapIndex] + 1) <= 2)
+            if((upgradeIndexes[upgradeTrapIndex] + 1) <= 2)
             {
-                imageUpgrade.sprite = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[rndUpgradeTrapIndex] + 1];
+                imageUpgrade.sprite = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[upgradeTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[upgradeTrapIndex] + 1];
             }
 
         }
@@ -190,15 +190,14 @@ public class Shop : MonoBehaviour
         {
             imageStats.sprite = Energy_Image;
             textStats.text = "+ " + rndUpValue + " EN/s";
-
         }
     }
 
     public void AddTrap()  //AddRandomTrap;
     {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[rndAddTrapIndex]);
+        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[addTrapIndex]);
         upgradeIndexes[nbTrapAdded] = 0;
-        addedTraps[rndAddTrapIndex] = 1;
+        addedTraps[addTrapIndex] = 1;
         ShopPanelOpenClose();
         canShop = false;
         nbTrapAdded += 1;
@@ -206,8 +205,8 @@ public class Shop : MonoBehaviour
 
     public void UpgradeTrap()
     {
-        int _type = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex].GetComponent<Traps>().trapType; //Getle type du piege a upgrade dans l'inventaire
-        ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex].GetComponent<Traps>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorer
+        int _type = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[upgradeTrapIndex].GetComponent<Traps>().trapType; //Getle type du piege a upgrade dans l'inventaire
+        ui_Manager.GetComponent<Trap_Inventory>().trapsItem[upgradeTrapIndex].GetComponent<Traps>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorer
         //ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex].GetComponent<Traps>().UpgradeInventoryTrap();
         GameObject[] trapsToUpgrade = GameObject.FindGameObjectsWithTag("Trap");
 
@@ -218,13 +217,13 @@ public class Shop : MonoBehaviour
                 gmObj.GetComponent<Traps>().Upgrade();
             }
         }
-        upgradeIndexes[rndUpgradeTrapIndex] += 1;
-        ui_Manager.GetComponent<Trap_Inventory>().UpgradeTrapInventory(rndUpgradeTrapIndex, upgradeIndexes[rndUpgradeTrapIndex]);
+        upgradeIndexes[upgradeTrapIndex] += 1;
+        ui_Manager.GetComponent<Trap_Inventory>().UpgradeTrapInventory(upgradeTrapIndex, upgradeIndexes[upgradeTrapIndex]);
         ShopPanelOpenClose();
         canShop = false;
     }
 
-    public void UpStats()
+    /* public void UpStats()
     {
         if(rndStat == 1)
         {
@@ -240,7 +239,7 @@ public class Shop : MonoBehaviour
         }
         ShopPanelOpenClose();
         canShop = false;
-    }
+    }*/
 
     public void AllTraps()
     {
@@ -248,7 +247,6 @@ public class Shop : MonoBehaviour
         {
             ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i]);
         }
-        //ShopPanelOpenClose();
     } //temporaire
 
     private void OnEnable()
