@@ -124,6 +124,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Echap",
+                    "type": "Button",
+                    "id": "22503504-2a5a-4645-a394-7d144aeba6c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -399,6 +407,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4502653b-a800-4561-8b93-b7c78b9157f6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Echap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

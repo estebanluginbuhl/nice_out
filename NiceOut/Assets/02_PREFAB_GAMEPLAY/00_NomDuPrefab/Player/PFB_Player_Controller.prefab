@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 351840786129866637}
   - component: {fileID: 218604027}
   m_Layer: 10
-  m_Name: ThirdPersonController
+  m_Name: PFB_Player_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,16 +275,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostSpeed: 0
-  baseSpeed: 20
+  baseSpeed: 0.8
   turnSmooth: 2
   acceleration: 0.1
   gravity: 60
   floor:
     serializedVersion: 2
     m_Bits: 256
-  dashSpeed: 50
+  dashSpeed: 1
   cdRoll: 1
-  cdCout: 0
+  cdCount: 0
   PlayerAnimator: {fileID: 1140486815}
   invincibleDuration: 0.5
 --- !u!114 &7413206124061644214
@@ -333,10 +333,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   pause: 0
+  realPause: 0
+  isShopping: 0
   mort: 0
   cptMort: 0
   ui_deathTimer: {fileID: 0}
   ui_DeathPanel: {fileID: 0}
+  ui_PausePanel: {fileID: 0}
 --- !u!114 &7413206124061644217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +373,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.99
+  m_Height: 1.9
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -388,7 +391,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 2
+  m_Height: 1.9
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7413206124288006485

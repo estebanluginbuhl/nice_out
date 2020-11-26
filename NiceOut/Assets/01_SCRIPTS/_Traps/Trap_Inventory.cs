@@ -11,10 +11,13 @@ public class Trap_Inventory : MonoBehaviour
     Inputs inputs;
     public int nbTrapMax;
 
+    [HideInInspector]
     public bool full = false;
-
+    [HideInInspector]
     public Image[] slots;
+    [HideInInspector]
     public TextMeshProUGUI[] costs;
+    [HideInInspector]
     public GameObject[] trapsItem;
 
     public Image ui_InventoryPanel;
@@ -24,8 +27,9 @@ public class Trap_Inventory : MonoBehaviour
     public float offsetX; //ecartement entre les images
     public float offsetY; //hauteur images
     Vector3 scrolling;
-
+    [HideInInspector]
     public int nbUsedSlots;
+    [HideInInspector]
     public int selectedSlotIndex;
 
     // Start is called before the first frame update
@@ -46,14 +50,6 @@ public class Trap_Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (slots[0] != null)//retour position du selecteur
-        {
-            if (ui_SelectBox.rectTransform.position != slots[selectedSlotIndex].rectTransform.position)
-            {
-                ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
-            }
-        }
-
         if (scrolling.y < 0)
         {
             SelectLeft();
@@ -66,31 +62,84 @@ public class Trap_Inventory : MonoBehaviour
 
     void SelectRight()//Selectionner l'item de droite
     {
-        if (selectedSlotIndex >= nbUsedSlots - 1)
+        selectedSlotIndex += 1;
+        if ((selectedSlotIndex) > 4)
         {
             selectedSlotIndex = 0;
         }
-        else
+        for (int i = 0; i < nbTrapMax + 1; i++)
         {
-            selectedSlotIndex += 1;
+            if (slots[selectedSlotIndex] == null)
+            {
+                if ((selectedSlotIndex) > 4)
+                {
+                    selectedSlotIndex = 0;
+                }
+                else
+                {
+                    selectedSlotIndex += 1;
+                    if ((selectedSlotIndex) > 4)
+                    {
+                        selectedSlotIndex = 0;
+                    }
+                }
+            }
+            else
+            {
+                if (nbUsedSlots != 0)//retour position du selecteur
+                {
+                    if ((selectedSlotIndex) > 4)
+                    {
+                        selectedSlotIndex = 0;
+                    }
+                    ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
+                }
+                break;
+            }
         }
     }
     void SelectLeft()//Selectionner l'item de gauche    
     {
-        if (selectedSlotIndex <= 0)
+        selectedSlotIndex -= 1;
+        if ((selectedSlotIndex) < 0)
         {
-            selectedSlotIndex = nbUsedSlots - 1;
+            selectedSlotIndex = 4;
         }
-        else
+        for (int i = 0; i < nbTrapMax + 1; i++)
         {
-            selectedSlotIndex -= 1;
+            if (slots[selectedSlotIndex] == null)
+            {
+                if ((selectedSlotIndex) < 0)
+                {
+                    selectedSlotIndex = 4;
+                }
+                else
+                {
+                    selectedSlotIndex -= 1;
+                    if ((selectedSlotIndex) < 0)
+                    {
+                        selectedSlotIndex = 4;
+                    }
+                }
+            }
+            else
+            {
+                if (nbUsedSlots != 0)//retour position du selecteur
+                {
+                    if ((selectedSlotIndex) < 0)
+                    {
+                        selectedSlotIndex = 4;
+                    }
+                    ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
+                }
+                break;
+            }
         }
     }
 
-    public void UpdateInventory(GameObject trap)
+    public void UpdateInventory(GameObject trap, int _Index)
     {
         nbUsedSlots += 1;
-
         Vector2 slotPos = slotImage.rectTransform.position;
         Vector2 costPos = trapCostText.rectTransform.position;
 
@@ -103,25 +152,36 @@ public class Trap_Inventory : MonoBehaviour
         slotPos.y = offsetY;
         costPos.y = offsetY - 80;
 
-        slots[nbUsedSlots - 1] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
-        slots[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
-        slots[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
-        slots[nbUsedSlots - 1].sprite = trap.GetComponent<Traps>().ui_Image[0];
+        slots[_Index] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
+        slots[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
+        slots[_Index].rectTransform.localScale = Vector3.one;
+        slots[_Index].sprite = trap.GetComponent<Traps>().ui_Image[0];
 
-        costs[nbUsedSlots - 1] = TextMeshProUGUI.Instantiate(trapCostText, costPos, Quaternion.identity);
-        costs[nbUsedSlots - 1].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
-        costs[nbUsedSlots - 1].rectTransform.localScale = Vector3.one;
-        costs[nbUsedSlots - 1].text = (trap.GetComponent<Traps>().costs[0]).ToString();
+        costs[_Index] = TextMeshProUGUI.Instantiate(trapCostText, costPos, Quaternion.identity);
+        costs[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
+        costs[_Index].rectTransform.localScale = Vector3.one;
+        costs[_Index].text = (trap.GetComponent<Traps>().costs[0]).ToString();
 
-        trapsItem[nbUsedSlots - 1] = trap;
+        trapsItem[_Index] = trap;
 
-        for (int i = 0; i < nbUsedSlots; i++)
+        int slotJump = 0;
+
+        for (int i = 0; i < nbTrapMax; i++)
         {
-            slotPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * i));
-            costPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * i));
-            slots[i].rectTransform.localPosition = slotPos;
-            costs[i].rectTransform.localPosition = costPos;
+            if(slots[i] != null)
+            {
+                slotPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * (i - slotJump)));
+                costPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * (i - slotJump)));
+                slots[i].rectTransform.localPosition = slotPos;
+                costs[i].rectTransform.localPosition = costPos;
+            }
+            else
+            {
+                slotJump += 1;
+            }
         }
+        selectedSlotIndex = _Index;
+        SelectRight();
     }
 
     public void UpgradeTrapInventory(int _SlotIndex, int _UpIndex)

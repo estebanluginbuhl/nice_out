@@ -18,6 +18,7 @@ public class Trap_Manager : MonoBehaviour
 
     public float detectionRadius; //Variables sphere de detection
     public GameObject spherePosition;//Position de la sphere de selection de piège
+    [HideInInspector]
     public GameObject selectedTrap = null;//Si vous etes devant un piège il sera selectionné et stocké dans cette variable
     GameObject inventorySelection;//Piège que vous voulez poser
 
