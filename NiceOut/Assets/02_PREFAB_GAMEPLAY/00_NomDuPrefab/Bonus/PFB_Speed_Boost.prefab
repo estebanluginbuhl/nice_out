@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8863945564924706303}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8863945566094716297}
   m_RootOrder: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3505a075497c5f542b9770fea3c99e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostValue: 40
+  boostValue: 0.2
   boostTime: 3
   respawnTime: 10
 --- !u!65 &8863945566094716295
