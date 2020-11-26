@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8731416418560567866}
   - component: {fileID: 8731416418560567871}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: PFB_Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
   scrollSpeed: 5
   deathScroll: 20
   followSpeed: 1
-  vMinMax: {x: -1.5, y: 0.5}
+  vMinMax: {x: -1.5, y: 0.45}
   sensitivity: 15
   distance: 8
-  height: 1.5
+  height: 0.12
   turnSmooth: 0.9

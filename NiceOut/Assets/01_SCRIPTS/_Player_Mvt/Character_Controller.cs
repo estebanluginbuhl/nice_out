@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class ThirdPersonControler : MonoBehaviour
+public class Character_Controller : MonoBehaviour
 {
     Inputs inputs;
     Vector2 move;
@@ -28,7 +28,8 @@ public class ThirdPersonControler : MonoBehaviour
     bool isRolling = false;
 
     public float cdRoll; // temps entre roulade;
-    public float cdCout; // temps entre roulade;
+    [HideInInspector]
+    public float cdCount; // compteur temps entre roulade;
 
     public Animator PlayerAnimator;
     public float invincibleDuration = 0.2f;
@@ -53,7 +54,7 @@ public class ThirdPersonControler : MonoBehaviour
     }
     void Update()
     {
-        if(GetComponent<Switch_Mode>().GetPause() == false)
+        if (GetComponent<Switch_Mode>().GetPause() == false)
         {
             if (GetComponent<Switch_Mode>().mort == false)
             {
@@ -71,18 +72,18 @@ public class ThirdPersonControler : MonoBehaviour
                     PlayerAnimator.SetBool("Forward", false);
                     moveDir = Vector3.down * gravity * Time.deltaTime;
                 }
-
+                
                 if (isRolling == false)
                 {
                     transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
-                    charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
+                    charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed));//Mouvement
                 }
 
 
                 //Input roulade
-                if (cdCout > 0)
+                if (cdCount > 0)
                 {
-                    cdCout -= Time.deltaTime;
+                    cdCount -= Time.deltaTime;
                 }
                 else
                 {
@@ -97,7 +98,7 @@ public class ThirdPersonControler : MonoBehaviour
                 if (invincibleCount > 0)
                 {
                     transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
-                    charaCtrl.Move(moveDir.normalized * dashSpeed * Time.deltaTime);
+                    charaCtrl.Move(moveDir.normalized * (dashSpeed + boostSpeed));
                     invincibleCount -= Time.deltaTime;
                 }
                 else
@@ -127,7 +128,7 @@ public class ThirdPersonControler : MonoBehaviour
 
         PlayerAnimator.SetTrigger("Roulade");
         invincibleCount = invincibleDuration;
-        cdCout = cdRoll;
+        cdCount = cdRoll;
         charaColl.enabled = false;
     }
 
