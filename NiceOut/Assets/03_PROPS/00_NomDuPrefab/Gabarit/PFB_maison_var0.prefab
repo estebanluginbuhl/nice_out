@@ -118,6 +118,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: maison_bas (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2661936350254937628, guid: 1c605fc22157d77418bc2d4af4ef63b6,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661936350254937628, guid: 1c605fc22157d77418bc2d4af4ef63b6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c605fc22157d77418bc2d4af4ef63b6, type: 3}
 --- !u!4 &2661936350321729519 stripped
@@ -477,6 +487,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: maison_bas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661936350254937628, guid: 1c605fc22157d77418bc2d4af4ef63b6,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661936350254937628, guid: 1c605fc22157d77418bc2d4af4ef63b6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c605fc22157d77418bc2d4af4ef63b6, type: 3}
