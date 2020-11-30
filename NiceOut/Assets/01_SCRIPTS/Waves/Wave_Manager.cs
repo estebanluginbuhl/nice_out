@@ -8,6 +8,7 @@ public class Wave_Manager : MonoBehaviour
     // Aussi il faut que tu fasse le choix des differente firme de la wave aprés le wavestart, demande quand t'en est la je texpliquerai pk
     public UI_Shop shop;//Utilises shop.canShop = true quand la vague est terminée pour que le joueur puisse recevoir un piege ou une upgrade
 
+    public int nbWaves;
     public bool waveStarted;
     public int nbFirmesOnMap; //nb de batiments de firmes sur la map par wave. Meme si il y a plusieur fois la meme firme chaque batiment compte pour 1
     int lootIndex = 0; //En gros c'est l'index du tableau de loot, a chaque batiment de la wave détruit ca monte de 1. On peut aussi s'en servir pour verif si tous les batiments on était détruit.Va de 0 à 4.

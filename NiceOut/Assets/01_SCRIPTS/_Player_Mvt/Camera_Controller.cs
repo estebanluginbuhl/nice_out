@@ -3,24 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Camera))]
 public class Camera_Controller : MonoBehaviour
 {
     Inputs inputs;
-    public Transform turningPoint;
-    public GameObject player;
-    public LayerMask floor;
-    public LayerMask worldObject;
-    //movement
-    float h, v;
     Vector2 moveCam;
-    Vector2 deathMoveCam;
     Vector2 scroll;
-    public float scrollSpeed, deathScroll, followSpeed;
-    public Vector2 vMinMax;
-    Vector3 desiredRotation;
 
-    public float sensitivity, distance, adjustDistance, height, turnSmooth;
-    public float collisionRadius;
+    [SerializeField]
+    Transform focus = default;
+    [SerializeField]
+    float distance = 5f;
+    [SerializeField, Min(0f)]
+    float focusRadius = 1f;
+    Vector3 focusPoint, previousFocusPoint;
+    [SerializeField, Range(0f, 1f)]
+    float focusCentering = 0.5f;
+    [SerializeField, Range(1f, 360f)]
+    float rotationSpeed = 90f;
+
+    Vector2 orbitAngles = new Vector2(45f, 0f);
+    [SerializeField, Range(-89f, 89f)]
+    float minVerticalAngle = 5f, maxVerticalAngle = 85f;
+    [SerializeField, Min(0f)]
+    float alignDelay = 5f;
+    float lastManualRotationTime;
+
+    [SerializeField, Range(0f, 90f)]
+    float alignSmoothRange = 45f;
+    Camera regularCamera;
+
+    [SerializeField]
+    LayerMask obstructionMask = -1;
+
+    float test = 0;
+    float speed = 10;
 
     private void Awake()
     {
@@ -29,128 +46,175 @@ public class Camera_Controller : MonoBehaviour
         inputs.Actions.CameraMove.performed += ctx => moveCam = ctx.ReadValue<Vector2>();
         inputs.Actions.CameraMove.canceled += ctx => moveCam = Vector2.zero;
 
-        //move in TopDown
-        inputs.Actions.Move.performed += ctx => deathMoveCam = ctx.ReadValue<Vector2>();
-        inputs.Actions.Move.canceled += ctx => deathMoveCam = Vector2.zero;
-
         inputs.Actions.MouseScroll.performed += ctx => scroll = ctx.ReadValue<Vector2>();
         inputs.Actions.MouseScroll.canceled += ctx => scroll = Vector2.zero;
+
+        regularCamera = GetComponent<Camera>();
+        focusPoint = focus.position;
+        transform.localRotation = Quaternion.Euler(orbitAngles);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if (player.GetComponent<Switch_Mode>().GetPause() == false)
+        distance += scroll.y * Time.deltaTime * 0.1f;
+
+        UpdateFocusPoint();
+        ManualRotation();
+        Quaternion lookRotation;
+        if (ManualRotation() || AutomaticRotation())
         {
-            if (Cursor.lockState == CursorLockMode.None)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            if (player.GetComponent<Switch_Mode>().mort == false)
-            {
-                MoveThirdPerson();
-            }
-            else
-            {
-                MoveTopDown();
-            }
-        }
-    }
-
-
-    void MoveThirdPerson()
-    {
-        h += moveCam.x * Time.deltaTime;
-        v += moveCam.y * Time.deltaTime;
-
-        v = Mathf.Clamp(v, vMinMax.x, vMinMax.y);// bloque rotation haut bas
-
-        if (moveCam.x != 0 || moveCam.y != 0)
-        {
-            transform.rotation = Quaternion.Euler(desiredRotation);
-        }
-        desiredRotation = new Vector3(-v, h, 0) * sensitivity;
-        transform.position = Vector3.SlerpUnclamped(transform.position, turningPoint.transform.position - transform.forward * adjustDistance + transform.up * height, followSpeed);
-
-        if (CollisionCamera())
-        {
-            adjustDistance -= 100 * Time.deltaTime;
+            test = 0;
+            StartCoroutine(TurnSmooth());
+            ConstrainAngles();
+            lookRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(orbitAngles), test);
         }
         else
         {
-            if (adjustDistance < distance)
+            lookRotation = transform.localRotation;
+        }
+        Vector3 lookDirection = lookRotation * Vector3.forward;
+        Vector3 lookPosition = focusPoint - lookDirection * distance;
+
+        Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
+        Vector3 rectPosition = lookPosition + rectOffset;
+        Vector3 castFrom = focus.position;
+        Vector3 castLine = rectPosition - castFrom;
+        float castDistance = castLine.magnitude;
+        Vector3 castDirection = castLine / castDistance;
+
+
+        if (Physics.BoxCast(castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, lookRotation, castDistance, obstructionMask))
+        {
+            rectPosition = castFrom + castDirection * hit.distance;
+            lookPosition = rectPosition - rectOffset;
+        }
+
+        transform.SetPositionAndRotation(lookPosition, lookRotation);
+    }
+
+    void UpdateFocusPoint()
+    {
+        previousFocusPoint = focusPoint;
+        Vector3 targetPoint = focus.position;
+        if (focusRadius > 0f)
+        {
+            float distance = Vector3.Distance(targetPoint, focusPoint);
+            float t = 1f;
+            if (distance > 0.01f && focusCentering > 0f)
             {
-                adjustDistance += 100 * Time.deltaTime;
+                t = Mathf.Pow(1f - focusCentering, Time.unscaledDeltaTime);
             }
-            else
+            if (distance > focusRadius)
             {
-                if(adjustDistance != distance)
-                {
-                    adjustDistance = distance;
-                }
+                t = Mathf.Min(t, focusRadius / distance);
             }
+            focusPoint = Vector3.Lerp(targetPoint, focusPoint, t);
+        }
+        else
+        {
+            focusPoint = targetPoint;
         }
     }
 
-
-    bool CollisionCamera()
+    bool ManualRotation()
     {
-        Collider[] colliding = Physics.OverlapSphere(transform.position, collisionRadius, floor | worldObject);
-        Ray ray = new Ray(turningPoint.transform.position, transform.position);
-        if (colliding.Length != 0)
+        const float e = 0.001f;
+        if(moveCam.x < -e || moveCam.x > e || moveCam.y < -e || moveCam.y > e)
         {
+            orbitAngles += rotationSpeed * Time.unscaledDeltaTime * new Vector2(moveCam.y, moveCam.x);
+            lastManualRotationTime = Time.unscaledTime;
             return true;
         }
-        else
+        return false;
+    }
+
+    bool AutomaticRotation()
+    {
+        if (Time.unscaledTime - lastManualRotationTime < alignDelay)
         {
-            if (Physics.Raycast(ray, Vector3.Distance(transform.position, turningPoint.position), floor | worldObject))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
+        }
+
+        Vector2 movement = new Vector2(focusPoint.x - previousFocusPoint.x, focusPoint.z - previousFocusPoint.z);
+        float movementDeltaSqr = movement.sqrMagnitude;
+        if (movementDeltaSqr < 0.000001f)
+        {
+            return false;
+        }
+        float headingAngle = GetAngle(movement / Mathf.Sqrt(movementDeltaSqr));
+        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(orbitAngles.y, headingAngle));
+        float rotationChange = rotationSpeed * Mathf.Min(Time.unscaledDeltaTime, movementDeltaSqr);
+        if (deltaAbs < alignSmoothRange)
+        {
+            rotationChange *= deltaAbs / alignSmoothRange;
+        }
+        else if (180f - deltaAbs < alignSmoothRange)
+        {
+            rotationChange *= (180f - deltaAbs) / alignSmoothRange;
+        }
+        orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);
+        return true;
+    }
+
+    void ConstrainAngles()
+    {
+        orbitAngles.x = Mathf.Clamp(orbitAngles.x, minVerticalAngle, maxVerticalAngle);
+        if (orbitAngles.y < 0f)
+        {
+            orbitAngles.y += 360f;
+        }
+        else if (orbitAngles.y >= 360f)
+        {
+            orbitAngles.y -= 360f;
         }
     }
 
-    void MoveTopDown()
+    Vector3 CameraHalfExtends
     {
-        if (distance > 1)
+        get
         {
-            h += deathMoveCam.x * Time.deltaTime * sensitivity * distance;
-            v += deathMoveCam.y * Time.deltaTime * sensitivity * distance;
+            Vector3 halfExtends;
+            halfExtends.y =
+            regularCamera.nearClipPlane * Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
+            halfExtends.x = halfExtends.y * regularCamera.aspect;
+            halfExtends.z = 0f;
+            return halfExtends;
         }
-        else
-        {
-            h += deathMoveCam.x * Time.deltaTime * sensitivity;
-            v += deathMoveCam.y * Time.deltaTime * sensitivity;
-        }
+    }
 
+    static float GetAngle(Vector2 direction)
+    {
+        float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
+        return direction.x < 0f ? 360f - angle : angle;
+    }
 
-        if (scroll.y < 0)
+    IEnumerator TurnSmooth()
+    {
+        if (test < 1)
         {
-            distance -= 1 * deathScroll * Time.deltaTime;
+            test += speed * Time.unscaledDeltaTime;
         }
-        if (scroll.y > 0)
+        yield return new WaitForSecondsRealtime(10);
+    }
+
+    void OnValidate()
+    {
+        if (maxVerticalAngle < minVerticalAngle)
         {
-            distance += 1 * deathScroll * Time.deltaTime;
+            maxVerticalAngle = minVerticalAngle;
         }
-        transform.position = new Vector3(h, distance + 25, v);
-        transform.rotation = Quaternion.Euler(Vector3.right * 90);
     }
 
     private void OnEnable()
     {
         inputs.Actions.Enable();
     }
+
     private void OnDisable()
     {
         inputs.Actions.Disable();
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, collisionRadius);
     }
 }

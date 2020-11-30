@@ -8,6 +8,8 @@ public class Trap_Affichage : MonoBehaviour
 {
     Inputs input;
     public GameObject player;
+
+    [Header("UI Elements")]
     public GameObject gestionPanel;
     public TextMeshProUGUI _PrixReparation;
     public TextMeshProUGUI _PrixRechargement;
@@ -21,7 +23,6 @@ public class Trap_Affichage : MonoBehaviour
     bool panelActive;
     float oldLifePercentage;
     float oldAmmoPercentage;
-
 
     Trap_Manager _trapManager;
     Traps _trapStats;
