@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6343466456876240757}
   - component: {fileID: 7014327665131691280}
   - component: {fileID: 2573076706653007307}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: PFB_TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
