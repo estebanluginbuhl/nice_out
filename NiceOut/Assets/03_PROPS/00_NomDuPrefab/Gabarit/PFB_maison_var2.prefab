@@ -140,6 +140,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: maison2_bas (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 133613597885165732, guid: f5204a44a56e25247ab948a21466cafd,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 133613597885165732, guid: f5204a44a56e25247ab948a21466cafd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 133613597885165736, guid: f5204a44a56e25247ab948a21466cafd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -679,6 +689,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: maison2_bas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 133613597885165732, guid: f5204a44a56e25247ab948a21466cafd,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 133613597885165732, guid: f5204a44a56e25247ab948a21466cafd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 133613597885165736, guid: f5204a44a56e25247ab948a21466cafd,
         type: 3}
