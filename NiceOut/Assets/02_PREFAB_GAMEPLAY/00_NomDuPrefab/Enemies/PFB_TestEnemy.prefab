@@ -105,7 +105,8 @@ GameObject:
   - component: {fileID: 2386091292313006713}
   - component: {fileID: 6343466456876240757}
   - component: {fileID: 7014327665131691280}
-  m_Layer: 0
+  - component: {fileID: 2573076706653007307}
+  m_Layer: 13
   m_Name: PFB_TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,9 +160,7 @@ MonoBehaviour:
   enmSpeed: 5
   targetTreshold: 0.5
   gizmo1Radius: 10
-  gizmo2Radius: 50
   gizmo1Color: {r: 1, g: 0, b: 1, a: 1}
-  gizmo2Color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -184,3 +183,16 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2573076706653007307
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547376902778127861}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.7, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
