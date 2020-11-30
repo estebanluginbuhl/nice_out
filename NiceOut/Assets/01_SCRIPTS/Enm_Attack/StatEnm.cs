@@ -12,9 +12,6 @@ public class StatEnm : MonoBehaviour
 
     void Update()
     {
-        //enmHealth
-        //faire barre de vie enm
-
         trapTarget = Physics.OverlapSphere(transform.position, gizmosRadius, trapDetectionLayer);
         playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
 
@@ -27,16 +24,6 @@ public class StatEnm : MonoBehaviour
             Damage();
             damageCooldown += Time.deltaTime;
         }
-    }
-
-    public void goodEnm(int takenDamage)
-    {
-        enmHealth += takenDamage;
-    }
-
-    public void badEnm(int takenDamage)
-    {
-        enmHealth -= takenDamage;
     }
 
     void Damage()
@@ -57,6 +44,16 @@ public class StatEnm : MonoBehaviour
             else return;
         }
         return;
+    }
+
+    public void goodEnm(int takenDamage)
+    {
+        enmHealth += takenDamage;
+    }
+
+    public void badEnm(int takenDamage)
+    {
+        enmHealth -= takenDamage;
     }
 
     void OnDrawGizmos()
