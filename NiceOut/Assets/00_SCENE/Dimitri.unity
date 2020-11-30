@@ -2113,18 +2113,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8731416417701662371}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1603163632 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8349706439123137129, guid: 0829cee19679f1a4a868899ba950d838,
-    type: 3}
-  m_PrefabInstance: {fileID: 8349706440372889497}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1610132548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,7 +2895,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ui_deathTimer
       value: 
-      objectReference: {fileID: 1603163632}
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -2938,6 +2926,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 285817341}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: goldValue_Text
+      value: 
+      objectReference: {fileID: 1611588114}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5597ff108d4f37d489db09c58114e9d8, type: 3}
 --- !u!1001 &7791396275454838902
@@ -3031,6 +3024,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 976804883, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1217997644, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3039,10 +3036,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 218604030}
+    - target: {fileID: 1918594633, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
+      propertyPath: m_Name
+      value: UI_Button_Restart
+      objectReference: {fileID: 0}
     - target: {fileID: 1918594635, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 218604030}
+    - target: {fileID: 1918594635, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
     - target: {fileID: 8349706439209528560, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
       propertyPath: m_Camera
@@ -3163,6 +3168,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_UI_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8349706439246629443, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349706439836124552, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_Name
+      value: goldValue
+      objectReference: {fileID: 0}
+    - target: {fileID: 8649792687852402501, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058947289397911699, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 218604030}
+    - target: {fileID: 9058947289397911699, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Retry
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0829cee19679f1a4a868899ba950d838, type: 3}
 --- !u!1 &8349706440806464395 stripped
@@ -3182,6 +3212,10 @@ PrefabInstance:
       propertyPath: focus
       value: 
       objectReference: {fileID: 300265473}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: switchMode
+      value: 
+      objectReference: {fileID: 218604030}
     - target: {fileID: 8731416418560567864, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -222,7 +222,7 @@ public class Trap_Manager : MonoBehaviour
     public void PlaceTrap(GameObject _inventorySelection)//Methode de placement du piège selectionné
     {
         Traps trapStats = _inventorySelection.GetComponent<Traps>();
-        if (GetComponent<StatsPlayer>().energy >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
+        if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
         {
             GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
             billy.transform.Rotate(floorInclinaison);
@@ -239,7 +239,7 @@ public class Trap_Manager : MonoBehaviour
 
         if(trapStats.ammoPercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().energy >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
+            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 Debug.Log("filled");
                 GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]));
@@ -271,7 +271,7 @@ public class Trap_Manager : MonoBehaviour
         Traps trapStats = selectedTrap.GetComponent<Traps>();
         if(trapStats.lifePercentage < 1)
         {
-            if (GetComponent<StatsPlayer>().energy >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
+            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
             {
                 GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]));
                 trapStats.life = trapStats.fullLife[trapStats.upgradeIndex];

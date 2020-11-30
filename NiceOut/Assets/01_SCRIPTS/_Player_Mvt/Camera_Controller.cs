@@ -11,6 +11,9 @@ public class Camera_Controller : MonoBehaviour
     Vector2 scroll;
 
     [SerializeField]
+     Switch_Mode switchMode;
+
+    [SerializeField]
     Transform focus = default;
     [SerializeField]
     float distance = 5f;
@@ -59,40 +62,47 @@ public class Camera_Controller : MonoBehaviour
 
     private void LateUpdate()
     {
-        distance += scroll.y * Time.deltaTime * 0.1f;
-
-        UpdateFocusPoint();
-        ManualRotation();
-        Quaternion lookRotation;
-        if (ManualRotation() || AutomaticRotation())
+        if(switchMode.GetMort() == false)
         {
-            test = 0;
-            StartCoroutine(TurnSmooth());
-            ConstrainAngles();
-            lookRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(orbitAngles), test);
+            if(switchMode.GetPause() == false)
+            {
+                distance += scroll.y * Time.deltaTime * 0.1f;
+
+                UpdateFocusPoint();
+                ManualRotation();
+                Quaternion lookRotation;
+                if (ManualRotation() || AutomaticRotation())
+                {
+                    test = 0;
+                    StartCoroutine(TurnSmooth());
+                    ConstrainAngles();
+                    lookRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(orbitAngles), test);
+                }
+                else
+                {
+                    lookRotation = transform.localRotation;
+                }
+                Vector3 lookDirection = lookRotation * Vector3.forward;
+                Vector3 lookPosition = focusPoint - lookDirection * distance;
+
+                Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
+                Vector3 rectPosition = lookPosition + rectOffset;
+                Vector3 castFrom = focus.position;
+                Vector3 castLine = rectPosition - castFrom;
+                float castDistance = castLine.magnitude;
+                Vector3 castDirection = castLine / castDistance;
+
+
+                if (Physics.BoxCast(castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, lookRotation, castDistance, obstructionMask))
+                {
+                    rectPosition = castFrom + castDirection * hit.distance;
+                    lookPosition = rectPosition - rectOffset;
+                }
+
+                transform.SetPositionAndRotation(lookPosition, lookRotation);
+            }
         }
-        else
-        {
-            lookRotation = transform.localRotation;
-        }
-        Vector3 lookDirection = lookRotation * Vector3.forward;
-        Vector3 lookPosition = focusPoint - lookDirection * distance;
 
-        Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
-        Vector3 rectPosition = lookPosition + rectOffset;
-        Vector3 castFrom = focus.position;
-        Vector3 castLine = rectPosition - castFrom;
-        float castDistance = castLine.magnitude;
-        Vector3 castDirection = castLine / castDistance;
-
-
-        if (Physics.BoxCast(castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, lookRotation, castDistance, obstructionMask))
-        {
-            rectPosition = castFrom + castDirection * hit.distance;
-            lookPosition = rectPosition - rectOffset;
-        }
-
-        transform.SetPositionAndRotation(lookPosition, lookRotation);
     }
 
     void UpdateFocusPoint()
