@@ -274,19 +274,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ccb6d5231d8ac48ba8694b3c96db62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostSpeed: 0
-  baseSpeed: 0.8
-  turnSmooth: 2
-  acceleration: 0.1
-  gravity: 60
+  PlayerAnimator: {fileID: 1140486815}
   floor:
     serializedVersion: 2
     m_Bits: 256
-  dashSpeed: 1
-  cdRoll: 1
-  cdCount: 0
-  PlayerAnimator: {fileID: 1140486815}
+  baseSpeed: 0.5
+  boostSpeed: 0
+  turnSmooth: 10
+  gravity: 60
+  dashSpeed: 0.8
   invincibleDuration: 0.5
+  cdRoll: 1
 --- !u!114 &7413206124061644214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7413206124288006484}
   m_Layer: 10
-  m_Name: Turning_Point
+  m_Name: Camera_Focus_Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

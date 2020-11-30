@@ -8,27 +8,30 @@ public class UI_Shop : MonoBehaviour
 {
     Inputs inputs;
 
+    [Header("References")]
+    public GameObject player;
+    public GameObject laCam;
     public Wave_Manager waveHandler;
+
+    [Header("Traps")]
     public GameObject[] allTraps; //tous les traps possibles
+    public int nbUpgradeMax = 2;
 
     bool mustUpgrade;
     int lootTrapIndex;
     int[] upgradeIndexes; //Stock les numero d'amélioration de chaque pièges
     int[] addedTraps; //Stock les pièges deja obtenuent.
-
-    public int nbUpgradeMax = 2;
     int nbTrapAdded = 0;
 
     //UI
+    [Header("UI Elements")]
     public Canvas ui_Manager;
-    public GameObject player;
-    public GameObject laCam;
     public GameObject uiShopPanel;
     public Image uiLootImage;
     public TextMeshProUGUI uiLootText;
-    bool open, isOpened = false;
 
     public bool canShop;
+    bool open, isOpened = false;
     bool lootSelected;
 
 
@@ -65,7 +68,7 @@ public class UI_Shop : MonoBehaviour
 
         if(canShop == true)
         {
-            if(lootSelected == false)
+            if (lootSelected == false)
             {
                 LootChoice();
                 ShopPanelOpenClose();
@@ -74,7 +77,7 @@ public class UI_Shop : MonoBehaviour
         }
         else
         {
-            if(lootSelected == true)
+            if (lootSelected == true)
             {
                 lootSelected = false;
             }
