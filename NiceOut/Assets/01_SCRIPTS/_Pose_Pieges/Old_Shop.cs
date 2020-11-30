@@ -164,7 +164,6 @@ public class Old_Shop : MonoBehaviour
             {
                 imageUpgrade.sprite = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[upgradeTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[upgradeTrapIndex] + 1];
             }
-
         }
         if(nbTrapAdded == 0)
         {
@@ -195,7 +194,7 @@ public class Old_Shop : MonoBehaviour
 
     public void AddTrap()  //AddRandomTrap;
     {
-        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[addTrapIndex]);
+        ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[addTrapIndex], addTrapIndex);
         upgradeIndexes[nbTrapAdded] = 0;
         addedTraps[addTrapIndex] = 1;
         ShopPanelOpenClose();
@@ -245,7 +244,7 @@ public class Old_Shop : MonoBehaviour
     {
         for (int i = 0; i < allTraps.Length; i++)
         {
-            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i]);
+            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i], i);
         }
     } //temporaire
 

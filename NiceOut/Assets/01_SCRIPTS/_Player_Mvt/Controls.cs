@@ -137,6 +137,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Echap"",
+                    ""type"": ""Button"",
+                    ""id"": ""22503504-2a5a-4645-a394-7d144aeba6c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -414,6 +422,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""action"": ""RotateLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4502653b-a800-4561-8b93-b7c78b9157f6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Echap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -465,6 +484,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Actions_Test = m_Actions.FindAction("Test", throwIfNotFound: true);
         m_Actions_RotateRight = m_Actions.FindAction("RotateRight", throwIfNotFound: true);
         m_Actions_RotateLeft = m_Actions.FindAction("RotateLeft", throwIfNotFound: true);
+        m_Actions_Echap = m_Actions.FindAction("Echap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -529,6 +549,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Actions_Test;
     private readonly InputAction m_Actions_RotateRight;
     private readonly InputAction m_Actions_RotateLeft;
+    private readonly InputAction m_Actions_Echap;
     public struct ActionsActions
     {
         private @Inputs m_Wrapper;
@@ -548,6 +569,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Test => m_Wrapper.m_Actions_Test;
         public InputAction @RotateRight => m_Wrapper.m_Actions_RotateRight;
         public InputAction @RotateLeft => m_Wrapper.m_Actions_RotateLeft;
+        public InputAction @Echap => m_Wrapper.m_Actions_Echap;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -602,6 +624,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @RotateLeft.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotateLeft;
                 @RotateLeft.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotateLeft;
                 @RotateLeft.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRotateLeft;
+                @Echap.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnEchap;
+                @Echap.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnEchap;
+                @Echap.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnEchap;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -651,6 +676,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @RotateLeft.started += instance.OnRotateLeft;
                 @RotateLeft.performed += instance.OnRotateLeft;
                 @RotateLeft.canceled += instance.OnRotateLeft;
+                @Echap.started += instance.OnEchap;
+                @Echap.performed += instance.OnEchap;
+                @Echap.canceled += instance.OnEchap;
             }
         }
     }
@@ -690,5 +718,6 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnTest(InputAction.CallbackContext context);
         void OnRotateRight(InputAction.CallbackContext context);
         void OnRotateLeft(InputAction.CallbackContext context);
+        void OnEchap(InputAction.CallbackContext context);
     }
 }
