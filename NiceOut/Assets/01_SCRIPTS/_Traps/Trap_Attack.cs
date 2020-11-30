@@ -9,7 +9,7 @@ public class Trap_Attack : MonoBehaviour
     public int type;
 
     public float range;
-    public float damages;
+    public int damages;
     [SerializeField]
     LayerMask ennemisMask = -1;
 
@@ -22,12 +22,13 @@ public class Trap_Attack : MonoBehaviour
         {
             Collider[] ennemis = Physics.OverlapSphere(transform.position, range, ennemisMask);
 
-            if (ennemis != null)
+            if (ennemis.Length != 0)
             {
                 foreach(Collider c in ennemis)
                 {
-                   // c.GetComponent<>().goodEnm();
+                    c.GetComponent<StatEnm>().goodEnm(damages);
                 }
+                Attack();
             }
         }
         else
@@ -37,8 +38,14 @@ public class Trap_Attack : MonoBehaviour
     public void Attack()
     {
         //-1 munition;
-        parentTrap.GetComponent<Traps>().ammo -= 1;
-        parentTrap.GetComponent<Traps>().ammoPercentage = parentTrap.GetComponent<Traps>().ammo / parentTrap.GetComponent<Traps>().fullAmmo[parentTrap.GetComponent<Traps>().upgradeIndex];
+        parentTrap.GetComponent<Traps>().usure -= 1;
+        parentTrap.GetComponent<Traps>().UsurePercentage = parentTrap.GetComponent<Traps>().usure / parentTrap.GetComponent<Traps>().fullUsure[parentTrap.GetComponent<Traps>().upgradeIndex];
         compteurCooldown = cdAttack;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

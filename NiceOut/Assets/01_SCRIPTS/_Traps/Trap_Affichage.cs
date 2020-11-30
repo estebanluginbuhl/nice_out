@@ -11,18 +11,10 @@ public class Trap_Affichage : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject gestionPanel;
-    public TextMeshProUGUI _PrixReparation;
-    public TextMeshProUGUI _PrixRechargement;
     public TextMeshProUGUI _GainDemontage;
-    public Image _Image_Reparation;
-    public Image _Image_Rechargement;
-
-    bool prixReparationAffiche;
-    bool prixRechargeAffiche;
     bool gainDemontageAffiche;
     bool panelActive;
-    float oldLifePercentage;
-    float oldAmmoPercentage;
+    float oldUsurePercentage;
 
     Trap_Manager _trapManager;
     Traps _trapStats;
@@ -54,8 +46,6 @@ public class Trap_Affichage : MonoBehaviour
                 {
                     if (oldTrap != _trapManager.selectedTrap)
                     {
-                        prixReparationAffiche = false;
-                        prixRechargeAffiche = false;
                         gainDemontageAffiche = false;
                         oldTrap = _trapManager.selectedTrap;
                     }
@@ -65,51 +55,6 @@ public class Trap_Affichage : MonoBehaviour
                     if (_trapStats != null)
 
                     {
-
-                        if (oldAmmoPercentage != Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixRechargeAffiche == true)
-                        {
-                            prixRechargeAffiche = false;
-                        }
-                        if (oldLifePercentage != Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]) && prixReparationAffiche == true)
-                        {
-                            prixReparationAffiche = false;
-                        }
-
-                        //Reparation
-                        if (_trapStats.lifePercentage != 1 && prixReparationAffiche == false)
-                        {
-                            _Image_Reparation.color = Color.white;
-                            _PrixReparation.text = "- " + Mathf.RoundToInt((1 - _trapStats.lifePercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
-                            oldLifePercentage = Mathf.RoundToInt(_trapStats.lifePercentage * _trapStats.costs[_trapStats.upgradeIndex]);
-                            prixReparationAffiche = true;
-                        }
-                        else
-                        {
-                            if (prixReparationAffiche == false)
-                            {
-                                _Image_Reparation.color = Color.gray;
-                                _PrixReparation.text = "";
-                                prixReparationAffiche = true;
-                            }
-                        }
-                        //Rechargement
-                        if (_trapStats.ammoPercentage != 1 && prixRechargeAffiche == false)
-                        {
-                            _Image_Rechargement.color = Color.white;
-                            _PrixRechargement.text = "- " + Mathf.RoundToInt((1 - _trapStats.ammoPercentage) * _trapStats.costs[_trapStats.upgradeIndex]).ToString();
-                            oldAmmoPercentage = Mathf.RoundToInt(_trapStats.ammoPercentage * _trapStats.costs[_trapStats.upgradeIndex]);
-                            prixRechargeAffiche = true;
-                        }
-                        else
-                        {
-                            if (prixRechargeAffiche == false)
-                            {
-                                _Image_Rechargement.color = Color.gray;
-                                _PrixRechargement.text = "";
-                                prixRechargeAffiche = true;
-                            }
-                        }
-
                         if (gainDemontageAffiche == false)
                         {
                             _GainDemontage.text = "+ " + _trapStats.sellCosts[_trapStats.upgradeIndex].ToString();

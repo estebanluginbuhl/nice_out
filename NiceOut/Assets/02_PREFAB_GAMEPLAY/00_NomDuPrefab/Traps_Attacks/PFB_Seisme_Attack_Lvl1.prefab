@@ -95,6 +95,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
   type: 0
+  range: 2
+  damages: 4
+  ennemisMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  cdAttack: 2
 --- !u!65 &-1469047782595104067
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -440,6 +440,10 @@ PrefabInstance:
       propertyPath: focus
       value: 
       objectReference: {fileID: 2112819815}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: switchMode
+      value: 
+      objectReference: {fileID: 2112819821}
     - target: {fileID: 8731416418560567864, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1714,18 +1718,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 379043735}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &383205823 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8349706439123137129, guid: 0829cee19679f1a4a868899ba950d838,
-    type: 3}
-  m_PrefabInstance: {fileID: 1640174448}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &384133946 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b2bf39fc6b379074ea641bb76d47900a,
@@ -10071,7 +10063,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ui_deathTimer
       value: 
-      objectReference: {fileID: 383205823}
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -10102,6 +10094,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 739173306}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: goldValue_Text
+      value: 
+      objectReference: {fileID: 1585457983}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5597ff108d4f37d489db09c58114e9d8, type: 3}
 --- !u!4 &2112819815 stripped
@@ -10116,6 +10113,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2112819814}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2112819820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2112819814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112819816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b25ce7c2b3fe14a8940d363d946792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2112819821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2112819814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112819816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b8e0758828f9f49b05c1e7ebe814ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2146355019 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b2bf39fc6b379074ea641bb76d47900a,
@@ -10286,6 +10307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_UI_Shop
       objectReference: {fileID: 0}
+    - target: {fileID: 7791396275383048266, guid: ae3abb44289672b43b7441315b9d201b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7791396275383048267, guid: ae3abb44289672b43b7441315b9d201b,
         type: 3}
       propertyPath: ui_Manager
@@ -10301,6 +10327,11 @@ PrefabInstance:
       propertyPath: laCam
       value: 
       objectReference: {fileID: 67152766}
+    - target: {fileID: 7791396275383048267, guid: ae3abb44289672b43b7441315b9d201b,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 2112819820}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae3abb44289672b43b7441315b9d201b, type: 3}
 --- !u!4 &8868015726372301552

@@ -14,22 +14,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Refill",
-                    "type": "Button",
-                    "id": "08813f4e-b6f8-4639-8075-63112fda1f18",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Fix",
-                    "type": "Button",
-                    "id": "cd075391-9a02-46ad-81f3-e5d9f5400b96",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Sell",
                     "type": "Button",
                     "id": "f0857890-9501-4e53-ab41-fc90e3e57645",
@@ -78,9 +62,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shop",
+                    "name": "Reward",
                     "type": "Button",
                     "id": "6b527345-9e15-41d6-8b38-f1f07d3ef9f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shop",
+                    "type": "Button",
+                    "id": "bcd756c0-6e8d-4396-b9fb-7a3e1ffb7a51",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -148,17 +140,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c5230b43-1aa1-4012-a0fb-f29305471931",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "Refill",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "04476ced-a3e9-49b0-82d5-3bf89574dcd4",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -219,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Shop",
+                    "action": "Reward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -368,17 +349,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8799d1ed-db2f-484b-9206-25c0ac64051b",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and Mouse",
-                    "action": "Fix",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c94a27fa-a776-4d33-b7d5-aba219c9f250",
                     "path": "<Keyboard>/j",
                     "interactions": "",
@@ -418,6 +388,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Echap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9aa94cd4-169d-49ee-bd61-66a2fbcbca2f",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

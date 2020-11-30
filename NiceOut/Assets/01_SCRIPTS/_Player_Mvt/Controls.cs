@@ -27,22 +27,6 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Refill"",
-                    ""type"": ""Button"",
-                    ""id"": ""08813f4e-b6f8-4639-8075-63112fda1f18"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Fix"",
-                    ""type"": ""Button"",
-                    ""id"": ""cd075391-9a02-46ad-81f3-e5d9f5400b96"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Sell"",
                     ""type"": ""Button"",
                     ""id"": ""f0857890-9501-4e53-ab41-fc90e3e57645"",
@@ -91,9 +75,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Shop"",
+                    ""name"": ""Reward"",
                     ""type"": ""Button"",
                     ""id"": ""6b527345-9e15-41d6-8b38-f1f07d3ef9f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""bcd756c0-6e8d-4396-b9fb-7a3e1ffb7a51"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -161,17 +153,6 @@ public class @Inputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c5230b43-1aa1-4012-a0fb-f29305471931"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Refill"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""04476ced-a3e9-49b0-82d5-3bf89574dcd4"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
@@ -232,7 +213,7 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Shop"",
+                    ""action"": ""Reward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -381,17 +362,6 @@ public class @Inputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8799d1ed-db2f-484b-9206-25c0ac64051b"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Fix"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c94a27fa-a776-4d33-b7d5-aba219c9f250"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
@@ -433,6 +403,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""action"": ""Echap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9aa94cd4-169d-49ee-bd61-66a2fbcbca2f"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -470,14 +451,13 @@ public class @Inputs : IInputActionCollection, IDisposable
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Place = m_Actions.FindAction("Place", throwIfNotFound: true);
-        m_Actions_Refill = m_Actions.FindAction("Refill", throwIfNotFound: true);
-        m_Actions_Fix = m_Actions.FindAction("Fix", throwIfNotFound: true);
         m_Actions_Sell = m_Actions.FindAction("Sell", throwIfNotFound: true);
         m_Actions_Jump = m_Actions.FindAction("Jump", throwIfNotFound: true);
         m_Actions_Switch = m_Actions.FindAction("Switch", throwIfNotFound: true);
         m_Actions_SelectLeft = m_Actions.FindAction("SelectLeft", throwIfNotFound: true);
         m_Actions_SelectRight = m_Actions.FindAction("SelectRight", throwIfNotFound: true);
         m_Actions_MouseScroll = m_Actions.FindAction("MouseScroll", throwIfNotFound: true);
+        m_Actions_Reward = m_Actions.FindAction("Reward", throwIfNotFound: true);
         m_Actions_Shop = m_Actions.FindAction("Shop", throwIfNotFound: true);
         m_Actions_CameraMove = m_Actions.FindAction("CameraMove", throwIfNotFound: true);
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
@@ -535,14 +515,13 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Actions;
     private IActionsActions m_ActionsActionsCallbackInterface;
     private readonly InputAction m_Actions_Place;
-    private readonly InputAction m_Actions_Refill;
-    private readonly InputAction m_Actions_Fix;
     private readonly InputAction m_Actions_Sell;
     private readonly InputAction m_Actions_Jump;
     private readonly InputAction m_Actions_Switch;
     private readonly InputAction m_Actions_SelectLeft;
     private readonly InputAction m_Actions_SelectRight;
     private readonly InputAction m_Actions_MouseScroll;
+    private readonly InputAction m_Actions_Reward;
     private readonly InputAction m_Actions_Shop;
     private readonly InputAction m_Actions_CameraMove;
     private readonly InputAction m_Actions_Move;
@@ -555,14 +534,13 @@ public class @Inputs : IInputActionCollection, IDisposable
         private @Inputs m_Wrapper;
         public ActionsActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Place => m_Wrapper.m_Actions_Place;
-        public InputAction @Refill => m_Wrapper.m_Actions_Refill;
-        public InputAction @Fix => m_Wrapper.m_Actions_Fix;
         public InputAction @Sell => m_Wrapper.m_Actions_Sell;
         public InputAction @Jump => m_Wrapper.m_Actions_Jump;
         public InputAction @Switch => m_Wrapper.m_Actions_Switch;
         public InputAction @SelectLeft => m_Wrapper.m_Actions_SelectLeft;
         public InputAction @SelectRight => m_Wrapper.m_Actions_SelectRight;
         public InputAction @MouseScroll => m_Wrapper.m_Actions_MouseScroll;
+        public InputAction @Reward => m_Wrapper.m_Actions_Reward;
         public InputAction @Shop => m_Wrapper.m_Actions_Shop;
         public InputAction @CameraMove => m_Wrapper.m_Actions_CameraMove;
         public InputAction @Move => m_Wrapper.m_Actions_Move;
@@ -582,12 +560,6 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Place.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
                 @Place.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
                 @Place.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnPlace;
-                @Refill.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
-                @Refill.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
-                @Refill.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnRefill;
-                @Fix.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
-                @Fix.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
-                @Fix.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnFix;
                 @Sell.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
                 @Sell.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
                 @Sell.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnSell;
@@ -606,6 +578,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @MouseScroll.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
                 @MouseScroll.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
                 @MouseScroll.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMouseScroll;
+                @Reward.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReward;
+                @Reward.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReward;
+                @Reward.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnReward;
                 @Shop.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
                 @Shop.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
                 @Shop.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnShop;
@@ -634,12 +609,6 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Place.started += instance.OnPlace;
                 @Place.performed += instance.OnPlace;
                 @Place.canceled += instance.OnPlace;
-                @Refill.started += instance.OnRefill;
-                @Refill.performed += instance.OnRefill;
-                @Refill.canceled += instance.OnRefill;
-                @Fix.started += instance.OnFix;
-                @Fix.performed += instance.OnFix;
-                @Fix.canceled += instance.OnFix;
                 @Sell.started += instance.OnSell;
                 @Sell.performed += instance.OnSell;
                 @Sell.canceled += instance.OnSell;
@@ -658,6 +627,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @MouseScroll.started += instance.OnMouseScroll;
                 @MouseScroll.performed += instance.OnMouseScroll;
                 @MouseScroll.canceled += instance.OnMouseScroll;
+                @Reward.started += instance.OnReward;
+                @Reward.performed += instance.OnReward;
+                @Reward.canceled += instance.OnReward;
                 @Shop.started += instance.OnShop;
                 @Shop.performed += instance.OnShop;
                 @Shop.canceled += instance.OnShop;
@@ -704,14 +676,13 @@ public class @Inputs : IInputActionCollection, IDisposable
     public interface IActionsActions
     {
         void OnPlace(InputAction.CallbackContext context);
-        void OnRefill(InputAction.CallbackContext context);
-        void OnFix(InputAction.CallbackContext context);
         void OnSell(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
         void OnSelectLeft(InputAction.CallbackContext context);
         void OnSelectRight(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
+        void OnReward(InputAction.CallbackContext context);
         void OnShop(InputAction.CallbackContext context);
         void OnCameraMove(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);

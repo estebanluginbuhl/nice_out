@@ -8,7 +8,7 @@ public class Trap_Stats : MonoBehaviour
     public GameObject player;
     public Traps trap;
     public GameObject barOlder;
-    public Image ui_HealthBar;
+    public Image ui_UsureBar;
     public Image ui_AmmoBar;
     public float distancePlayer;
     bool isClose;
@@ -47,8 +47,7 @@ public class Trap_Stats : MonoBehaviour
             else
             {
                 GetComponent<RectTransform>().LookAt(Camera.main.transform.position);
-                ui_AmmoBar.transform.localScale = new Vector3(trap.ammoPercentage, ui_AmmoBar.transform.localScale.y, ui_AmmoBar.transform.localScale.z);
-                ui_HealthBar.transform.localScale = new Vector3(trap.lifePercentage, ui_HealthBar.transform.localScale.y, ui_HealthBar.transform.localScale.z);
+                ui_UsureBar.transform.localScale = new Vector3(trap.UsurePercentage, ui_UsureBar.transform.localScale.y, ui_UsureBar.transform.localScale.z);
             }
         }
         else

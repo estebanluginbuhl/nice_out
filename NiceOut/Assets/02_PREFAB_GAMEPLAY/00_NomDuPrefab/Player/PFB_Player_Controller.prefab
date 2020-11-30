@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 7413206124061644214}
   - component: {fileID: 7413206124061644215}
   - component: {fileID: 7413206124061644217}
+  - component: {fileID: 8604271746142972879}
   - component: {fileID: 351840786129866637}
   - component: {fileID: 218604027}
   m_Layer: 10
@@ -335,7 +336,6 @@ MonoBehaviour:
   isShopping: 0
   mort: 0
   cptMort: 0
-  ui_deathTimer: {fileID: 0}
   ui_DeathPanel: {fileID: 0}
   ui_PausePanel: {fileID: 0}
 --- !u!114 &7413206124061644217
@@ -353,13 +353,44 @@ MonoBehaviour:
   health: 20
   maxHealth: 40
   healthPercentage: 0
-  energy: 5000
+  gold: 2234
   chargeSpeed: 1
   tempsMort: 20
   healthValue: {fileID: 0}
-  energyValue_Text: {fileID: 0}
+  goldValue_Text: {fileID: 0}
   chargeSpeed_Text: {fileID: 0}
   healthBar: {fileID: 0}
+--- !u!114 &8604271746142972879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413206124061644211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7a3ecaf7ff50845b0000d8fca1186b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyingTime: 0
+  inventory: {fileID: 0}
+  costTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  shopPanel: {fileID: 0}
+  shopRange: 0
+  shopLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &351840786129866637
 CharacterController:
   m_ObjectHideFlags: 0
@@ -416,7 +447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7413206124288006485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7413206124061644210}

@@ -9,6 +9,9 @@ public class Camera_Controller : MonoBehaviour
     Inputs inputs;
     Vector2 moveCam;
     Vector2 scroll;
+    
+    [SerializeField]
+    float verticalSensitivity = 0.5f;
 
     [SerializeField]
      Switch_Mode switchMode;
@@ -17,6 +20,8 @@ public class Camera_Controller : MonoBehaviour
     Transform focus = default;
     [SerializeField]
     float distance = 5f;
+    [SerializeField]
+    float height = 5f;
     [SerializeField, Min(0f)]
     float focusRadius = 1f;
     Vector3 focusPoint, previousFocusPoint;
@@ -62,7 +67,7 @@ public class Camera_Controller : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(switchMode.GetMort() == false)
+        if (switchMode.GetMort() == false)
         {
             if(switchMode.GetPause() == false)
             {
@@ -71,19 +76,18 @@ public class Camera_Controller : MonoBehaviour
                 UpdateFocusPoint();
                 ManualRotation();
                 Quaternion lookRotation;
-                if (ManualRotation() || AutomaticRotation())
+                if (ManualRotation())
                 {
-                    test = 0;
-                    StartCoroutine(TurnSmooth());
                     ConstrainAngles();
-                    lookRotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(orbitAngles), test);
+                    lookRotation = Quaternion.Euler(orbitAngles);
                 }
                 else
                 {
                     lookRotation = transform.localRotation;
                 }
+
                 Vector3 lookDirection = lookRotation * Vector3.forward;
-                Vector3 lookPosition = focusPoint - lookDirection * distance;
+                Vector3 lookPosition = focusPoint - lookDirection * distance + Vector3.up * height;
 
                 Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
                 Vector3 rectPosition = lookPosition + rectOffset;
@@ -134,39 +138,11 @@ public class Camera_Controller : MonoBehaviour
         const float e = 0.001f;
         if(moveCam.x < -e || moveCam.x > e || moveCam.y < -e || moveCam.y > e)
         {
-            orbitAngles += rotationSpeed * Time.unscaledDeltaTime * new Vector2(moveCam.y, moveCam.x);
+            orbitAngles += rotationSpeed * Time.unscaledDeltaTime * new Vector2(moveCam.y * verticalSensitivity, moveCam.x);
             lastManualRotationTime = Time.unscaledTime;
             return true;
         }
         return false;
-    }
-
-    bool AutomaticRotation()
-    {
-        if (Time.unscaledTime - lastManualRotationTime < alignDelay)
-        {
-            return false;
-        }
-
-        Vector2 movement = new Vector2(focusPoint.x - previousFocusPoint.x, focusPoint.z - previousFocusPoint.z);
-        float movementDeltaSqr = movement.sqrMagnitude;
-        if (movementDeltaSqr < 0.000001f)
-        {
-            return false;
-        }
-        float headingAngle = GetAngle(movement / Mathf.Sqrt(movementDeltaSqr));
-        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(orbitAngles.y, headingAngle));
-        float rotationChange = rotationSpeed * Mathf.Min(Time.unscaledDeltaTime, movementDeltaSqr);
-        if (deltaAbs < alignSmoothRange)
-        {
-            rotationChange *= deltaAbs / alignSmoothRange;
-        }
-        else if (180f - deltaAbs < alignSmoothRange)
-        {
-            rotationChange *= (180f - deltaAbs) / alignSmoothRange;
-        }
-        orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);
-        return true;
     }
 
     void ConstrainAngles()
@@ -187,8 +163,7 @@ public class Camera_Controller : MonoBehaviour
         get
         {
             Vector3 halfExtends;
-            halfExtends.y =
-            regularCamera.nearClipPlane * Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
+            halfExtends.y = regularCamera.nearClipPlane * Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
             halfExtends.x = halfExtends.y * regularCamera.aspect;
             halfExtends.z = 0f;
             return halfExtends;
@@ -197,17 +172,8 @@ public class Camera_Controller : MonoBehaviour
 
     static float GetAngle(Vector2 direction)
     {
-        float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
+        float angle = Mathf.Acos(direction.x) * Mathf.Rad2Deg;
         return direction.x < 0f ? 360f - angle : angle;
-    }
-
-    IEnumerator TurnSmooth()
-    {
-        if (test < 1)
-        {
-            test += speed * Time.unscaledDeltaTime;
-        }
-        yield return new WaitForSecondsRealtime(10);
     }
 
     void OnValidate()
