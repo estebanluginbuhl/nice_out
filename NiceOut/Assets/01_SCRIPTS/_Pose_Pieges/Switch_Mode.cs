@@ -21,6 +21,7 @@ public class Switch_Mode : MonoBehaviour
     [HideInInspector]
     public float cptMort;
 
+    [Header("UI Elements")]
     public TextMeshProUGUI ui_deathTimer;
     public GameObject ui_DeathPanel;
     public GameObject ui_PausePanel;

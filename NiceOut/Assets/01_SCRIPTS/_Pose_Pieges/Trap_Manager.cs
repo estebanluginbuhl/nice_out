@@ -8,20 +8,24 @@ public class Trap_Manager : MonoBehaviour
     Inputs inputs;
     bool sell, refill, place, fix, rotatingRight, rotatingLeft;
 
+    [Header("UI Elements")]
     public Canvas ui_Manager;//menus en gros
     public GameObject ui_Inventory;//inventaire
     bool inventoryActive;
 
+    [Header("LayerMasks")]
     public LayerMask trapped;//Layer de selection des pièges
     public LayerMask floor;//Layer du sol
     public LayerMask player;//Layer du joueur
 
+    [Header("Trap Detector")]
     public float detectionRadius; //Variables sphere de detection
     public GameObject spherePosition;//Position de la sphere de selection de piège
     [HideInInspector]
     public GameObject selectedTrap = null;//Si vous etes devant un piège il sera selectionné et stocké dans cette variable
     GameObject inventorySelection;//Piège que vous voulez poser
 
+    [Header("Forsee Trap Placement")]
     public GameObject forseeTrap;
     public Vector3 colliderCube;
     public Material[] mat;

@@ -7,34 +7,33 @@ using UnityEngine.InputSystem;
 public class Character_Controller : MonoBehaviour
 {
     Inputs inputs;
-    Vector2 move;
-    public float boostSpeed, baseSpeed, turnSmooth, acceleration;
+
     Transform cam;
     CharacterController charaCtrl;
     CapsuleCollider charaColl;
     StatsPlayer playerStats;
+    public Animator PlayerAnimator;
+    public LayerMask floor;
 
+    [Header("Movement")]
+    public float baseSpeed;
+    public float boostSpeed;
+    public float turnSmooth;
     public float gravity;
+
+    Vector2 move;//input move
     Vector3 moveDir;
     Vector3 rotation;
-    public LayerMask floor;
     //float _rotationSpeed = 8f;
 
-    //Dash
+    [Header("Dash")]
     public float dashSpeed;
-
     bool roll; //input roll
-
     bool isRolling = false;
-
-    public float cdRoll; // temps entre roulade;
-    [HideInInspector]
-    public float cdCount; // compteur temps entre roulade;
-
-    public Animator PlayerAnimator;
     public float invincibleDuration = 0.2f;
     float invincibleCount;
-
+    public float cdRoll; // temps entre roulade;
+    float cdCount; // compteur temps entre roulade;
 
     private void Awake()
     {
@@ -75,7 +74,7 @@ public class Character_Controller : MonoBehaviour
                 
                 if (isRolling == false)
                 {
-                    transform.rotation = Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(rotation), turnSmooth); //Rotation
+                    transform.rotation = Quaternion.Euler(rotation);
                     charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed));//Mouvement
                 }
 

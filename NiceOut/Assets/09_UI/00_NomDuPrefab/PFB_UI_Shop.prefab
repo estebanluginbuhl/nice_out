@@ -384,6 +384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7a3ecaf7ff50845b0000d8fca1186b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  laCam: {fileID: 0}
   waveHandler: {fileID: 9065774333450862184}
   allTraps:
   - {fileID: 12794261708393267, guid: 0d01967a55f3dfa4d938c2428e1e009b, type: 3}
@@ -393,8 +395,6 @@ MonoBehaviour:
   - {fileID: 12794261708393267, guid: 014677b4dea89f340aa1cc1eadad3fba, type: 3}
   nbUpgradeMax: 2
   ui_Manager: {fileID: 0}
-  player: {fileID: 0}
-  laCam: {fileID: 0}
   uiShopPanel: {fileID: 7791396276128470324}
   uiLootImage: {fileID: 7791396274328143104}
   uiLootText: {fileID: 7791396275120036395}
@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shop: {fileID: 7791396275383048267}
+  nbWaves: 0
   waveStarted: 0
   nbFirmesOnMap: 5
   lootType: 
