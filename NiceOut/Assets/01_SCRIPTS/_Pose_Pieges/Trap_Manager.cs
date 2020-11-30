@@ -47,12 +47,10 @@ public class Trap_Manager : MonoBehaviour
 
         inputs.Actions.Sell.started += ctx => sell = true;
         inputs.Actions.Sell.canceled += ctx => sell = false;
+
         inputs.Actions.Place.started += ctx => place = true;
         inputs.Actions.Place.canceled += ctx => place = false;
-        inputs.Actions.Fix.started += ctx => fix = true;
-        inputs.Actions.Fix.canceled += ctx => fix = false;
-        inputs.Actions.Refill.started += ctx => refill = true;
-        inputs.Actions.Refill.canceled += ctx => refill = false;
+
         inputs.Actions.RotateRight.started += ctx => rotatingRight = true;
         inputs.Actions.RotateRight.canceled += ctx => rotatingRight = false;
         inputs.Actions.RotateLeft.started += ctx => rotatingLeft = true;
@@ -157,7 +155,8 @@ public class Trap_Manager : MonoBehaviour
                                 {
                                     if (place)
                                     {
-                                        PlaceTrap(inventorySelection);
+                                        Debug.Log("place");
+                                        PlaceTrap(inventorySelection, ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex);
                                         place = false;
                                     }
                                 }
@@ -197,18 +196,6 @@ public class Trap_Manager : MonoBehaviour
                 //Gestion du piege selectionné
                 if (selectedTrap != null)
                 {
-                    if (refill)
-                    {
-                        RefillTrap();
-                        refill = false;
-                    }
-
-                    if (fix)
-                    {
-                        FixTrap();
-                        fix = false;
-                    }
-
                     if (sell)
                     {
                         SellTrap();
@@ -219,42 +206,22 @@ public class Trap_Manager : MonoBehaviour
         }
     }
 
-    public void PlaceTrap(GameObject _inventorySelection)//Methode de placement du piège selectionné
+    public void PlaceTrap(GameObject _inventorySelection, int _selectedSlot)//Methode de placement du piège selectionné
     {
-        Traps trapStats = _inventorySelection.GetComponent<Traps>();
-        if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex])//vérifie que le joueur a assez d'argent pour payer le piège
+
+        if (ui_Manager.GetComponent<Trap_Inventory>().nbTrapsInSlot[_selectedSlot] >= 1)//vérifie que le joueur a assez de stcok pour poser le piège
         {
+            Debug.Log("argent");
+
             GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
             billy.transform.Rotate(floorInclinaison);
             billy.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
             billy.GetComponent<Traps>().player = this.gameObject;
-            GetComponent<StatsPlayer>().PlayerBuy(trapStats.costs[trapStats.upgradeIndex]);
+            ui_Manager.GetComponent<Trap_Inventory>().RemoveTraps(_selectedSlot);
             return;
-        }
-    }
-
-    public void RefillTrap() //Methode d'upgrade du piège selectionné
-    {
-        Traps trapStats = selectedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
-
-        if(trapStats.ammoPercentage < 1)
-        {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]))
-            {
-                Debug.Log("filled");
-                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.ammoPercentage) * trapStats.costs[trapStats.upgradeIndex]));
-                trapStats.ammo = trapStats.fullAmmo[trapStats.upgradeIndex];
-                return;
-            }
-            else
-            {
-                return;
-            }
         }
         else
-        {
-            return;
-        }
+            mshRnd.material = mat[1];
     }
 
     public void SellTrap() //Vends ton piège
@@ -264,28 +231,6 @@ public class Trap_Manager : MonoBehaviour
         Destroy(trapStats.child.gameObject);
         Destroy(selectedTrap);
         return;
-    }
-
-    public void FixTrap() //Vends ton piège
-    {
-        Traps trapStats = selectedTrap.GetComponent<Traps>();
-        if(trapStats.lifePercentage < 1)
-        {
-            if (GetComponent<StatsPlayer>().gold >= Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]))
-            {
-                GetComponent<StatsPlayer>().PlayerBuy(Mathf.RoundToInt((1 - trapStats.lifePercentage) * trapStats.costs[trapStats.upgradeIndex]));
-                trapStats.life = trapStats.fullLife[trapStats.upgradeIndex];
-                return;
-            }
-            else
-            {
-                return;
-            }
-        }
-        else
-        {
-            return;
-        }
     }
 
     private void OnDrawGizmos() //Afficher la sphere de detection dans la scene

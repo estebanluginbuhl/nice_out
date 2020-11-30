@@ -4,21 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI_Shop : MonoBehaviour
+public class Reward : MonoBehaviour
 {
     Inputs inputs;
 
     [Header("References")]
-    public GameObject player;
-    public GameObject laCam;
-    public Wave_Manager waveHandler;
+    [SerializeField]
+    GameObject player;
+    Wave_Manager waveManager;
+    [SerializeField]
+    Shop shop;
 
     [Header("Traps")]
     public GameObject[] allTraps; //tous les traps possibles
     public int nbUpgradeMax = 2;
 
     bool mustUpgrade;
-    int lootTrapIndex;
+    int rewardTrapIndex;
     int[] upgradeIndexes; //Stock les numero d'amélioration de chaque pièges
     int[] addedTraps; //Stock les pièges deja obtenuent.
     int nbTrapAdded = 0;
@@ -26,11 +28,11 @@ public class UI_Shop : MonoBehaviour
     //UI
     [Header("UI Elements")]
     public Canvas ui_Manager;
-    public GameObject uiShopPanel;
-    public Image uiLootImage;
-    public TextMeshProUGUI uiLootText;
+    public GameObject uiRewardPanel;
+    public Image uiRewardImage;
+    public TextMeshProUGUI uiRewardText;
 
-    public bool canShop;
+    public bool rewardTime;
     bool open, isOpened = false;
     bool lootSelected;
 
@@ -39,11 +41,12 @@ public class UI_Shop : MonoBehaviour
 
     private void Awake()
     {
-        uiShopPanel.SetActive(false);
+        uiRewardPanel.SetActive(false);
+        waveManager = GetComponent<Wave_Manager>();
 
         inputs = new Inputs();
-        inputs.Actions.Shop.started += ctx => canShop = true;
-        inputs.Actions.Shop.canceled += ctx => canShop = false;
+        inputs.Actions.Reward.started += ctx => rewardTime = true;
+        inputs.Actions.Reward.canceled += ctx => rewardTime = false;
     }
 
     private void Start()
@@ -66,12 +69,12 @@ public class UI_Shop : MonoBehaviour
     private void Update()
     {
 
-        if(canShop == true)
+        if (rewardTime == true)
         {
             if (lootSelected == false)
             {
-                LootChoice();
-                ShopPanelOpenClose();
+                RewardSelection();
+                RewardPanelOpenClose();
                 lootSelected = true;
             }
         }
@@ -84,29 +87,29 @@ public class UI_Shop : MonoBehaviour
         }
     }
 
-    public void ShopPanelOpenClose()
+    public void RewardPanelOpenClose()
     {
         if (player.GetComponent<Switch_Mode>().realPause == false)
         {
             if (isOpened == false)
             {
                 player.GetComponent<Switch_Mode>().SetShopping();
-                uiShopPanel.SetActive(true);
+                uiRewardPanel.SetActive(true);
                 isOpened = true;
             }
             else
             {
                 player.GetComponent<Switch_Mode>().SetShopping();
-                uiShopPanel.SetActive(false);
+                uiRewardPanel.SetActive(false);
                 isOpened = false;
             }
         }
     }
 
-    public void LootChoice()
+    public void RewardSelection()
     {
-        lootTrapIndex = waveHandler.lootType[waveHandler.nbFirmesOnMap - 1];//Engros c'est le type de batiment et piège sélectionné au final. 
-        for (int i = 2; i < waveHandler.nbFirmesOnMap + 2; i++)
+        rewardTrapIndex = waveManager.lootType[waveManager.nbFirmesOnMap - 1];//Engros c'est le type de batiment et piège sélectionné au final. 
+        for (int i = 2; i < waveManager.nbFirmesOnMap + 2; i++)
         {
             //Debug.Log(lootTrapIndex);
             //Debug.Log("turn " + i);
@@ -114,94 +117,87 @@ public class UI_Shop : MonoBehaviour
             {
                 //Debug.Log("Pas tous les pièges");
 
-                if (addedTraps[lootTrapIndex] == 1)//Si le joueur possede deja le piège de cette firme
+                if (addedTraps[rewardTrapIndex] == 1)//Si le joueur possede deja le piège de cette firme
                 {
                     //Debug.Log("déjà ajouté");
-                    if (upgradeIndexes[lootTrapIndex] < nbUpgradeMax) //check si toute les upgrade sont pas deja faite
+                    if (upgradeIndexes[rewardTrapIndex] < nbUpgradeMax) //check si toute les upgrade sont pas deja faite
                     {
                         //Debug.Log("peut s'upgrade");
                         mustUpgrade = true;
-                        uiLootText.text = "New Upgrade";
+                        uiRewardText.text = "New Upgrade";
                         break;
                     }
                     else
                     {
                         //Debug.Log("ne peut pas s'upgrade");
-                        waveHandler.fullyUpgraded[lootTrapIndex] = true;
-                        lootTrapIndex = waveHandler.lootType[waveHandler.nbFirmesOnMap - i];
+                        waveManager.fullyUpgraded[rewardTrapIndex] = true;
+                        rewardTrapIndex = waveManager.lootType[waveManager.nbFirmesOnMap - i];
                     }
                 }
                 else
                 {
                     //Debug.Log("pas en core ajouté");
                     mustUpgrade = false;
-                    uiLootText.text = "New Trap";
+                    uiRewardText.text = "New Trap";
                     break;
                 }
             }
             else
             {
                 //Debug.Log("deja tous les pièges");
-                if (upgradeIndexes[lootTrapIndex] < nbUpgradeMax) //check si toute les upgrade sont pas deja faite
+                if (upgradeIndexes[rewardTrapIndex] < nbUpgradeMax) //check si toute les upgrade sont pas deja faite
                 {
                     //Debug.Log("peut s'upgrade");
                     mustUpgrade = true;
-                    uiLootText.text = "New Upgrade";
+                    uiRewardText.text = "New Upgrade";
                     break;
                 }
                 else
                 {
                     //Debug.Log("ne peut pas s'upgrade");
-                    waveHandler.fullyUpgraded[lootTrapIndex] = true;
-                    lootTrapIndex = waveHandler.lootType[waveHandler.nbFirmesOnMap - i];
+                    waveManager.fullyUpgraded[rewardTrapIndex] = true;
+                    rewardTrapIndex = waveManager.lootType[waveManager.nbFirmesOnMap - i];
                 }
             }
         }
 
         if (mustUpgrade)
         {
-            uiLootImage.sprite = allTraps[lootTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[lootTrapIndex] + 1];
+            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[rewardTrapIndex] + 1];
         }
         else
         {
-            uiLootImage.sprite = allTraps[lootTrapIndex].GetComponent<Traps>().ui_Image[0];
+            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Traps>().ui_Image[0];
         }
     }
-    public void AddLoot()
+    public void AddReward()
     {
         if (mustUpgrade)//UpgradeTrap
         {
-            int _type = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[lootTrapIndex].GetComponent<Traps>().trapType; //Getle type du piege a upgrade dans l'inventaire
-            ui_Manager.GetComponent<Trap_Inventory>().trapsItem[lootTrapIndex].GetComponent<Traps>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorés
-                                                                                                                            //ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rndUpgradeTrapIndex].GetComponent<Traps>().UpgradeInventoryTrap();
-            GameObject[] trapsToUpgrade = GameObject.FindGameObjectsWithTag("Trap");
+            int _type = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Traps>().trapType; //Getle type du piege a upgrade dans l'inventaire
+            ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Traps>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorés
 
-            foreach (GameObject gmObj in trapsToUpgrade)
+            upgradeIndexes[rewardTrapIndex] += 1;
+            if (upgradeIndexes[rewardTrapIndex] == 2)
             {
-                if (gmObj.GetComponent<Traps>().trapType == _type)
-                {
-                    gmObj.GetComponent<Traps>().Upgrade();
-                }
+                waveManager.fullyUpgraded[rewardTrapIndex] = true;
             }
-            upgradeIndexes[lootTrapIndex] += 1;
-            if (upgradeIndexes[lootTrapIndex] == 2)
-            {
-                waveHandler.fullyUpgraded[lootTrapIndex] = true;
-            }
-            ui_Manager.GetComponent<Trap_Inventory>().UpgradeTrapInventory(lootTrapIndex, upgradeIndexes[lootTrapIndex]);
-            ShopPanelOpenClose();
-            canShop = false;
+            ui_Manager.GetComponent<Trap_Inventory>().UpgradeTrapInventory(rewardTrapIndex, upgradeIndexes[rewardTrapIndex]);
+            shop.UpgradeShopTrap(rewardTrapIndex, upgradeIndexes[rewardTrapIndex]);
+            RewardPanelOpenClose();
+            rewardTime = false;
         }
         else//AddTrap
         {
-            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[lootTrapIndex], lootTrapIndex);
-            upgradeIndexes[lootTrapIndex] = 0;
-            addedTraps[lootTrapIndex] = 1;
-            ShopPanelOpenClose();
-            canShop = false;
+            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[rewardTrapIndex], rewardTrapIndex);
+            shop.AddShopTrap(rewardTrapIndex);
+            upgradeIndexes[rewardTrapIndex] = 0;
+            addedTraps[rewardTrapIndex] = 1;
+            RewardPanelOpenClose();
+            rewardTime = false;
             nbTrapAdded += 1;
         }
-        waveHandler.waveStarted = true;
+        waveManager.waveStarted = true;
     }
 
     public void AllTraps()

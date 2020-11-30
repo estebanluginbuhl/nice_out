@@ -50,9 +50,9 @@ MonoBehaviour:
   - 80
   - 120
   fullAmmo:
-  - 1
-  - 2
-  - 3
+  - 15
+  - 20
+  - 30
   life: 0
   ammo: 0
   lifePercentage: 0

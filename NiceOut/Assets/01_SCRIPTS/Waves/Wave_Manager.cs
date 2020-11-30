@@ -6,7 +6,7 @@ public class Wave_Manager : MonoBehaviour
 {
     //Les firmes on un int "type" comme les pièges allant de 0 à 4 comme les pièges
     // Aussi il faut que tu fasse le choix des differente firme de la wave aprés le wavestart, demande quand t'en est la je texpliquerai pk
-    public UI_Shop shop;//Utilises shop.canShop = true quand la vague est terminée pour que le joueur puisse recevoir un piege ou une upgrade
+    Reward reward;//Utilises shop.canShop = true quand la vague est terminée pour que le joueur puisse recevoir un piege ou une upgrade
 
     public int nbWaves;
     public bool waveStarted;
@@ -17,19 +17,20 @@ public class Wave_Manager : MonoBehaviour
 
     void Start()
     {
+        reward = GetComponent<Reward>();
         lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
         fullyUpgraded = new bool[nbFirmesOnMap];
     }
 
     void Update()
     {
-        /*if (waveStarted)//reactive quand t'aura fait le systeme de batiments de firme sur la map et de wave c'est pour creer le tableau qui stock les batiment cassés dans l'ordre, faut le refaire a chaque fois en fonction du nombre de batiments
+        if (waveStarted)//reactive quand t'aura fait le systeme de batiments de firme sur la map et de wave c'est pour creer le tableau qui stock les batiment cassés dans l'ordre, faut le refaire a chaque fois en fonction du nombre de batiments
         {
             lootIndex = 0;
             lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
             fullyUpgraded = new bool[nbFirmesOnMap];
             waveStarted = false;
-        }*/
+        }
 
     }
 

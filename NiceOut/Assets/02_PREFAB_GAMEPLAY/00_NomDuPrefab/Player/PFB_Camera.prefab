@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8731416418560567864}
   - component: {fileID: 8731416418560567865}
   - component: {fileID: 8731416418560567866}
-  - component: {fileID: 8731416418560567871}
   - component: {fileID: 1583257361}
   m_Layer: 0
   m_Name: PFB_Camera
@@ -85,37 +84,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8731416418560567867}
   m_Enabled: 1
---- !u!114 &8731416418560567871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8731416418560567867}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14b2b2c5445e0648bc2569949a65636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turningPoint: {fileID: 0}
-  player: {fileID: 0}
-  floor:
-    serializedVersion: 2
-    m_Bits: 256
-  worldObject:
-    serializedVersion: 2
-    m_Bits: 4096
-  scrollSpeed: 5
-  deathScroll: 20
-  followSpeed: 1
-  vMinMax: {x: -1.5, y: 0.45}
-  distanceMinMax: {x: 1, y: 10}
-  sensitivity: 15
-  distance: 8
-  thirdPersonDistance: 0
-  height: 0.12
-  turnSmooth: 0.9
-  collisionRadius: 0.27
 --- !u!114 &1583257361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,12 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f287cdf2e007ce43b69c54e063ff85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verticalSensitivity: 0.5
+  switchMode: {fileID: 0}
   focus: {fileID: 0}
   distance: 8
+  height: 2
   focusRadius: 1
   focusCentering: 0.5
-  rotationSpeed: 50
-  minVerticalAngle: -8
+  rotationSpeed: 6
+  minVerticalAngle: -6
   maxVerticalAngle: 85
   alignDelay: 5
   alignSmoothRange: 45

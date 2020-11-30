@@ -11,19 +11,22 @@ public class Trap_Inventory : MonoBehaviour
     Inputs inputs;
     public int nbTrapMax;
 
-    [HideInInspector]
-    public bool full = false;
+
     [HideInInspector]
     public Image[] slots;
     [HideInInspector]
-    public TextMeshProUGUI[] costs;
+    public TextMeshProUGUI[] number;
     [HideInInspector]
     public GameObject[] trapsItem;
+    [HideInInspector]
+    public int[] nbTrapsInSlot;
+    [SerializeField]
+    int nbStartTraps;
 
     public Image ui_InventoryPanel;
     public Image ui_SelectBox;
     public Image slotImage;
-    public TextMeshProUGUI trapCostText;
+    public TextMeshProUGUI trapNumberText;
     public float offsetX; //ecartement entre les images
     public float offsetY; //hauteur images
     Vector3 scrolling;
@@ -41,8 +44,9 @@ public class Trap_Inventory : MonoBehaviour
         inputs.Actions.MouseScroll.canceled += ctx => scrolling = Vector2.zero;
 
         slots = new Image[nbTrapMax];
-        costs = new TextMeshProUGUI[nbTrapMax];
+        number = new TextMeshProUGUI[nbTrapMax];
         trapsItem = new GameObject[nbTrapMax];
+        nbTrapsInSlot = new int[nbTrapMax];
         nbUsedSlots = 0;
         selectedSlotIndex = 0;
     }
@@ -141,7 +145,7 @@ public class Trap_Inventory : MonoBehaviour
     {
         nbUsedSlots += 1;
         Vector2 slotPos = slotImage.rectTransform.position;
-        Vector2 costPos = trapCostText.rectTransform.position;
+        Vector2 numberPos = trapNumberText.rectTransform.position;
 
         float l = slotImage.rectTransform.rect.width; //largeur d'un slot
 
@@ -150,19 +154,20 @@ public class Trap_Inventory : MonoBehaviour
         float inventoryWidth = ui_InventoryPanel.rectTransform.rect.width; //Get la largeur du panel inventaire
 
         slotPos.y = offsetY;
-        costPos.y = offsetY - 80;
+        numberPos.y = offsetY - 80;
 
         slots[_Index] = Image.Instantiate(slotImage, slotPos, Quaternion.identity);
         slots[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
         slots[_Index].rectTransform.localScale = Vector3.one;
         slots[_Index].sprite = trap.GetComponent<Traps>().ui_Image[0];
 
-        costs[_Index] = TextMeshProUGUI.Instantiate(trapCostText, costPos, Quaternion.identity);
-        costs[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
-        costs[_Index].rectTransform.localScale = Vector3.one;
-        costs[_Index].text = (trap.GetComponent<Traps>().costs[0]).ToString();
+        number[_Index] = TextMeshProUGUI.Instantiate(trapNumberText, numberPos, Quaternion.identity);
+        number[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
+        number[_Index].rectTransform.localScale = Vector3.one;
+        number[_Index].text = nbStartTraps.ToString();
 
         trapsItem[_Index] = trap;
+        nbTrapsInSlot[_Index] = nbStartTraps;
 
         int slotJump = 0;
 
@@ -171,9 +176,9 @@ public class Trap_Inventory : MonoBehaviour
             if(slots[i] != null)
             {
                 slotPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * (i - slotJump)));
-                costPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * (i - slotJump)));
+                numberPos.x = (-inventoryWidth / 2) + ((offsetX + (l / 2)) + ((offsetX + l) * (i - slotJump)));
                 slots[i].rectTransform.localPosition = slotPos;
-                costs[i].rectTransform.localPosition = costPos;
+                number[i].rectTransform.localPosition = numberPos;
             }
             else
             {
@@ -187,7 +192,15 @@ public class Trap_Inventory : MonoBehaviour
     public void UpgradeTrapInventory(int _SlotIndex, int _UpIndex)
     {
         slots[_SlotIndex].sprite = trapsItem[_SlotIndex].GetComponent<Traps>().ui_Image[_UpIndex];
-        costs[_SlotIndex].text = (trapsItem[_SlotIndex].GetComponent<Traps>().costs[trapsItem[_SlotIndex].GetComponent<Traps>().upgradeIndex]).ToString();
+    }
+
+    public void AddTraps(int _SlotIndex)
+    {
+        nbTrapsInSlot[_SlotIndex] += 1;
+    }
+    public void RemoveTraps(int _SlotIndex)
+    {
+        nbTrapsInSlot[_SlotIndex] -= 1;
     }
 
     private void OnEnable()
