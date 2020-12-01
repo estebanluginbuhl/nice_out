@@ -213,10 +213,10 @@ public class Trap_Manager : MonoBehaviour
         {
             Debug.Log("argent");
 
-            GameObject billy = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
-            billy.transform.Rotate(floorInclinaison);
-            billy.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
-            billy.GetComponent<Traps>().player = this.gameObject;
+            GameObject trap = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
+            trap.transform.Rotate(floorInclinaison);
+            trap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+            trap.GetComponent<Traps>().player = this.gameObject;
             ui_Manager.GetComponent<Trap_Inventory>().RemoveTraps(_selectedSlot);
             return;
         }

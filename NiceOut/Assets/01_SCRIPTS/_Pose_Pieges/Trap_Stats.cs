@@ -9,7 +9,6 @@ public class Trap_Stats : MonoBehaviour
     public Traps trap;
     public GameObject barOlder;
     public Image ui_UsureBar;
-    public Image ui_AmmoBar;
     public float distancePlayer;
     bool isClose;
     bool isActive;

@@ -20,9 +20,12 @@ public class EnmMovement : MonoBehaviour
     private float enmHealth, damage;
     private GameObject[] firmeTarget;
 
+    public bool isAttracted;
+    public Transform attractTarget;
+
     void Start()
     {
-        target = PathNode.nodeTransform[0];
+        this.target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
@@ -61,30 +64,36 @@ public class EnmMovement : MonoBehaviour
         //bad enm
         else if (hostile == true)//(enmHealth < 2) //enmHealth >= max negatif
         {
-            Debug.Log("hostile entity");
-            if (pathFinding == true)
+            if(isAttracted == false)
             {
-                enmNavMesh.destination = player.transform.position;
-            }
-            else if (pathFinding == false)
-            {
-                enmNavMesh.destination = target.position;
-
-                if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                Debug.Log("hostile entity");
+                if (pathFinding == true)
                 {
-                    if (nodeIndex >= PathNode.nodeTransform.Length - 1)
-                    {
-                        Destroy(gameObject);
-                        return;
-                    }
+                    enmNavMesh.destination = player.transform.position;
+                }
+                else if (pathFinding == false)
+                {
+                    enmNavMesh.destination = target.position;
 
-                    nodeIndex++;
-                    target = PathNode.nodeTransform[nodeIndex];
+                    if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                    {
+                        if (nodeIndex >= PathNode.nodeTransform.Length - 1)
+                        {
+                            Destroy(gameObject);
+                            return;
+                        }
+                        nodeIndex++;
+                        target = PathNode.nodeTransform[nodeIndex];
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
             else
             {
-                return;
+                enmNavMesh.destination = attractTarget.position;
             }
         }
     }

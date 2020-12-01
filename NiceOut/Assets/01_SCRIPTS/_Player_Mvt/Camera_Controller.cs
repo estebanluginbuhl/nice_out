@@ -34,18 +34,12 @@ public class Camera_Controller : MonoBehaviour
     [SerializeField, Range(-89f, 89f)]
     float minVerticalAngle = 5f, maxVerticalAngle = 85f;
     [SerializeField, Min(0f)]
-    float alignDelay = 5f;
     float lastManualRotationTime;
 
-    [SerializeField, Range(0f, 90f)]
-    float alignSmoothRange = 45f;
     Camera regularCamera;
 
     [SerializeField]
     LayerMask obstructionMask = -1;
-
-    float test = 0;
-    float speed = 10;
 
     private void Awake()
     {

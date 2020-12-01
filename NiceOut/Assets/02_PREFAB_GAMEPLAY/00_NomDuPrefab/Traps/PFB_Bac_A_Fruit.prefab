@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &12794261708393267
+--- !u!1 &6389189419568338056
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,88 +8,82 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 12794261708393269}
-  - component: {fileID: 12794261708393266}
-  - component: {fileID: 1023933785817842674}
+  - component: {fileID: 6389189419568338061}
+  - component: {fileID: 6389189419568338058}
+  - component: {fileID: 3128976848352535718}
   m_Layer: 9
-  m_Name: PFB_Tornade
+  m_Name: PFB_Bac_A_Fruit
   m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &12794261708393269
+--- !u!4 &6389189419568338061
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12794261708393267}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 6389189419568338056}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &12794261708393266
+--- !u!114 &6389189419568338058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12794261708393267}
+  m_GameObject: {fileID: 6389189419568338056}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4a8cc7a8760c9a48a2587b6f2714981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapType: 1
-  fullLife:
+  trapType: 2
+  fullUsure:
+  - 30
+  - 35
   - 40
-  - 80
-  - 120
-  fullAmmo:
-  - 1
-  - 2
-  - 3
-  life: 0
-  ammo: 0
-  lifePercentage: 0
-  ammoPercentage: 0
+  usure: 0
+  UsurePercentage: 0
   player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 3.5, y: 2.9, z: 3.5}
+  colliderSize: {x: 3, y: 0.95, z: 3}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
-  costs: 280000003c00000050000000
-  sellCosts: 1e0000002d0000003c000000
+  costs: 960000009600000096000000
+  sellCosts: 190000001900000019000000
   trapAndUpgrades:
-  - {fileID: 2732504115741463701, guid: f16fe6fd624601248a2c7e048b878dac, type: 3}
-  - {fileID: 7376662494940871217, guid: 3e23fdfb67d72bc4ea3b2ab0502b8034, type: 3}
-  - {fileID: 952267906745808988, guid: 71724948dc3d9d746b29ada013394c79, type: 3}
+  - {fileID: 6315993798119880899, guid: 7462aec6aee3cde4588dd67cd07b5660, type: 3}
+  - {fileID: 1367395875970007828, guid: 21d60023780fd3342b3df29c2085234f, type: 3}
+  - {fileID: 1687527402586247878, guid: db333fb2f94e98c44b3a9214a6f96ef4, type: 3}
   offsetPositions:
-  - 1.53
-  - 1.5
-  - 1.5
+  - 0.5
+  - 0.5
+  - 0.5
   upgradeIndex: 0
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}
   ui_hbHeight: 4
   ui_Image:
-  - {fileID: 21300000, guid: b00836b1e06c33a4d8eaa699c5e22a23, type: 3}
-  - {fileID: 21300000, guid: cb9ffafd74c8180439725d0fa3238e7d, type: 3}
-  - {fileID: 21300000, guid: 6617f5d829872a242afaadfa96983776, type: 3}
---- !u!65 &1023933785817842674
+  - {fileID: 21300000, guid: 803973d6c4799ee4194a7c7b4b01de6f, type: 3}
+  - {fileID: 21300000, guid: b02488e894a1e094b84ac946f0e0e786, type: 3}
+  - {fileID: 21300000, guid: ae055299c8a20fb4e84b00316ce14e2b, type: 3}
+--- !u!65 &3128976848352535718
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12794261708393267}
+  m_GameObject: {fileID: 6389189419568338056}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
