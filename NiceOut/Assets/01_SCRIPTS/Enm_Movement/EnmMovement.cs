@@ -52,11 +52,15 @@ public class EnmMovement : MonoBehaviour
         //neutral
         if (neutral == true)//(enmHealth >= -2 && enmHealth <= 2)
         {
+            gameObject.layer = 0;
+
             Debug.Log("neutral entity");
         }
         //allie
         else if (allie == true)//(enmHealth > 2) //enmHealth <= max positif
         {
+            gameObject.layer = 0;
+
             Debug.Log("allie entity");
             ObjectiveSelection();
             //choosenObjective.GetComponent<FirmeScript>().TakeDamage(damage);
@@ -64,7 +68,9 @@ public class EnmMovement : MonoBehaviour
         //bad enm
         else if (hostile == true)//(enmHealth < 2) //enmHealth >= max negatif
         {
-            if(isAttracted == false)
+            gameObject.layer = 13;
+
+            if (isAttracted == false)
             {
                 Debug.Log("hostile entity");
                 if (pathFinding == true)
