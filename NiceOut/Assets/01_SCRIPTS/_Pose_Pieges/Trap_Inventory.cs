@@ -197,10 +197,12 @@ public class Trap_Inventory : MonoBehaviour
     public void AddTraps(int _SlotIndex)
     {
         nbTrapsInSlot[_SlotIndex] += 1;
+        number[_SlotIndex].text = nbTrapsInSlot[_SlotIndex].ToString();
     }
     public void RemoveTraps(int _SlotIndex)
     {
         nbTrapsInSlot[_SlotIndex] -= 1;
+        number[_SlotIndex].text = nbTrapsInSlot[_SlotIndex].ToString();
     }
 
     private void OnEnable()

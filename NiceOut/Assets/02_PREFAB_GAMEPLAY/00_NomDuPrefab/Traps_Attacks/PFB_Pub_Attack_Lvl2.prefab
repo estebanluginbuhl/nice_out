@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9015111267809221299}
-  m_Mesh: {fileID: 7480214456088415628, guid: 35da7a47a27924f4d992c11e2540132b, type: 3}
+  m_Mesh: {fileID: 264859517804580150, guid: 35da7a47a27924f4d992c11e2540132b, type: 3}
 --- !u!23 &4029199597686230677
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95,8 +95,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
   type: 0
-  rangeCircle: 0
-  rangeBox: {x: 2, y: 2, z: 10}
+  rangeSphere: 0
+  rangeBox: {x: 4, y: 3, z: 10}
+  offsetForward: 5.05
   damages: 0
   cooldown: 0
   isGonnaDie: 0
