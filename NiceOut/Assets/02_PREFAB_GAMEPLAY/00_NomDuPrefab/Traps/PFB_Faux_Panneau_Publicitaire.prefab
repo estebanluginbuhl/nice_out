@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9126492276130198206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9126492276130198193}
+  - component: {fileID: 9126492276130198192}
+  - component: {fileID: -75400321051341522}
+  m_Layer: 9
+  m_Name: PFB_Faux_Panneau_Publicitaire
+  m_TagString: Trap
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9126492276130198193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126492276130198206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9126492276130198192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126492276130198206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a8cc7a8760c9a48a2587b6f2714981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapType: 1
+  fullUsure:
+  - 10
+  - 15
+  - 20
+  usure: 0
+  UsurePercentage: 0
+  player: {fileID: 0}
+  child: {fileID: 0}
+  colliderSize: {x: 4, y: 3.35, z: 0.2}
+  transformTrap: {x: 0, y: 0, z: 0}
+  rotationTrap: {x: 0, y: 0, z: 0}
+  costs: 960000009600000096000000
+  sellCosts: 190000001900000019000000
+  trapAndUpgrades:
+  - {fileID: 5233418853168884084, guid: eb7ad2ee751bea24aaaa79eca2dd4b16, type: 3}
+  - {fileID: 9015111267809221299, guid: d175d3661fbfd094681ddcce641c7383, type: 3}
+  - {fileID: 1255758784346034749, guid: fa06b085ba0dda440abb7671ba3d9faa, type: 3}
+  offsetPositions:
+  - 1.7
+  - 1.7
+  - 1.7
+  upgradeIndex: 0
+  stopUpgrade: 0
+  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  ui_hbHeight: 4
+  ui_Image:
+  - {fileID: 21300000, guid: ad92cc702aacfed4eb03244904e113bc, type: 3}
+  - {fileID: 21300000, guid: fd72a7bdc3d0d2a4ea1d86ce472167b6, type: 3}
+  - {fileID: 21300000, guid: 8be56ea70f7ed984caeef8ac6f995402, type: 3}
+--- !u!65 &-75400321051341522
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9126492276130198206}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1.7, z: 0}

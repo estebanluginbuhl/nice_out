@@ -6,15 +6,16 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     public int trapType;//Le type de piège sert à verif si on l'a deja dans l'inventaire
 
     //vie et munitions
-    public float[] fullLife, fullAmmo;
-    public float life, ammo;
-    public float lifePercentage, ammoPercentage;
+    public float[] fullUsure;
+    public float usure;
+    public float UsurePercentage;
 
     public GameObject player;
     public GameObject child;
     public Vector3 colliderSize;
-
+    [HideInInspector]
     public Vector3 transformTrap;
+    [HideInInspector]
     public Vector3 rotationTrap;
     public int[] costs;
     public int[] sellCosts;
@@ -36,14 +37,16 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         if(box != null)
         {
             box.size = colliderSize;
+            if(this.trapType == 2)
+            {
+                box.isTrigger = true;
+            }
         }
-        this.life = this.fullLife[this.upgradeIndex];
-        this.ammo = this.fullAmmo[this.upgradeIndex];
-        this.lifePercentage = life / fullLife[this.upgradeIndex];
-        this.ammoPercentage = ammo / fullAmmo[this.upgradeIndex];
+        this.usure = this.fullUsure[this.upgradeIndex];
+        this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
         
         this.rotationTrap = new Vector3(this.transform.localEulerAngles.x, this.transform.localEulerAngles.y, this.transform.localEulerAngles.z);
-        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex ], this.transform.position, Quaternion.Euler(this.rotationTrap));
+        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
         this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
         this.child.GetComponent<Trap_Attack>().type = this.trapType;
 
@@ -55,27 +58,31 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     private void Update()
     {
+        this.usure -= Time.deltaTime;
 
-        this.lifePercentage = life / fullLife[this.upgradeIndex];
-        this.ammoPercentage = ammo / fullAmmo[this.upgradeIndex];
+        this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
+
         if (this.upgradeIndex > this.trapAndUpgrades.Length - 1)
         {
             this.upgradeIndex = this.trapAndUpgrades.Length - 1;
         }
-    }
 
-    public void DamageTrap(int value)
-    {
-        this.life -= value;
-        this.lifePercentage = (this.life / this.fullLife[this.upgradeIndex]);
-
-        if (this.life <= 0)
+        if (this.usure <= 1f)
+        {
+            child.GetComponent<Trap_Attack>().isGonnaDie = true;
+        }
+        if (this.usure <= 0)
         {
             Destroy(this.child);
             Destroy(this.gameObject);
         }
     }
 
+    public void DamageTrap(int value)
+    {
+        this.usure -= value;
+    }
+    /*
     public void Upgrade()
     {
         Destroy(this.child);
@@ -83,9 +90,9 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
         this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
         this.child.GetComponent<Trap_Attack>().type = this.trapType;
-        this.life = Mathf.RoundToInt(this.fullLife[upgradeIndex] * this.lifePercentage);
-        this.ammo = Mathf.RoundToInt(this.fullAmmo[upgradeIndex] * this.ammoPercentage);
-    }
+        this.child.transform.SetParent(this.transform);
+        this.usure = Mathf.RoundToInt(this.fullUsure[upgradeIndex] * this.UsurePercentage);
+    }*/
     public void UpgradeForInventory()
     {
         this.upgradeIndex += 1;
