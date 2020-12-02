@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5714139916367608963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5714139916367608966}
+  - component: {fileID: 5714139916367608965}
+  m_Layer: 9
+  m_Name: PFB_Antenne_Brouilleur
+  m_TagString: Trap
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5714139916367608966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714139916367608963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5714139916367608965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714139916367608963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a8cc7a8760c9a48a2587b6f2714981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapType: 4
+  fullUsure:
+  - 30
+  - 35
+  - 40
+  usure: 0
+  UsurePercentage: 0
+  player: {fileID: 0}
+  child: {fileID: 0}
+  colliderSize: {x: 3.5, y: 2.9, z: 3.5}
+  transformTrap: {x: 0, y: 0, z: 0}
+  rotationTrap: {x: 0, y: 0, z: 0}
+  costs: b4000000d2000000e6000000
+  sellCosts: 1e0000002d0000003c000000
+  trapAndUpgrades:
+  - {fileID: 2732504115741463701, guid: f16fe6fd624601248a2c7e048b878dac, type: 3}
+  - {fileID: 7376662494940871217, guid: 3e23fdfb67d72bc4ea3b2ab0502b8034, type: 3}
+  - {fileID: 952267906745808988, guid: 71724948dc3d9d746b29ada013394c79, type: 3}
+  offsetPositions:
+  - 1.53
+  - 1.5
+  - 1.5
+  upgradeIndex: 0
+  stopUpgrade: 0
+  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  ui_hbHeight: 4
+  ui_Image:
+  - {fileID: 21300000, guid: d335f47798ca3c84c822743bede36d5b, type: 3}
+  - {fileID: 21300000, guid: b93b991b884926f41a9b63da1bee56d7, type: 3}
+  - {fileID: 21300000, guid: b93b991b884926f41a9b63da1bee56d7, type: 3}

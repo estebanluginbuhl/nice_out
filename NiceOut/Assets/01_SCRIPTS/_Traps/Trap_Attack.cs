@@ -12,9 +12,10 @@ public class Trap_Attack : MonoBehaviour
 
     public float rangeSphere;
     public Vector3 rangeBox;
+    public float offsetForward;
     public int damages;
     public float cooldown;
-    float cptDuration;
+    float cptCooldown;
     public bool isGonnaDie;
 
     [SerializeField]
@@ -84,7 +85,7 @@ public class Trap_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponent<EnmMovement>().hostile == false)
+                if (target.GetComponentInParent<EnmMovement>().hostile == false)
                 {
                     target = null;
                     return;
@@ -107,26 +108,35 @@ public class Trap_Attack : MonoBehaviour
 
                 nav.destination = target.position;
 
-                if(Vector3.Distance(target.position, transform.position) <= attackRange)
+                if(cptCooldown == 0)
                 {
-                    target.GetComponent<StatEnm>().badEnm(damages);
+                    if (Vector3.Distance(target.position, transform.position) <= attackRange)
+                    {
+                        target.GetComponentInParent<StatEnm>().badEnm(damages);
+                        StartCoroutine(Cooldown(cooldown));
+                    }
                 }
-
             }
         }
     }
 
     void AttaquePanneauPublicitaire()
     {
-        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y /2 + Vector3.forward * rangeBox.z / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y /2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
                 if(c.GetComponent<EnmMovement>().hostile == true)
-                c.GetComponentInParent<EnmMovement>().isAttracted = true;
-                c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
-                Debug.Log("attiré");
+                {
+                    c.GetComponentInParent<EnmMovement>().isAttracted = true;
+                    c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
+                }
+                else
+                {
+                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                    c.GetComponentInParent<EnmMovement>().attractTarget = null;
+                }
             }
         }
         if(isGonnaDie == true)
@@ -142,12 +152,9 @@ public class Trap_Attack : MonoBehaviour
     {
         float slowSpeed = 2f;
         float oldSpeed = 0f;
-        float offsetForward = 0.2f;
         Collider[] ennemis = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
-        Debug.Log("bacafruit");
         if (ennemis.Length != 0)
         {
-            Debug.Log("heho");
             foreach (Collider c in ennemis)
             {
                 oldSpeed = c.GetComponentInParent<EnmMovement>().enmSpeed;
@@ -165,7 +172,15 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueAntenneBrouilleur()
     {
+        Collider[] ennemis = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
+        if (ennemis.Length != 0)
+        {
+            foreach (Collider c in ennemis)
+            {
+                //Stun
+            }
+        }
     }
 
     void AttaqueBar()
@@ -174,7 +189,7 @@ public class Trap_Attack : MonoBehaviour
 
         if (ennemis.Length != 0)
         {
-            if(cptDuration == 0)
+            if(cptCooldown == 0)
             {
                 foreach (Collider c in ennemis)
                 {
@@ -192,21 +207,97 @@ public class Trap_Attack : MonoBehaviour
     
     void AttaqueStandCommerce()
     {
+        float attaqueRange = 1f;
+        Mesh msh = GetComponent<MeshFilter>().mesh;
+        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+        if (ennemis.Length != 0)
+        {
+            foreach (Collider c in ennemis)
+            {
+                if (c.GetComponent<EnmMovement>().hostile == true)
+                {
+                    c.GetComponentInParent<EnmMovement>().isAttracted = true;
+                    c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
 
+                    if(cptCooldown == 0)
+                    {
+                        if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
+                        {
+                            c.GetComponent<StatEnm>().goodEnm(damages);
+                        }
+                        StartCoroutine(Cooldown(this.cooldown));
+                    }
+                }
+                else
+                {
+                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                    c.GetComponentInParent<EnmMovement>().attractTarget = null;
+                }
+            }
+            if (isGonnaDie == true)
+            {
+                foreach (Collider c in ennemis)
+                {
+                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                }
+            }
+        }
     }
 
     IEnumerator  Cooldown(float _duration)
     {
+        cptCooldown = 1;
         yield return new WaitForSecondsRealtime(_duration);
-        cptDuration = 0;
+        cptCooldown = 0;
     }
 
     private void OnDrawGizmos()
     {
-        float offsetForward = 0.2f;
-        Gizmos.color = Color.black;
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox);
-        Gizmos.DrawWireSphere(transform.position, rangeSphere);
+        if (type == 0)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(transform.position, rangeSphere);
+        }
+        if (type == 1)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+        }
+        if (type == 2)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+        }
+        if (type == 3)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+        }
+        if (type == 4)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(transform.position, rangeSphere);
+        }
+        if (type == 5)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(transform.position, rangeSphere);
+        }
+        if (type == 6)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+        }
+        if (type == 7)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+        }
     }
 }
