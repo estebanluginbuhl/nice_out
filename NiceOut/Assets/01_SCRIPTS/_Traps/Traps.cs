@@ -49,7 +49,6 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
         this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
         this.child.GetComponent<Trap_Attack>().type = this.trapType;
-        this.child.transform.SetParent(this.transform);
 
         Canvas hb = Instantiate(ui_healthBar, transform.position + Vector3.up * ui_hbHeight, Quaternion.identity);
         hb.GetComponent<Trap_Stats>().trap = this;
