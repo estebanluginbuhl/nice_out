@@ -22,16 +22,22 @@ public class StatEnm : MonoBehaviour
         else
         {
             Damage();
-            damageCooldown += Time.deltaTime;
         }
     }
 
     void Damage()
     {
+        damageCooldown += Time.deltaTime;
+
         if (damageCooldown >= 1)
         {
             damageCooldown = 0;
-            if (playerTarget.Length != 0)
+            if (trapTarget.Length != 0)
+            {
+                Debug.Log("damage trap");
+                trapTarget[0].GetComponent<Traps>().DamageTrap(Mathf.RoundToInt(damage));
+            }
+            else if (playerTarget.Length != 0)
             {
                 Debug.Log("damage player");
                 playerTarget[0].GetComponent<StatsPlayer>().health -= damage;
