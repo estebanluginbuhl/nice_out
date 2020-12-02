@@ -80,7 +80,6 @@ public class Trap_Attack : MonoBehaviour
                 c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
                 Debug.Log("attiré");
             }
-            StartCoroutine(Cooldown(this.cooldown));
         }
         if(isGonnaDie == true)
         {
@@ -95,24 +94,20 @@ public class Trap_Attack : MonoBehaviour
     {
         float slowSpeed = 2f;
         float oldSpeed = 0f;
-        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y / 2 + Vector3.forward * rangeBox.z / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        float offsetForward = 0.2f;
+        Collider[] ennemis = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Debug.Log("bacafruit");
         if (ennemis.Length != 0)
         {
+            Debug.Log("heho");
             foreach (Collider c in ennemis)
             {
                 oldSpeed = c.GetComponentInParent<EnmMovement>().enmSpeed;
                 c.GetComponentInParent<EnmMovement>().enmSpeed = slowSpeed;
                 Debug.Log("slowed");
             }
-            StartCoroutine(Cooldown(this.cooldown));
         }
-        if (isGonnaDie == true)
-        {
-            foreach (Collider c in ennemis)
-            {
-                c.GetComponentInParent<EnmMovement>().enmSpeed = oldSpeed;
-            }
-        }
+        //de-slow les ennemis aussi mdr, fin deja faudrait arriver a les slow
     }
 
     void AttaqueParfum()
@@ -160,9 +155,10 @@ public class Trap_Attack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        float offsetForward = 0.2f;
         Gizmos.color = Color.black;
         Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * rangeBox.z / 2, rangeBox);
+        Gizmos.DrawWireCube(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox);
         Gizmos.DrawWireSphere(transform.position, rangeSphere);
     }
 }

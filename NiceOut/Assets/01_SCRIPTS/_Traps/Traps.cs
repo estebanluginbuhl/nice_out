@@ -37,6 +37,10 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         if(box != null)
         {
             box.size = colliderSize;
+            if(this.trapType == 2)
+            {
+                box.isTrigger = true;
+            }
         }
         this.usure = this.fullUsure[this.upgradeIndex];
         this.UsurePercentage = usure / fullUsure[this.upgradeIndex];

@@ -95,8 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
   type: 0
-  rangeCircle: 0
-  rangeBox: {x: 3, y: 1, z: -3}
+  rangeSphere: 0
+  rangeBox: {x: 3, y: 1, z: 3}
   damages: 5
   cooldown: 0
   isGonnaDie: 0
@@ -115,4 +115,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.85, y: 1, z: 0.75}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.5, z: -1.65}

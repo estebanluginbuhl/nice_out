@@ -17,6 +17,8 @@ public class Trap_Manager : MonoBehaviour
     public LayerMask trapped;//Layer de selection des pièges
     public LayerMask floor;//Layer du sol
     public LayerMask player;//Layer du joueur
+    [SerializeField]
+    LayerMask cantTrapLayer;
 
     [Header("Trap Detector")]
     public float detectionRadius; //Variables sphere de detection
@@ -125,7 +127,7 @@ public class Trap_Manager : MonoBehaviour
                         mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
                         colliderCube = (trapStats.colliderSize) / 2;
 
-                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + Vector3.up * trapStats.offsetPositions[0], colliderCube, forseeTrap.transform.rotation, floor | trapped);
+                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + Vector3.up * trapStats.offsetPositions[0], colliderCube, forseeTrap.transform.rotation, cantTrapLayer);
 
                         if (boxCollider.Length != 0)
                         {
@@ -155,7 +157,6 @@ public class Trap_Manager : MonoBehaviour
                                 {
                                     if (place)
                                     {
-                                        Debug.Log("place");
                                         PlaceTrap(inventorySelection, ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex);
                                         place = false;
                                     }
@@ -211,8 +212,6 @@ public class Trap_Manager : MonoBehaviour
 
         if (ui_Manager.GetComponent<Trap_Inventory>().nbTrapsInSlot[_selectedSlot] >= 1)//vérifie que le joueur a assez de stcok pour poser le piège
         {
-            Debug.Log("argent");
-
             GameObject trap = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
             trap.transform.Rotate(floorInclinaison);
             trap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
@@ -241,7 +240,7 @@ public class Trap_Manager : MonoBehaviour
         Gizmos.DrawRay(spherePosition.transform.position, Vector3.down);
         Gizmos.color = Color.blue;
         Gizmos.matrix = forseeTrap.transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(Vector3.up * 1.6f, colliderCube * 2);
+        Gizmos.DrawWireCube(Vector3.up * colliderCube.y, colliderCube * 2);
     }
 
     //Pas touche c'est pour les inputs
