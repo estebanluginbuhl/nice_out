@@ -83,8 +83,8 @@ public class Shop : MonoBehaviour
         int cost = inventory.trapsItem[_BuyIndex].GetComponent<Traps>().costs[upgradeIndexes[_BuyIndex]];
         if (stats.gold >= cost)
         {
-            inventory.AddTraps(_BuyIndex);
             stats.PlayerBuy(cost);
+            inventory.AddTraps(_BuyIndex);
         }
     }
 

@@ -47,16 +47,14 @@ public class StatsPlayer : MonoBehaviour
                 {
                     compteurTempsRecharge -= Time.deltaTime;
                 }
-
-
-                healthPercentage = health / maxHealth;
-                UpdateHealth();
-                UpdateGold();
-                if (health <= 0)
-                {
-                    Death();
-                }
             }
+        }
+        healthPercentage = health / maxHealth;
+        UpdateHealth();
+        UpdateGold();
+        if (health <= 0)
+        {
+            Death();
         }
     }
 

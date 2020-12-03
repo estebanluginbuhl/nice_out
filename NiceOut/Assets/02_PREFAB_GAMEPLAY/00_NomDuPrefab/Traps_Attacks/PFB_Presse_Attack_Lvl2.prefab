@@ -98,8 +98,9 @@ MonoBehaviour:
   type: 0
   rangeSphere: 10
   rangeBox: {x: 0, y: 0, z: 0}
-  damages: 5
-  cooldown: 0
+  offsetForward: 0
+  damages: 10
+  cooldown: 1
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2

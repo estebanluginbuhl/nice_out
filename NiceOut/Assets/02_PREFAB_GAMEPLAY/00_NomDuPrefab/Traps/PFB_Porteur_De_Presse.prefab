@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4892258571009207068}
   - component: {fileID: 4892258571009207043}
+  - component: {fileID: 2108486276045888227}
   m_Layer: 9
   m_Name: PFB_Porteur_De_Presse
   m_TagString: Trap
@@ -52,7 +53,7 @@ MonoBehaviour:
   UsurePercentage: 0
   player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 1.4, y: 1.75, z: 1.6}
+  colliderSize: {x: 1.4, y: 1.8, z: 1.4}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
   costs: 960000009600000096000000
@@ -62,10 +63,10 @@ MonoBehaviour:
   - {fileID: 6160061507092821985, guid: f697abe40919a6940afdf9fb235365e7, type: 3}
   - {fileID: 101624093853252556, guid: d10a2e2d417b672458b4eb4188d8c86c, type: 3}
   offsetPositions:
-  - 0.9
-  - 0.9
-  - 0.9
-  upgradeIndex: 2
+  - 0.01
+  - 0.01
+  - 0.01
+  upgradeIndex: 0
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}
@@ -74,3 +75,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dfda99dc1de317e4c8979de33545a095, type: 3}
   - {fileID: 21300000, guid: addafd5a22428b84f82bce4da03f956c, type: 3}
   - {fileID: 21300000, guid: 9e7cf52834d0f36479f54f28c4e7a756, type: 3}
+--- !u!65 &2108486276045888227
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892258571009207041}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

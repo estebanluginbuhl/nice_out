@@ -67,7 +67,7 @@ public class Trap_Inventory : MonoBehaviour
     void SelectRight()//Selectionner l'item de droite
     {
         selectedSlotIndex += 1;
-        if ((selectedSlotIndex) > 4)
+        if ((selectedSlotIndex) > nbTrapMax - 1)
         {
             selectedSlotIndex = 0;
         }
@@ -75,14 +75,14 @@ public class Trap_Inventory : MonoBehaviour
         {
             if (slots[selectedSlotIndex] == null)
             {
-                if ((selectedSlotIndex) > 4)
+                if ((selectedSlotIndex) > nbTrapMax - 1)
                 {
                     selectedSlotIndex = 0;
                 }
                 else
                 {
                     selectedSlotIndex += 1;
-                    if ((selectedSlotIndex) > 4)
+                    if ((selectedSlotIndex) > nbTrapMax - 1)
                     {
                         selectedSlotIndex = 0;
                     }
@@ -92,7 +92,7 @@ public class Trap_Inventory : MonoBehaviour
             {
                 if (nbUsedSlots != 0)//retour position du selecteur
                 {
-                    if ((selectedSlotIndex) > 4)
+                    if ((selectedSlotIndex) > nbTrapMax - 1)
                     {
                         selectedSlotIndex = 0;
                     }
@@ -107,7 +107,7 @@ public class Trap_Inventory : MonoBehaviour
         selectedSlotIndex -= 1;
         if ((selectedSlotIndex) < 0)
         {
-            selectedSlotIndex = 4;
+            selectedSlotIndex = nbTrapMax - 1;
         }
         for (int i = 0; i < nbTrapMax + 1; i++)
         {
@@ -115,14 +115,14 @@ public class Trap_Inventory : MonoBehaviour
             {
                 if ((selectedSlotIndex) < 0)
                 {
-                    selectedSlotIndex = 4;
+                    selectedSlotIndex = nbTrapMax - 1;
                 }
                 else
                 {
                     selectedSlotIndex -= 1;
                     if ((selectedSlotIndex) < 0)
                     {
-                        selectedSlotIndex = 4;
+                        selectedSlotIndex = nbTrapMax - 1;
                     }
                 }
             }
@@ -132,7 +132,7 @@ public class Trap_Inventory : MonoBehaviour
                 {
                     if ((selectedSlotIndex) < 0)
                     {
-                        selectedSlotIndex = 4;
+                        selectedSlotIndex = nbTrapMax - 1;
                     }
                     ui_SelectBox.rectTransform.position = slots[selectedSlotIndex].rectTransform.position;
                 }

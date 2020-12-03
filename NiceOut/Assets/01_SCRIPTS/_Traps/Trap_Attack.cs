@@ -118,7 +118,7 @@ public class Trap_Attack : MonoBehaviour
                 }
             }
         }
-    }
+    }//Valide
 
     void AttaquePanneauPublicitaire()
     {
@@ -127,42 +127,41 @@ public class Trap_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
-                if(c.GetComponent<EnmMovement>().hostile == true)
+                if (isGonnaDie == false)
                 {
-                    c.GetComponentInParent<EnmMovement>().isAttracted = true;
-                    c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
+                    if (c.GetComponentInParent<EnmMovement>().hostile == true)
+                    {
+                        c.GetComponentInParent<EnmMovement>().isAttracted = true;
+                        c.GetComponentInParent<EnmMovement>().attractTarget = this.parentTrap.transform;
+                    }
+                    else
+                    {
+                        c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                        c.GetComponentInParent<EnmMovement>().attractTarget = null;
+                    }
                 }
                 else
                 {
-                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
                     c.GetComponentInParent<EnmMovement>().attractTarget = null;
+                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
                 }
             }
         }
-        if(isGonnaDie == true)
-        {
-            foreach (Collider c in ennemis)
-            {
-                c.GetComponentInParent<EnmMovement>().isAttracted = false;
-            }
-        }
-    }
+    }//Valide
 
     void AttaqueBacAFruit()
     {
         float slowSpeed = 2f;
-        float oldSpeed = 0f;
         Collider[] ennemis = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                oldSpeed = c.GetComponentInParent<EnmMovement>().enmSpeed;
-                c.GetComponentInParent<EnmMovement>().enmSpeed = slowSpeed;
-                Debug.Log("slowed");
+                StartCoroutine(c.GetComponentInParent<EnmMovement>().Slow(cooldown ,slowSpeed));
+                Debug.Log("Slowed");
             }
         }
-        //de-slow les ennemis aussi mdr, fin deja faudrait arriver a les slow
+        //de-slow les ennemis aussi
     }
 
     void AttaqueParfum()
@@ -202,7 +201,57 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueTapisRoulant()
     {
+        float slowSpeed = 2f;
+        float fastSpeed = 10f;
 
+        //Devant : accélérer
+        Collider[] ennemisToEject = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        if (ennemisToEject.Length != 0)
+        {
+            foreach (Collider e in ennemisToEject)
+            {
+                if (e.GetComponentInParent<EnmMovement>().isSlowed == false)
+                {
+                    StartCoroutine(e.GetComponentInParent<EnmMovement>().Fasten(cooldown, fastSpeed));
+                    Debug.Log("Fastened");
+                }
+            }
+        }
+        //Deriere : ralentir
+        Collider[] ennemisToSlow = Physics.OverlapBox(Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        if (ennemisToSlow.Length != 0)
+        {
+            foreach (Collider s in ennemisToSlow)
+            {
+                if (s.GetComponentInParent<EnmMovement>().isFastened == false)
+                {
+                    StartCoroutine(s.GetComponentInParent<EnmMovement>().Slow(cooldown, slowSpeed));
+                    Debug.Log("Slowed");
+                }
+            }
+        }
+
+        Collider[] ennemis = Physics.OverlapBox(Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x / 2, rangeBox.y / 2, rangeBox.z), transform.rotation, ennemisMask);
+        if (ennemis.Length != 0)
+        {
+            foreach (Collider c in ennemis)
+            {
+                if (c.GetComponentInParent<EnmMovement>().isSlowed)
+                {
+                    Debug.Log("continue Slowed");
+                    StartCoroutine(c.GetComponentInParent<EnmMovement>().Slow(cooldown, slowSpeed));
+                }
+                else if (c.GetComponentInParent<EnmMovement>().isFastened)
+                {
+                    Debug.Log("continue Fasten");
+                    StartCoroutine(c.GetComponentInParent<EnmMovement>().Fasten(cooldown, fastSpeed));
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
     }
     
     void AttaqueStandCommerce()
@@ -214,30 +263,30 @@ public class Trap_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
-                if (c.GetComponent<EnmMovement>().hostile == true)
+                if (isGonnaDie == false)
                 {
-                    c.GetComponentInParent<EnmMovement>().isAttracted = true;
-                    c.GetComponentInParent<EnmMovement>().attractTarget = parentTrap.transform;
-
-                    if(cptCooldown == 0)
+                    if (c.GetComponentInParent<EnmMovement>().hostile == true)
                     {
-                        if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
+                        c.GetComponentInParent<EnmMovement>().isAttracted = true;
+                        c.GetComponentInParent<EnmMovement>().attractTarget = this.parentTrap.transform;
+                        if (cptCooldown == 0)
                         {
-                            c.GetComponent<StatEnm>().goodEnm(damages);
+                            if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
+                            {
+                                c.GetComponent<StatEnm>().goodEnm(damages);
+                            }
+                            StartCoroutine(Cooldown(this.cooldown));
                         }
-                        StartCoroutine(Cooldown(this.cooldown));
+                    }
+                    else
+                    {
+                        c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                        c.GetComponentInParent<EnmMovement>().attractTarget = null;
                     }
                 }
                 else
                 {
-                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
                     c.GetComponentInParent<EnmMovement>().attractTarget = null;
-                }
-            }
-            if (isGonnaDie == true)
-            {
-                foreach (Collider c in ennemis)
-                {
                     c.GetComponentInParent<EnmMovement>().isAttracted = false;
                 }
             }
@@ -256,8 +305,7 @@ public class Trap_Attack : MonoBehaviour
         if (type == 0)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireSphere(transform.position, rangeSphere);
+            Gizmos.DrawWireSphere(parentTrap.transform.position, rangeSphere);
         }
         if (type == 1)
         {
@@ -290,8 +338,14 @@ public class Trap_Attack : MonoBehaviour
         }
         if (type == 6)
         {
-            Gizmos.color = Color.black;
             Gizmos.matrix = transform.localToWorldMatrix;
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.back * offsetForward, rangeBox);
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x, rangeBox.y, rangeBox.z * 2));
         }
         if (type == 7)
         {

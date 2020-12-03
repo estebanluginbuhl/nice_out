@@ -200,16 +200,17 @@ public class Reward : MonoBehaviour
         waveManager.waveStarted = true;
     }
 
-    public void AllTraps()
+    public void AllTraps()//temporaire, donne tous les traps au joueur
     {
-        for (int i = 0; i < allTraps.Length; i++)
+        for (int i = 0; i < allTraps.Length * 3; i++)
         {
-            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i], i);
-            upgradeIndexes[i] = 0;
-            addedTraps[i] = 1;
-            nbTrapAdded += 1;
+            RewardSelection();
+            RewardPanelOpenClose();
+            AddReward();
         }
-    } //temporaire, donne tous les traps au joueur
+        RewardPanelOpenClose();
+        rewardTime = false;
+    }
 
     private void OnEnable()
     {

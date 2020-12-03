@@ -20,8 +20,12 @@ public class EnmMovement : MonoBehaviour
     private float enmHealth, damage;
     private GameObject[] firmeTarget;
 
+    //Trap Influence
     public bool isAttracted;
     public Transform attractTarget;
+
+    public bool isSlowed, isFastened;
+    public float modifiedSpeed;
 
     void Start()
     {
@@ -99,7 +103,25 @@ public class EnmMovement : MonoBehaviour
             }
             else
             {
-                enmNavMesh.destination = attractTarget.position;
+                if (attractTarget != null)
+                {
+                    enmNavMesh.destination = attractTarget.position;
+                }
+                else
+                {
+                    isAttracted = false;
+                    return;
+                }
+            }
+
+            if(isSlowed || isFastened)
+            {
+                enmNavMesh.speed = modifiedSpeed;
+                Debug.Log("modified");
+            }
+            else if(enmNavMesh.speed != enmSpeed)
+            {
+                enmNavMesh.speed = enmSpeed;
             }
         }
     }
@@ -119,6 +141,21 @@ public class EnmMovement : MonoBehaviour
             }
         }
         enmNavMesh.destination = choosenObjective.transform.position;
+    }
+
+    public IEnumerator Slow(float _swloTime,float _slowSpeed)
+    {
+        isSlowed = true;
+        modifiedSpeed = _slowSpeed;
+        yield return new WaitForSecondsRealtime(_swloTime);
+        isSlowed = false;
+    }
+    public IEnumerator Fasten(float _fastenTime,float _fastenSpeed)
+    {
+        isFastened = true;
+        modifiedSpeed = _fastenSpeed;
+        yield return new WaitForSecondsRealtime(_fastenTime);
+        isFastened = false;
     }
 
     void OnDrawGizmos()

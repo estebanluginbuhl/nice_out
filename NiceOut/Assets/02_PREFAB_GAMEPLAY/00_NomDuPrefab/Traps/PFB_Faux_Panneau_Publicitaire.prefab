@@ -63,9 +63,9 @@ MonoBehaviour:
   - {fileID: 9015111267809221299, guid: d175d3661fbfd094681ddcce641c7383, type: 3}
   - {fileID: 1255758784346034749, guid: fa06b085ba0dda440abb7671ba3d9faa, type: 3}
   offsetPositions:
-  - 1.7
-  - 1.7
-  - 1.7
+  - 0.01
+  - 0.01
+  - 0.01
   upgradeIndex: 0
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,

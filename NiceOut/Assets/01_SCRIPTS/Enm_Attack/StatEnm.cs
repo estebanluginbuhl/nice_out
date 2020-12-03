@@ -6,46 +6,46 @@ public class StatEnm : MonoBehaviour
 {
     public float damage, gizmosRadius, getHealth, damageCooldown, enmHealth;
     public Color gizmosColor;
-    public LayerMask trapDetectionLayer, playerDetectionLayer;
-    public bool slowed, stunned;
 
-    private Collider[] trapTarget, playerTarget;
+    public LayerMask playerDetectionLayer;
+
+    private Collider[] playerTarget;
+    private GameObject attackTarget;
 
     void Update()
     {
-        trapTarget = Physics.OverlapSphere(transform.position, gizmosRadius, trapDetectionLayer);
         playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
 
-        if (trapTarget == null && playerTarget == null)
+        if (playerTarget.Length == 0)
         {
             return;
         }
         else
         {
-            Damage();
+            foreach (Collider c in playerTarget)
+            {
+                attackTarget = c.gameObject;
+            }
+            Damage(attackTarget);
         }
     }
 
-    void Damage()
+    void Damage(GameObject _target)
     {
-        damageCooldown += Time.deltaTime;
-
         if (damageCooldown >= 1)
         {
-            damageCooldown = 0;
-            if (trapTarget.Length != 0)
+            if (_target)
             {
-                Debug.Log("damage trap");
-                trapTarget[0].GetComponent<Traps>().DamageTrap(Mathf.RoundToInt(damage));
-            }
-            else if (playerTarget.Length != 0)
-            {
-                Debug.Log("damage player");
-                playerTarget[0].GetComponent<StatsPlayer>().health -= damage;
+                //Debug.Log("damage player");
+                _target.GetComponent<StatsPlayer>().health -= damage;
+                damageCooldown = 0;
             }
             else return;
         }
-        return;
+        else
+        {
+            damageCooldown += Time.deltaTime;
+        }
     }
 
     public void goodEnm(int takenDamage)

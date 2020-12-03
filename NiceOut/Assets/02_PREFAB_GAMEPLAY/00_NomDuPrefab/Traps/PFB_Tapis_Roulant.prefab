@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2772598709392566941}
   - component: {fileID: 2772598709392566942}
+  - component: {fileID: -6272607322716721369}
   m_Layer: 9
   m_Name: PFB_Tapis_Roulant
   m_TagString: Trap
@@ -52,19 +53,19 @@ MonoBehaviour:
   UsurePercentage: 0
   player: {fileID: 0}
   child: {fileID: 0}
-  colliderSize: {x: 3.5, y: 2.9, z: 3.5}
+  colliderSize: {x: 3.5, y: 1.72, z: 3.5}
   transformTrap: {x: 0, y: 0, z: 0}
   rotationTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
   sellCosts: 320000003c00000046000000
   trapAndUpgrades:
-  - {fileID: 2732504115741463701, guid: f16fe6fd624601248a2c7e048b878dac, type: 3}
-  - {fileID: 7376662494940871217, guid: 3e23fdfb67d72bc4ea3b2ab0502b8034, type: 3}
-  - {fileID: 952267906745808988, guid: 71724948dc3d9d746b29ada013394c79, type: 3}
+  - {fileID: 452467482325948768, guid: ea03dd376e5ba654c9c179007e932808, type: 3}
+  - {fileID: 480278977041148940, guid: 7624e09b5e3a7c94db3dba409a6094ae, type: 3}
+  - {fileID: 2838832129113978810, guid: 3e25246d8a121894382864ffd8688c97, type: 3}
   offsetPositions:
-  - 1.53
-  - 1.5
-  - 1.5
+  - 0.01
+  - 0.01
+  - 0.01
   upgradeIndex: 0
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
@@ -74,3 +75,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 77c8f09b30d4a104db29c846a8143325, type: 3}
   - {fileID: 21300000, guid: b27a7c2e474bc664d8da75dd6e3fda12, type: 3}
   - {fileID: 21300000, guid: 903b23358c7710e4da4358e4dfd15e53, type: 3}
+--- !u!65 &-6272607322716721369
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2772598709392566936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
