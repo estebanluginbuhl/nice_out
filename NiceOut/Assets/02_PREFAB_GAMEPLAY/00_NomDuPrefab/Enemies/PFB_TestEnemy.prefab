@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 828886200}
   - component: {fileID: 828886199}
   - component: {fileID: 828886198}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,11 +102,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8539083494893854118}
-  - component: {fileID: 2386091292313006713}
   - component: {fileID: 6343466456876240757}
   - component: {fileID: 7014327665131691280}
   - component: {fileID: 8651292940131210654}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PFB_TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,18 +127,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2386091292313006713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547376902778127861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ad56e823c96ac4ba4d19b101662ce7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6343466456876240757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathFinding: 0
+  neutral: 0
+  hostile: 1
+  allie: 0
   enmTransform: {fileID: 8539083494893854118}
   playerDetectionLayer:
     serializedVersion: 2
@@ -161,6 +151,11 @@ MonoBehaviour:
   targetTreshold: 0.5
   gizmo1Radius: 10
   gizmo1Color: {r: 1, g: 0, b: 1, a: 1}
+  isAttracted: 0
+  attractTarget: {fileID: 0}
+  isSlowed: 0
+  isFastened: 0
+  modifiedSpeed: 0
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -201,9 +196,6 @@ MonoBehaviour:
   damageCooldown: 0
   enmHealth: 0
   gizmosColor: {r: 0, g: 0, b: 0, a: 1}
-  trapDetectionLayer:
-    serializedVersion: 2
-    m_Bits: 512
   playerDetectionLayer:
     serializedVersion: 2
     m_Bits: 1024

@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3505a075497c5f542b9770fea3c99e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostValue: 0.2
+  boostValue: 1
   boostTime: 3
   respawnTime: 10
 --- !u!65 &8863945566094716295

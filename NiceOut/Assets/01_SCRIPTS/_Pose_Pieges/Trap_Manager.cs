@@ -127,7 +127,7 @@ public class Trap_Manager : MonoBehaviour
                         mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
                         colliderCube = (trapStats.colliderSize) / 2;
 
-                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + Vector3.up * trapStats.offsetPositions[0], colliderCube, forseeTrap.transform.rotation, cantTrapLayer);
+                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, forseeTrap.transform.rotation, cantTrapLayer);
 
                         if (boxCollider.Length != 0)
                         {
@@ -234,13 +234,18 @@ public class Trap_Manager : MonoBehaviour
 
     private void OnDrawGizmos() //Afficher la sphere de detection dans la scene
     {
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spherePosition.transform.position, detectionRadius);
         Gizmos.color = Color.green;
         Gizmos.DrawRay(spherePosition.transform.position, Vector3.down);
-        Gizmos.color = Color.blue;
-        Gizmos.matrix = forseeTrap.transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(Vector3.up * colliderCube.y, colliderCube * 2);
+        if (inventorySelection == true)
+        {
+            Traps trapStats = inventorySelection.GetComponent<Traps>();
+            Gizmos.color = Color.blue;
+            Gizmos.matrix = forseeTrap.transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0], colliderCube * 2);
+        }
     }
 
     //Pas touche c'est pour les inputs

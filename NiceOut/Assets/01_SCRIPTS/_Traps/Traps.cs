@@ -28,7 +28,6 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     public float ui_hbHeight;
     public Sprite[] ui_Image;
 
-
     BoxCollider box;
 
     private void Start()
@@ -37,10 +36,8 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         if(box != null)
         {
             box.size = colliderSize;
-            if(this.trapType == 2)
-            {
-                box.isTrigger = true;
-            }
+            box.center = new Vector3(0, colliderSize.y / 2 + offsetPositions[upgradeIndex], 0);
+            box.isTrigger = true;
         }
         this.usure = this.fullUsure[this.upgradeIndex];
         this.UsurePercentage = usure / fullUsure[this.upgradeIndex];

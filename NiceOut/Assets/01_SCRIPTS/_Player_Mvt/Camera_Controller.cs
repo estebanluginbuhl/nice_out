@@ -65,7 +65,7 @@ public class Camera_Controller : MonoBehaviour
         {
             if(switchMode.GetPause() == false)
             {
-                distance += scroll.y * Time.deltaTime * 0.1f;
+                //distance += scroll.y * Time.deltaTime * 0.1f;
 
                 UpdateFocusPoint();
                 ManualRotation();
