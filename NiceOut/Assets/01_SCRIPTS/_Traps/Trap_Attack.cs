@@ -127,6 +127,8 @@ public class Trap_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
+                Debug.Log(ennemis);
+
                 if (isGonnaDie == false)
                 {
                     if (c.GetComponentInParent<EnmMovement>().hostile == true)
