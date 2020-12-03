@@ -6,6 +6,7 @@ public class StatEnm : MonoBehaviour
 {
     public float damage, gizmosRadius, getHealth, damageCooldown, enmHealth;
     public Color gizmosColor;
+
     public LayerMask playerDetectionLayer;
 
     private Collider[] playerTarget;
