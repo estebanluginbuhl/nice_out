@@ -18,12 +18,24 @@ public class Trap_Attack : MonoBehaviour
     float cptCooldown;
     public bool isGonnaDie;
 
+    float slowSpeed = 2f;
+    float fastSpeed = 10f;
+
     [SerializeField]
     LayerMask ennemisMask = -1;
 
     Transform target = null;
     bool stillInRange;
     GameObject attackTarget = null;
+    Collider[] alreadySlowed;
+
+    private void Start()
+    {
+        if(type == 2 || type == 6)
+        {
+           alreadySlowed = new Collider[20]; //taille au hazard echniquement c'est censé pouvoir gerer nimporte quel nombre d'ennemi donc peut etre au augment la taille la
+        }
+    }
     private void Update()
     {
         if (type == 0)
@@ -60,7 +72,7 @@ public class Trap_Attack : MonoBehaviour
         }
     }
 
-    void AttaquePorteurDePresse()
+    void AttaquePorteurDePresse()//Valide
     {
         float attackRange = 2f;
         NavMeshAgent nav = GetComponent<NavMeshAgent>();
@@ -85,7 +97,7 @@ public class Trap_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponentInParent<EnmMovement>().hostile == false)
+                if (target.GetComponent<EnmMovement>().hostile == false)
                 {
                     target = null;
                     return;
@@ -112,54 +124,45 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponentInParent<StatEnm>().badEnm(damages);
+                        target.GetComponent<StatEnm>().badEnm(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
             }
         }
-    }//Valide
+    }
 
     void AttaquePanneauPublicitaire()
     {
-        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y /2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.up * rangeBox.y /2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                Debug.Log(ennemis);
-
                 if (isGonnaDie == false)
                 {
-                    if (c.GetComponentInParent<EnmMovement>().hostile == true)
-                    {
-                        c.GetComponentInParent<EnmMovement>().isAttracted = true;
-                        c.GetComponentInParent<EnmMovement>().attractTarget = this.parentTrap.transform;
-                    }
-                    else
-                    {
-                        c.GetComponentInParent<EnmMovement>().isAttracted = false;
-                        c.GetComponentInParent<EnmMovement>().attractTarget = null;
-                    }
+                    c.GetComponent<EnmMovement>().isAttracted = true;
+                    c.GetComponent<EnmMovement>().attractTarget = this.parentTrap.transform;
                 }
                 else
                 {
-                    c.GetComponentInParent<EnmMovement>().attractTarget = null;
-                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                    c.GetComponent<EnmMovement>().attractTarget = null;
+                    c.GetComponent<EnmMovement>().isAttracted = false;
                 }
             }
         }
-    }//Valide
+    }
 
     void AttaqueBacAFruit()
     {
-        float slowSpeed = 2f;
-        Collider[] ennemis = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        alreadySlowed = new Collider[ennemis.Length];
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                StartCoroutine(c.GetComponentInParent<EnmMovement>().Slow(cooldown ,slowSpeed));
+                c.GetComponent<EnmMovement>().isSlowed = true;
+                c.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
                 Debug.Log("Slowed");
             }
         }
@@ -168,23 +171,44 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueParfum()
     {
+        int dotDuration = 5;
+        int nbTransmission = 3;
+        float rangeTransmission = 2f;
+        Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
-    }
-
-    void AttaqueAntenneBrouilleur()
-    {
-        Collider[] ennemis = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
-
-        if (ennemis.Length != 0)
+        if (units.Length != 0)
         {
-            foreach (Collider c in ennemis)
+            if (cptCooldown == 0)
             {
-                //Stun
+                foreach (Collider c in units)
+                {
+                    StartCoroutine(c.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(Cooldown(cooldown));
+                }
             }
         }
     }
 
-    void AttaqueBar()
+    void AttaqueAntenneBrouilleur()//Valide
+    {
+        float slowSpeed = 0f;
+        float stunDuration = 1f;
+        Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
+
+        if (units.Length != 0)
+        {
+            if(cptCooldown == 0)
+            {
+                foreach (Collider c in units)
+                {
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(stunDuration, slowSpeed, true));
+                    StartCoroutine(Cooldown(cooldown));
+                }
+            }
+        }
+    }
+
+    void AttaqueBar()//Valide
     {
         Collider[] ennemis = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
@@ -203,54 +227,31 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueTapisRoulant()
     {
-        float slowSpeed = 2f;
-        float fastSpeed = 10f;
-
         //Devant : accélérer
-        Collider[] ennemisToEject = Physics.OverlapBox(Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemisToEject.Length != 0)
         {
             foreach (Collider e in ennemisToEject)
             {
-                if (e.GetComponentInParent<EnmMovement>().isSlowed == false)
+                if (e.GetComponent<EnmMovement>().isSlowed == false)
                 {
-                    StartCoroutine(e.GetComponentInParent<EnmMovement>().Fasten(cooldown, fastSpeed));
+                    e.GetComponent<EnmMovement>().isFastened = true;
+                    e.GetComponent<EnmMovement>().modifiedSpeed = fastSpeed;
                     Debug.Log("Fastened");
                 }
             }
         }
         //Deriere : ralentir
-        Collider[] ennemisToSlow = Physics.OverlapBox(Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemisToSlow = Physics.OverlapBox(parentTrap.transform.position + Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemisToSlow.Length != 0)
         {
             foreach (Collider s in ennemisToSlow)
             {
-                if (s.GetComponentInParent<EnmMovement>().isFastened == false)
+                if (s.GetComponent<EnmMovement>().isFastened == false)
                 {
-                    StartCoroutine(s.GetComponentInParent<EnmMovement>().Slow(cooldown, slowSpeed));
+                    s.GetComponent<EnmMovement>().isSlowed = true;
+                    s.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
                     Debug.Log("Slowed");
-                }
-            }
-        }
-
-        Collider[] ennemis = Physics.OverlapBox(Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x / 2, rangeBox.y / 2, rangeBox.z), transform.rotation, ennemisMask);
-        if (ennemis.Length != 0)
-        {
-            foreach (Collider c in ennemis)
-            {
-                if (c.GetComponentInParent<EnmMovement>().isSlowed)
-                {
-                    Debug.Log("continue Slowed");
-                    StartCoroutine(c.GetComponentInParent<EnmMovement>().Slow(cooldown, slowSpeed));
-                }
-                else if (c.GetComponentInParent<EnmMovement>().isFastened)
-                {
-                    Debug.Log("continue Fasten");
-                    StartCoroutine(c.GetComponentInParent<EnmMovement>().Fasten(cooldown, fastSpeed));
-                }
-                else
-                {
-                    return;
                 }
             }
         }
@@ -267,29 +268,21 @@ public class Trap_Attack : MonoBehaviour
             {
                 if (isGonnaDie == false)
                 {
-                    if (c.GetComponentInParent<EnmMovement>().hostile == true)
+                    c.GetComponent<EnmMovement>().isAttracted = true;
+                    c.GetComponent<EnmMovement>().attractTarget = this.parentTrap.transform;
+                    if (cptCooldown == 0)
                     {
-                        c.GetComponentInParent<EnmMovement>().isAttracted = true;
-                        c.GetComponentInParent<EnmMovement>().attractTarget = this.parentTrap.transform;
-                        if (cptCooldown == 0)
+                        if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
-                            {
-                                c.GetComponent<StatEnm>().goodEnm(damages);
-                            }
-                            StartCoroutine(Cooldown(this.cooldown));
+                            c.GetComponent<StatEnm>().goodEnm(damages);
                         }
-                    }
-                    else
-                    {
-                        c.GetComponentInParent<EnmMovement>().isAttracted = false;
-                        c.GetComponentInParent<EnmMovement>().attractTarget = null;
+                        StartCoroutine(Cooldown(this.cooldown));
                     }
                 }
                 else
                 {
-                    c.GetComponentInParent<EnmMovement>().attractTarget = null;
-                    c.GetComponentInParent<EnmMovement>().isAttracted = false;
+                    c.GetComponent<EnmMovement>().attractTarget = null;
+                    c.GetComponent<EnmMovement>().isAttracted = false;
                 }
             }
         }

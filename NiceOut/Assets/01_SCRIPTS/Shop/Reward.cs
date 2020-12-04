@@ -10,10 +10,10 @@ public class Reward : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    GameObject player;
+    private GameObject player;
     Wave_Manager waveManager;
     [SerializeField]
-    Shop shop;
+    private Shop shop;
 
     [Header("Traps")]
     public GameObject[] allTraps; //tous les traps possibles

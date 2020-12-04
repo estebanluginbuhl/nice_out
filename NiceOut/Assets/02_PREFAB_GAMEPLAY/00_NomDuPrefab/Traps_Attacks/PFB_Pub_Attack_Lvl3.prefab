@@ -96,7 +96,7 @@ MonoBehaviour:
   parentTrap: {fileID: 0}
   type: 0
   rangeSphere: 0
-  rangeBox: {x: 4, y: 3, z: 10}
+  rangeBox: {x: 4, y: 3.2, z: 10}
   offsetForward: 5.05
   damages: 0
   cooldown: 0

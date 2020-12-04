@@ -100,7 +100,7 @@ MonoBehaviour:
   rangeBox: {x: 2.75, y: 2, z: 1.95}
   offsetForward: 0.975
   damages: 0
-  cooldown: 0.1
+  cooldown: 3
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2

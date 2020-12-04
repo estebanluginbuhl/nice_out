@@ -19,7 +19,7 @@ public class Shop : MonoBehaviour
     int[] upgradeIndexes;
 
     [SerializeField]
-    float shopRange;
+    private float shopRange;
     public LayerMask shopLayer;
         
     private void Awake()

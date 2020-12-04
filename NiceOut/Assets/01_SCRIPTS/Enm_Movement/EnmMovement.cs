@@ -24,7 +24,7 @@ public class EnmMovement : MonoBehaviour
     public bool isAttracted;
     public Transform attractTarget;
 
-    public bool isSlowed, isFastened;
+    public bool isSlowed, isFastened, isStunned, hasDot;
     public float modifiedSpeed;
 
     void Start()
@@ -105,7 +105,10 @@ public class EnmMovement : MonoBehaviour
             {
                 if (attractTarget != null)
                 {
-                    enmNavMesh.destination = attractTarget.position;
+                    if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                    {
+                        enmNavMesh.destination = attractTarget.position;
+                    }
                 }
                 else
                 {
@@ -143,19 +146,62 @@ public class EnmMovement : MonoBehaviour
         enmNavMesh.destination = choosenObjective.transform.position;
     }
 
-    public IEnumerator Slow(float _swloTime,float _slowSpeed)
+    public IEnumerator ModifieSpeed(float _ModifieTime,float _ModifiedSpeed, bool _stun)//Slow/Accélération/Stuns
     {
+        isStunned = _stun;
         isSlowed = true;
-        modifiedSpeed = _slowSpeed;
-        yield return new WaitForSecondsRealtime(_swloTime);
+        modifiedSpeed = _ModifiedSpeed;
+        yield return new WaitForSecondsRealtime(_ModifieTime);
         isSlowed = false;
+        isStunned = false;
     }
-    public IEnumerator Fasten(float _fastenTime,float _fastenSpeed)
+
+    public IEnumerator DamagesOverTime(int _damage, int _duration, float _range, int _index)//DOT parfum
     {
-        isFastened = true;
-        modifiedSpeed = _fastenSpeed;
-        yield return new WaitForSecondsRealtime(_fastenTime);
-        isFastened = false;
+        if(_index != 0)
+        {
+            hasDot = true;
+            while(_duration > 0)
+            {
+                if (hostile == true)
+                {
+                    float minDist = Mathf.Infinity;
+                    GameObject target = null;
+
+                    Collider[] transferTarget = Physics.OverlapSphere(transform.position, _range, 13);
+                    foreach (Collider c in transferTarget)
+                    {
+                        float dist = Vector3.Distance(transform.position, c.transform.position);
+                        if (dist <= minDist)
+                        {
+                            target = c.gameObject;
+                            minDist = dist;
+                        }
+                    }
+                    if (target != null)
+                    {
+                        _index -= 1;
+                        target.GetComponent<EnmMovement>().StartCoroutine(DamagesOverTime(_damage, _duration, _range, _index));
+                    }
+
+                    yield return new WaitForSecondsRealtime(1);
+                    _duration -= 1;
+                    GetComponent<StatEnm>().badEnm(_damage);
+                }
+                else
+                {
+                    _duration = 0;
+                }
+            }
+            if(_duration <= 0)
+            {
+                hasDot = false;
+            }
+        }
+        else
+        {
+            hasDot = false;
+        }
     }
 
     void OnDrawGizmos()
