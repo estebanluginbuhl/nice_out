@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnmMovement : MonoBehaviour
+public class EnmMovementTest : MonoBehaviour
 {
     public bool pathFinding;
     public bool neutral, hostile, allie;
@@ -54,7 +54,7 @@ public class EnmMovement : MonoBehaviour
         delayBeforeGo = 0;
     }
 
-    void FixedUpdate() 
+    void FixedUpdate()
     {
         Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmo1Radius, playerDetectionLayer);
         if (PathFinderTrigger.Length != 0)
@@ -70,7 +70,6 @@ public class EnmMovement : MonoBehaviour
 
     void Update()
     {
-        enmHealth = gameObject.GetComponent<StatEnm>().enmHealth;
         //neutral
         if (enmHealth >= -2 && enmHealth <= 2)//neutral == true
         {
@@ -164,12 +163,12 @@ public class EnmMovement : MonoBehaviour
                 }
             }
 
-            if(isSlowed || isFastened)
+            if (isSlowed || isFastened)
             {
                 enmNavMesh.speed = modifiedSpeed;
                 Debug.Log("modified");
             }
-            else if(enmNavMesh.speed != enmSpeed)
+            else if (enmNavMesh.speed != enmSpeed)
             {
                 enmNavMesh.speed = enmSpeed;
             }
@@ -193,7 +192,7 @@ public class EnmMovement : MonoBehaviour
         enmNavMesh.destination = choosenObjective.transform.position;
     }
 
-    public IEnumerator ModifieSpeed(float _ModifieTime,float _ModifiedSpeed, bool _stun)//Slow/Accélération/Stuns
+    public IEnumerator ModifieSpeed(float _ModifieTime, float _ModifiedSpeed, bool _stun)//Slow/Accélération/Stuns
     {
         isStunned = _stun;
         isSlowed = true;
@@ -205,10 +204,10 @@ public class EnmMovement : MonoBehaviour
 
     public IEnumerator DamagesOverTime(int _damage, int _duration, float _range, int _index)//DOT parfum
     {
-        if(_index != 0)
+        if (_index != 0)
         {
             hasDot = true;
-            while(_duration > 0)
+            while (_duration > 0)
             {
                 if (hostile == true)
                 {
@@ -240,7 +239,7 @@ public class EnmMovement : MonoBehaviour
                     _duration = 0;
                 }
             }
-            if(_duration <= 0)
+            if (_duration <= 0)
             {
                 hasDot = false;
             }

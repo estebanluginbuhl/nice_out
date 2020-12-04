@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 828886197}
   - component: {fileID: 828886200}
   - component: {fileID: 828886199}
+  - component: {fileID: 828886198}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &828886198
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828886196}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6547376902778127861
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,12 +102,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8539083494893854118}
-  - component: {fileID: 6343466456876240757}
+  - component: {fileID: 2386091292313006713}
   - component: {fileID: 7014327665131691280}
   - component: {fileID: 8651292940131210654}
-  - component: {fileID: 1322425481945263789}
-  m_Layer: 13
-  m_Name: PFB_TestEnemy
+  - component: {fileID: 8277869687558413627}
+  m_Layer: 0
+  m_Name: PFB_TestEnemy_random_mvt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +128,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6343466456876240757
+--- !u!114 &2386091292313006713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,31 +137,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547376902778127861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c879128def1e3f44882d860ab4eeda1, type: 3}
+  m_Script: {fileID: 11500000, guid: c7ad56e823c96ac4ba4d19b101662ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFinding: 0
-  neutral: 1
-  hostile: 0
-  allie: 0
-  enmTransform: {fileID: 8539083494893854118}
-  playerDetectionLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  enmSpeed: 5
-  targetTreshold: 0.2
-  targetTresholdNeutral: 0.5
-  gizmo1Radius: 5
-  resetTransformPicker: 2
-  resetWaitingTime: 3
-  gizmo1Color: {r: 1, g: 0, b: 1, a: 1}
-  isAttracted: 0
-  attractTarget: {fileID: 0}
-  isSlowed: 0
-  isFastened: 0
-  isStunned: 0
-  hasDot: 0
-  modifiedSpeed: 0
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -185,23 +177,43 @@ MonoBehaviour:
   damage: 5
   gizmosRadius: 1.5
   getHealth: 0
-  damageCooldown: 1
+  damageCooldown: 0
   enmHealth: 0
   gizmosColor: {r: 0, g: 0, b: 0, a: 1}
+  trapDetectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
   playerDetectionLayer:
     serializedVersion: 2
     m_Bits: 1024
---- !u!136 &1322425481945263789
-CapsuleCollider:
+  slowed: 0
+  stunned: 0
+--- !u!114 &8277869687558413627
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6547376902778127861}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd7f01c339857544b48120aa48de106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinding: 0
+  neutral: 1
+  hostile: 0
+  allie: 0
+  enmTransform: {fileID: 8539083494893854118}
+  playerDetectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enmSpeed: 5
+  targetTreshold: 0.2
+  targetTresholdNeutral: 0.5
+  gizmo1Radius: 5
+  resetTransformPicker: 3
+  resetWaitingTime: 3
+  gizmo1Color: {r: 1, g: 0, b: 0.8913307, a: 1}
+  isAttracted: 0
+  attractTarget: {fileID: 0}
