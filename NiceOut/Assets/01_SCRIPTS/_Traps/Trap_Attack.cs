@@ -176,7 +176,7 @@ public class Trap_Attack : MonoBehaviour
     void AttaqueParfum()
     {
         int dotDuration = 5;
-        int nbTransmission = 3;
+        int nbTransmission = dotDuration - 2;
         float rangeTransmission = 2f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
@@ -184,11 +184,8 @@ public class Trap_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                foreach (Collider c in units)
-                {
-                    StartCoroutine(c.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
-                    StartCoroutine(Cooldown(cooldown));
-                }
+                StartCoroutine(units[0].GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                StartCoroutine(Cooldown(cooldown));
             }
         }
     }
@@ -322,18 +319,16 @@ public class Trap_Attack : MonoBehaviour
         if (type == 3)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 4)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 5)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 6)

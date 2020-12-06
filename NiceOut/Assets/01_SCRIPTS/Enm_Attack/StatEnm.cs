@@ -15,32 +15,35 @@ public class StatEnm : MonoBehaviour
 
     void Update()
     {
-        playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
+        if(GetComponent<EnmMovement>().hostile == true)
+        {
+            playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
 
-        if (playerTarget.Length == 0)
-        {
-            return;
-        }
-        else
-        {
-            foreach (Collider c in playerTarget)
+            if (playerTarget.Length == 0)
             {
-                attackTarget = c.gameObject;
+                return;
             }
-            if(damageCooldown >= 1)
+            else
             {
-                Damage(attackTarget);
+                foreach (Collider c in playerTarget)
+                {
+                    attackTarget = c.gameObject;
+                }
+                if (damageCooldown >= 1)
+                {
+                    Damage(attackTarget);
+                }
             }
-        }
-        if (damageCooldown < 1)
-        {
-            damageCooldown += Time.deltaTime;
+            if (damageCooldown < 1)
+            {
+                damageCooldown += Time.deltaTime;
+            }
         }
     }
 
     void Damage(GameObject _target)
     {
-        if (_target != null)
+        if (_target != null && GetComponent<EnmMovement>().hostile == true)
         {
             _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
             damageCooldown = 0;
