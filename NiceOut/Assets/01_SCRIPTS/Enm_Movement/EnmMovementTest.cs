@@ -30,14 +30,14 @@ public class EnmMovementTest : MonoBehaviour
 
     public bool isSlowed, isFastened, isStunned, hasDot;
     public float modifiedSpeed;
-
+    [SerializeField]
+    ParticleSystem badConvertionParticle, goodConvertionParticle;
     void Start()
     {
         target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
-        enmHealth = gameObject.GetComponent<StatEnm>().enmHealth;
         damage = gameObject.GetComponent<StatEnm>().damage;
 
         randomTransformPickerTimer = resetTransformPicker;
@@ -232,7 +232,7 @@ public class EnmMovementTest : MonoBehaviour
 
                     yield return new WaitForSecondsRealtime(1);
                     _duration -= 1;
-                    GetComponent<StatEnm>().badEnm(_damage);
+                    badEnm(_damage);
                 }
                 else
                 {
@@ -248,6 +248,18 @@ public class EnmMovementTest : MonoBehaviour
         {
             hasDot = false;
         }
+    }
+
+    public void goodEnm(int takenDamage)
+    {
+        enmHealth -= takenDamage;
+        badConvertionParticle.Play();
+    }
+
+    public void badEnm(int takenDamage)
+    {
+        enmHealth += takenDamage;
+        goodConvertionParticle.Play();
     }
 
     bool CalculateNewPath()

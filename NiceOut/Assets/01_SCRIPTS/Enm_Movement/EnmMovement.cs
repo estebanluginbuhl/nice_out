@@ -17,7 +17,9 @@ public class EnmMovement : MonoBehaviour
     GameObject choosenObjective = null;
     private Transform target;
     private int nodeIndex = 0;
+    [SerializeField]
     private float enmHealth, damage;
+    Vector2 healthValues = new Vector2(100, 10);
     private GameObject[] firmeTarget;
 
     NavMeshPath navMeshPath;
@@ -30,14 +32,24 @@ public class EnmMovement : MonoBehaviour
 
     public bool isSlowed, isFastened, isStunned, hasDot;
     public float modifiedSpeed;
+    [SerializeField]
+    ParticleSystem convertBadEnemyParticle, convertGoodEnemyParticle, convertedToGood, convertedToBad;
+    [SerializeField]
+    Material[] mats = new Material[3];
 
+    private void Awake()
+    {
+        convertBadEnemyParticle.Stop();
+        convertGoodEnemyParticle.Stop();
+        convertedToGood.Stop();
+        convertedToBad.Stop();
+    }
     void Start()
     {
         target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
-        enmHealth = gameObject.GetComponent<StatEnm>().enmHealth;
         damage = gameObject.GetComponent<StatEnm>().damage;
 
         randomTransformPickerTimer = resetTransformPicker;
@@ -52,6 +64,7 @@ public class EnmMovement : MonoBehaviour
         enmNavMesh.destination = target.position;
 
         delayBeforeGo = 0;
+        UpdateEnemyColor();
     }
 
     void FixedUpdate() 
@@ -70,11 +83,10 @@ public class EnmMovement : MonoBehaviour
 
     void Update()
     {
-        enmHealth = gameObject.GetComponent<StatEnm>().enmHealth;
         //neutral
-        if (enmHealth >= -2 && enmHealth <= 2)//neutral == true
+        if (enmHealth >= -healthValues.y && enmHealth <= healthValues.y)//neutral == true
         {
-            gameObject.layer = 0;
+            gameObject.layer = 13;
 
             randomTransformPickerTimer -= Time.deltaTime;
             delayBeforeGo -= Time.deltaTime;
@@ -108,7 +120,7 @@ public class EnmMovement : MonoBehaviour
             Debug.Log("neutral entity");
         }
         //allie
-        else if (enmHealth > 2)//allie == true
+        else if (enmHealth > healthValues.y)//allie == true
         {
             gameObject.layer = 0;
 
@@ -117,13 +129,12 @@ public class EnmMovement : MonoBehaviour
             //choosenObjective.GetComponent<FirmeScript>().TakeDamage(damage);
         }
         //bad enm
-        else if (enmHealth < 2)//hostile == true
+        else if (enmHealth < -healthValues.y)//hostile == true
         {
             gameObject.layer = 13;
 
             if (isAttracted == false)
             {
-                Debug.Log("hostile entity");
                 if (pathFinding == true)
                 {
                     enmNavMesh.destination = player.transform.position;
@@ -190,7 +201,8 @@ public class EnmMovement : MonoBehaviour
                 minDistance = dist;
             }
         }
-        enmNavMesh.destination = choosenObjective.transform.position;
+        if(choosenObjective != null)
+            enmNavMesh.destination = choosenObjective.transform.position;
     }
 
     public IEnumerator ModifieSpeed(float _ModifieTime,float _ModifiedSpeed, bool _stun)//Slow/Accélération/Stuns
@@ -233,7 +245,7 @@ public class EnmMovement : MonoBehaviour
 
                     yield return new WaitForSecondsRealtime(1);
                     _duration -= 1;
-                    GetComponent<StatEnm>().badEnm(_damage);
+                    DamageBadEnemy(_damage);
                 }
                 else
                 {
@@ -248,6 +260,52 @@ public class EnmMovement : MonoBehaviour
         else
         {
             hasDot = false;
+        }
+    }
+
+    public void DamageGoodEnemy(int takenDamage)
+    {
+        enmHealth -= takenDamage;
+        if(enmHealth <= -healthValues.x)
+        {
+            enmHealth = -healthValues.x;
+        }
+        convertGoodEnemyParticle.Play();
+        UpdateEnemyColor();
+    }
+
+    public void DamageBadEnemy(int takenDamage)
+    {
+        enmHealth += takenDamage;
+        if (enmHealth >= healthValues.x)
+        {
+            enmHealth = healthValues.x;
+        }
+        convertBadEnemyParticle.Play();
+        UpdateEnemyColor();
+    }
+
+    void UpdateEnemyColor()
+    {
+        if(enmHealth < -healthValues.y)
+        {
+            if(GetComponentInChildren<MeshRenderer>().material != mats[0])
+            {
+                GetComponentInChildren<MeshRenderer>().material = mats[0];
+                convertedToBad.Play();
+            }
+        }
+        else if (enmHealth > healthValues.y)
+        {
+            if (GetComponentInChildren<MeshRenderer>().material != mats[2])
+            {
+                GetComponentInChildren<MeshRenderer>().material = mats[2];
+                convertedToGood.Play();
+            }
+        }
+        else
+        {
+            GetComponentInChildren<MeshRenderer>().material = mats[1];
         }
     }
 

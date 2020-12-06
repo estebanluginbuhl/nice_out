@@ -64,7 +64,7 @@ public class Trap_Attack : MonoBehaviour
         }
         if (type == 6)
         {
-            AttaqueTapisRoulant();
+            //AttaqueTapisRoulant();
         }
         if (type == 7)
         {
@@ -124,7 +124,7 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<StatEnm>().badEnm(damages);
+                        target.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -155,18 +155,22 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueBacAFruit()
     {
+        float slow = 2f;
         Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
-        alreadySlowed = new Collider[ennemis.Length];
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                c.GetComponent<EnmMovement>().isSlowed = true;
-                c.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
-                Debug.Log("Slowed");
+                if (c.GetComponent<EnmMovement>().isSlowed == false)
+                {
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(0.1f, slow, false));
+                }
+                else
+                {
+                    return;
+                }
             }
         }
-        //de-slow les ennemis aussi
     }
 
     void AttaqueParfum()
@@ -218,14 +222,14 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<StatEnm>().goodEnm(damages);
+                    c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
         }
     }
 
-    void AttaqueTapisRoulant()
+    /*void AttaqueTapisRoulant()
     {
         //Devant : accélérer
         Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
@@ -256,7 +260,8 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-    
+    */
+
     void AttaqueStandCommerce()
     {
         float attaqueRange = 1f;
@@ -274,7 +279,7 @@ public class Trap_Attack : MonoBehaviour
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<StatEnm>().goodEnm(damages);
+                            c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }

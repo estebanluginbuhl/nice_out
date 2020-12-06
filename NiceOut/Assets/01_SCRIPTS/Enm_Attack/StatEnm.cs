@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class StatEnm : MonoBehaviour
 {
-    public float damage, gizmosRadius, getHealth, damageCooldown, enmHealth;
+    public float gizmosRadius, damageCooldown;
+    public int damage;
     public Color gizmosColor;
 
     public LayerMask playerDetectionLayer;
@@ -26,36 +27,25 @@ public class StatEnm : MonoBehaviour
             {
                 attackTarget = c.gameObject;
             }
-            Damage(attackTarget);
-        }
-    }
-
-    void Damage(GameObject _target)
-    {
-        if (damageCooldown >= 1)
-        {
-            if (_target)
+            if(damageCooldown >= 1)
             {
-                //Debug.Log("damage player");
-                _target.GetComponent<StatsPlayer>().health -= damage;
-                damageCooldown = 0;
+                Damage(attackTarget);
             }
-            else return;
         }
-        else
+        if (damageCooldown < 1)
         {
             damageCooldown += Time.deltaTime;
         }
     }
 
-    public void goodEnm(int takenDamage)
+    void Damage(GameObject _target)
     {
-        enmHealth += takenDamage;
-    }
-
-    public void badEnm(int takenDamage)
-    {
-        enmHealth -= takenDamage;
+        if (_target != null)
+        {
+            _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
+            damageCooldown = 0;
+        }
+        else return;
     }
 
     void OnDrawGizmos()

@@ -34,6 +34,8 @@ public class Character_Controller : MonoBehaviour
     float invincibleCount;
     public float cdRoll; // temps entre roulade;
     float cdCount; // compteur temps entre roulade;
+    [SerializeField]
+    ParticleSystem isBoosted;
 
     private void Awake()
     {
@@ -43,6 +45,8 @@ public class Character_Controller : MonoBehaviour
         inputs.Actions.Move.canceled += ctx => move = Vector2.zero;
         inputs.Actions.Jump.started += ctx => roll = true;
         inputs.Actions.Jump.canceled += ctx => roll = false;
+
+        isBoosted.Stop();
     }
     private void Start()
     {
@@ -116,7 +120,9 @@ public class Character_Controller : MonoBehaviour
     IEnumerator SpeedBoost(float _boostValue, float _boostTime)
     {
         boostSpeed = _boostValue;
+        isBoosted.Play();
         yield return new WaitForSecondsRealtime(_boostTime);
+        isBoosted.Stop();
         boostSpeed = 0;
 
     }
