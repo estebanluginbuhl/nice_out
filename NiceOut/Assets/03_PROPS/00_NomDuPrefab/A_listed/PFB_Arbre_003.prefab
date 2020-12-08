@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 54707082881924074}
   - component: {fileID: 3694147669985492349}
   - component: {fileID: 6042786893986458515}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tronc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 377304564234165546}
   - component: {fileID: 5161249340043109714}
   - component: {fileID: 37107870907674270}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 9181141337270858353}
   - component: {fileID: 6117901004995996999}
   - component: {fileID: 9054673237877006376}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 3555579206966225735}
   - component: {fileID: 2033850083282156358}
   - component: {fileID: 8256502005523470162}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 4928907307546740065}
   - component: {fileID: 3552168325725912409}
   - component: {fileID: 6243300504813712003}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

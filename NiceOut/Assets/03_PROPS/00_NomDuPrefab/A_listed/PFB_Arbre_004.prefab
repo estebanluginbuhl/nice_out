@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8158291259812084340}
   - component: {fileID: 3573822485065923754}
   - component: {fileID: 3545664865180737888}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tronc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3911453718448644199}
   - component: {fileID: 8814247730651445921}
   - component: {fileID: 561535440263340295}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
