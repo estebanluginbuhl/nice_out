@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4690968264341448667}
   - component: {fileID: 4690968264341448644}
   - component: {fileID: 4690968264341448645}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_sol_large_demi
   m_TagString: Untagged
   m_Icon: {fileID: 0}

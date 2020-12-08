@@ -34,8 +34,6 @@ public class Trap_Stats : MonoBehaviour
                 }
             }
         }
-
-
         if (isClose)
         {
             if(isActive == false)

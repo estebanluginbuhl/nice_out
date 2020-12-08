@@ -18,9 +18,6 @@ public class Trap_Attack : MonoBehaviour
     float cptCooldown;
     public bool isGonnaDie;
 
-    float slowSpeed = 2f;
-    float fastSpeed = 10f;
-
     [SerializeField]
     LayerMask ennemisMask = -1;
 
@@ -29,46 +26,47 @@ public class Trap_Attack : MonoBehaviour
     GameObject attackTarget = null;
     Collider[] alreadySlowed;
 
-    private void Start()
-    {
-        if(type == 2 || type == 6)
-        {
-           alreadySlowed = new Collider[20]; //taille au hazard echniquement c'est censé pouvoir gerer nimporte quel nombre d'ennemi donc peut etre au augment la taille la
-        }
-    }
+    public bool canAttack = false;
+
     private void Update()
     {
-        if (type == 0)
+        if(parentTrap != null && parentTrap.GetComponent<Traps>().isPaused == false)
         {
-            AttaquePorteurDePresse();
-        }
-        if (type == 1)
-        {
-            AttaquePanneauPublicitaire();  
-        }
-        if (type == 2)
-        {
-            AttaqueBacAFruit();
-        }
-        if (type == 3)
-        {
-            AttaqueParfum();
-        }
-        if (type == 4)
-        {
-            AttaqueAntenneBrouilleur();
-        }
-        if (type == 5)
-        {
-            AttaqueBar();
-        }
-        if (type == 6)
-        {
-            //AttaqueTapisRoulant();
-        }
-        if (type == 7)
-        {
-            AttaqueStandCommerce();
+            if (canAttack == true)
+            {
+                if (type == 0)
+                {
+                    AttaquePorteurDePresse();
+                }
+                if (type == 1)
+                {
+                    AttaquePanneauPublicitaire();
+                }
+                if (type == 2)
+                {
+                    AttaqueBacAFruit();
+                }
+                if (type == 3)
+                {
+                    AttaqueParfum();
+                }
+                if (type == 4)
+                {
+                    AttaqueAntenneBrouilleur();
+                }
+                if (type == 5)
+                {
+                    AttaqueBar();
+                }
+                if (type == 6)
+                {
+                    //AttaqueTapisRoulant();
+                }
+                if (type == 7)
+                {
+                    AttaqueStandCommerce();
+                }
+            }
         }
     }
 
@@ -81,6 +79,7 @@ public class Trap_Attack : MonoBehaviour
 
         if (ennemis.Length != 0)
         {
+            Debug.Log(ennemis[0]);
             if(target == null)
             {
                 float minDist = Mathf.Infinity;
@@ -142,7 +141,7 @@ public class Trap_Attack : MonoBehaviour
                 if (isGonnaDie == false)
                 {
                     c.GetComponent<EnmMovement>().isAttracted = true;
-                    c.GetComponent<EnmMovement>().attractTarget = this.parentTrap.transform;
+                    c.GetComponent<EnmMovement>().attractTarget = parentTrap.transform;
                 }
                 else
                 {
@@ -155,7 +154,6 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueBacAFruit()
     {
-        float slow = 2f;
         Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
@@ -163,7 +161,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 if (c.GetComponent<EnmMovement>().isSlowed == false)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(0.1f, slow, false));
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(cooldown, damages, false));
                 }
                 else
                 {
@@ -175,17 +173,36 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueParfum()
     {
-        int dotDuration = 5;
+        int dotDuration = Mathf.RoundToInt(cooldown);
         int nbTransmission = dotDuration - 2;
-        float rangeTransmission = 2f;
+        float rangeTransmission = 3f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
         if (units.Length != 0)
         {
             if (cptCooldown == 0)
             {
-                StartCoroutine(units[0].GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
-                StartCoroutine(Cooldown(cooldown));
+                if(units[0].GetComponent<EnmMovement>().hasDot == true)
+                {
+                    foreach(Collider c in units)
+                    {
+                        if (c.GetComponent<EnmMovement>().hasDot == false)
+                        {
+                            target = c.transform;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    target = units[0].transform;
+                }
+                if (target != null)
+                {
+                    StartCoroutine(target.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(Cooldown(cooldown));
+                    target = null;
+                }
             }
         }
     }
@@ -193,7 +210,7 @@ public class Trap_Attack : MonoBehaviour
     void AttaqueAntenneBrouilleur()//Valide
     {
         float slowSpeed = 0f;
-        float stunDuration = 1f;
+
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
         if (units.Length != 0)
@@ -202,7 +219,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in units)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(stunDuration, slowSpeed, true));
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(damages, slowSpeed, true));
                     StartCoroutine(Cooldown(cooldown));
                 }
             }
@@ -237,7 +254,7 @@ public class Trap_Attack : MonoBehaviour
                 if (e.GetComponent<EnmMovement>().isSlowed == false)
                 {
                     e.GetComponent<EnmMovement>().isFastened = true;
-                    e.GetComponent<EnmMovement>().modifiedSpeed = fastSpeed;
+                    e.GetComponent<EnmMovement>().modifiedSpeed = cooldown;//cooldown doit etre egale a la vitesse de l'ennemi fastened pour ce piege
                     Debug.Log("Fastened");
                 }
             }
@@ -251,13 +268,13 @@ public class Trap_Attack : MonoBehaviour
                 if (s.GetComponent<EnmMovement>().isFastened == false)
                 {
                     s.GetComponent<EnmMovement>().isSlowed = true;
-                    s.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
+                    s.GetComponent<EnmMovement>().modifiedSpeed = damages;//damages doit etre egale a la vitesse de l'ennemi slow pour ce piege
                     Debug.Log("Slowed");
                 }
             }
         }
-    }
-    */
+    }*/
+    
 
     void AttaqueStandCommerce()
     {
@@ -299,54 +316,57 @@ public class Trap_Attack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (type == 0)
+        if (parentTrap != null)
         {
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(parentTrap.transform.position, rangeSphere);
-        }
-        if (type == 1)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
-        }
-        if (type == 2)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
-        }
-        if (type == 3)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, rangeSphere);
-        }
-        if (type == 4)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, rangeSphere);
-        }
-        if (type == 5)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, rangeSphere);
-        }
-        if (type == 6)
-        {
-            Gizmos.matrix = transform.localToWorldMatrix;
+            if (type == 0)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireSphere(parentTrap.transform.position, rangeSphere);
+            }
+            if (type == 1)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.matrix = transform.localToWorldMatrix;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+            }
+            if (type == 2)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.matrix = transform.localToWorldMatrix;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+            }
+            if (type == 3)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireSphere(transform.position, rangeSphere);
+            }
+            if (type == 4)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireSphere(transform.position, rangeSphere);
+            }
+            if (type == 5)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireSphere(transform.position, rangeSphere);
+            }
+            if (type == 6)
+            {
+                Gizmos.matrix = transform.localToWorldMatrix;
 
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.back * offsetForward, rangeBox);
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x, rangeBox.y, rangeBox.z * 2));
-        }
-        if (type == 7)
-        {
-            Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.back * offsetForward, rangeBox);
+                Gizmos.color = Color.black;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x, rangeBox.y, rangeBox.z * 2));
+            }
+            if (type == 7)
+            {
+                Gizmos.color = Color.black;
+                Gizmos.matrix = transform.localToWorldMatrix;
+                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5139041023161268670}
   - component: {fileID: 2285501847707211896}
   - component: {fileID: 7249206818989249214}
-  - component: {fileID: 6630576830342142395}
   m_Layer: 0
   m_Name: PFB_Tapis_Attack_Lvl3
   m_TagString: Untagged
@@ -95,16 +94,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
-  type: 0
+  type: 6
   rangeSphere: 0
-  rangeBox: {x: 2.75, y: 2, z: 1.95}
-  offsetForward: 0.975
-  damages: 0
-  cooldown: 3
+  rangeBox: {x: 4.75, y: 3.8, z: 3.2}
+  offsetForward: 1.6
+  damages: 2
+  cooldown: 10
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2
     m_Bits: 8192
+  canAttack: 0
 --- !u!65 &7249206818989249214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -116,18 +116,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3496437, y: 2.0877843, z: 4.3621345}
-  m_Center: {x: -1.621124, y: 1.0438921, z: 0}
---- !u!65 &6630576830342142395
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2838832129113978810}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3496437, y: 2.0877843, z: 4.3621345}
-  m_Center: {x: 1.621124, y: 1.0438921, z: 0}
+  m_Size: {x: 6.285809, y: 3.6536224, z: 7.6337357}
+  m_Center: {x: 0, y: 1.826811, z: 0}

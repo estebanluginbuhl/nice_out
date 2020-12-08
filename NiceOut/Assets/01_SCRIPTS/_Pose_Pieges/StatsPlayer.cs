@@ -10,7 +10,6 @@ public class StatsPlayer : MonoBehaviour
     public float maxHealth;
     public float healthPercentage;
     public int gold;
-    public int chargeSpeed;
     public int tempsMort;
 
     //Invincibility
@@ -18,13 +17,13 @@ public class StatsPlayer : MonoBehaviour
 
     public TextMeshProUGUI healthValue;
     public TextMeshProUGUI goldValue_Text;
-    public TextMeshProUGUI chargeSpeed_Text;
     public Image healthBar;
     Switch_Mode leSwitch;
     float compteurTempsRecharge = 0f;
     [SerializeField]
     ParticleSystem getDamaged;
 
+    Camera cam;
     private void Start()
     {
         getDamaged.Stop();
@@ -33,25 +32,11 @@ public class StatsPlayer : MonoBehaviour
         healthPercentage = health / maxHealth;
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
         leSwitch = GetComponent<Switch_Mode>();
+        cam = Camera.main;
     }
 
     private void Update()
     {
-        if(leSwitch.GetPause() == false)
-        {
-            if (leSwitch.mort == false)
-            {
-                if (compteurTempsRecharge <= 0)
-                {
-                    gold += chargeSpeed;
-                    compteurTempsRecharge = 1;
-                }
-                else
-                {
-                    compteurTempsRecharge -= Time.deltaTime;
-                }
-            }
-        }
         healthPercentage = health / maxHealth;
         UpdateHealth();
         UpdateGold();
@@ -76,12 +61,13 @@ public class StatsPlayer : MonoBehaviour
         isInvincible = _isInvincible;
     }
 
-    public void DamagePlayer(int damages) 
+    public void DamagePlayer(int _takenDamages) 
     {
         if(isInvincible == false)
         {
-            health -= damages;
+            health -= _takenDamages;
             getDamaged.Play();
+            cam.GetComponent<Camera_Controller>().shake = true;
         }
         else
         {
@@ -92,7 +78,6 @@ public class StatsPlayer : MonoBehaviour
     public void UpdateGold()
     {
         goldValue_Text.text = gold.ToString();
-        chargeSpeed_Text.text = "+ " + chargeSpeed.ToString() + "En/s";
     }
     public void UpdateHealth()
     {

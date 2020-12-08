@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnmMovement : MonoBehaviour
 {
+    Switch_Mode pauser;
+
     public bool pathFinding;
     public bool neutral, hostile, allie;
     public Transform enmTransform;
@@ -18,32 +22,51 @@ public class EnmMovement : MonoBehaviour
     private Transform target;
     private int nodeIndex = 0;
     [SerializeField]
-    private float enmHealth, damage;
-    Vector2 healthValues = new Vector2(100, 10);
+    private float enmHealth;
+
+    Vector4 healthValues = new Vector4(0, 45, 55, 100);
     private GameObject[] firmeTarget;
 
     NavMeshPath navMeshPath;
 
     private float Xmax, Xmin, Zmin, Zmax, randomTransformPickerTimer, Xpos, Zpos, delayBeforeGo;
 
+    [Header("Attaque")]
+    [SerializeField]
+    private int damage;
+    public float attackRadius, damageCooldown;
+    public Color attackRadiusDebugColor;
+    private GameObject attackTarget;
+
+    [Header("Controles")]
     //Trap Influence
     public bool isAttracted;
     public Transform attractTarget;
 
     public bool isSlowed, isFastened, isStunned, hasDot;
     public float modifiedSpeed;
+
+    [Header("Affichage")]
+    //Visuel
+    [SerializeField]
+    private Image healthImage;
+    [SerializeField]
+    private Gradient healthColor;
+    [SerializeField]
+    private TextMeshProUGUI stateText;
     [SerializeField]
     ParticleSystem convertBadEnemyParticle, convertGoodEnemyParticle, convertedToGood, convertedToBad, parfumed;
     [SerializeField]
     Material[] mats = new Material[3];
+    float healthPercentage;
 
     void Start()
     {
+        //pauser = player.GetComponent<Switch_Mode>();
         target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
-        damage = gameObject.GetComponent<StatEnm>().damage;
 
         randomTransformPickerTimer = resetTransformPicker;
 
@@ -58,6 +81,10 @@ public class EnmMovement : MonoBehaviour
 
         delayBeforeGo = 0;
         UpdateEnemyState();
+
+        healthPercentage = enmHealth / healthValues.w;
+        healthImage.color = healthColor.Evaluate(healthPercentage);
+        healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
     }
 
     void FixedUpdate() 
@@ -76,11 +103,15 @@ public class EnmMovement : MonoBehaviour
 
     void Update()
     {
+        /*if(pauser.realPause == true)
+        {
+            
+        }*/
         //neutral
         if (neutral)//neutral == true
         {
             gameObject.layer = 13;
-
+            ChangeStatus("Se Balade");
             randomTransformPickerTimer -= Time.deltaTime;
             delayBeforeGo -= Time.deltaTime;
             if (randomTransformPickerTimer <= 0 && Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral && delayBeforeGo <= 0)
@@ -115,6 +146,7 @@ public class EnmMovement : MonoBehaviour
         {
             gameObject.layer = 0;
             ObjectiveSelection();
+            ChangeStatus("Attaque les firmes");
             //choosenObjective.GetComponent<FirmeScript>().TakeDamage(damage);
         }
         //bad enm
@@ -122,14 +154,41 @@ public class EnmMovement : MonoBehaviour
         {
             gameObject.layer = 13;
 
+            if (damageCooldown < 1)
+            {
+                damageCooldown += Time.deltaTime;
+            }
+
             if (isAttracted == false)
             {
                 if (pathFinding == true)
                 {
+                    ChangeStatus("Attaque le joueur");
                     enmNavMesh.destination = player.transform.position;
+                    Collider[] playerTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerDetectionLayer);
+
+                    if (playerTarget.Length == 0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        foreach (Collider c in playerTarget)
+                        {
+                            attackTarget = c.gameObject;
+                        }
+                        if (damageCooldown >= 1)
+                        {
+                            if (attackTarget != false)
+                            {
+                                Attack(attackTarget);
+                            }
+                        }
+                    }
                 }
                 else if (pathFinding == false)
                 {
+                    ChangeStatus("Attaque les alliés");
                     enmNavMesh.destination = target.position;
 
                     if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
@@ -164,11 +223,11 @@ public class EnmMovement : MonoBehaviour
                 }
             }
 
-            if(isSlowed || isFastened)
+            if (isSlowed || isFastened)
             {
                 enmNavMesh.speed = modifiedSpeed;
             }
-            else if(enmNavMesh.speed != enmSpeed)
+            else if (enmNavMesh.speed != enmSpeed)
             {
                 enmNavMesh.speed = enmSpeed;
             }
@@ -179,7 +238,6 @@ public class EnmMovement : MonoBehaviour
     {
         float minDistance = Mathf.Infinity;
         firmeTarget = GameObject.FindGameObjectsWithTag("Objectives");
-        Debug.Log(firmeTarget.Length);
         for (int i = 0; i < firmeTarget.Length; i++)
         {
             float dist = Vector3.Distance(transform.position, firmeTarget[i].transform.position);
@@ -210,50 +268,59 @@ public class EnmMovement : MonoBehaviour
         {
             parfumed.Play();
             hasDot = true;
-            while(_duration > 0)
+            if(_duration > 0)
             {
                 if (hostile == true || neutral == true)
                 {
                     float minDist = Mathf.Infinity;
                     GameObject target = null;
 
-                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up, _range, 13);
+                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
                     foreach (Collider c in transferTarget)
                     {
-                        float dist = Vector3.Distance(transform.position, c.transform.position);
-                        if (dist <= minDist)
+                        if(c.GetComponent<EnmMovement>().hasDot == false)
                         {
-                            target = c.gameObject;
-                            minDist = dist;
+                            float dist = Vector3.Distance(transform.position, c.transform.position);
+                            if (dist <= minDist)
+                            {
+                                target = c.gameObject;
+                                minDist = dist;
+                            }
                         }
+
                     }
                     if (target != null)
                     {
                         _index -= 1;
                         _duration -= 1;
                         _damage -= 1;
-
                         if(_damage < 1)
                         {
-                            damage = 1;
+                            _damage = 1;
                         }
                         if(_duration < 1)
                         {
                             _duration = 1;
                         }
+                        if(_index < 1)
+                        {
+                            _duration = 0;
+                        }
                         target.GetComponent<EnmMovement>().StartCoroutine(DamagesOverTime(_damage, _duration, _range, _index));
+                        target = null;
                     }
 
                     yield return new WaitForSecondsRealtime(1);
-                    _duration -= 1;
                     DamageBadEnemy(_damage);
+                    _duration -= 1;
                 }
                 else
                 {
                     _duration = 0;
                 }
+                Debug.Log(_duration);
             }
-            if(_duration <= 0)
+            else
             {
                 hasDot = false;
                 parfumed.Stop();
@@ -269,10 +336,13 @@ public class EnmMovement : MonoBehaviour
     public void DamageGoodEnemy(int takenDamage)
     {
         enmHealth -= takenDamage;
-        if(enmHealth <= -healthValues.x)
+        if(enmHealth <= healthValues.x)
         {
-            enmHealth = -healthValues.x;
+            enmHealth = healthValues.x;
         }
+        healthPercentage = enmHealth / healthValues.w;
+        healthImage.color = healthColor.Evaluate(healthPercentage);
+        healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
         convertGoodEnemyParticle.Play();
         UpdateEnemyState();
     }
@@ -280,29 +350,40 @@ public class EnmMovement : MonoBehaviour
     public void DamageBadEnemy(int takenDamage)
     {
         enmHealth += takenDamage;
-        if (enmHealth >= healthValues.x)
+        if (enmHealth >= healthValues.w)
         {
-            enmHealth = healthValues.x;
+            enmHealth = healthValues.w;
         }
+        healthPercentage = enmHealth / healthValues.w;
+        healthImage.color = healthColor.Evaluate(healthPercentage);
+        healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
         convertBadEnemyParticle.Play();
         UpdateEnemyState();
     }
 
+    void Attack(GameObject _target)
+    {
+        if (_target != null)
+        {
+            _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
+            damageCooldown = 0;
+        }
+    }
+
     void UpdateEnemyState()
     {
-        if(enmHealth < -healthValues.y)
+        if(enmHealth < healthValues.y)
         {
             if(hostile == false) 
             {
                 hostile = true;
-                Debug.Log(GetComponentInChildren<MeshRenderer>().material);
                 GetComponentInChildren<MeshRenderer>().material = mats[0];
                 convertedToBad.Play();
                 neutral = false;
                 allie = false;
             }
         }
-        else if (enmHealth > healthValues.y)
+        else if (enmHealth > healthValues.z)
         {
             if (allie == false)
             {
@@ -313,7 +394,7 @@ public class EnmMovement : MonoBehaviour
                 hostile = false;
             }
         }
-        else
+        else if(enmHealth >= healthValues.y && enmHealth <= healthValues.z)
         {
             if(neutral == false)
             {
@@ -338,10 +419,17 @@ public class EnmMovement : MonoBehaviour
         }
     }
 
+    void ChangeStatus(string _statusText)
+    {
+        stateText.text = _statusText;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = gizmo1Color;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
-        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up, 2);
+        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up * 2.25f, gizmo1Radius);
+
+        Gizmos.color = attackRadiusDebugColor;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, attackRadius);
     }
 }

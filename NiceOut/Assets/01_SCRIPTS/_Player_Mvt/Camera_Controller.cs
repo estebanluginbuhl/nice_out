@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Camera))]
 public class Camera_Controller : MonoBehaviour
 {
     Inputs inputs;
@@ -41,6 +40,15 @@ public class Camera_Controller : MonoBehaviour
     [SerializeField]
     LayerMask obstructionMask = -1;
 
+    [SerializeField]
+    float shakePower = 0.2f;
+    [SerializeField]
+    float shakeDuration = 0.2f;
+    float shakeCountdown = 0f;
+    [SerializeField]
+    GameObject damagePanel;
+    public bool shake = false;
+
     private void Awake()
     {
         inputs = new Inputs();
@@ -57,6 +65,8 @@ public class Camera_Controller : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        damagePanel.SetActive(false);
     }
 
     private void LateUpdate()
@@ -97,7 +107,22 @@ public class Camera_Controller : MonoBehaviour
                     lookPosition = rectPosition - rectOffset;
                 }
 
-                transform.SetPositionAndRotation(lookPosition, lookRotation);
+                if (shake)
+                {
+                    transform.SetPositionAndRotation(lookPosition + Random.insideUnitSphere * shakePower, lookRotation);
+                    shakeCountdown -= Time.deltaTime;
+                    damagePanel.SetActive(true);
+                    if (shakeCountdown <= 0)
+                    {
+                        shake = false;
+                        shakeCountdown = shakeDuration;
+                        damagePanel.SetActive(false);
+                    }
+                }
+                else
+                {
+                    transform.SetPositionAndRotation(lookPosition, lookRotation);
+                }
             }
         }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3436166584996011594}
   - component: {fileID: 3436166584996011605}
   - component: {fileID: 3436166584996011604}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_sol_large
   m_TagString: Untagged
   m_Icon: {fileID: 0}

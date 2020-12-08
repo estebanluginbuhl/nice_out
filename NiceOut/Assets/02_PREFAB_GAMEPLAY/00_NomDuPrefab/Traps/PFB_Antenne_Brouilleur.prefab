@@ -45,36 +45,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 4
+  isPaused: 0
   fullUsure:
   - 30
   - 35
   - 40
-  usure: 0
   UsurePercentage: 0
-  player: {fileID: 0}
-  child: {fileID: 0}
-  colliderSize: {x: 0.6, y: 2.5, z: 0.6}
-  transformTrap: {x: 0, y: 0, z: 0}
-  rotationTrap: {x: 0, y: 0, z: 0}
-  costs: b4000000d2000000e6000000
-  sellCosts: 1e0000002d0000003c000000
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
   trapAndUpgrades:
   - {fileID: 861944306307120229, guid: 11d4b3d0362b0104aa9b47e0e4fc6903, type: 3}
   - {fileID: 3507656666870708099, guid: 1eb9b9a7eea9e0b4199ac9ea1daa3635, type: 3}
   - {fileID: 2091464316805178318, guid: 83bf2bc3c3b3b954dbc56c6720a3f494, type: 3}
+  - {fileID: 861944306307120229, guid: abad70edcbbd1dc45a9890b3c3c43190, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  upgradeIndex: 2
-  stopUpgrade: 0
-  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+  colliderSize: {x: 1.3, y: 6.5, z: 1.3}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: b4000000d2000000e6000000
+  sellCosts: 1e0000002d0000003c000000
+  upgradeIndex: 0
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
-  ui_hbHeight: 4
+  ui_hbHeight: 7
   ui_Image:
   - {fileID: 21300000, guid: d335f47798ca3c84c822743bede36d5b, type: 3}
   - {fileID: 21300000, guid: b93b991b884926f41a9b63da1bee56d7, type: 3}
   - {fileID: 21300000, guid: 4c255002f39362c4d928a81b5ba824a5, type: 3}
+  description: "Spawn apr\xE8s {2} secondes de chargement. Ensuite toute les {0}
+    secondes ,gen\xE8re une zone qui empeche les ennemis de bouger pendant {2} secondes."
 --- !u!65 &-1682828109484018338
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -45,36 +45,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 7
+  isPaused: 0
   fullUsure:
   - 15
   - 20
   - 30
-  usure: 0
   UsurePercentage: 0
-  player: {fileID: 0}
-  child: {fileID: 0}
-  colliderSize: {x: 3.5, y: 2.9, z: 3.5}
-  transformTrap: {x: 0, y: 0, z: 0}
-  rotationTrap: {x: 0, y: 0, z: 0}
-  costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
   trapAndUpgrades:
   - {fileID: 8596345362163605844, guid: fa44891f8d5efb340a9f489623ff06a9, type: 3}
   - {fileID: 7883509623932338398, guid: d7617bcedf416f644843aa7e90b9d8d2, type: 3}
   - {fileID: 343977425220861070, guid: 9e4ae3c2a9898d24bbede62f5e1f02ca, type: 3}
+  - {fileID: 8596345362163605844, guid: 5c1dc0344ca83cf408cd17f6ccb88f1d, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
+  colliderSize: {x: 5.5, y: 6, z: 5.5}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: c8000000dc000000fa000000
+  sellCosts: 320000003c00000046000000
   upgradeIndex: 0
-  stopUpgrade: 0
-  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
-  ui_hbHeight: 4
+  ui_hbHeight: 7
   ui_Image:
   - {fileID: 21300000, guid: a7717c67d7f934b43a1e2105d781a317, type: 3}
   - {fileID: 21300000, guid: a17f724e8ec602e4e8a27b549011360c, type: 3}
   - {fileID: 21300000, guid: 8f33c40469b97f34994a1c739f976e9c, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite attire en son
+    centre toute les entit\xE9s ennemies qui passe dans son rayon d'action. Une fois
+    les entit\xE9s ennemies proche, le stand leur donne {1} points d'esprit critique
+    toute les {2} secondes."
 --- !u!65 &51309924487152257
 BoxCollider:
   m_ObjectHideFlags: 0

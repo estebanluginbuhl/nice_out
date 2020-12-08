@@ -49,32 +49,45 @@ MonoBehaviour:
   - 30
   - 40
   - 45
-  usure: 0
   UsurePercentage: 0
-  player: {fileID: 0}
-  child: {fileID: 0}
-  colliderSize: {x: 1.4, y: 1.8, z: 1.4}
-  transformTrap: {x: 0, y: 0, z: 0}
-  rotationTrap: {x: 0, y: 0, z: 0}
-  costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
   trapAndUpgrades:
   - {fileID: 7218447655392055271, guid: c47626a6f9ff2c847be5e9ba51b0ccc8, type: 3}
   - {fileID: 6160061507092821985, guid: f697abe40919a6940afdf9fb235365e7, type: 3}
   - {fileID: 101624093853252556, guid: d10a2e2d417b672458b4eb4188d8c86c, type: 3}
+  - {fileID: 7218447655392055271, guid: 96a718fa37903a1488e5f5efb138a4ba, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  upgradeIndex: 0
-  stopUpgrade: 0
-  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+  colliderSize: {x: 1.4, y: 1.8, z: 1.4}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: 960000009600000096000000
+  sellCosts: 190000001900000019000000
+  upgradeIndex: 2
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
-  ui_hbHeight: 4
+  ui_hbHeight: 7
   ui_Image:
   - {fileID: 21300000, guid: dfda99dc1de317e4c8979de33545a095, type: 3}
   - {fileID: 21300000, guid: addafd5a22428b84f82bce4da03f956c, type: 3}
   - {fileID: 21300000, guid: 9e7cf52834d0f36479f54f28c4e7a756, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite le porteur de
+    presse se dirige vers l'entit\xE9 non-alli\xE9e la plus proche dans sa zone d'action
+    et une fois \xE0 port\xE9 lui donne {1} points d'esprit critique toute les {2}
+    secondes."
 --- !u!65 &2108486276045888227
 BoxCollider:
   m_ObjectHideFlags: 0
