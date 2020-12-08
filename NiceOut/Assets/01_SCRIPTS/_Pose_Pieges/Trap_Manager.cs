@@ -28,8 +28,8 @@ public class Trap_Manager : MonoBehaviour
     public GameObject selectedTrap = null;//Si vous etes devant un piège il sera selectionné et stocké dans cette variable
     GameObject inventorySelection;//Piège que vous voulez poser
 
-    [Header("Forsee Trap Placement")]
-    public GameObject forseeTrap;
+    [Header("Preview Trap Placement")]
+    public GameObject previewTrap;
     public Vector3 colliderCube;
     public Material[] mat;
     MeshFilter mshFlt;
@@ -66,8 +66,8 @@ public class Trap_Manager : MonoBehaviour
         ui_trapDescription.SetActive(false);
         inventoryActive = false;
 
-        mshFlt = forseeTrap.GetComponent<MeshFilter>();
-        mshRnd = forseeTrap.GetComponent<MeshRenderer>();
+        mshFlt = previewTrap.GetComponent<MeshFilter>();
+        mshRnd = previewTrap.GetComponent<MeshRenderer>();
     }
     void Update()
     {
@@ -130,7 +130,7 @@ public class Trap_Manager : MonoBehaviour
                         mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
                         colliderCube = (trapStats.colliderSize) / 2;
 
-                        Collider[] boxCollider = Physics.OverlapBox(forseeTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, forseeTrap.transform.rotation, cantTrapLayer);
+                        Collider[] boxCollider = Physics.OverlapBox(previewTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, previewTrap.transform.rotation, cantTrapLayer);
 
                         if (boxCollider.Length != 0)
                         {
@@ -166,15 +166,15 @@ public class Trap_Manager : MonoBehaviour
                                 }
                             }
                         }
-                        forseeTrap.transform.rotation = Quaternion.Euler(Vector3.zero);
-                        forseeTrap.transform.Rotate(floorInclinaison);
-                        forseeTrap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
-                        forseeTrap.transform.position = trapPosition;
+                        previewTrap.transform.rotation = Quaternion.Euler(Vector3.zero);
+                        previewTrap.transform.Rotate(floorInclinaison);
+                        previewTrap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+                        previewTrap.transform.position = trapPosition;
                     }
                 }
                 else
                 {
-                    //Desactive le Forsee
+                    //Desactive le Preview
                     if (mshFlt.mesh)
                     {
                         mshFlt.mesh = null;
@@ -247,7 +247,7 @@ public class Trap_Manager : MonoBehaviour
         {
             Traps trapStats = inventorySelection.GetComponent<Traps>();
             Gizmos.color = Color.blue;
-            Gizmos.matrix = forseeTrap.transform.localToWorldMatrix;
+            Gizmos.matrix = previewTrap.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0], colliderCube * 2);
         }
     }

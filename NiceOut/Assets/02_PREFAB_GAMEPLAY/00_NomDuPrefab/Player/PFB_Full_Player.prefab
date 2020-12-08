@@ -190,7 +190,7 @@ PrefabInstance:
     - target: {fileID: 176015326050852090, guid: 94b9e4f5a6fa18a44a153f6d272b9bac,
         type: 3}
       propertyPath: m_Name
-      value: PFB_Forsee_Trap
+      value: PFB_Preview_Trap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94b9e4f5a6fa18a44a153f6d272b9bac, type: 3}
@@ -982,6 +982,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7413206122974435172, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 5561349426305759274, guid: c8b2d5725978a4042b80905157b4a504,
+        type: 3}
     - target: {fileID: 7413206124061644210, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1045,7 +1051,7 @@ PrefabInstance:
     - target: {fileID: 7413206124061644211, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
@@ -1067,6 +1073,11 @@ PrefabInstance:
       propertyPath: ui_trapDescription
       value: 
       objectReference: {fileID: 3080231760359621823}
+    - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: previewTrap
+      value: 
+      objectReference: {fileID: 4549441853088516941}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -1102,6 +1113,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194220851335889588, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 5561349426305759274, guid: d86a533750a65a04baa643c481f8d17d,
+        type: 3}
     - target: {fileID: 8604271746142972879, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: inventory

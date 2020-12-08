@@ -26,6 +26,8 @@ public class Trap_Attack : MonoBehaviour
     GameObject attackTarget = null;
     Collider[] alreadySlowed;
 
+    bool canAttack = false;
+
     private void Start()
     {
         if(type == 2 || type == 6)
@@ -35,37 +37,40 @@ public class Trap_Attack : MonoBehaviour
     }
     private void Update()
     {
-        if (type == 0)
+        if(canAttack == true)
         {
-            AttaquePorteurDePresse();
-        }
-        if (type == 1)
-        {
-            AttaquePanneauPublicitaire();  
-        }
-        if (type == 2)
-        {
-            AttaqueBacAFruit();
-        }
-        if (type == 3)
-        {
-            AttaqueParfum();
-        }
-        if (type == 4)
-        {
-            AttaqueAntenneBrouilleur();
-        }
-        if (type == 5)
-        {
-            AttaqueBar();
-        }
-        if (type == 6)
-        {
-            //AttaqueTapisRoulant();
-        }
-        if (type == 7)
-        {
-            AttaqueStandCommerce();
+            if (type == 0)
+            {
+                AttaquePorteurDePresse();
+            }
+            if (type == 1)
+            {
+                AttaquePanneauPublicitaire();
+            }
+            if (type == 2)
+            {
+                AttaqueBacAFruit();
+            }
+            if (type == 3)
+            {
+                AttaqueParfum();
+            }
+            if (type == 4)
+            {
+                AttaqueAntenneBrouilleur();
+            }
+            if (type == 5)
+            {
+                AttaqueBar();
+            }
+            if (type == 6)
+            {
+                //AttaqueTapisRoulant();
+            }
+            if (type == 7)
+            {
+                AttaqueStandCommerce();
+            }
         }
     }
 

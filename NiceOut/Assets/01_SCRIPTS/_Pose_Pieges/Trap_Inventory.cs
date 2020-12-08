@@ -78,7 +78,6 @@ public class Trap_Inventory : MonoBehaviour
             int cost = trapsItem[selectedSlotIndex].GetComponent<Traps>().costs[trapsItem[selectedSlotIndex].GetComponent<Traps>().upgradeIndex];
             int nbTransmissionIfParfume = Mathf.RoundToInt(cooldownDamage - 2);
 
-            Debug.Log(cost);
             ui_Description.text = string.Format(description, cooldownSpawn, damages, cooldownDamage, nbTransmissionIfParfume);
             ui_Cost_In_Shop.text = "Cost in shop : " + cost + " s";
             ui_Cooldown_Piege.text = "Cooldown : " + cooldownPose;
