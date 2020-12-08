@@ -1,166 +1,264 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Trap_Manager : MonoBehaviour
 {
-    public LayerMask emplacements;
-    public float detectionRadius; //Variables sphere de detection
-    public GameObject spherePosition;
-    public GameObject selectedPlace = null;
-    public GameObject oldSelection = null;
-    public Vector3 desiredVelocity;
-    public GameObject selectedTrap;
+    Inputs inputs;
+    bool sell, refill, place, fix, rotatingRight, rotatingLeft;
 
+    [Header("UI Elements")]
+    public Canvas ui_Manager;//menus en gros
+    public GameObject ui_Inventory;//inventaire
+    public GameObject ui_trapDescription;//inventaire
+    bool inventoryActive;
+
+    [Header("LayerMasks")]
+    public LayerMask trapped;//Layer de selection des pièges
+    public LayerMask floor;//Layer du sol
+    public LayerMask player;//Layer du joueur
+    [SerializeField]
+    LayerMask cantTrapLayer;
+
+    [Header("Trap Detector")]
+    public float detectionRadius; //Variables sphere de detection
+    public GameObject spherePosition;//Position de la sphere de selection de piège
+    [HideInInspector]
+    public GameObject selectedTrap = null;//Si vous etes devant un piège il sera selectionné et stocké dans cette variable
+    GameObject inventorySelection;//Piège que vous voulez poser
+
+    [Header("Preview Trap Placement")]
+    public GameObject previewTrap;
+    public Vector3 colliderCube;
+    public Material[] mat;
+    MeshFilter mshFlt;
+    MeshRenderer mshRnd;
+    bool detectCollision;
+
+    float trapOrientation; //orientation du piege a poser
+    Vector3 floorInclinaison; //orientation du sol
+    Vector3 trapPosition; //position au sol du piège
+    float trapRotation; //Le jour oriente le piege comme il le souhaite
+    public float rotatingSpeed; //Le jour oriente le piege comme il le souhaite
+
+
+
+    private void Awake() //Detection input
+    {
+        inputs = new Inputs();
+
+        inputs.Actions.Sell.started += ctx => sell = true;
+        inputs.Actions.Sell.canceled += ctx => sell = false;
+
+        inputs.Actions.Place.started += ctx => place = true;
+        inputs.Actions.Place.canceled += ctx => place = false;
+
+        inputs.Actions.RotateRight.started += ctx => rotatingRight = true;
+        inputs.Actions.RotateRight.canceled += ctx => rotatingRight = false;
+        inputs.Actions.RotateLeft.started += ctx => rotatingLeft = true;
+        inputs.Actions.RotateLeft.canceled += ctx => rotatingLeft = false;
+    }
+
+    private void Start()
+    {
+        ui_Inventory.SetActive(false);
+        ui_trapDescription.SetActive(false);
+        inventoryActive = false;
+
+        mshFlt = previewTrap.GetComponent<MeshFilter>();
+        mshRnd = previewTrap.GetComponent<MeshRenderer>();
+    }
     void Update()
     {
-        if (GetComponent<Switch_Mode>().mode)
+        if(GetComponent<Switch_Mode>().GetPause() == false)
         {
-            float minDist = Mathf.Infinity;
-
-            Collider[] selectedPlaces = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, emplacements); // sphere de detection d'emplacements
-
-            oldSelection = selectedPlace;
-
-            foreach (Collider c in selectedPlaces) //Selection de l'emplacement le plus proche
+            if (GetComponent<Switch_Mode>().mort == false)
             {
-                float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
-                if(dist< minDist)
+                if (rotatingRight)
                 {
-                    selectedPlace = c.gameObject;
-                    minDist = dist;
-                }
-            }
-
-            if(selectedPlaces.Length == 0)
-            {
-                selectedPlace = null;
-            }
-
-            if (selectedPlace != null) //appel du placement et de l'amelioration des pieges
-            {
-                if (Input.GetButtonDown("Place"))
-                {
-                    if (selectedPlace.tag.Equals("FreeSpace"))
+                    trapRotation += 1 * rotatingSpeed * Time.deltaTime;
+                    if (trapRotation >= 360)
                     {
-                        if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == false)
+                        trapRotation = 1 + (1 * rotatingSpeed * Time.deltaTime);
+                    }
+                }
+                if (rotatingLeft)
+                {
+                    trapRotation -= 1 * rotatingSpeed * Time.deltaTime;
+                    if (trapRotation <= 0)
+                    {
+                        trapRotation = 360 - (1 * rotatingSpeed * Time.deltaTime);
+                    }
+                }
+
+                //Selection de pièges
+                float minDist = Mathf.Infinity;
+
+                Collider[] selectedTraps = Physics.OverlapSphere(spherePosition.transform.position, detectionRadius, trapped); // sphere de detection de piège
+
+                foreach (Collider c in selectedTraps) //Selection de l'emplacement le plus proche
+                {
+                    float dist = Vector3.Distance(c.gameObject.transform.position, transform.position);
+                    if (dist < minDist)
+                    {
+                        selectedTrap = c.gameObject;
+                        minDist = dist;
+                    }
+                }
+                //Déselectionne si le joueur n'est pas devant un piege
+                if (selectedTraps.Length == 0)
+                {
+                    selectedTrap = null;
+                }
+                if (GetComponent<Switch_Mode>().mode) //Mode de placement de pièges
+                {
+                    //Active le panneau d'inventaire 
+                    if (inventoryActive == false)
+                    {
+                        ui_Inventory.SetActive(true);
+                        ui_trapDescription.SetActive(true);
+                        inventoryActive = true;
+                    }
+
+                    inventorySelection = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
+
+                    if (inventorySelection != null)
+                    {
+                        //Forsee
+                        Traps trapStats = inventorySelection.GetComponent<Traps>();
+                        mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
+                        colliderCube = (trapStats.colliderSize) / 2;
+
+                        Collider[] boxCollider = Physics.OverlapBox(previewTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, previewTrap.transform.rotation, cantTrapLayer);
+
+                        if (boxCollider.Length != 0)
                         {
-                            PlaceTrap(selectedTrap);
+                            if (detectCollision == false)
+                            {
+                                detectCollision = true;
+                            }
                         }
                         else
                         {
-                            UpgradeTrap();
+                            if (detectCollision == true)
+                            {
+                                detectCollision = false;
+                            }
                         }
+
+                        RaycastHit hit;
+                        if (Physics.Raycast(spherePosition.transform.position, Vector3.down, out hit, Mathf.Infinity, floor))
+                        {
+                            floorInclinaison = Quaternion.FromToRotation(Vector3.up, hit.normal).eulerAngles;
+                            trapOrientation = transform.localEulerAngles.y + trapRotation;
+                            trapPosition = hit.point;
+                            if (selectedTrap == null)
+                            {
+                                //appel du placement du pieges
+                                if (detectCollision == false)
+                                {
+                                    if (place)
+                                    {
+                                        PlaceTrap(inventorySelection, ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex);
+                                        place = false;
+                                    }
+                                }
+                            }
+                        }
+                        previewTrap.transform.rotation = Quaternion.Euler(Vector3.zero);
+                        previewTrap.transform.Rotate(floorInclinaison);
+                        previewTrap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+                        previewTrap.transform.position = trapPosition;
+                    }
+                }
+                else
+                {
+                    //Desactive le Preview
+                    if (mshFlt.mesh)
+                    {
+                        mshFlt.mesh = null;
+                    }
+                    //Ferme l'inventaire
+                    if (inventoryActive == true)
+                    {
+                        ui_Inventory.SetActive(false);
+                        ui_trapDescription.SetActive(false);
+                        inventoryActive = false;
+                    }
+                }
+
+                //change la couleur du Forsee
+                if (detectCollision == true)
+                {
+                    mshRnd.material = mat[1];
+                }
+                else
+                {
+                    mshRnd.material = mat[0];
+                }
+
+                //Gestion du piege selectionné
+                if (selectedTrap != null)
+                {
+                    if (sell)
+                    {
+                        SellTrap();
+                        sell = false;
                     }
                 }
             }
         }
-        else //deselectionne l'emplacment selectionné en mode combat
-        {
-            if(selectedPlace != null)
-            {
-                selectedPlace = null;
-            }
-        }
-
-
-        if(selectedPlace != null) //colore l'emplacement selectionné
-        {
-            if (selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied)
-            {
-                selectedPlace.GetComponent<Emplacement_Material_Change>().ChangeMat(4);
-            }
-            else
-            {
-                selectedPlace.GetComponent<Emplacement_Material_Change>().ChangeMat(2);
-            }
-        }
-
-        if(oldSelection != null) //reset la couleur une fois l'emplacement deselectionné
-        {
-            if (oldSelection != selectedPlace || selectedPlace == null)
-            {
-                if (oldSelection.GetComponent<Emplacement_Material_Change>().isOccupied == true)
-                {
-                    oldSelection.GetComponent<Emplacement_Material_Change>().ChangeMat(3);
-                }
-                else if(oldSelection.GetComponent<Emplacement_Material_Change>().isOccupied == false)
-                {
-                    oldSelection.GetComponent<Emplacement_Material_Change>().ChangeMat(1);
-                }
-            }
-        }
-    
     }
 
-    
-    public void PlaceTrap(GameObject selectedTrap)//Methode de placement du piège selectionné
+    public void PlaceTrap(GameObject _inventorySelection, int _selectedSlot)//Methode de placement du piège selectionné
     {
-        if (GetComponent<StatsPlayer>().gold >= selectedTrap.GetComponent<Traps>().costs[0])//vérifie que le joueur a assez d'argent pour payer le piège
-        {
-            GetComponent<StatsPlayer>().PlayerBuy(selectedTrap.GetComponent<Traps>().costs[0]); //Paye le piège
-            GameObject trap = Instantiate(selectedTrap, selectedPlace.transform.position, Quaternion.identity); //Instancie le piège
-            selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap = trap;
-            trap.GetComponent<Traps>().transform.SetParent(selectedPlace.transform); //le piège devient enfant de l'emplacement selectionné
-            trap.GetComponent<Traps>().emplacement = selectedPlace.gameObject;
-            selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied = true; // definie l'emplacement comme occupé
-        }
-    }
 
-    public void UpgradeTrap() //Methode d'upgrade du piège selectionné
-    {
-        Traps trapStats = selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
-
-        if (trapStats.stopUpgrade == false)
+        if (ui_Manager.GetComponent<Trap_Inventory>().nbTrapsInSlot[_selectedSlot] >= 1)//vérifie que le joueur a assez de stcok pour poser le piège
         {
-            if (GetComponent<StatsPlayer>().gold >= trapStats.costs[trapStats.upgradeIndex + 1])//Check l'argent du joueur
-            {
-                Destroy(trapStats.child); //Detruit l'ancienne upgrade du piège
-                trapStats.child = GameObject.Instantiate(trapStats.trapAndUpgrades[trapStats.upgradeIndex + 1], trapStats.transformTrap + Vector3.up * trapStats.offsetPositions[trapStats.upgradeIndex + 1], Quaternion.identity);//instancie la nouvelle upgrade du piège
-                GetComponent<StatsPlayer>().PlayerBuy(trapStats.costs[trapStats.upgradeIndex + 1]); //Paye l'upgrade
-
-                if (trapStats.upgradeIndex + 1 >= trapStats.trapAndUpgrades.Length - 1)//Augmente l'index de l'upgrade du trap, puis quand on a atteint le niveau max, arrete les upgrades.
-                {
-                    trapStats.upgradeIndex += 1;
-                    trapStats.stopUpgrade = true;
-                }
-                else
-                {
-                    trapStats.upgradeIndex += 1;
-                }
-            }
-            else
-            {
-                Debug.Log("Bro ya plus d'argent dans les caisses la");
-                return;
-            }
-        }
-        else
-        {
-            Debug.Log("Bro ya plus rien à upgrade");
+            GameObject trap = GameObject.Instantiate(_inventorySelection, trapPosition, Quaternion.identity);
+            trap.transform.Rotate(floorInclinaison);
+            trap.transform.Rotate(new Vector3(0, 1, 0), trapOrientation, Space.Self);
+            trap.GetComponent<Traps>().player = this.gameObject;
+            ui_Manager.GetComponent<Trap_Inventory>().RemoveTraps(_selectedSlot);
             return;
         }
+        else
+            mshRnd.material = mat[1];
     }
 
     public void SellTrap() //Vends ton piège
     {
-        if(selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied == true)
-        {
-            Traps trapStats = selectedPlace.GetComponent<Emplacement_Material_Change>().placedTrap.GetComponent<Traps>(); //get les stats du piege séléctionné
-            GetComponent<StatsPlayer>().gold += trapStats.sellCosts[trapStats.upgradeIndex]; //rembourse le joueur
-            Destroy(trapStats.child);
-            Destroy(trapStats.gameObject);//Detruit le piège
-            selectedPlace.GetComponent<Emplacement_Material_Change>().isOccupied = false; // definie l'emplacement comme libre
-        }
-        else
-        {
-            return;
-        }
+        Traps trapStats = selectedTrap.GetComponent<Traps>();
+        GetComponent<StatsPlayer>().RincePlayer(trapStats.sellCosts[trapStats.upgradeIndex]);
+        Destroy(trapStats.child.gameObject);
+        Destroy(selectedTrap);
+        return;
     }
 
     private void OnDrawGizmos() //Afficher la sphere de detection dans la scene
     {
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spherePosition.transform.position, detectionRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(spherePosition.transform.position, Vector3.down);
+        if (inventorySelection == true)
+        {
+            Traps trapStats = inventorySelection.GetComponent<Traps>();
+            Gizmos.color = Color.blue;
+            Gizmos.matrix = previewTrap.transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0], colliderCube * 2);
+        }
+    }
+
+    //Pas touche c'est pour les inputs
+    private void OnEnable()
+    {
+        inputs.Actions.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Actions.Disable();
     }
 }

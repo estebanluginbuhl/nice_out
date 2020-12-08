@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2748759789397514786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2748759789397514815}
+  - component: {fileID: 2748759789397514812}
+  - component: {fileID: 4771299929711459252}
+  m_Layer: 9
+  m_Name: PFB_Bar
+  m_TagString: Trap
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2748759789397514815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748759789397514786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2748759789397514812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748759789397514786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a8cc7a8760c9a48a2587b6f2714981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapType: 5
+  fullUsure:
+  - 10
+  - 15
+  - 20
+  UsurePercentage: 0
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
+  trapAndUpgrades:
+  - {fileID: 7608977899891602559, guid: f638b4fb76ec60d408b7c9194b36bcf5, type: 3}
+  - {fileID: 2122691194507551068, guid: 8037fb80174845b498197479656deaa9, type: 3}
+  - {fileID: 8070353303363610265, guid: 5288e8c4557e4b649910db0b843d2e68, type: 3}
+  - {fileID: 7608977899891602559, guid: c9631b7cfd3e96241b9998fb835c64b8, type: 3}
+  offsetPositions:
+  - 0.01
+  - 0.01
+  - 0.01
+  colliderSize: {x: 5, y: 1.55, z: 5}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: c8000000dc000000fa000000
+  sellCosts: 320000003c00000046000000
+  upgradeIndex: 2
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
+    type: 3}
+  ui_Image:
+  - {fileID: 21300000, guid: 97143fb0f7d5a5e4a94b2c72645a7350, type: 3}
+  - {fileID: 21300000, guid: 5a9932f08c65f1849885573ff4de7fea, type: 3}
+  - {fileID: 21300000, guid: a3a60d2e8d169aa478f6210d152e3ed5, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite donne {1} points
+    d'esprit critique aux entit\xE9s non-alli\xE9es toutes les {2} secondes"
+--- !u!65 &4771299929711459252
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748759789397514786}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.8, z: 0}
