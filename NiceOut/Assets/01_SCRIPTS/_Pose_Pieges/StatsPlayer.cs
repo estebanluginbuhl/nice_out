@@ -22,12 +22,9 @@ public class StatsPlayer : MonoBehaviour
     public Image healthBar;
     Switch_Mode leSwitch;
     float compteurTempsRecharge = 0f;
-    [SerializeField]
-    ParticleSystem getDamaged;
 
     private void Start()
     {
-        getDamaged.Stop();
         goldValue_Text.text = gold.ToString();
         healthValue.text = health.ToString();
         healthPercentage = health / maxHealth;
@@ -81,7 +78,6 @@ public class StatsPlayer : MonoBehaviour
         if(isInvincible == false)
         {
             health -= damages;
-            getDamaged.Play();
         }
         else
         {

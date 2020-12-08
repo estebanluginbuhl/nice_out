@@ -64,7 +64,7 @@ public class Trap_Attack : MonoBehaviour
         }
         if (type == 6)
         {
-            //AttaqueTapisRoulant();
+            AttaqueTapisRoulant();
         }
         if (type == 7)
         {
@@ -124,7 +124,7 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                        target.GetComponent<StatEnm>().badEnm(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -155,28 +155,24 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueBacAFruit()
     {
-        float slow = 2f;
         Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        alreadySlowed = new Collider[ennemis.Length];
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                if (c.GetComponent<EnmMovement>().isSlowed == false)
-                {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(0.1f, slow, false));
-                }
-                else
-                {
-                    return;
-                }
+                c.GetComponent<EnmMovement>().isSlowed = true;
+                c.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
+                Debug.Log("Slowed");
             }
         }
+        //de-slow les ennemis aussi
     }
 
     void AttaqueParfum()
     {
         int dotDuration = 5;
-        int nbTransmission = dotDuration - 2;
+        int nbTransmission = 3;
         float rangeTransmission = 2f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
@@ -184,8 +180,11 @@ public class Trap_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                StartCoroutine(units[0].GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
-                StartCoroutine(Cooldown(cooldown));
+                foreach (Collider c in units)
+                {
+                    StartCoroutine(c.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(Cooldown(cooldown));
+                }
             }
         }
     }
@@ -219,14 +218,14 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                    c.GetComponent<StatEnm>().goodEnm(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
         }
     }
 
-    /*void AttaqueTapisRoulant()
+    void AttaqueTapisRoulant()
     {
         //Devant : accélérer
         Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
@@ -257,8 +256,7 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-    */
-
+    
     void AttaqueStandCommerce()
     {
         float attaqueRange = 1f;
@@ -276,7 +274,7 @@ public class Trap_Attack : MonoBehaviour
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                            c.GetComponent<StatEnm>().goodEnm(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }
@@ -319,16 +317,18 @@ public class Trap_Attack : MonoBehaviour
         if (type == 3)
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, rangeSphere);
+            Gizmos.matrix = transform.localToWorldMatrix;
         }
         if (type == 4)
         {
             Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 5)
         {
             Gizmos.color = Color.black;
+            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 6)
