@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4139347199066735319}
   - component: {fileID: 4139347199066735318}
   - component: {fileID: 4139347199066735317}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PFB_maison3_bas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
