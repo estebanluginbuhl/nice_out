@@ -49,32 +49,42 @@ MonoBehaviour:
   - 10
   - 15
   - 20
-  usure: 0
   UsurePercentage: 0
-  player: {fileID: 0}
-  child: {fileID: 0}
-  colliderSize: {x: 4, y: 3.35, z: 0.2}
-  transformTrap: {x: 0, y: 0, z: 0}
-  rotationTrap: {x: 0, y: 0, z: 0}
-  costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
   trapAndUpgrades:
   - {fileID: 5233418853168884084, guid: eb7ad2ee751bea24aaaa79eca2dd4b16, type: 3}
   - {fileID: 9015111267809221299, guid: d175d3661fbfd094681ddcce641c7383, type: 3}
   - {fileID: 1255758784346034749, guid: fa06b085ba0dda440abb7671ba3d9faa, type: 3}
+  - {fileID: 5233418853168884084, guid: 2fe091c9eb3e30946b0132cc6e358244, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
+  colliderSize: {x: 4, y: 3.35, z: 0.2}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: 960000009600000096000000
+  sellCosts: 190000001900000019000000
   upgradeIndex: 2
-  stopUpgrade: 0
-  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
-  ui_hbHeight: 4
   ui_Image:
   - {fileID: 21300000, guid: c0a1aabe5239a7e408c0087d37fba1c2, type: 3}
   - {fileID: 21300000, guid: 491cddf4ffba3c046bf59159b24433e8, type: 3}
   - {fileID: 21300000, guid: 6aa44d564cc44894ca134a42e43174ef, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite attire en son
+    centre tous les ennemis qui passe dans son rayon d'action jusqu'a son usure complete."
 --- !u!65 &-75400321051341522
 BoxCollider:
   m_ObjectHideFlags: 0

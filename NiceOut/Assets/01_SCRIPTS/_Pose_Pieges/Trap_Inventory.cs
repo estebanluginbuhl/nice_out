@@ -35,6 +35,11 @@ public class Trap_Inventory : MonoBehaviour
     [HideInInspector]
     public int selectedSlotIndex;
 
+    [Header("Description Piège")]
+    public TextMeshProUGUI ui_Description;
+    public TextMeshProUGUI ui_Cooldown_Piege;
+    public TextMeshProUGUI ui_Cost_In_Shop;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -61,6 +66,21 @@ public class Trap_Inventory : MonoBehaviour
         if (scrolling.y > 0)
         {
             SelectRight();
+        }
+        if(trapsItem[selectedSlotIndex] != null)
+        {
+            Traps trapStats = trapsItem[selectedSlotIndex].GetComponent<Traps>();
+            string description = trapStats.description;
+            int damages = trapStats.trapAndUpgrades[trapStats.upgradeIndex].GetComponent<Trap_Attack>().damages;
+            float cooldownDamage = trapStats.trapAndUpgrades[trapStats.upgradeIndex].GetComponent<Trap_Attack>().cooldown;
+            float cooldownPose = trapStats.cooldownPose[trapStats.upgradeIndex];
+            float cooldownSpawn = trapStats.cooldownSpawn[trapStats.upgradeIndex];
+            int cost = trapsItem[selectedSlotIndex].GetComponent<Traps>().costs[trapsItem[selectedSlotIndex].GetComponent<Traps>().upgradeIndex];
+            int nbTransmissionIfParfume = Mathf.RoundToInt(cooldownDamage - 2);
+
+            ui_Description.text = string.Format(description, cooldownSpawn, damages, cooldownDamage, nbTransmissionIfParfume);
+            ui_Cost_In_Shop.text = "Cost in shop : " + cost + " s";
+            ui_Cooldown_Piege.text = "Cooldown : " + cooldownPose;
         }
     }
 
@@ -164,7 +184,7 @@ public class Trap_Inventory : MonoBehaviour
         number[_Index] = TextMeshProUGUI.Instantiate(trapNumberText, numberPos, Quaternion.identity);
         number[_Index].rectTransform.SetParent(ui_InventoryPanel.GetComponentInChildren<Transform>());
         number[_Index].rectTransform.localScale = Vector3.one;
-        number[_Index].text = nbStartTraps.ToString();
+        number[_Index].text = "x" + nbStartTraps.ToString();
 
         trapsItem[_Index] = trap;
         nbTrapsInSlot[_Index] = nbStartTraps;
@@ -197,12 +217,12 @@ public class Trap_Inventory : MonoBehaviour
     public void AddTraps(int _SlotIndex)
     {
         nbTrapsInSlot[_SlotIndex] += 1;
-        number[_SlotIndex].text = nbTrapsInSlot[_SlotIndex].ToString();
+        number[_SlotIndex].text = "x" + nbTrapsInSlot[_SlotIndex].ToString();
     }
     public void RemoveTraps(int _SlotIndex)
     {
         nbTrapsInSlot[_SlotIndex] -= 1;
-        number[_SlotIndex].text = nbTrapsInSlot[_SlotIndex].ToString();
+        number[_SlotIndex].text = "x" + nbTrapsInSlot[_SlotIndex].ToString();
     }
 
     private void OnEnable()

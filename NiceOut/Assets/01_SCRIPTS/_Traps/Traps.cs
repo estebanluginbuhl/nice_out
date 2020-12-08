@@ -5,73 +5,118 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 {
     public int trapType;//Le type de piège sert à verif si on l'a deja dans l'inventaire
 
-    //vie et munitions
-    public float[] fullUsure;
-    public float usure;
+    [Header("Usure")]
+    [SerializeField]
+    float[] fullUsure;
+    float usure;
+    [HideInInspector]
     public float UsurePercentage;
 
-    public GameObject player;
-    public GameObject child;
-    public Vector3 colliderSize;
+    [Header("Cooldowns")]
+    public float[] cooldownPose;
+    public float[] cooldownSpawn;
+    GameObject preview;
+    Canvas previewTimer;
+    [SerializeField]
+    Canvas ui_Preview_Timer;
     [HideInInspector]
-    public Vector3 transformTrap;
-    [HideInInspector]
-    public Vector3 rotationTrap;
-    public int[] costs;
-    public int[] sellCosts;
+    public float cooldownCountdown;
+    bool hasSPawned;
+
+    [Header("Paramètre de spawn")]
     public GameObject[] trapAndUpgrades;
     public float[] offsetPositions;
-    public int upgradeIndex = 0; //Numero d'upgrade
-    public bool stopUpgrade = false; //Quand toute les upgrades ont etait faite, s'adapte au nombre d'upgrade tout seul pas besoin de toucher le code
-
-    public Canvas ui_healthBar;
-    public float ui_hbHeight;
-    public Sprite[] ui_Image;
-
+    public Vector3 colliderSize;
     BoxCollider box;
+    [HideInInspector]
+    public GameObject player;
+    [HideInInspector]
+    public GameObject child;
+    [HideInInspector]
+    public Vector3 transformTrap;
+    Vector3 rotationTrap;
 
+    [Header("Parametres de spawn")]
+    public int[] costs;
+    public int[] sellCosts;
+
+    public int upgradeIndex = 0; //Numero d'upgrade
+
+    [Header("Elements d'UI")]
+    [SerializeField]
+    Canvas ui_healthBar;
+    float ui_hbHeight = 4f;
+    public Sprite[] ui_Image;
+    public string description;
+
+    private void Awake()
+    {
+        cooldownCountdown = 0;
+        hasSPawned = false;
+    }
     private void Start()
     {
-        box = this.GetComponent<BoxCollider>();
-        if(box != null)
-        {
-            box.size = colliderSize;
-            box.center = new Vector3(0, colliderSize.y / 2 + offsetPositions[upgradeIndex], 0);
-            box.isTrigger = true;
-        }
-        this.usure = this.fullUsure[this.upgradeIndex];
-        this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
-        
-        this.rotationTrap = new Vector3(this.transform.localEulerAngles.x, this.transform.localEulerAngles.y, this.transform.localEulerAngles.z);
-        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
-        this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
-        this.child.GetComponent<Trap_Attack>().type = this.trapType;
+        rotationTrap = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        preview = GameObject.Instantiate(this.trapAndUpgrades[trapAndUpgrades.Length - 1], transform.position, Quaternion.Euler(rotationTrap));
+        previewTimer = Instantiate(ui_Preview_Timer, transform.position + Vector3.up * (ui_hbHeight/2), Quaternion.identity);
+        previewTimer.transform.localScale = Vector3.one * 0.04f;
+        previewTimer.GetComponent<Trap_Preview_Timer>().trap = this;
 
-        Canvas hb = Instantiate(ui_healthBar, transform.position + Vector3.up * ui_hbHeight, Quaternion.identity);
-        hb.GetComponent<Trap_Stats>().trap = this;
-        hb.GetComponent<Trap_Stats>().player = this.player;
-        hb.transform.SetParent(child.transform);
     }
-
     private void Update()
     {
-        this.usure -= Time.deltaTime;
-
-        this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
-
-        if (this.upgradeIndex > this.trapAndUpgrades.Length - 1)
+        bool isPaused = player.GetComponent<Switch_Mode>().GetPause();
+        if (isPaused == false)
         {
-            this.upgradeIndex = this.trapAndUpgrades.Length - 1;
-        }
+            if (cooldownCountdown < cooldownSpawn[upgradeIndex])
+            {
+                cooldownCountdown += Time.deltaTime;
+            }
+            if (cooldownCountdown >= cooldownSpawn[upgradeIndex] && hasSPawned == false)
+            {
+                box = GetComponent<BoxCollider>();
+                if (box != null)
+                {
+                    Destroy(previewTimer.gameObject);
+                    Destroy(preview);
+                    box.size = colliderSize;
+                    box.center = new Vector3(0, colliderSize.y / 2 + offsetPositions[upgradeIndex], 0);
+                    box.isTrigger = true;
+                }
+                usure = fullUsure[this.upgradeIndex];
+                this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
+                this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], transform.position, Quaternion.Euler(this.rotationTrap));
+                this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
+                this.child.GetComponent<Trap_Attack>().type = this.trapType;
 
-        if (this.usure <= 1f)
-        {
-            child.GetComponent<Trap_Attack>().isGonnaDie = true;
-        }
-        if (this.usure <= 0)
-        {
-            Destroy(this.child);
-            Destroy(this.gameObject);
+                Canvas hb = Instantiate(ui_healthBar, transform.position + Vector3.up * ui_hbHeight, Quaternion.identity);
+                hb.transform.localScale = Vector3.one * 0.05f;
+                hb.GetComponent<Trap_Stats>().trap = this;
+                hb.GetComponent<Trap_Stats>().player = this.player;
+                hb.transform.SetParent(child.transform);
+                hasSPawned = true;
+            }
+            if (cooldownCountdown >= cooldownSpawn[upgradeIndex] && hasSPawned == true)
+            {
+                usure -= Time.deltaTime;
+
+                this.UsurePercentage = usure / fullUsure[this.upgradeIndex];
+
+                if (this.upgradeIndex > this.trapAndUpgrades.Length - 1)
+                {
+                    this.upgradeIndex = this.trapAndUpgrades.Length - 1;
+                }
+
+                if (this.usure <= 1f)
+                {
+                    child.GetComponent<Trap_Attack>().isGonnaDie = true;
+                }
+                if (this.usure <= 0)
+                {
+                    Destroy(this.child);
+                    Destroy(this.gameObject);
+                }
+            }
         }
     }
 
@@ -79,17 +124,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     {
         this.usure -= value;
     }
-    /*
-    public void Upgrade()
-    {
-        Destroy(this.child);
-        this.upgradeIndex += 1;
-        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
-        this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
-        this.child.GetComponent<Trap_Attack>().type = this.trapType;
-        this.child.transform.SetParent(this.transform);
-        this.usure = Mathf.RoundToInt(this.fullUsure[upgradeIndex] * this.UsurePercentage);
-    }*/
+
     public void UpgradeForInventory()
     {
         this.upgradeIndex += 1;

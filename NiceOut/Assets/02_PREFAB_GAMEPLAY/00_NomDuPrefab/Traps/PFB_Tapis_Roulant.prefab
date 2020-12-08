@@ -49,32 +49,45 @@ MonoBehaviour:
   - 30
   - 35
   - 45
-  usure: 0
   UsurePercentage: 0
-  player: {fileID: 0}
-  child: {fileID: 0}
-  colliderSize: {x: 3.5, y: 1.72, z: 3.5}
-  transformTrap: {x: 0, y: 0, z: 0}
-  rotationTrap: {x: 0, y: 0, z: 0}
-  costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 1
+  - 2
+  - 3
+  ui_Preview_Timer: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+    type: 3}
+  cooldownCountdown: 0
   trapAndUpgrades:
   - {fileID: 452467482325948768, guid: ea03dd376e5ba654c9c179007e932808, type: 3}
   - {fileID: 480278977041148940, guid: 7624e09b5e3a7c94db3dba409a6094ae, type: 3}
   - {fileID: 2838832129113978810, guid: 3e25246d8a121894382864ffd8688c97, type: 3}
+  - {fileID: 452467482325948768, guid: 140f4dd395369d446ac8404d9533ddf1, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  upgradeIndex: 0
-  stopUpgrade: 0
-  ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
+  colliderSize: {x: 3.5, y: 1.72, z: 3.5}
+  player: {fileID: 0}
+  child: {fileID: 0}
+  transformTrap: {x: 0, y: 0, z: 0}
+  costs: c8000000dc000000fa000000
+  sellCosts: 320000003c00000046000000
+  upgradeIndex: 2
+  ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
-  ui_hbHeight: 4
   ui_Image:
   - {fileID: 21300000, guid: 77c8f09b30d4a104db29c846a8143325, type: 3}
   - {fileID: 21300000, guid: b27a7c2e474bc664d8da75dd6e3fda12, type: 3}
   - {fileID: 21300000, guid: 903b23358c7710e4da4358e4dfd15e53, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Les entit\xE9s ennemies
+    qui passe dans le tapis roulant son ralenties \xE0 {1} points de MoveSpeedUnits 
+    si elles se deplacent dans le sens inverse du tapis. Si les entit\xE9s se deplace
+    dans le sens du tapis elle sont boost\xE9 \xE0 {2} points de MoveSpeedUnits. 
+    (Vitesse de base des ennemis : 5 MoveSpeedUnits)"
 --- !u!65 &-6272607322716721369
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -22,14 +22,19 @@ public class StatsPlayer : MonoBehaviour
     public Image healthBar;
     Switch_Mode leSwitch;
     float compteurTempsRecharge = 0f;
+    [SerializeField]
+    ParticleSystem getDamaged;
 
+    Camera cam;
     private void Start()
     {
+        getDamaged.Stop();
         goldValue_Text.text = gold.ToString();
         healthValue.text = health.ToString();
         healthPercentage = health / maxHealth;
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
         leSwitch = GetComponent<Switch_Mode>();
+        cam = Camera.main;
     }
 
     private void Update()
@@ -73,11 +78,13 @@ public class StatsPlayer : MonoBehaviour
         isInvincible = _isInvincible;
     }
 
-    public void DamagePlayer(int damages) 
+    public void DamagePlayer(int _takenDamages) 
     {
         if(isInvincible == false)
         {
-            health -= damages;
+            health -= _takenDamages;
+            getDamaged.Play();
+            cam.GetComponent<Camera_Controller>().shake = true;
         }
         else
         {

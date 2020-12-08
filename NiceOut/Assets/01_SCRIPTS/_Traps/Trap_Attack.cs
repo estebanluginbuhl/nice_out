@@ -18,9 +18,6 @@ public class Trap_Attack : MonoBehaviour
     float cptCooldown;
     public bool isGonnaDie;
 
-    float slowSpeed = 2f;
-    float fastSpeed = 10f;
-
     [SerializeField]
     LayerMask ennemisMask = -1;
 
@@ -28,6 +25,8 @@ public class Trap_Attack : MonoBehaviour
     bool stillInRange;
     GameObject attackTarget = null;
     Collider[] alreadySlowed;
+
+    bool canAttack = false;
 
     private void Start()
     {
@@ -38,37 +37,40 @@ public class Trap_Attack : MonoBehaviour
     }
     private void Update()
     {
-        if (type == 0)
+        if(canAttack == true)
         {
-            AttaquePorteurDePresse();
-        }
-        if (type == 1)
-        {
-            AttaquePanneauPublicitaire();  
-        }
-        if (type == 2)
-        {
-            AttaqueBacAFruit();
-        }
-        if (type == 3)
-        {
-            AttaqueParfum();
-        }
-        if (type == 4)
-        {
-            AttaqueAntenneBrouilleur();
-        }
-        if (type == 5)
-        {
-            AttaqueBar();
-        }
-        if (type == 6)
-        {
-            AttaqueTapisRoulant();
-        }
-        if (type == 7)
-        {
-            AttaqueStandCommerce();
+            if (type == 0)
+            {
+                AttaquePorteurDePresse();
+            }
+            if (type == 1)
+            {
+                AttaquePanneauPublicitaire();
+            }
+            if (type == 2)
+            {
+                AttaqueBacAFruit();
+            }
+            if (type == 3)
+            {
+                AttaqueParfum();
+            }
+            if (type == 4)
+            {
+                AttaqueAntenneBrouilleur();
+            }
+            if (type == 5)
+            {
+                AttaqueBar();
+            }
+            if (type == 6)
+            {
+                //AttaqueTapisRoulant();
+            }
+            if (type == 7)
+            {
+                AttaqueStandCommerce();
+            }
         }
     }
 
@@ -124,7 +126,7 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<StatEnm>().badEnm(damages);
+                        target.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -156,23 +158,26 @@ public class Trap_Attack : MonoBehaviour
     void AttaqueBacAFruit()
     {
         Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
-        alreadySlowed = new Collider[ennemis.Length];
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
             {
-                c.GetComponent<EnmMovement>().isSlowed = true;
-                c.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
-                Debug.Log("Slowed");
+                if (c.GetComponent<EnmMovement>().isSlowed == false)
+                {
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(cooldown, damages, false));
+                }
+                else
+                {
+                    return;
+                }
             }
         }
-        //de-slow les ennemis aussi
     }
 
     void AttaqueParfum()
     {
-        int dotDuration = 5;
-        int nbTransmission = 3;
+        int dotDuration = Mathf.RoundToInt(cooldown);
+        int nbTransmission = dotDuration - 2;
         float rangeTransmission = 2f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
@@ -180,10 +185,26 @@ public class Trap_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                foreach (Collider c in units)
+                if(units[0].GetComponent<EnmMovement>().hasDot == true)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    foreach(Collider c in units)
+                    {
+                        if (c.GetComponent<EnmMovement>().hasDot == false)
+                        {
+                            target = c.transform;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    target = units[0].transform;
+                }
+                if (target != null)
+                {
+                    StartCoroutine(target.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
                     StartCoroutine(Cooldown(cooldown));
+                    target = null;
                 }
             }
         }
@@ -192,7 +213,7 @@ public class Trap_Attack : MonoBehaviour
     void AttaqueAntenneBrouilleur()//Valide
     {
         float slowSpeed = 0f;
-        float stunDuration = 1f;
+
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
         if (units.Length != 0)
@@ -201,7 +222,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in units)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(stunDuration, slowSpeed, true));
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(damages, slowSpeed, true));
                     StartCoroutine(Cooldown(cooldown));
                 }
             }
@@ -218,14 +239,14 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<StatEnm>().goodEnm(damages);
+                    c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
         }
     }
 
-    void AttaqueTapisRoulant()
+    /*void AttaqueTapisRoulant()
     {
         //Devant : accélérer
         Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
@@ -236,7 +257,7 @@ public class Trap_Attack : MonoBehaviour
                 if (e.GetComponent<EnmMovement>().isSlowed == false)
                 {
                     e.GetComponent<EnmMovement>().isFastened = true;
-                    e.GetComponent<EnmMovement>().modifiedSpeed = fastSpeed;
+                    e.GetComponent<EnmMovement>().modifiedSpeed = cooldown;//cooldown doit etre egale a la vitesse de l'ennemi fastened pour ce piege
                     Debug.Log("Fastened");
                 }
             }
@@ -250,13 +271,14 @@ public class Trap_Attack : MonoBehaviour
                 if (s.GetComponent<EnmMovement>().isFastened == false)
                 {
                     s.GetComponent<EnmMovement>().isSlowed = true;
-                    s.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
+                    s.GetComponent<EnmMovement>().modifiedSpeed = damages;//damages doit etre egale a la vitesse de l'ennemi slow pour ce piege
                     Debug.Log("Slowed");
                 }
             }
         }
-    }
+    }*/
     
+
     void AttaqueStandCommerce()
     {
         float attaqueRange = 1f;
@@ -274,7 +296,7 @@ public class Trap_Attack : MonoBehaviour
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<StatEnm>().goodEnm(damages);
+                            c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }
@@ -317,18 +339,16 @@ public class Trap_Attack : MonoBehaviour
         if (type == 3)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 4)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 5)
         {
             Gizmos.color = Color.black;
-            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireSphere(transform.position, rangeSphere);
         }
         if (type == 6)

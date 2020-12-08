@@ -102,12 +102,14 @@ MonoBehaviour:
   distance: 8
   height: 2
   focusRadius: 1
-  focusCentering: 0.5
+  focusCentering: 0.8
   rotationSpeed: 6
-  minVerticalAngle: -6
+  minVerticalAngle: -10
   maxVerticalAngle: 85
-  alignDelay: 5
-  alignSmoothRange: 45
+  lastManualRotationTime: 0
   obstructionMask:
     serializedVersion: 2
     m_Bits: 4864
+  shakePower: 0.5
+  shakeDuration: 0.2
+  shake: 0

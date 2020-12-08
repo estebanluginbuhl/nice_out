@@ -8,6 +8,8 @@ TagManager:
   - Trap
   - Boost
   - Objectives
+  - FxTemporaire
+  - Shop
   layers:
   - Default
   - TransparentFX
