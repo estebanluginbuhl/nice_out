@@ -233,9 +233,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7413206124061644210}
   - component: {fileID: 7413206124061644213}
-  - component: {fileID: 7413206124061644214}
-  - component: {fileID: 7413206124061644215}
   - component: {fileID: 7413206124061644217}
+  - component: {fileID: 7413206124061644215}
+  - component: {fileID: 7413206124061644214}
   - component: {fileID: 8604271746142972879}
   - component: {fileID: 351840786129866637}
   - component: {fileID: 218604027}
@@ -286,6 +286,50 @@ MonoBehaviour:
   dashSpeed: 0.8
   invincibleDuration: 0.5
   cdRoll: 1
+  isBoosted: {fileID: 0}
+--- !u!114 &7413206124061644217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413206124061644211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b25ce7c2b3fe14a8940d363d946792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  maxHealth: 40
+  healthPercentage: 0
+  gold: 2234
+  chargeSpeed: 1
+  tempsMort: 20
+  healthValue: {fileID: 0}
+  goldValue_Text: {fileID: 0}
+  chargeSpeed_Text: {fileID: 0}
+  healthBar: {fileID: 0}
+  getDamaged: {fileID: 0}
+--- !u!114 &7413206124061644215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413206124061644211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b8e0758828f9f49b05c1e7ebe814ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  pause: 0
+  realPause: 0
+  isShopping: 0
+  mort: 0
+  cptMort: 0
+  ui_DeathPanel: {fileID: 0}
+  ui_PausePanel: {fileID: 0}
 --- !u!114 &7413206124061644214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +353,9 @@ MonoBehaviour:
   player:
     serializedVersion: 2
     m_Bits: 1024
+  cantTrapLayer:
+    serializedVersion: 2
+    m_Bits: 0
   detectionRadius: 1
   spherePosition: {fileID: 7413206122574030978}
   selectedTrap: {fileID: 0}
@@ -318,48 +365,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8f856d6530da85443aab01173af6c089, type: 2}
   - {fileID: 2100000, guid: 552776d7a19631f4f9fd59d6b77b5427, type: 2}
   rotatingSpeed: 150
---- !u!114 &7413206124061644215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413206124061644211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25b8e0758828f9f49b05c1e7ebe814ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  pause: 0
-  realPause: 0
-  isShopping: 0
-  mort: 0
-  cptMort: 0
-  ui_DeathPanel: {fileID: 0}
-  ui_PausePanel: {fileID: 0}
---- !u!114 &7413206124061644217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413206124061644211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b25ce7c2b3fe14a8940d363d946792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  maxHealth: 40
-  healthPercentage: 0
-  gold: 2234
-  chargeSpeed: 1
-  tempsMort: 20
-  healthValue: {fileID: 0}
-  goldValue_Text: {fileID: 0}
-  chargeSpeed_Text: {fileID: 0}
-  healthBar: {fileID: 0}
 --- !u!114 &8604271746142972879
 MonoBehaviour:
   m_ObjectHideFlags: 0

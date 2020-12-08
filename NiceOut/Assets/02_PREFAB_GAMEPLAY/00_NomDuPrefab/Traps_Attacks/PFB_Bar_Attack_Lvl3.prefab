@@ -95,11 +95,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
   type: 0
-  rangeSphere: 11.23
+  rangeSphere: 10
   rangeBox: {x: 0, y: 0, z: 0}
   offsetForward: 0
   damages: 5
-  cooldown: 0.1
+  cooldown: 1.5
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2

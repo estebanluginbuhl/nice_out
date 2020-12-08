@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class StatEnm : MonoBehaviour
 {
-    public float damage, gizmosRadius, getHealth, damageCooldown, enmHealth;
+    public float gizmosRadius, damageCooldown;
+    public int damage;
     public Color gizmosColor;
 
     public LayerMask playerDetectionLayer;
@@ -14,48 +15,40 @@ public class StatEnm : MonoBehaviour
 
     void Update()
     {
-        playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
+        if(GetComponent<EnmMovement>().hostile == true)
+        {
+            playerTarget = Physics.OverlapSphere(transform.position, gizmosRadius, playerDetectionLayer);
 
-        if (playerTarget.Length == 0)
-        {
-            return;
-        }
-        else
-        {
-            foreach (Collider c in playerTarget)
+            if (playerTarget.Length == 0)
             {
-                attackTarget = c.gameObject;
+                return;
             }
-            Damage(attackTarget);
+            else
+            {
+                foreach (Collider c in playerTarget)
+                {
+                    attackTarget = c.gameObject;
+                }
+                if (damageCooldown >= 1)
+                {
+                    Damage(attackTarget);
+                }
+            }
+            if (damageCooldown < 1)
+            {
+                damageCooldown += Time.deltaTime;
+            }
         }
     }
 
     void Damage(GameObject _target)
     {
-        if (damageCooldown >= 1)
+        if (_target != null && GetComponent<EnmMovement>().hostile == true)
         {
-            if (_target)
-            {
-                //Debug.Log("damage player");
-                _target.GetComponent<StatsPlayer>().health -= damage;
-                damageCooldown = 0;
-            }
-            else return;
+            _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
+            damageCooldown = 0;
         }
-        else
-        {
-            damageCooldown += Time.deltaTime;
-        }
-    }
-
-    public void goodEnm(int takenDamage)
-    {
-        enmHealth += takenDamage;
-    }
-
-    public void badEnm(int takenDamage)
-    {
-        enmHealth -= takenDamage;
+        else return;
     }
 
     void OnDrawGizmos()
