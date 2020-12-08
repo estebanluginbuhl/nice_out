@@ -94,16 +94,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
-  type: 0
+  type: 7
   rangeSphere: 0
-  rangeBox: {x: 3, y: 3.8, z: 5}
-  offsetForward: 3.6
+  rangeBox: {x: 5, y: 6.5, z: 12.5}
+  offsetForward: 8
   damages: 15
   cooldown: 1
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2
     m_Bits: 8192
+  canAttack: 0
 --- !u!65 &6907690605316766835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,5 +116,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0550714, y: 3.7837367, z: 3.0550714}
-  m_Center: {x: 0, y: 1.8918684, z: -0.00000011920929}
+  m_Size: {x: 5.3463745, y: 6.621539, z: 5.346375}
+  m_Center: {x: 0, y: 3.3107696, z: -0.00000023841858}

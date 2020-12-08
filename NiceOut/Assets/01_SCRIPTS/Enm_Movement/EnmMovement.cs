@@ -163,8 +163,9 @@ public class EnmMovement : MonoBehaviour
             {
                 if (pathFinding == true)
                 {
+                    ChangeStatus("Attaque le joueur");
                     enmNavMesh.destination = player.transform.position;
-                    Collider[] playerTarget = Physics.OverlapSphere(transform.position, attackRadius, playerDetectionLayer);
+                    Collider[] playerTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerDetectionLayer);
 
                     if (playerTarget.Length == 0)
                     {
@@ -184,7 +185,6 @@ public class EnmMovement : MonoBehaviour
                             }
                         }
                     }
-                    ChangeStatus("Attaque le joueur");
                 }
                 else if (pathFinding == false)
                 {
@@ -275,7 +275,7 @@ public class EnmMovement : MonoBehaviour
                     float minDist = Mathf.Infinity;
                     GameObject target = null;
 
-                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up, _range, 13);
+                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
                     foreach (Collider c in transferTarget)
                     {
                         if(c.GetComponent<EnmMovement>().hasDot == false)
@@ -427,10 +427,9 @@ public class EnmMovement : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = gizmo1Color;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
-        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up, 2);
+        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up * 2.25f, gizmo1Radius);
 
         Gizmos.color = attackRadiusDebugColor;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, attackRadius);
     }
 }

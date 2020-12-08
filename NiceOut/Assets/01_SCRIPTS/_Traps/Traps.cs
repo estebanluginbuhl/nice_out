@@ -5,6 +5,8 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 {
     public int trapType;//Le type de piège sert à verif si on l'a deja dans l'inventaire
 
+    public bool isPaused;
+
     [Header("Usure")]
     [SerializeField]
     float[] fullUsure;
@@ -45,7 +47,8 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     [Header("Elements d'UI")]
     [SerializeField]
     Canvas ui_healthBar;
-    float ui_hbHeight = 4f;
+    [SerializeField]
+    float ui_hbHeight;
     public Sprite[] ui_Image;
     public string description;
 
@@ -65,7 +68,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     }
     private void Update()
     {
-        bool isPaused = player.GetComponent<Switch_Mode>().GetPause();
+        isPaused = player.GetComponent<Switch_Mode>().GetPause();
         if (isPaused == false)
         {
             if (cooldownCountdown < cooldownSpawn[upgradeIndex])
@@ -88,12 +91,14 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
                 this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], transform.position, Quaternion.Euler(this.rotationTrap));
                 this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
                 this.child.GetComponent<Trap_Attack>().type = this.trapType;
+                this.child.GetComponent<Trap_Attack>().canAttack = true;
 
                 Canvas hb = Instantiate(ui_healthBar, transform.position + Vector3.up * ui_hbHeight, Quaternion.identity);
                 hb.transform.localScale = Vector3.one * 0.05f;
                 hb.GetComponent<Trap_Stats>().trap = this;
                 hb.GetComponent<Trap_Stats>().player = this.player;
                 hb.transform.SetParent(child.transform);
+
                 hasSPawned = true;
             }
             if (cooldownCountdown >= cooldownSpawn[upgradeIndex] && hasSPawned == true)

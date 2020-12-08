@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9014023634758933705}
   - component: {fileID: 295274787144428822}
   m_Layer: 0
-  m_Name: PFB_Bac_Attack_Lvl4
+  m_Name: PFB_Bac_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,5 +115,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.85, y: 1, z: 0.75}
-  m_Center: {x: 0, y: 0.5, z: -1.65}
+  m_Size: {x: 6.973196, y: 2.5444043, z: 8.400969}
+  m_Center: {x: 0.1274091, y: 1.2722017, z: -0.797312}

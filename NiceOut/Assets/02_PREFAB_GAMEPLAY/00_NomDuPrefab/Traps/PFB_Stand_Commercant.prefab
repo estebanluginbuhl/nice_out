@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 7
+  isPaused: 0
   fullUsure:
   - 15
   - 20
@@ -70,15 +71,16 @@ MonoBehaviour:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 3.5, y: 2.9, z: 3.5}
+  colliderSize: {x: 5.5, y: 6, z: 5.5}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
   sellCosts: 320000003c00000046000000
-  upgradeIndex: 2
+  upgradeIndex: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
+  ui_hbHeight: 7
   ui_Image:
   - {fileID: 21300000, guid: a7717c67d7f934b43a1e2105d781a317, type: 3}
   - {fileID: 21300000, guid: a17f724e8ec602e4e8a27b549011360c, type: 3}
