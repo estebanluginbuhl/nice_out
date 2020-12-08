@@ -11,6 +11,7 @@ public class Trap_Manager : MonoBehaviour
     [Header("UI Elements")]
     public Canvas ui_Manager;//menus en gros
     public GameObject ui_Inventory;//inventaire
+    public GameObject ui_trapDescription;//inventaire
     bool inventoryActive;
 
     [Header("LayerMasks")]
@@ -62,6 +63,7 @@ public class Trap_Manager : MonoBehaviour
     private void Start()
     {
         ui_Inventory.SetActive(false);
+        ui_trapDescription.SetActive(false);
         inventoryActive = false;
 
         mshFlt = forseeTrap.GetComponent<MeshFilter>();
@@ -115,6 +117,7 @@ public class Trap_Manager : MonoBehaviour
                     if (inventoryActive == false)
                     {
                         ui_Inventory.SetActive(true);
+                        ui_trapDescription.SetActive(true);
                         inventoryActive = true;
                     }
 
@@ -180,6 +183,7 @@ public class Trap_Manager : MonoBehaviour
                     if (inventoryActive == true)
                     {
                         ui_Inventory.SetActive(false);
+                        ui_trapDescription.SetActive(false);
                         inventoryActive = false;
                     }
                 }

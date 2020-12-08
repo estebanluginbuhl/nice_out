@@ -10,6 +10,8 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     public float usure;
     public float UsurePercentage;
 
+    public float[] cooldownPose;
+    public float[] cooldownSpawn;
     public GameObject player;
     public GameObject child;
     public Vector3 colliderSize;
@@ -30,6 +32,8 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     BoxCollider box;
 
+    public string description;
+
     private void Start()
     {
         box = this.GetComponent<BoxCollider>();
@@ -48,6 +52,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         this.child.GetComponent<Trap_Attack>().type = this.trapType;
 
         Canvas hb = Instantiate(ui_healthBar, transform.position + Vector3.up * ui_hbHeight, Quaternion.identity);
+        hb.transform.localScale = Vector3.one * 0.05f;
         hb.GetComponent<Trap_Stats>().trap = this;
         hb.GetComponent<Trap_Stats>().player = this.player;
         hb.transform.SetParent(child.transform);
@@ -79,17 +84,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     {
         this.usure -= value;
     }
-    /*
-    public void Upgrade()
-    {
-        Destroy(this.child);
-        this.upgradeIndex += 1;
-        this.child = GameObject.Instantiate(this.trapAndUpgrades[upgradeIndex], this.transform.position, Quaternion.Euler(this.rotationTrap));
-        this.child.GetComponent<Trap_Attack>().parentTrap = this.gameObject;
-        this.child.GetComponent<Trap_Attack>().type = this.trapType;
-        this.child.transform.SetParent(this.transform);
-        this.usure = Mathf.RoundToInt(this.fullUsure[upgradeIndex] * this.UsurePercentage);
-    }*/
+
     public void UpgradeForInventory()
     {
         this.upgradeIndex += 1;

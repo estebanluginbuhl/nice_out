@@ -18,9 +18,6 @@ public class Trap_Attack : MonoBehaviour
     float cptCooldown;
     public bool isGonnaDie;
 
-    float slowSpeed = 2f;
-    float fastSpeed = 10f;
-
     [SerializeField]
     LayerMask ennemisMask = -1;
 
@@ -155,7 +152,6 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueBacAFruit()
     {
-        float slow = 2f;
         Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
@@ -163,7 +159,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 if (c.GetComponent<EnmMovement>().isSlowed == false)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(0.1f, slow, false));
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(cooldown, damages, false));
                 }
                 else
                 {
@@ -175,7 +171,7 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueParfum()
     {
-        int dotDuration = 5;
+        int dotDuration = Mathf.RoundToInt(cooldown);
         int nbTransmission = dotDuration - 2;
         float rangeTransmission = 2f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
@@ -184,8 +180,27 @@ public class Trap_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                StartCoroutine(units[0].GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
-                StartCoroutine(Cooldown(cooldown));
+                if(units[0].GetComponent<EnmMovement>().hasDot == true)
+                {
+                    foreach(Collider c in units)
+                    {
+                        if (c.GetComponent<EnmMovement>().hasDot == false)
+                        {
+                            target = c.transform;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    target = units[0].transform;
+                }
+                if (target != null)
+                {
+                    StartCoroutine(target.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(Cooldown(cooldown));
+                    target = null;
+                }
             }
         }
     }
@@ -193,7 +208,7 @@ public class Trap_Attack : MonoBehaviour
     void AttaqueAntenneBrouilleur()//Valide
     {
         float slowSpeed = 0f;
-        float stunDuration = 1f;
+
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
         if (units.Length != 0)
@@ -202,7 +217,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in units)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(stunDuration, slowSpeed, true));
+                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(damages, slowSpeed, true));
                     StartCoroutine(Cooldown(cooldown));
                 }
             }
@@ -237,7 +252,7 @@ public class Trap_Attack : MonoBehaviour
                 if (e.GetComponent<EnmMovement>().isSlowed == false)
                 {
                     e.GetComponent<EnmMovement>().isFastened = true;
-                    e.GetComponent<EnmMovement>().modifiedSpeed = fastSpeed;
+                    e.GetComponent<EnmMovement>().modifiedSpeed = cooldown;//cooldown doit etre egale a la vitesse de l'ennemi fastened pour ce piege
                     Debug.Log("Fastened");
                 }
             }
@@ -251,13 +266,13 @@ public class Trap_Attack : MonoBehaviour
                 if (s.GetComponent<EnmMovement>().isFastened == false)
                 {
                     s.GetComponent<EnmMovement>().isSlowed = true;
-                    s.GetComponent<EnmMovement>().modifiedSpeed = slowSpeed;
+                    s.GetComponent<EnmMovement>().modifiedSpeed = damages;//damages doit etre egale a la vitesse de l'ennemi slow pour ce piege
                     Debug.Log("Slowed");
                 }
             }
         }
-    }
-    */
+    }*/
+    
 
     void AttaqueStandCommerce()
     {

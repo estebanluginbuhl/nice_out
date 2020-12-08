@@ -25,6 +25,7 @@ public class StatsPlayer : MonoBehaviour
     [SerializeField]
     ParticleSystem getDamaged;
 
+    Camera cam;
     private void Start()
     {
         getDamaged.Stop();
@@ -33,6 +34,7 @@ public class StatsPlayer : MonoBehaviour
         healthPercentage = health / maxHealth;
         healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
         leSwitch = GetComponent<Switch_Mode>();
+        cam = Camera.main;
     }
 
     private void Update()
@@ -76,12 +78,13 @@ public class StatsPlayer : MonoBehaviour
         isInvincible = _isInvincible;
     }
 
-    public void DamagePlayer(int damages) 
+    public void DamagePlayer(int _takenDamages) 
     {
         if(isInvincible == false)
         {
-            health -= damages;
+            health -= _takenDamages;
             getDamaged.Play();
+            cam.GetComponent<Camera_Controller>().shake = true;
         }
         else
         {

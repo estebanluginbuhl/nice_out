@@ -21,7 +21,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private float shopRange;
     public LayerMask shopLayer;
-        
+    GameObject[] oldShop;    
     private void Awake()
     {
         inputs = new Inputs();
@@ -35,6 +35,12 @@ public class Shop : MonoBehaviour
             b.SetActive(false);
         }
         upgradeIndexes = new int[inventory.nbTrapMax];
+
+        GameObject[] detectShops = GameObject.FindGameObjectsWithTag("Shop");
+        foreach (GameObject s in detectShops)
+        {
+            s.GetComponent<FeedbackShop>().player = this.gameObject;
+        }
     }
 
     private void Update()
@@ -47,8 +53,7 @@ public class Shop : MonoBehaviour
         if (buyingTime && shopPanel.activeInHierarchy == false)
         {
             Collider[] shops = Physics.OverlapSphere(transform.position, shopRange, shopLayer);
-
-            if(shops.Length != 0)
+            if (shops.Length != 0)
             {
                 switchMode.SetShopping();
                 shopPanel.SetActive(true);

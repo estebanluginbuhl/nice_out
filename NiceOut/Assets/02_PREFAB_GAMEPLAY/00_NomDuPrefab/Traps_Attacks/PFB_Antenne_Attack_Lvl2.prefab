@@ -98,7 +98,7 @@ MonoBehaviour:
   rangeSphere: 5
   rangeBox: {x: 0, y: 0, z: 0}
   offsetForward: 0
-  damages: 0
+  damages: 2
   cooldown: 3
   isGonnaDie: 0
   ennemisMask:

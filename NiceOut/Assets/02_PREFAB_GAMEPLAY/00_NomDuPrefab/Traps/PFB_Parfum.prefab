@@ -51,6 +51,14 @@ MonoBehaviour:
   - 20
   usure: 0
   UsurePercentage: 0
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 0
+  - 0
+  - 0
   player: {fileID: 0}
   child: {fileID: 0}
   colliderSize: {x: 1.3, y: 2.4, z: 1.3}
@@ -75,6 +83,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 01a03f0e47bb2684a8f2d6479753e390, type: 3}
   - {fileID: 21300000, guid: f61b8766e0ba36946af523e2316ed95e, type: 3}
   - {fileID: 21300000, guid: ab404a0b4a9ed17458c1dde0d02ced23, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite parfume les ennemis
+    dans sa zone d'action. Les entit\xE9s non-alli\xE9es parfum\xE9es re\xE7oivent
+    {1} points d'esprit critique toutes les secondes pendant {2} secondes. Si une
+    entit\xE9 parfum\xE9e est proche d'une unit\xE9 elle transmet une partie de son
+    parfum. Achaque transmission le parfum pert inflige 1 point d'esprit critique
+    de moins, dure 1 seconde de moins et peut se transmettre une fois de moins. Peut
+    se transmettre {3} fois au maximum."
 --- !u!65 &8345870964087090643
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -51,6 +51,14 @@ MonoBehaviour:
   - 20
   usure: 0
   UsurePercentage: 0
+  cooldownPose:
+  - 0
+  - 0
+  - 0
+  cooldownSpawn:
+  - 0
+  - 0
+  - 0
   player: {fileID: 0}
   child: {fileID: 0}
   colliderSize: {x: 5, y: 1.55, z: 5}
@@ -66,7 +74,7 @@ MonoBehaviour:
   - 0.01
   - 0.01
   - 0.01
-  upgradeIndex: 0
+  upgradeIndex: 2
   stopUpgrade: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: 716ad3c719846ff43ad09ba70dfd9431,
     type: 3}
@@ -75,6 +83,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 97143fb0f7d5a5e4a94b2c72645a7350, type: 3}
   - {fileID: 21300000, guid: 5a9932f08c65f1849885573ff4de7fea, type: 3}
   - {fileID: 21300000, guid: a3a60d2e8d169aa478f6210d152e3ed5, type: 3}
+  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite donne {1} points
+    d'esprit critique aux entit\xE9s non-alli\xE9es toutes les {2} secondes"
 --- !u!65 &4771299929711459252
 BoxCollider:
   m_ObjectHideFlags: 0
