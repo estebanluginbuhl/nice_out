@@ -42,8 +42,6 @@ public class Trap_Manager : MonoBehaviour
     float trapRotation; //Le jour oriente le piege comme il le souhaite
     public float rotatingSpeed; //Le jour oriente le piege comme il le souhaite
 
-
-
     private void Awake() //Detection input
     {
         inputs = new Inputs();
@@ -238,7 +236,6 @@ public class Trap_Manager : MonoBehaviour
 
     private void OnDrawGizmos() //Afficher la sphere de detection dans la scene
     {
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spherePosition.transform.position, detectionRadius);
         Gizmos.color = Color.green;

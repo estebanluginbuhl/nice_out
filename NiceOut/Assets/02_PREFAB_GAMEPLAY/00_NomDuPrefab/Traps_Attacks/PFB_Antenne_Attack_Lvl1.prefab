@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTrap: {fileID: 0}
-  type: 0
-  rangeSphere: 5
+  type: 4
+  rangeSphere: 12.5
   rangeBox: {x: 0, y: 0, z: 0}
   offsetForward: 0
   damages: 1

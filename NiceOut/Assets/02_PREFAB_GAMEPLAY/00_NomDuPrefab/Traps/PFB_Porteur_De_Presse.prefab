@@ -79,6 +79,7 @@ MonoBehaviour:
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
+  ui_hbHeight: 7
   ui_Image:
   - {fileID: 21300000, guid: dfda99dc1de317e4c8979de33545a095, type: 3}
   - {fileID: 21300000, guid: addafd5a22428b84f82bce4da03f956c, type: 3}
