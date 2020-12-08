@@ -102,6 +102,7 @@ public class Character_Controller : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
                     charaCtrl.Move(moveDir.normalized * (dashSpeed + boostSpeed));
+                    GetComponent<StatsPlayer>().Invincibility(true);
                     invincibleCount -= Time.deltaTime;
                 }
                 else
@@ -110,6 +111,7 @@ public class Character_Controller : MonoBehaviour
                     {
                         charaColl.enabled = true;
                         PlayerAnimator.ResetTrigger("Roulade");
+                        GetComponent<StatsPlayer>().Invincibility(false);
                         isRolling = false;
                     }
                 }

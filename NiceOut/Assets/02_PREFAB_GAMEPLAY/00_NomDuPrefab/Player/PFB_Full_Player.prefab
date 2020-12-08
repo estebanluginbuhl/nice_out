@@ -225,6 +225,14 @@ PrefabInstance:
       propertyPath: damagePanel
       value: 
       objectReference: {fileID: 1068338556518960105}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: distance
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: height
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8731416418560567864, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -634,10 +642,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8349706440088133221, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8349706440505374997, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349706440606280033, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349706440606280033, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9020667312983784009, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
@@ -756,18 +779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4549441852031188582 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8349706441080966444, guid: 0829cee19679f1a4a868899ba950d838,
-    type: 3}
-  m_PrefabInstance: {fileID: 5531194975530857290}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4549441853007099585 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8349706439836124555, guid: 0829cee19679f1a4a868899ba950d838,
@@ -792,6 +803,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5531194975530857290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2771924229841039882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7689081491468845376, guid: 0829cee19679f1a4a868899ba950d838,
+    type: 3}
+  m_PrefabInstance: {fileID: 5531194975530857290}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4549441852827312056 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8349706439209528562, guid: 0829cee19679f1a4a868899ba950d838,
@@ -804,12 +821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1af5d833fa0144eb3b80a6832f3fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7470894901487908372 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3129777246412703070, guid: 0829cee19679f1a4a868899ba950d838,
-    type: 3}
-  m_PrefabInstance: {fileID: 5531194975530857290}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6865563733933108972 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1406707829566479782, guid: 0829cee19679f1a4a868899ba950d838,
@@ -942,9 +953,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5531194975530857290}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2771924229841039882 stripped
+--- !u!1 &7470894901487908372 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7689081491468845376, guid: 0829cee19679f1a4a868899ba950d838,
+  m_CorrespondingSourceObject: {fileID: 3129777246412703070, guid: 0829cee19679f1a4a868899ba950d838,
     type: 3}
   m_PrefabInstance: {fileID: 5531194975530857290}
   m_PrefabAsset: {fileID: 0}
@@ -977,6 +988,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7413206122574030981, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413206122574030981, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206122974435171, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_Layer
@@ -988,6 +1009,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5561349426305759274, guid: c8b2d5725978a4042b80905157b4a504,
         type: 3}
+    - target: {fileID: 7413206122974435175, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -4016023807917133986, guid: ab23813e4502f26408a6498b4e390e13,
+        type: 3}
     - target: {fileID: 7413206124061644210, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -996,7 +1023,7 @@ PrefabInstance:
     - target: {fileID: 7413206124061644210, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644210, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
@@ -1078,6 +1105,11 @@ PrefabInstance:
       propertyPath: previewTrap
       value: 
       objectReference: {fileID: 4549441853088516941}
+    - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: detectionRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -1102,7 +1134,7 @@ PrefabInstance:
         type: 3}
       propertyPath: chargeSpeed_Text
       value: 
-      objectReference: {fileID: 4549441852031188582}
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: healthBar

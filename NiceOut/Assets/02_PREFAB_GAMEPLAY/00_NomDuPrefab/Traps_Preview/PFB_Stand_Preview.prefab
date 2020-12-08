@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6769630240204375390}
   - component: {fileID: 7805688167991739495}
   m_Layer: 0
-  m_Name: PFB_Stand_Attack_Lvl4
+  m_Name: PFB_Stand_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,5 +115,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0550714, y: 3.7837367, z: 3.0550714}
-  m_Center: {x: 0, y: 1.8918684, z: -0.00000011920929}
+  m_Size: {x: 5.3463745, y: 6.621539, z: 5.346375}
+  m_Center: {x: 0, y: 3.3107696, z: -0.00000023841858}
