@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 803798132997377195}
   - component: {fileID: 3629337493020427500}
   - component: {fileID: 4593013484386038053}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: feuillage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5497321549218701549}
   - component: {fileID: 8790316740415243420}
   - component: {fileID: 580157609347115809}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: tronc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
