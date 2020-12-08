@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5489425749944279953}
   - component: {fileID: 5489425749944279952}
   - component: {fileID: 5489425749944279955}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PFB_toit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

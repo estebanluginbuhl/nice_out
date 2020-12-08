@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2139089677418266219}
   - component: {fileID: 2139089677418266216}
   - component: {fileID: 2139089677418266217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFB_Sol_sans_variation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
