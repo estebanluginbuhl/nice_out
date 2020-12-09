@@ -19387,8 +19387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd7f01c339857544b48120aa48de106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosition: {fileID: 0}
-  pathAvailable: 0
   pathFinding: 0
   neutral: 1
   hostile: 0
@@ -19402,8 +19400,10 @@ MonoBehaviour:
   targetTresholdNeutral: 0.5
   gizmo1Radius: 5
   resetTransformPicker: 3
-  resetWaitingTime: 3
+  maxWaitingTime: 3
   gizmo1Color: {r: 1, g: 0, b: 0.8913307, a: 1}
+  enmNavMesh: {fileID: 0}
+  target: {fileID: 0}
   enmHealth: 0
   damage: 0
   attackRadius: 0
