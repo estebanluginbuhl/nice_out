@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ff77c9142e1a14446ab0474b904cd25c
+guid: 2e4dd33301951604d980523613588153
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -11,26 +11,28 @@ ScriptedImporter:
   version: 29
   projectContext: 0
   mGraphInstanceData:
-  - graphLabel: wall
-    prototypeName: wall
+  - graphLabel: wall_house
+    prototypeName: wall_house
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://wall\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"2697275188\" type=\"8\" value=\"11,11\" />\n  <presetinput identifier=\"luminance_adjustement\"
-      uid=\"3380316779\" type=\"0\" value=\"-0.02\" />\n  <presetinput identifier=\"opacitymult\"
-      uid=\"3380325412\" type=\"0\" value=\"0.34\" />\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://wall_house\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"4140293929\" type=\"8\" value=\"9,9\" />\n 
+      <presetinput identifier=\"hue\" uid=\"2675765710\" type=\"0\" value=\"0.47\"
+      />\n  <presetinput identifier=\"saturation\" uid=\"2675767481\" type=\"0\"
+      value=\"0.47\" />\n  <presetinput identifier=\"luminosity\" uid=\"2675767487\"
+      type=\"0\" value=\"0.54\" />\n </sbspreset>\n"
     shaderName: Standard
     materialProperties:
       shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-      shaderKeywords: _MAINTEX _NORMALMAP _OCCLUSIONMAP _PARALLAXMAP
+      shaderKeywords: _MAINTEX _METALLICGLOSSMAP _NORMALMAP _OCCLUSIONMAP _PARALLAXMAP
       lightmapFlags: 4
       enableInstancingVariants: 0
       doubleSidedGI: 0
       customRenderQueue: -1
       texEnvs:
       - name: _BumpMap
-        texture: {fileID: 6602575244337398650, guid: ff77c9142e1a14446ab0474b904cd25c,
+        texture: {fileID: 4449463912304689141, guid: 2e4dd33301951604d980523613588153,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -51,21 +53,22 @@ ScriptedImporter:
         scale: {x: 2, y: 2}
         offset: {x: 0, y: 0}
       - name: _MainTex
-        texture: {fileID: -2638784144865192382, guid: ff77c9142e1a14446ab0474b904cd25c,
+        texture: {fileID: -2034047245591000202, guid: 2e4dd33301951604d980523613588153,
           type: 3}
         scale: {x: 2, y: 2}
         offset: {x: 0, y: 0}
       - name: _MetallicGlossMap
-        texture: {instanceID: 0}
+        texture: {fileID: -248735503989093390, guid: 2e4dd33301951604d980523613588153,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
-        texture: {fileID: -6739401773251232039, guid: ff77c9142e1a14446ab0474b904cd25c,
+        texture: {fileID: -478820717030042237, guid: 2e4dd33301951604d980523613588153,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _ParallaxMap
-        texture: {fileID: 4781844641748000223, guid: ff77c9142e1a14446ab0474b904cd25c,
+        texture: {fileID: 8454209482510510207, guid: 2e4dd33301951604d980523613588153,
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
@@ -79,9 +82,9 @@ ScriptedImporter:
       - name: _DstBlend
         float: 0
       - name: _GlossMapScale
-        float: 1
+        float: 0.47
       - name: _Glossiness
-        float: 0
+        float: 0.5
       - name: _GlossyReflections
         float: 1
       - name: _Metallic
@@ -91,7 +94,7 @@ ScriptedImporter:
       - name: _OcclusionStrength
         float: 1
       - name: _Parallax
-        float: 0.005
+        float: 0.02
       - name: _SmoothnessTextureChannel
         float: 0
       - name: _SpecularHighlights
@@ -126,6 +129,24 @@ ScriptedImporter:
       bImage: 1
       bNumerical: 0
       bLinear: 1
+    - outputName: roughness
+      identifier: roughness
+      usageName: roughness
+      channelStr: roughness
+      label: Roughness
+      usage: 15
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
+    - outputName: metallic
+      identifier: metallic
+      usageName: metallic
+      channelStr: metallic
+      label: Metallic
+      usage: 34
+      bImage: 1
+      bNumerical: 0
+      bLinear: 1
     - outputName: height
       identifier: height
       usageName: height
@@ -144,15 +165,6 @@ ScriptedImporter:
       bImage: 1
       bNumerical: 0
       bLinear: 1
-    - outputName: 
-      identifier: metallic_1
-      usageName: UNKNOWN
-      channelStr: 
-      label: metallic_1
-      usage: 36
-      bImage: 1
-      bNumerical: 0
-      bLinear: 1
     texturePackingList:
     - targetName: baseColor
       components:
@@ -162,6 +174,16 @@ ScriptedImporter:
     - targetName: normal
       components:
       - sourceName: normal
+        from: 0
+        to: 3
+    - targetName: roughness
+      components:
+      - sourceName: roughness
+        from: 0
+        to: 3
+    - targetName: metallic
+      components:
+      - sourceName: smoothness
         from: 0
         to: 3
     - targetName: height
@@ -174,29 +196,28 @@ ScriptedImporter:
       - sourceName: ambientOcclusion
         from: 0
         to: 3
-    - targetName: 
-      components:
-      - sourceName: 
-        from: 0
-        to: 3
     textureParameters:
-    - textureName: wall - baseColor
+    - textureName: wall_house - baseColor
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: wall - normal
+    - textureName: wall_house - normal
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: wall - height
+    - textureName: wall_house - roughness
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: wall - ambientOcclusion
+    - textureName: wall_house - metallic
       wrapMode: 0
       filterMode: 1
       aniso: 1
-    - textureName: 'wall - '
+    - textureName: wall_house - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: wall_house - ambientOcclusion
       wrapMode: 0
       filterMode: 1
       aniso: 1
@@ -206,15 +227,16 @@ ScriptedImporter:
     - label: Default
       bOverride: 0
       bLockRatio: 1
-      textureWidth: 2048
-      textureHeight: 2048
+      textureWidth: 512
+      textureHeight: 512
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: -1418106222229866039, guid: ff77c9142e1a14446ab0474b904cd25c,
+    material: {fileID: 7101445870403521644, guid: 2e4dd33301951604d980523613588153,
       type: 3}
     generatedTextures:
-    - {fileID: -2638784144865192382, guid: ff77c9142e1a14446ab0474b904cd25c, type: 3}
-    - {fileID: 6602575244337398650, guid: ff77c9142e1a14446ab0474b904cd25c, type: 3}
-    - {fileID: 4781844641748000223, guid: ff77c9142e1a14446ab0474b904cd25c, type: 3}
-    - {fileID: -6739401773251232039, guid: ff77c9142e1a14446ab0474b904cd25c, type: 3}
+    - {fileID: -2034047245591000202, guid: 2e4dd33301951604d980523613588153, type: 3}
+    - {fileID: 4449463912304689141, guid: 2e4dd33301951604d980523613588153, type: 3}
+    - {fileID: -248735503989093390, guid: 2e4dd33301951604d980523613588153, type: 3}
+    - {fileID: 8454209482510510207, guid: 2e4dd33301951604d980523613588153, type: 3}
+    - {fileID: -478820717030042237, guid: 2e4dd33301951604d980523613588153, type: 3}
