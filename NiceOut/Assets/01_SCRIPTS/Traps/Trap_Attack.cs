@@ -133,7 +133,7 @@ public class Trap_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponent<EnmMovement>().hostile == false)
+                if (target.GetComponent<EnmMovement>().status != 2)
                 {
                     target = null;
                     return;
