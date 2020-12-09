@@ -7,6 +7,15 @@ using TMPro;
 
 public class EnmMovementTest : MonoBehaviour
 {
+    public NavMeshAgent spawnPosition;
+    Transform targetPosition;
+
+    [HideInInspector]
+    public bool pathAvailable;
+    public NavMeshPath navMeshPath;
+    
+    //////////////
+
     Switch_Mode pauser;
 
     public bool pathFinding;
@@ -23,19 +32,20 @@ public class EnmMovementTest : MonoBehaviour
     private int nodeIndex = 0;
     [SerializeField]
     private float enmHealth;
-    [SerializeField]
-    private int damage;
+
     Vector4 healthValues = new Vector4(0, 45, 55, 100);
     private GameObject[] firmeTarget;
 
-    NavMeshPath navMeshPath;
-
     private float Xmax, Xmin, Zmin, Zmax, randomTransformPickerTimer, Xpos, Zpos, delayBeforeGo;
 
+    [Header("Attaque")]
+    [SerializeField]
+    private int damage;
     public float attackRadius, damageCooldown;
     public Color attackRadiusDebugColor;
     private GameObject attackTarget;
 
+    [Header("Controles")]
     //Trap Influence
     public bool isAttracted;
     public Transform attractTarget;
@@ -66,14 +76,13 @@ public class EnmMovementTest : MonoBehaviour
         enmNavMesh.speed = enmSpeed;
 
         randomTransformPickerTimer = resetTransformPicker;
-
-        Xmax = transform.position.x + (gizmo1Radius * 2);
+        /*Xmax = transform.position.x + (gizmo1Radius * 2);
         Xmin = transform.position.x - (gizmo1Radius * 2);
         Zmax = transform.position.z + (gizmo1Radius * 2);
         Zmin = transform.position.z - (gizmo1Radius * 2);
         Xpos = Random.Range(Xmin, Xmax);
         Zpos = Random.Range(Zmin, Zmax);
-        target.position = new Vector3(Xpos, target.position.y, Zpos);
+        target.position = new Vector3(Xpos, target.position.y, Zpos);*/
         enmNavMesh.destination = target.position;
 
         delayBeforeGo = 0;
@@ -111,30 +120,26 @@ public class EnmMovementTest : MonoBehaviour
             ChangeStatus("Se Balade");
             randomTransformPickerTimer -= Time.deltaTime;
             delayBeforeGo -= Time.deltaTime;
+
             if (randomTransformPickerTimer <= 0 && Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral && delayBeforeGo <= 0)
             {
-                Xmax = transform.position.x + (gizmo1Radius * 2);
-                Xmin = transform.position.x - (gizmo1Radius * 2);
-                Zmax = transform.position.z + (gizmo1Radius * 2);
-                Zmin = transform.position.z - (gizmo1Radius * 2);
-
-                Xpos = Random.Range(Xmin, Xmax);
-                Zpos = Random.Range(Zmin, Zmax);
-
-                target.position = new Vector3(Xpos, target.position.y, Zpos);
-                enmNavMesh.destination = target.position;
-                navMeshPath = new NavMeshPath();
-
                 delayBeforeGo = resetWaitingTime;
 
-                if (delayBeforeGo <= 0 && CalculateNewPath() == true)
+                if (Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral)
                 {
-                    randomTransformPickerTimer = resetTransformPicker;
-                    Debug.Log("calculate path true");
-                }
-                else if (CalculateNewPath() == false)
-                {
-                    Debug.Log("calculate path false");
+                    Xmax = transform.position.x + gizmo1Radius;
+                    Xmin = transform.position.x - gizmo1Radius;
+                    Zmax = transform.position.z + gizmo1Radius;
+                    Zmin = transform.position.z - gizmo1Radius;
+                    Xpos = Random.Range(Xmin, Xmax);
+                    Zpos = Random.Range(Zmin, Zmax);
+                    target.position = new Vector3(Xpos, target.position.y, Zpos);
+
+                    enmNavMesh.destination = target.position;
+                    if (delayBeforeGo <= 0)
+                    {
+                        randomTransformPickerTimer = resetTransformPicker;
+                    }
                 }
             }
         }
@@ -160,8 +165,9 @@ public class EnmMovementTest : MonoBehaviour
             {
                 if (pathFinding == true)
                 {
+                    ChangeStatus("Attaque le joueur");
                     enmNavMesh.destination = player.transform.position;
-                    Collider[] playerTarget = Physics.OverlapSphere(transform.position, attackRadius, playerDetectionLayer);
+                    Collider[] playerTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerDetectionLayer);
 
                     if (playerTarget.Length == 0)
                     {
@@ -181,7 +187,6 @@ public class EnmMovementTest : MonoBehaviour
                             }
                         }
                     }
-                    ChangeStatus("Attaque le joueur");
                 }
                 else if (pathFinding == false)
                 {
@@ -272,7 +277,7 @@ public class EnmMovementTest : MonoBehaviour
                     float minDist = Mathf.Infinity;
                     GameObject target = null;
 
-                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up, _range, 13);
+                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
                     foreach (Collider c in transferTarget)
                     {
                         if (c.GetComponent<EnmMovement>().hasDot == false)
@@ -360,12 +365,11 @@ public class EnmMovementTest : MonoBehaviour
 
     void Attack(GameObject _target)
     {
-        if (_target != null && GetComponent<EnmMovement>().hostile == true)
+        if (_target != null)
         {
             _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
             damageCooldown = 0;
         }
-        else return;
     }
 
     void UpdateEnemyState()
@@ -406,14 +410,15 @@ public class EnmMovementTest : MonoBehaviour
 
     bool CalculateNewPath()
     {
-        enmNavMesh.CalculatePath(target.position, navMeshPath);
+        spawnPosition.CalculatePath(targetPosition.position, navMeshPath);
+        print("New path calculated");
         if (navMeshPath.status != NavMeshPathStatus.PathComplete)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 
@@ -425,10 +430,9 @@ public class EnmMovementTest : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = gizmo1Color;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
-        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up, 2);
+        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up * 2.25f, gizmo1Radius);
 
         Gizmos.color = attackRadiusDebugColor;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, attackRadius);
     }
 }
