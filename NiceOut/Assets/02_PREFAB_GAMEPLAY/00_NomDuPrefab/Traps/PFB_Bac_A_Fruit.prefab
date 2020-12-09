@@ -76,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -88,6 +87,7 @@ MonoBehaviour:
   description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite ralenti les ennemis
     qui passe dessus \xE0 une vitesse de {1} moveSPeedUnits (Vitesse de base des
     ennemis : 5 MoveSpeedUnits)"
+  trapName: Bac de fruit
 --- !u!65 &3128976848352535718
 BoxCollider:
   m_ObjectHideFlags: 0

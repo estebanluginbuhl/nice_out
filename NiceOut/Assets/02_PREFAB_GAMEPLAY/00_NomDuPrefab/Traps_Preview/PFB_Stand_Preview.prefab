@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4899111016257686779}
-  m_Layer: 0
+  - component: {fileID: 4239312724576300059}
+  m_Layer: 9
   m_Name: PFB_Stand_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4239312724576300059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379332953445828295}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8224105748905879044
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +58,7 @@ GameObject:
   - component: {fileID: 1406547115141407514}
   - component: {fileID: 7583743038942397239}
   - component: {fileID: 2421261011006282945}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ANM_Stand_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}

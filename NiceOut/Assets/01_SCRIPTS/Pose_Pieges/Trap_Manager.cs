@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Trap_Manager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Trap_Manager : MonoBehaviour
 
     [Header("UI Elements")]
     public Canvas ui_Manager;//menus en gros
+    public TextMeshProUGUI ui_nbTraps;
     public GameObject ui_Inventory;//inventaire
     public GameObject ui_trapDescription;//inventaire
     bool inventoryActive;
@@ -61,6 +63,7 @@ public class Trap_Manager : MonoBehaviour
     private void Start()
     {
         ui_Inventory.SetActive(false);
+        ui_nbTraps.gameObject.SetActive(false);
         ui_trapDescription.SetActive(false);
         inventoryActive = false;
 
@@ -111,14 +114,7 @@ public class Trap_Manager : MonoBehaviour
                 }
                 if (GetComponent<Switch_Mode>().mode) //Mode de placement de pièges
                 {
-                    //Active le panneau d'inventaire 
-                    if (inventoryActive == false)
-                    {
-                        ui_Inventory.SetActive(true);
-                        ui_trapDescription.SetActive(true);
-                        inventoryActive = true;
-                    }
-
+                    ActivateInventory();
                     inventorySelection = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex];//Selection du piege dans l'inventaire
 
                     if (inventorySelection != null)
@@ -127,6 +123,8 @@ public class Trap_Manager : MonoBehaviour
                         Traps trapStats = inventorySelection.GetComponent<Traps>();
                         mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
                         colliderCube = (trapStats.colliderSize) / 2;
+
+                        ui_nbTraps.text = ui_Manager.GetComponent<Trap_Inventory>().nbTrapsInSlot[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex].ToString();
 
                         Collider[] boxCollider = Physics.OverlapBox(previewTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, previewTrap.transform.rotation, cantTrapLayer);
 
@@ -177,13 +175,7 @@ public class Trap_Manager : MonoBehaviour
                     {
                         mshFlt.mesh = null;
                     }
-                    //Ferme l'inventaire
-                    if (inventoryActive == true)
-                    {
-                        ui_Inventory.SetActive(false);
-                        ui_trapDescription.SetActive(false);
-                        inventoryActive = false;
-                    }
+                    UnactivateInventory();
                 }
 
                 //change la couleur du Forsee
@@ -194,16 +186,6 @@ public class Trap_Manager : MonoBehaviour
                 else
                 {
                     mshRnd.material = mat[0];
-                }
-
-                //Gestion du piege selectionné
-                if (selectedTrap != null)
-                {
-                    if (sell)
-                    {
-                        SellTrap();
-                        sell = false;
-                    }
                 }
             }
         }
@@ -224,16 +206,6 @@ public class Trap_Manager : MonoBehaviour
         else
             mshRnd.material = mat[1];
     }
-
-    public void SellTrap() //Vends ton piège
-    {
-        Traps trapStats = selectedTrap.GetComponent<Traps>();
-        GetComponent<StatsPlayer>().RincePlayer(trapStats.sellCosts[trapStats.upgradeIndex]);
-        Destroy(trapStats.child.gameObject);
-        Destroy(selectedTrap);
-        return;
-    }
-
     private void OnDrawGizmos() //Afficher la sphere de detection dans la scene
     {
         Gizmos.color = Color.red;
@@ -246,6 +218,27 @@ public class Trap_Manager : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.matrix = previewTrap.transform.localToWorldMatrix;
             Gizmos.DrawWireCube(Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0], colliderCube * 2);
+        }
+    }
+
+    void ActivateInventory()
+    {
+        if (inventoryActive == false)
+        {
+            ui_Inventory.SetActive(true);
+            ui_nbTraps.gameObject.SetActive(true);
+            ui_trapDescription.SetActive(true);
+            inventoryActive = true;
+        }
+    }
+    void UnactivateInventory()
+    {
+        if (inventoryActive == true)
+        {
+            ui_Inventory.SetActive(false);
+            ui_nbTraps.gameObject.SetActive(false);
+            ui_trapDescription.SetActive(false);
+            inventoryActive = false;
         }
     }
 

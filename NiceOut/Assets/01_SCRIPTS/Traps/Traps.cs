@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 {
     public int trapType;//Le type de piège sert à verif si on l'a deja dans l'inventaire
@@ -40,8 +41,6 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     [Header("Parametres de spawn")]
     public int[] costs;
-    public int[] sellCosts;
-
     public int upgradeIndex = 0; //Numero d'upgrade
 
     [Header("Elements d'UI")]
@@ -51,6 +50,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     float ui_hbHeight;
     public Sprite[] ui_Image;
     public string description;
+    public string trapName;
 
     private void Awake()
     {
@@ -61,6 +61,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     {
         rotationTrap = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
         preview = GameObject.Instantiate(this.trapAndUpgrades[trapAndUpgrades.Length - 1], transform.position, Quaternion.Euler(rotationTrap));
+        preview.GetComponent<BoxCollider>().size = colliderSize;
         previewTimer = Instantiate(ui_Preview_Timer, transform.position + Vector3.up * (ui_hbHeight/2), Quaternion.identity);
         previewTimer.transform.localScale = Vector3.one * 0.04f;
         previewTimer.GetComponent<Trap_Preview_Timer>().trap = this;

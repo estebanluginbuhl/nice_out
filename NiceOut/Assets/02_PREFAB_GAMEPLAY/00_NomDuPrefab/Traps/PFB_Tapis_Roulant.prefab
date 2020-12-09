@@ -76,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -90,6 +89,7 @@ MonoBehaviour:
     si elles se deplacent dans le sens inverse du tapis. Si les entit\xE9s se deplace
     dans le sens du tapis elle sont boost\xE9 \xE0 {2} points de MoveSpeedUnits. 
     (Vitesse de base des ennemis : 5 MoveSpeedUnits)"
+  trapName: Tapis roulant
 --- !u!65 &-6272607322716721369
 BoxCollider:
   m_ObjectHideFlags: 0

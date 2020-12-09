@@ -15,6 +15,7 @@ public class Shop : MonoBehaviour
     public Trap_Inventory inventory;
     public Text[] costTexts;
     public GameObject[] buttons;
+    public TextMeshProUGUI curentGold;
     public GameObject shopPanel;
     int[] upgradeIndexes;
 
@@ -46,6 +47,8 @@ public class Shop : MonoBehaviour
     private void Update()
     {
         OpenShop();
+        if (buyingTime)
+            curentGold.text = GetComponent<StatsPlayer>().gold.ToString();
     }
 
     public void OpenShop()

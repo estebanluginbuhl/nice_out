@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5208751850801093142}
-  m_Layer: 0
+  - component: {fileID: 316209591708338245}
+  m_Layer: 9
   m_Name: PFB_Tapis_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &316209591708338245
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913285786309216065}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5517535527173431919
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +58,7 @@ GameObject:
   - component: {fileID: 3258023278481500017}
   - component: {fileID: 5392292627943033709}
   - component: {fileID: 5869164378939836459}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ANM_Tapis_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}

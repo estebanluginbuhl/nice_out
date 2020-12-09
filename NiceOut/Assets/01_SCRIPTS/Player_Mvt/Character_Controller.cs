@@ -20,6 +20,8 @@ public class Character_Controller : MonoBehaviour
     public float boostSpeed;
     public float turnSmooth;
     public float gravity;
+    [SerializeField]
+    Affichage_Boost afficheBoost;
 
     Vector2 move;//input move
     Vector3 moveDir;
@@ -122,9 +124,11 @@ public class Character_Controller : MonoBehaviour
     IEnumerator SpeedBoost(float _boostValue, float _boostTime)
     {
         boostSpeed = _boostValue;
+        afficheBoost.StartBoostDisplay(_boostTime);
         isBoosted.Play();
         yield return new WaitForSecondsRealtime(_boostTime);
         isBoosted.Stop();
+        afficheBoost.StopBoostDisplay();
         boostSpeed = 0;
 
     }
@@ -132,7 +136,6 @@ public class Character_Controller : MonoBehaviour
     public void Roll()
     {
         isRolling = true;
-
         PlayerAnimator.SetTrigger("Roulade");
         invincibleCount = invincibleDuration;
         cdCount = cdRoll;
@@ -146,10 +149,9 @@ public class Character_Controller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag.Equals("Boost"))
         {
-            Speed_Boost boostComponent = other.GetComponent<Speed_Boost>();
+            Speed_Boost boostComponent = other.GetComponentInParent<Speed_Boost>();
             StartCoroutine(SpeedBoost(boostComponent.boostValue, boostComponent.boostTime));
             boostComponent.StartRespawn();
         }

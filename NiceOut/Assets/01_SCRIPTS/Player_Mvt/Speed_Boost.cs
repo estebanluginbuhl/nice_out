@@ -10,11 +10,11 @@ public class Speed_Boost : MonoBehaviour
 
     float oldValue;
     float oldTime;
-    MeshRenderer child;
+    GameObject child;
 
     private void Start()
     {
-        child = GetComponentInChildren<MeshRenderer>();
+        child = transform.GetChild(0).gameObject;
         oldValue = boostValue;
         oldTime = boostTime;
     }
@@ -26,13 +26,13 @@ public class Speed_Boost : MonoBehaviour
 
      IEnumerator BoostRespawn()
     {
-        child.enabled = false;
+        child.SetActive(false);
         boostValue = 0;
         boostTime = 0;
 
         yield return new WaitForSeconds(respawnTime);
 
-        child.enabled = true;
+        child.SetActive(true);
         boostValue = oldValue;
         boostTime = oldTime;
     }

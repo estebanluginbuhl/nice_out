@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2851155126868219128}
   - component: {fileID: 5514925109927192923}
   - component: {fileID: 257041788722399819}
+  - component: {fileID: -2678295693322071106}
   m_Layer: 0
   m_Name: PFB_Stand_Attack_Lvl2
   m_TagString: Untagged
@@ -118,3 +119,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.3463745, y: 6.621539, z: 5.346375}
   m_Center: {x: 0, y: 3.3107696, z: -0.00000023841858}
+--- !u!208 &-2678295693322071106
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7883509623932338398}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.673, y: 3.311, z: 2.673}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 3.311, z: 0}
+  m_TimeToStationary: 0.5

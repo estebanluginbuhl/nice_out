@@ -76,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -92,6 +91,7 @@ MonoBehaviour:
     parfum. Achaque transmission le parfum pert inflige 1 point d'esprit critique
     de moins, dure 1 seconde de moins et peut se transmettre une fois de moins. Peut
     se transmettre {3} fois au maximum."
+  trapName: Parfum
 --- !u!65 &8345870964087090643
 BoxCollider:
   m_ObjectHideFlags: 0

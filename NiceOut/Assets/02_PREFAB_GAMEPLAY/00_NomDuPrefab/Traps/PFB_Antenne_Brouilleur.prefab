@@ -76,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: b4000000d2000000e6000000
-  sellCosts: 1e0000002d0000003c000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -87,6 +86,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4c255002f39362c4d928a81b5ba824a5, type: 3}
   description: "Spawn apr\xE8s {2} secondes de chargement. Ensuite toute les {0}
     secondes ,gen\xE8re une zone qui empeche les ennemis de bouger pendant {2} secondes."
+  trapName: Antenne
 --- !u!65 &-1682828109484018338
 BoxCollider:
   m_ObjectHideFlags: 0

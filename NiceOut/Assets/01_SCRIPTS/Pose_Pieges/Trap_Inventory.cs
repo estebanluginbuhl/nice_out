@@ -11,7 +11,6 @@ public class Trap_Inventory : MonoBehaviour
     Inputs inputs;
     public int nbTrapMax;
 
-
     [HideInInspector]
     public Image[] slots;
     [HideInInspector]
@@ -36,6 +35,7 @@ public class Trap_Inventory : MonoBehaviour
     public int selectedSlotIndex;
 
     [Header("Description Piège")]
+    public TextMeshProUGUI ui_Name;
     public TextMeshProUGUI ui_Description;
     public TextMeshProUGUI ui_Cooldown_Piege;
     public TextMeshProUGUI ui_Cost_In_Shop;
@@ -71,16 +71,17 @@ public class Trap_Inventory : MonoBehaviour
         {
             Traps trapStats = trapsItem[selectedSlotIndex].GetComponent<Traps>();
             string description = trapStats.description;
+            string name = trapStats.trapName;
             int damages = trapStats.trapAndUpgrades[trapStats.upgradeIndex].GetComponent<Trap_Attack>().damages;
             float cooldownDamage = trapStats.trapAndUpgrades[trapStats.upgradeIndex].GetComponent<Trap_Attack>().cooldown;
-            float cooldownPose = trapStats.cooldownPose[trapStats.upgradeIndex];
+            //float cooldownPose = trapStats.cooldownPose[trapStats.upgradeIndex];
             float cooldownSpawn = trapStats.cooldownSpawn[trapStats.upgradeIndex];
             int cost = trapsItem[selectedSlotIndex].GetComponent<Traps>().costs[trapsItem[selectedSlotIndex].GetComponent<Traps>().upgradeIndex];
             int nbTransmissionIfParfume = Mathf.RoundToInt(cooldownDamage - 2);
 
+            ui_Name.text = name;
             ui_Description.text = string.Format(description, cooldownSpawn, damages, cooldownDamage, nbTransmissionIfParfume);
             ui_Cost_In_Shop.text = "Cost in shop : " + cost + " s";
-            ui_Cooldown_Piege.text = "Cooldown : " + cooldownPose;
         }
     }
 

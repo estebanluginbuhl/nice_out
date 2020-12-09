@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 593470923601146209}
   - component: {fileID: 4838644238203703413}
   - component: {fileID: 7594971429446350952}
+  - component: {fileID: 7518109829968203025}
   m_Layer: 0
   m_Name: PFB_Bar_Attack_Lvl1
   m_TagString: Untagged
@@ -119,3 +120,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2738831591306927414, guid: c5e9dfeb791b8c842a8f1e97b19979eb, type: 3}
+--- !u!208 &7518109829968203025
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608977899891602559}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 4.329, y: 1.8960001, z: 4.329}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.8960001, z: 0}
+  m_TimeToStationary: 0.5

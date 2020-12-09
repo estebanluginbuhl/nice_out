@@ -76,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -87,6 +86,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a3a60d2e8d169aa478f6210d152e3ed5, type: 3}
   description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite donne {1} points
     d'esprit critique aux entit\xE9s non-alli\xE9es toutes les {2} secondes"
+  trapName: Bar
 --- !u!65 &4771299929711459252
 BoxCollider:
   m_ObjectHideFlags: 0

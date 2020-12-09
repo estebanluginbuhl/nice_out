@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6305849945358148901}
   - component: {fileID: 7321136238746007022}
   - component: {fileID: 2013908583104269068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ANM_Bac_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2295228993402495847}
-  m_Layer: 0
+  - component: {fileID: -6433054789339915306}
+  m_Layer: 9
   m_Name: PFB_Bac_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,3 +145,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &-6433054789339915306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8097610232078121025}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

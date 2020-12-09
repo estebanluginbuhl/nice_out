@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1527104726061038083}
-  m_Layer: 0
+  - component: {fileID: 1566126555540577513}
+  m_Layer: 9
   m_Name: PFB_Parfum_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1566126555540577513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6509721616293593786}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7877931884942888580
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +58,7 @@ GameObject:
   - component: {fileID: 932494659218590618}
   - component: {fileID: 5028226031416076504}
   - component: {fileID: 3164049752575201706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ANM_Parfum_Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
