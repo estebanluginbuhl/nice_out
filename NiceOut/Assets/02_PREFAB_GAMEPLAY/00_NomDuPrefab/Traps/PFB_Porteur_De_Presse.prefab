@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 0
+  isPaused: 0
   fullUsure:
   - 30
   - 40
@@ -65,7 +66,7 @@ MonoBehaviour:
   - {fileID: 7218447655392055271, guid: c47626a6f9ff2c847be5e9ba51b0ccc8, type: 3}
   - {fileID: 6160061507092821985, guid: f697abe40919a6940afdf9fb235365e7, type: 3}
   - {fileID: 101624093853252556, guid: d10a2e2d417b672458b4eb4188d8c86c, type: 3}
-  - {fileID: 7218447655392055271, guid: 96a718fa37903a1488e5f5efb138a4ba, type: 3}
+  - {fileID: 324930745148179208, guid: 96a718fa37903a1488e5f5efb138a4ba, type: 3}
   offsetPositions:
   - 0.01
   - 0.01

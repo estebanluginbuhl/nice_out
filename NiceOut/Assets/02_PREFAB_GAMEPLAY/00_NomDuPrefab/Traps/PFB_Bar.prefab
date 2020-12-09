@@ -66,18 +66,18 @@ MonoBehaviour:
   - {fileID: 7608977899891602559, guid: f638b4fb76ec60d408b7c9194b36bcf5, type: 3}
   - {fileID: 2122691194507551068, guid: 8037fb80174845b498197479656deaa9, type: 3}
   - {fileID: 8070353303363610265, guid: 5288e8c4557e4b649910db0b843d2e68, type: 3}
-  - {fileID: 7608977899891602559, guid: c9631b7cfd3e96241b9998fb835c64b8, type: 3}
+  - {fileID: 6165407219761399268, guid: c9631b7cfd3e96241b9998fb835c64b8, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 9, y: 3.75, z: 9}
+  colliderSize: {x: 9.4, y: 3.75, z: 9.4}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
   sellCosts: 320000003c00000046000000
-  upgradeIndex: 0
+  upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
   ui_hbHeight: 7

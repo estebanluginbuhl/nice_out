@@ -66,12 +66,12 @@ MonoBehaviour:
   - {fileID: 6315993798119880899, guid: 7462aec6aee3cde4588dd67cd07b5660, type: 3}
   - {fileID: 1367395875970007828, guid: 21d60023780fd3342b3df29c2085234f, type: 3}
   - {fileID: 1687527402586247878, guid: db333fb2f94e98c44b3a9214a6f96ef4, type: 3}
-  - {fileID: 6315993798119880899, guid: d5a3597e1bb9af2478bc1b56820bbd93, type: 3}
+  - {fileID: 8097610232078121025, guid: d5a3597e1bb9af2478bc1b56820bbd93, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 7, y: 2, z: 7}
+  colliderSize: {x: 7.4, y: 2, z: 7.4}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}

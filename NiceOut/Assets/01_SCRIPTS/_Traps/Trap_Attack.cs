@@ -27,16 +27,53 @@ public class Trap_Attack : MonoBehaviour
     Collider[] alreadySlowed;
 
     public bool canAttack = false;
-
+    private void Start()
+    {
+        /*//Debugage SAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLE MAMEN
+        GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        Vector3 forwardVector = transform.rotation * Vector3.forward;
+        test.transform.position = transform.position + Vector3.up * rangeBox.y / 2 + forwardVector * offsetForward;
+        test.transform.rotation = transform.rotation;
+        test.transform.localScale = rangeBox;*/
+    }
     private void Update()
     {
         if(parentTrap != null && parentTrap.GetComponent<Traps>().isPaused == false)
         {
             if (canAttack == true)
             {
+                switch (type)
+                {
+                    case 0:
+                        AttaquePorteurDePresse();
+                        break;
+                    case 1:
+                        AttaquePanneauPublicitaire();
+                        break;
+                    case 2:
+                        AttaqueBacAFruit();
+                        break;
+                    case 3:
+                        AttaqueParfum();
+                        break;
+                    case 4:
+                        AttaqueAntenneBrouilleur();
+                        break;
+                    case 5:
+                        AttaqueBar();
+                        break;
+                    case 6:
+                        Debug.Log("pas ouf gros");
+                        //AttaqueTapisRoulant();
+                        break;
+                    case 7:
+                        AttaqueStandCommerce();
+                        break;
+                    default: return;
+                }
                 if (type == 0)
                 {
-                    AttaquePorteurDePresse();
+
                 }
                 if (type == 1)
                 {
@@ -133,9 +170,12 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaquePanneauPublicitaire()
     {
-        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.up * rangeBox.y /2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+        Vector3 forwardVector = transform.rotation * Vector3.forward;
+        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.up * rangeBox.y /2 + forwardVector * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+
         if (ennemis.Length != 0)
         {
+            Debug.Log("test");
             foreach (Collider c in ennemis)
             {
                 if (isGonnaDie == false)
@@ -154,7 +194,8 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueBacAFruit()
     {
-        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Vector3 forwardVector = transform.rotation * Vector3.forward;
+        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + forwardVector * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
             foreach (Collider c in ennemis)
@@ -246,7 +287,10 @@ public class Trap_Attack : MonoBehaviour
     /*void AttaqueTapisRoulant()
     {
         //Devant : accélérer
-        Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.forward * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Vector3 forwardVector = transform.rotation * Vector3.forward;
+        Vector3 backwardVector = transform.rotation * Vector3.backward;
+
+        Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + forwardVector * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemisToEject.Length != 0)
         {
             foreach (Collider e in ennemisToEject)
@@ -260,7 +304,7 @@ public class Trap_Attack : MonoBehaviour
             }
         }
         //Deriere : ralentir
-        Collider[] ennemisToSlow = Physics.OverlapBox(parentTrap.transform.position + Vector3.back * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemisToSlow = Physics.OverlapBox(parentTrap.transform.position + backwardVector * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemisToSlow.Length != 0)
         {
             foreach (Collider s in ennemisToSlow)
@@ -274,15 +318,16 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }*/
-    
+
 
     void AttaqueStandCommerce()
     {
-        float attaqueRange = 1f;
-        Mesh msh = GetComponent<MeshFilter>().mesh;
-        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+        float attaqueRange = 2f;
+        Vector3 forwardVector = transform.rotation * Vector3.forward;
+        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y / 2 + forwardVector * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
+            Debug.Log("stand");
             foreach (Collider c in ennemis)
             {
                 if (isGonnaDie == false)
