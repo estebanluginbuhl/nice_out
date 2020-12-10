@@ -66,18 +66,17 @@ MonoBehaviour:
   - {fileID: 5233418853168884084, guid: eb7ad2ee751bea24aaaa79eca2dd4b16, type: 3}
   - {fileID: 9015111267809221299, guid: d175d3661fbfd094681ddcce641c7383, type: 3}
   - {fileID: 1255758784346034749, guid: fa06b085ba0dda440abb7671ba3d9faa, type: 3}
-  - {fileID: 5233418853168884084, guid: 2fe091c9eb3e30946b0132cc6e358244, type: 3}
+  - {fileID: 734300403571306244, guid: 2fe091c9eb3e30946b0132cc6e358244, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 0.1, y: 6.4, z: 0.25}
+  colliderSize: {x: 9, y: 6.4, z: 1}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
-  upgradeIndex: 0
+  upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
   ui_hbHeight: 7
@@ -87,6 +86,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6aa44d564cc44894ca134a42e43174ef, type: 3}
   description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite attire en son
     centre tous les ennemis qui passe dans son rayon d'action jusqu'a son usure complete."
+  trapName: Faux panneau
 --- !u!65 &-75400321051341522
 BoxCollider:
   m_ObjectHideFlags: 0

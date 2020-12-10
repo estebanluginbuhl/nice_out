@@ -10,32 +10,41 @@ public class EnmMovementTest : MonoBehaviour
     Switch_Mode pauser;
 
     public bool pathFinding;
-    public bool neutral, hostile, allie;
+    [Header("status bad enm = 2")]
+    [Header("status allie = 1")]
+    [Header("status neutral = 0")]
+    public int status;
     public Transform enmTransform;
     public LayerMask playerDetectionLayer;
-    public float enmSpeed, targetTreshold, targetTresholdNeutral, gizmo1Radius, resetTransformPicker, resetWaitingTime;
+    public float enmSpeed, targetTreshold, targetTresholdNeutral, gizmo1Radius, resetTransformPicker, maxWaitingTime;
     public Color gizmo1Color;
 
+    [HideInInspector]
+    public NavMeshAgent enmNavMesh;
+    [HideInInspector]
+    public Transform target;
+    NavMeshHit navHit;
     GameObject player;
-    NavMeshAgent enmNavMesh;
     GameObject choosenObjective = null;
-    private Transform target;
     private int nodeIndex = 0;
     [SerializeField]
     private float enmHealth;
-    [SerializeField]
-    private int damage;
+    private Vector3 randomPosition;
+    public bool start = true;
+
     Vector4 healthValues = new Vector4(0, 45, 55, 100);
     private GameObject[] firmeTarget;
 
-    NavMeshPath navMeshPath;
+    private float randomTransformPickerTimer, delayBeforeGo;
 
-    private float Xmax, Xmin, Zmin, Zmax, randomTransformPickerTimer, Xpos, Zpos, delayBeforeGo;
-
+    [Header("Attaque")]
+    [SerializeField]
+    private int damage;
     public float attackRadius, damageCooldown;
     public Color attackRadiusDebugColor;
     private GameObject attackTarget;
 
+    [Header("Controles")]
     //Trap Influence
     public bool isAttracted;
     public Transform attractTarget;
@@ -60,23 +69,13 @@ public class EnmMovementTest : MonoBehaviour
     void Start()
     {
         //pauser = player.GetComponent<Switch_Mode>();
-        target = PathNode.nodeTransform[0];
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
-
-        randomTransformPickerTimer = resetTransformPicker;
-
-        Xmax = transform.position.x + (gizmo1Radius * 2);
-        Xmin = transform.position.x - (gizmo1Radius * 2);
-        Zmax = transform.position.z + (gizmo1Radius * 2);
-        Zmin = transform.position.z - (gizmo1Radius * 2);
-        Xpos = Random.Range(Xmin, Xmax);
-        Zpos = Random.Range(Zmin, Zmax);
-        target.position = new Vector3(Xpos, target.position.y, Zpos);
-        enmNavMesh.destination = target.position;
-
-        delayBeforeGo = 0;
+        target = PathNode.nodeTransform[0];
+        
+        randomPosition = Random.insideUnitSphere * gizmo1Radius;
+        
         UpdateEnemyState();
 
         healthPercentage = enmHealth / healthValues.w;
@@ -100,135 +99,149 @@ public class EnmMovementTest : MonoBehaviour
 
     void Update()
     {
-        /*if(pauser.realPause == true)
+        UpdateEnemyState();
+        if (start == true && status == 0)
         {
-            
-        }*/
-        //neutral
-        if (neutral)//neutral == true
-        {
-            gameObject.layer = 13;
-            ChangeStatus("Se Balade");
-            randomTransformPickerTimer -= Time.deltaTime;
-            delayBeforeGo -= Time.deltaTime;
-            if (randomTransformPickerTimer <= 0 && Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral && delayBeforeGo <= 0)
-            {
-                Xmax = transform.position.x + (gizmo1Radius * 2);
-                Xmin = transform.position.x - (gizmo1Radius * 2);
-                Zmax = transform.position.z + (gizmo1Radius * 2);
-                Zmin = transform.position.z - (gizmo1Radius * 2);
-
-                Xpos = Random.Range(Xmin, Xmax);
-                Zpos = Random.Range(Zmin, Zmax);
-
-                target.position = new Vector3(Xpos, target.position.y, Zpos);
-                enmNavMesh.destination = target.position;
-                navMeshPath = new NavMeshPath();
-
-                delayBeforeGo = resetWaitingTime;
-
-                if (delayBeforeGo <= 0 && CalculateNewPath() == true)
-                {
-                    randomTransformPickerTimer = resetTransformPicker;
-                    Debug.Log("calculate path true");
-                }
-                else if (CalculateNewPath() == false)
-                {
-                    Debug.Log("calculate path false");
-                }
-            }
+            target.position = transform.position;
+            start = false;
         }
-        //allie
-        else if (allie)//allie == true
-        {
-            gameObject.layer = 0;
-            ObjectiveSelection();
-            ChangeStatus("Attaque les firmes");
-            //choosenObjective.GetComponent<FirmeScript>().TakeDamage(damage);
-        }
-        //bad enm
-        else if (hostile)//hostile == true
-        {
-            gameObject.layer = 13;
 
-            if (damageCooldown < 1)
-            {
-                damageCooldown += Time.deltaTime;
-            }
+        switch (status)
+        {
+            //neutral   status 0
+            #region
+            case 0:
+                status = 0;
 
-            if (isAttracted == false)
-            {
-                if (pathFinding == true)
+                target.position = transform.position;
+                gameObject.layer = 15;
+                ChangeStatus("Se Balade");
+                randomTransformPickerTimer -= Time.deltaTime;
+                delayBeforeGo -= Time.deltaTime;
+
+                if (randomTransformPickerTimer <= 0 && delayBeforeGo <= 0)
                 {
-                    enmNavMesh.destination = player.transform.position;
-                    Collider[] playerTarget = Physics.OverlapSphere(transform.position, attackRadius, playerDetectionLayer);
+                    randomPosition = Random.insideUnitSphere * gizmo1Radius;
+                    randomPosition.y = transform.position.y;
 
-                    if (playerTarget.Length == 0)
+                    if (Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral)
                     {
-                        return;
-                    }
-                    else
-                    {
-                        foreach (Collider c in playerTarget)
+                        delayBeforeGo = Random.Range(1, maxWaitingTime);
+                        randomTransformPickerTimer = resetTransformPicker;
+
+                        if (NavMesh.SamplePosition(transform.position + randomPosition, out navHit, gizmo1Radius, NavMesh.AllAreas))
                         {
-                            attackTarget = c.gameObject;
+                            target.position = navHit.position;
+                            enmNavMesh.destination = target.position;
                         }
-                        if (damageCooldown >= 1)
+                        else
                         {
-                            if (attackTarget != false)
+                            return;
+                        }
+                    }
+                }
+                break;
+            #endregion
+            //allie     status 1
+            #region
+            case 1:
+                status = 1;
+                gameObject.layer = 0;
+                ObjectiveSelection();
+                ChangeStatus("Attaque les firmes");
+                break;
+            #endregion
+            //bad enm   status 2
+            #region
+            case 2:
+                status = 2;
+                gameObject.layer = 13;
+
+                if (damageCooldown < 1)
+                {
+                    damageCooldown += Time.deltaTime;
+                }
+
+                if (isAttracted == false)
+                {
+                    if (pathFinding == true)
+                    {
+                        ChangeStatus("Attaque le joueur");
+                        enmNavMesh.destination = player.transform.position;
+                        Collider[] playerTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerDetectionLayer);
+
+                        if (playerTarget.Length == 0)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            foreach (Collider c in playerTarget)
                             {
-                                Attack(attackTarget);
+                                attackTarget = c.gameObject;
+                            }
+                            if (damageCooldown >= 1)
+                            {
+                                if (attackTarget != false)
+                                {
+                                    Attack(attackTarget);
+                                }
                             }
                         }
                     }
-                    ChangeStatus("Attaque le joueur");
-                }
-                else if (pathFinding == false)
-                {
-                    ChangeStatus("Attaque les alliés");
-                    enmNavMesh.destination = target.position;
-
-                    if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                    else if (pathFinding == false)
                     {
-                        if (nodeIndex >= PathNode.nodeTransform.Length - 1)
+                        ChangeStatus("Attaque les alliés");
+                        enmNavMesh.destination = target.position;
+
+                        if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
                         {
-                            Destroy(gameObject);
-                            return;
+                            if (nodeIndex >= PathNode.nodeTransform.Length - 1)
+                            {
+                                return;
+                            }
+                            nodeIndex++;
+                            target = PathNode.nodeTransform[nodeIndex];
                         }
-                        nodeIndex++;
-                        target = PathNode.nodeTransform[nodeIndex];
                     }
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (attractTarget != null)
-                {
-                    if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                    else
                     {
-                        enmNavMesh.destination = attractTarget.position;
+                        return;
                     }
                 }
                 else
                 {
-                    isAttracted = false;
-                    return;
+                    if (attractTarget != null)
+                    {
+                        if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                        {
+                            enmNavMesh.destination = attractTarget.position;
+                        }
+                    }
+                    else
+                    {
+                        isAttracted = false;
+                        return;
+                    }
                 }
-            }
 
-            if (isSlowed || isFastened)
-            {
-                enmNavMesh.speed = modifiedSpeed;
-            }
-            else if (enmNavMesh.speed != enmSpeed)
-            {
-                enmNavMesh.speed = enmSpeed;
-            }
+                if (isSlowed || isFastened)
+                {
+                    enmNavMesh.speed = modifiedSpeed;
+                }
+                else if (enmNavMesh.speed != enmSpeed)
+                {
+                    enmNavMesh.speed = enmSpeed;
+                }
+                break;
+            #endregion
+            default:
+                return;
         }
+        /*if(pauser.realPause == true)
+        {
+
+        }*/
     }
 
     void ObjectiveSelection()
@@ -267,12 +280,12 @@ public class EnmMovementTest : MonoBehaviour
             hasDot = true;
             if (_duration > 0)
             {
-                if (hostile == true || neutral == true)
+                if (status == 2 || status == 0)
                 {
                     float minDist = Mathf.Infinity;
                     GameObject target = null;
 
-                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up, _range, 13);
+                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
                     foreach (Collider c in transferTarget)
                     {
                         if (c.GetComponent<EnmMovement>().hasDot == false)
@@ -360,60 +373,40 @@ public class EnmMovementTest : MonoBehaviour
 
     void Attack(GameObject _target)
     {
-        if (_target != null && GetComponent<EnmMovement>().hostile == true)
+        if (_target != null)
         {
             _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
             damageCooldown = 0;
         }
-        else return;
     }
 
     void UpdateEnemyState()
     {
-        if (enmHealth < healthValues.y)
+        if (enmHealth < healthValues.y)//45 et 0 hostile
         {
-            if (hostile == false)
+            if (status != 2)
             {
-                hostile = true;
+                status = 2;
                 GetComponentInChildren<MeshRenderer>().material = mats[0];
                 convertedToBad.Play();
-                neutral = false;
-                allie = false;
             }
         }
-        else if (enmHealth > healthValues.z)
+        else if (enmHealth > healthValues.z)//55 et 100 allie
         {
-            if (allie == false)
+            if (status != 1)
             {
-                allie = true;
+                status = 1;
                 GetComponentInChildren<MeshRenderer>().material = mats[2];
                 convertedToGood.Play();
-                neutral = false;
-                hostile = false;
             }
         }
-        else if (enmHealth >= healthValues.y && enmHealth <= healthValues.z)
+        else if (enmHealth >= healthValues.y && enmHealth <= healthValues.z)//entre 45 et 55 neutral
         {
-            if (neutral == false)
+            if(status != 0)
             {
-                neutral = true;
+                status = 0;
                 GetComponentInChildren<MeshRenderer>().material = mats[1];
-                allie = false;
-                hostile = false;
             }
-        }
-    }
-
-    bool CalculateNewPath()
-    {
-        enmNavMesh.CalculatePath(target.position, navMeshPath);
-        if (navMeshPath.status != NavMeshPathStatus.PathComplete)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 
@@ -425,10 +418,9 @@ public class EnmMovementTest : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = gizmo1Color;
-        Gizmos.DrawWireSphere(enmTransform.position, gizmo1Radius);
-        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up, 2);
+        Gizmos.DrawWireSphere(enmTransform.position + Vector3.up * 2.25f, gizmo1Radius);
 
         Gizmos.color = attackRadiusDebugColor;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, attackRadius);
     }
 }

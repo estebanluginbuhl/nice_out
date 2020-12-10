@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3891674512174071261}
   - component: {fileID: 9014023634758933705}
   - component: {fileID: 295274787144428822}
+  - component: {fileID: -2313353923858604767}
   m_Layer: 0
   m_Name: PFB_Bac_Attack_Lvl1
   m_TagString: Untagged
@@ -104,6 +105,7 @@ MonoBehaviour:
   ennemisMask:
     serializedVersion: 2
     m_Bits: 8192
+  canAttack: 0
 --- !u!65 &295274787144428822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,5 +117,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.85, y: 1, z: 0.75}
-  m_Center: {x: 0, y: 0.5, z: -1.65}
+  m_Size: {x: 4.6, y: 2.575, z: 1.8000002}
+  m_Center: {x: 0, y: 1.3, z: -4.15}
+--- !u!208 &-2313353923858604767
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315993798119880899}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.3, y: 1.2875, z: 0.9}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.3, z: -4.15}
+  m_TimeToStationary: 0.5

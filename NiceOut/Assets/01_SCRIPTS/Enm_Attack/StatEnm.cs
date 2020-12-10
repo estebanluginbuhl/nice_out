@@ -8,10 +8,7 @@ public class StatEnm : MonoBehaviour
 
     void Update()
     {
-        if(GetComponent<EnmMovement>().hostile == true)
-        {
-
-        }
+//anal
     }
 
 

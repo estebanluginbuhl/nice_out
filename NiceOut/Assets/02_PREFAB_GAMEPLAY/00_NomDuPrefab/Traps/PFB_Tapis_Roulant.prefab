@@ -66,18 +66,17 @@ MonoBehaviour:
   - {fileID: 452467482325948768, guid: ea03dd376e5ba654c9c179007e932808, type: 3}
   - {fileID: 480278977041148940, guid: 7624e09b5e3a7c94db3dba409a6094ae, type: 3}
   - {fileID: 2838832129113978810, guid: 3e25246d8a121894382864ffd8688c97, type: 3}
-  - {fileID: 452467482325948768, guid: 140f4dd395369d446ac8404d9533ddf1, type: 3}
+  - {fileID: 913285786309216065, guid: 140f4dd395369d446ac8404d9533ddf1, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 6.3, y: 3.65, z: 7.6}
+  colliderSize: {x: 6.8, y: 3.65, z: 8}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: c8000000dc000000fa000000
-  sellCosts: 320000003c00000046000000
-  upgradeIndex: 0
+  upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
   ui_hbHeight: 7
@@ -90,6 +89,7 @@ MonoBehaviour:
     si elles se deplacent dans le sens inverse du tapis. Si les entit\xE9s se deplace
     dans le sens du tapis elle sont boost\xE9 \xE0 {2} points de MoveSpeedUnits. 
     (Vitesse de base des ennemis : 5 MoveSpeedUnits)"
+  trapName: Tapis roulant
 --- !u!65 &-6272607322716721369
 BoxCollider:
   m_ObjectHideFlags: 0

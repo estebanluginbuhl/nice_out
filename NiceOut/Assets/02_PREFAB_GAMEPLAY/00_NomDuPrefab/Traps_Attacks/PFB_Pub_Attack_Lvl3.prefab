@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8167662362462493753}
   - component: {fileID: 3008242800842915327}
   - component: {fileID: 5365573117781086912}
+  - component: {fileID: -5474893238408884989}
   m_Layer: 0
   m_Name: PFB_Pub_Attack_Lvl3
   m_TagString: Untagged
@@ -118,3 +119,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.082834, y: 6.3861456, z: 0.26808873}
   m_Center: {x: 0, y: 3.1930723, z: 0}
+--- !u!208 &-5474893238408884989
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255758784346034749}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 4.0410004, y: 3.193, z: 0.134}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 3.193, z: 0}
+  m_TimeToStationary: 0.5

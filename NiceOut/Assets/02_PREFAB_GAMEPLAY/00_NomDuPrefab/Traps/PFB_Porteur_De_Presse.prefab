@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trapType: 0
+  isPaused: 0
   fullUsure:
   - 30
   - 40
@@ -65,7 +66,7 @@ MonoBehaviour:
   - {fileID: 7218447655392055271, guid: c47626a6f9ff2c847be5e9ba51b0ccc8, type: 3}
   - {fileID: 6160061507092821985, guid: f697abe40919a6940afdf9fb235365e7, type: 3}
   - {fileID: 101624093853252556, guid: d10a2e2d417b672458b4eb4188d8c86c, type: 3}
-  - {fileID: 7218447655392055271, guid: 96a718fa37903a1488e5f5efb138a4ba, type: 3}
+  - {fileID: 324930745148179208, guid: 96a718fa37903a1488e5f5efb138a4ba, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
@@ -75,7 +76,6 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -88,6 +88,7 @@ MonoBehaviour:
     presse se dirige vers l'entit\xE9 non-alli\xE9e la plus proche dans sa zone d'action
     et une fois \xE0 port\xE9 lui donne {1} points d'esprit critique toute les {2}
     secondes."
+  trapName: Crieur de presse
 --- !u!65 &2108486276045888227
 BoxCollider:
   m_ObjectHideFlags: 0

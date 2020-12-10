@@ -66,17 +66,16 @@ MonoBehaviour:
   - {fileID: 6315993798119880899, guid: 7462aec6aee3cde4588dd67cd07b5660, type: 3}
   - {fileID: 1367395875970007828, guid: 21d60023780fd3342b3df29c2085234f, type: 3}
   - {fileID: 1687527402586247878, guid: db333fb2f94e98c44b3a9214a6f96ef4, type: 3}
-  - {fileID: 6315993798119880899, guid: d5a3597e1bb9af2478bc1b56820bbd93, type: 3}
+  - {fileID: 8097610232078121025, guid: d5a3597e1bb9af2478bc1b56820bbd93, type: 3}
   offsetPositions:
   - 0.01
   - 0.01
   - 0.01
-  colliderSize: {x: 7, y: 2, z: 7}
+  colliderSize: {x: 7.4, y: 2, z: 7.4}
   player: {fileID: 0}
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: 960000009600000096000000
-  sellCosts: 190000001900000019000000
   upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
@@ -88,6 +87,7 @@ MonoBehaviour:
   description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite ralenti les ennemis
     qui passe dessus \xE0 une vitesse de {1} moveSPeedUnits (Vitesse de base des
     ennemis : 5 MoveSpeedUnits)"
+  trapName: Bac de fruit
 --- !u!65 &3128976848352535718
 BoxCollider:
   m_ObjectHideFlags: 0
