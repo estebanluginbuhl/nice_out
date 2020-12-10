@@ -116,7 +116,6 @@ public class Trap_Attack : MonoBehaviour
 
         if (ennemis.Length != 0)
         {
-            Debug.Log(ennemis[0]);
             if(target == null)
             {
                 float minDist = Mathf.Infinity;
@@ -133,7 +132,7 @@ public class Trap_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponent<EnmMovement>().status != 2)
+                if (target.GetComponent<EnmMovement>().status == 1)
                 {
                     target = null;
                     return;

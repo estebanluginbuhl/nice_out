@@ -25,6 +25,7 @@ public class EnmMovement : MonoBehaviour
     public Transform target;
     NavMeshHit navHit;
     GameObject player;
+    GameObject statsPlayer;
     GameObject choosenObjective = null;
     private int nodeIndex = 0;
     [SerializeField]
@@ -81,6 +82,8 @@ public class EnmMovement : MonoBehaviour
         healthPercentage = enmHealth / healthValues.w;
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
+        statsPlayer = GameObject.Find("PFB_Player_Controller");
+        Debug.Log(statsPlayer);
     }
 
     void FixedUpdate()
@@ -398,6 +401,7 @@ public class EnmMovement : MonoBehaviour
                 status = 1;
                 GetComponentInChildren<MeshRenderer>().material = mats[2];
                 convertedToGood.Play();
+                statsPlayer.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
             }
         }
         else if (enmHealth >= healthValues.y && enmHealth <= healthValues.z)//entre 45 et 55 neutral
