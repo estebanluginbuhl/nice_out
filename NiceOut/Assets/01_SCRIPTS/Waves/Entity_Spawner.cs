@@ -52,7 +52,7 @@ public class Entity_Spawner : MonoBehaviour
                 cptTimeBetweenSpawn -= Time.deltaTime;
             }
             else
-            {
+            {/*
                 for (int i = 0; i < nbEntityToSpawn; i++)
                 {
                     if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
@@ -64,7 +64,9 @@ public class Entity_Spawner : MonoBehaviour
                     {
                         break;
                     }
-                }
+                }*/
+                SpawnEntity(ChooseSpawnPoint(spawnRange));
+                cptTimeBetweenSpawn = timeBetweenSpawn / nbEntityToSpawn;
             }
         }
     }
