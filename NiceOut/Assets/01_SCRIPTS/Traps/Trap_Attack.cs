@@ -71,38 +71,6 @@ public class Trap_Attack : MonoBehaviour
                         break;
                     default: return;
                 }
-                if (type == 0)
-                {
-
-                }
-                if (type == 1)
-                {
-                    AttaquePanneauPublicitaire();
-                }
-                if (type == 2)
-                {
-                    AttaqueBacAFruit();
-                }
-                if (type == 3)
-                {
-                    AttaqueParfum();
-                }
-                if (type == 4)
-                {
-                    AttaqueAntenneBrouilleur();
-                }
-                if (type == 5)
-                {
-                    AttaqueBar();
-                }
-                if (type == 6)
-                {
-                    //AttaqueTapisRoulant();
-                }
-                if (type == 7)
-                {
-                    AttaqueStandCommerce();
-                }
             }
         }
     }
@@ -116,7 +84,6 @@ public class Trap_Attack : MonoBehaviour
 
         if (ennemis.Length != 0)
         {
-            Debug.Log(ennemis[0]);
             if(target == null)
             {
                 float minDist = Mathf.Infinity;
@@ -133,7 +100,7 @@ public class Trap_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponent<EnmMovement>().status != 2)
+                if (target.GetComponent<Enemy_Stats>().status == 1)
                 {
                     target = null;
                     return;
@@ -160,7 +127,7 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                        target.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -175,18 +142,17 @@ public class Trap_Attack : MonoBehaviour
 
         if (ennemis.Length != 0)
         {
-            Debug.Log("test");
             foreach (Collider c in ennemis)
             {
                 if (isGonnaDie == false)
                 {
-                    c.GetComponent<EnmMovement>().isAttracted = true;
-                    c.GetComponent<EnmMovement>().attractTarget = parentTrap.transform;
+                    c.GetComponent<Enemy_Movement>().isAttracted = true;
+                    c.GetComponent<Enemy_Movement>().attractTarget = parentTrap.transform;
                 }
                 else
                 {
-                    c.GetComponent<EnmMovement>().attractTarget = null;
-                    c.GetComponent<EnmMovement>().isAttracted = false;
+                    c.GetComponent<Enemy_Movement>().attractTarget = null;
+                    c.GetComponent<Enemy_Movement>().isAttracted = false;
                 }
             }
         }
@@ -200,9 +166,9 @@ public class Trap_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
-                if (c.GetComponent<EnmMovement>().isSlowed == false)
+                if (c.GetComponent<Enemy_Movement>().isSlowed == false)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(cooldown, damages, false));
+                    StartCoroutine(c.GetComponent<Enemy_Movement>().ModifieSpeed(cooldown, damages, false));
                 }
                 else
                 {
@@ -223,11 +189,11 @@ public class Trap_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                if(units[0].GetComponent<EnmMovement>().hasDot == true)
+                if(units[0].GetComponent<Enemy_Stats>().hasDot == true)
                 {
                     foreach(Collider c in units)
                     {
-                        if (c.GetComponent<EnmMovement>().hasDot == false)
+                        if (c.GetComponent<Enemy_Stats>().hasDot == false)
                         {
                             target = c.transform;
                             break;
@@ -240,7 +206,7 @@ public class Trap_Attack : MonoBehaviour
                 }
                 if (target != null)
                 {
-                    StartCoroutine(target.GetComponent<EnmMovement>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(target.GetComponent<Enemy_Stats>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
                     StartCoroutine(Cooldown(cooldown));
                     target = null;
                 }
@@ -250,8 +216,6 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaqueAntenneBrouilleur()//Valide
     {
-        float slowSpeed = 0f;
-
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
 
         if (units.Length != 0)
@@ -260,7 +224,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in units)
                 {
-                    StartCoroutine(c.GetComponent<EnmMovement>().ModifieSpeed(damages, slowSpeed, true));
+                    StartCoroutine(c.GetComponent<Enemy_Movement>().ModifieSpeed(damages, 0f, true));
                     StartCoroutine(Cooldown(cooldown));
                 }
             }
@@ -277,7 +241,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                    c.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
@@ -332,21 +296,21 @@ public class Trap_Attack : MonoBehaviour
             {
                 if (isGonnaDie == false)
                 {
-                    c.GetComponent<EnmMovement>().isAttracted = true;
-                    c.GetComponent<EnmMovement>().attractTarget = this.parentTrap.transform;
+                    c.GetComponent<Enemy_Movement>().isAttracted = true;
+                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform;
                     if (cptCooldown == 0)
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<EnmMovement>().DamageBadEnemy(damages);
+                            c.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }
                 }
                 else
                 {
-                    c.GetComponent<EnmMovement>().attractTarget = null;
-                    c.GetComponent<EnmMovement>().isAttracted = false;
+                    c.GetComponent<Enemy_Movement>().attractTarget = null;
+                    c.GetComponent<Enemy_Movement>().isAttracted = false;
                 }
             }
         }

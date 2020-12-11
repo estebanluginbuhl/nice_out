@@ -21,7 +21,6 @@ public class Trap_Inventory : MonoBehaviour
     public int[] nbTrapsInSlot;
     [SerializeField]
     int nbStartTraps;
-
     public Image ui_InventoryPanel;
     public Image ui_SelectBox;
     public Image slotImage;
@@ -37,8 +36,8 @@ public class Trap_Inventory : MonoBehaviour
     [Header("Description Piège")]
     public TextMeshProUGUI ui_Name;
     public TextMeshProUGUI ui_Description;
-    public TextMeshProUGUI ui_Cooldown_Piege;
-    public TextMeshProUGUI ui_Cost_In_Shop;
+    public TextMeshProUGUI ui_Cooldown_Spawn_Trap;
+    public TextMeshProUGUI ui_Traps_In_Inventory;
 
     // Start is called before the first frame update
     void Awake()
@@ -80,8 +79,10 @@ public class Trap_Inventory : MonoBehaviour
             int nbTransmissionIfParfume = Mathf.RoundToInt(cooldownDamage - 2);
 
             ui_Name.text = name;
-            ui_Description.text = string.Format(description, cooldownSpawn, damages, cooldownDamage, nbTransmissionIfParfume);
-            ui_Cost_In_Shop.text = "Cost in shop : " + cost + " s";
+            ui_Description.text = string.Format(description, damages, cooldownDamage, nbTransmissionIfParfume);
+
+            ui_Traps_In_Inventory.text = nbTrapsInSlot[selectedSlotIndex].ToString();
+            ui_Cooldown_Spawn_Trap.text = cooldownSpawn.ToString() + "s";
         }
     }
 
@@ -123,6 +124,7 @@ public class Trap_Inventory : MonoBehaviour
             }
         }
     }
+
     void SelectLeft()//Selectionner l'item de gauche    
     {
         selectedSlotIndex -= 1;
@@ -220,6 +222,7 @@ public class Trap_Inventory : MonoBehaviour
         nbTrapsInSlot[_SlotIndex] += 1;
         number[_SlotIndex].text = "x" + nbTrapsInSlot[_SlotIndex].ToString();
     }
+
     public void RemoveTraps(int _SlotIndex)
     {
         nbTrapsInSlot[_SlotIndex] -= 1;

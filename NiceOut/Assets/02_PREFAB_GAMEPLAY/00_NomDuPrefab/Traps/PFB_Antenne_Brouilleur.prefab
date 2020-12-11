@@ -76,7 +76,7 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: b4000000d2000000e6000000
-  upgradeIndex: 2
+  upgradeIndex: 0
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
   ui_hbHeight: 7
@@ -84,8 +84,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d335f47798ca3c84c822743bede36d5b, type: 3}
   - {fileID: 21300000, guid: b93b991b884926f41a9b63da1bee56d7, type: 3}
   - {fileID: 21300000, guid: 4c255002f39362c4d928a81b5ba824a5, type: 3}
-  description: "Spawn apr\xE8s {2} secondes de chargement. Ensuite toute les {0}
-    secondes ,gen\xE8re une zone qui empeche les ennemis de bouger pendant {2} secondes."
+  description: " G\xE9n\xE8re une zone qui emp\xEAche les ennemis de bouger pendant
+    {1} secondes toutes les {2} secondes. "
   trapName: Antenne
 --- !u!65 &-1682828109484018338
 BoxCollider:

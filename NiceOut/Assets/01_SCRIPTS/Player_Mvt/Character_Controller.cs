@@ -17,7 +17,8 @@ public class Character_Controller : MonoBehaviour
 
     [Header("Movement")]
     public float baseSpeed;
-    public float boostSpeed;
+    float boostSpeed;
+    float boostCountdown;
     public float turnSmooth;
     public float gravity;
     [SerializeField]
@@ -70,12 +71,12 @@ public class Character_Controller : MonoBehaviour
                 if (move != Vector2.zero)
                 {
                     PlayerAnimator.SetBool("Forward", true);
-                    moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity * Time.deltaTime;
+                    moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity * Time.fixedDeltaTime;
                 }
                 else
                 {
                     PlayerAnimator.SetBool("Forward", false);
-                    moveDir = Vector3.down * gravity * Time.deltaTime;
+                    moveDir = Vector3.down * gravity * Time.fixedDeltaTime;
                 }
                 
                 if (isRolling == false)
@@ -83,7 +84,17 @@ public class Character_Controller : MonoBehaviour
                     transform.rotation = Quaternion.Euler(rotation);
                     charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed));//Mouvement
                 }
-
+                if(boostCountdown > 0)
+                {
+                    boostCountdown -= Time.deltaTime;
+                }
+                else
+                {
+                    if (boostSpeed > 0)
+                    {
+                        StopSpeedBoost();
+                    }
+                }
 
                 //Input roulade
                 if (cdCount > 0)
@@ -121,16 +132,18 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-    IEnumerator SpeedBoost(float _boostValue, float _boostTime)
+    void StartSpeedBoost(float _boostValue, float _boostTime)
     {
         boostSpeed = _boostValue;
         afficheBoost.StartBoostDisplay(_boostTime);
         isBoosted.Play();
-        yield return new WaitForSecondsRealtime(_boostTime);
-        isBoosted.Stop();
-        afficheBoost.StopBoostDisplay();
+        boostCountdown = _boostTime;
+    }
+    void StopSpeedBoost()
+    {
         boostSpeed = 0;
-
+        afficheBoost.StopBoostDisplay();
+        isBoosted.Stop();
     }
     //roulade
     public void Roll()
@@ -152,7 +165,7 @@ public class Character_Controller : MonoBehaviour
         if (other.tag.Equals("Boost"))
         {
             Speed_Boost boostComponent = other.GetComponentInParent<Speed_Boost>();
-            StartCoroutine(SpeedBoost(boostComponent.boostValue, boostComponent.boostTime));
+            StartSpeedBoost(boostComponent.boostValue, boostComponent.boostTime);
             boostComponent.StartRespawn();
         }
     }

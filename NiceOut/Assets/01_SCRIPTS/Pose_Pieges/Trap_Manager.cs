@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class Trap_Manager : MonoBehaviour
 {
     Inputs inputs;
-    bool sell, refill, place, fix, rotatingRight, rotatingLeft;
+    bool place, rotatingRight, rotatingLeft;
 
     [Header("UI Elements")]
     public Canvas ui_Manager;//menus en gros
-    public TextMeshProUGUI ui_nbTraps;
-    public GameObject ui_Inventory;//inventaire
+    public Image ui_Inventory;//inventaire
     public GameObject ui_trapDescription;//inventaire
+    public GameObject ui_trapInfos;//inventaire
     bool inventoryActive;
+    [SerializeField]
+    Vector2 inventoryTransforms = new Vector2(0, -170);
+    [SerializeField, Range(0f, 1f)]
+    float smoothingOpening;
+
+    bool opening = false;
+    bool closing = false;
 
     [Header("LayerMasks")]
     public LayerMask trapped;//Layer de selection des pièges
@@ -48,9 +56,6 @@ public class Trap_Manager : MonoBehaviour
     {
         inputs = new Inputs();
 
-        inputs.Actions.Sell.started += ctx => sell = true;
-        inputs.Actions.Sell.canceled += ctx => sell = false;
-
         inputs.Actions.Place.started += ctx => place = true;
         inputs.Actions.Place.canceled += ctx => place = false;
 
@@ -62,9 +67,9 @@ public class Trap_Manager : MonoBehaviour
 
     private void Start()
     {
-        ui_Inventory.SetActive(false);
-        ui_nbTraps.gameObject.SetActive(false);
+        ui_Inventory.rectTransform.position = new Vector3(ui_Inventory.rectTransform.position.x, inventoryTransforms.y, ui_Inventory.rectTransform.position.z);
         ui_trapDescription.SetActive(false);
+        ui_trapInfos.SetActive(false);
         inventoryActive = false;
 
         mshFlt = previewTrap.GetComponent<MeshFilter>();
@@ -92,6 +97,8 @@ public class Trap_Manager : MonoBehaviour
                         trapRotation = 360 - (1 * rotatingSpeed * Time.deltaTime);
                     }
                 }
+
+
 
                 //Selection de pièges
                 float minDist = Mathf.Infinity;
@@ -123,8 +130,6 @@ public class Trap_Manager : MonoBehaviour
                         Traps trapStats = inventorySelection.GetComponent<Traps>();
                         mshFlt.mesh = trapStats.trapAndUpgrades[0].GetComponent<MeshFilter>().sharedMesh;
                         colliderCube = (trapStats.colliderSize) / 2;
-
-                        ui_nbTraps.text = ui_Manager.GetComponent<Trap_Inventory>().nbTrapsInSlot[ui_Manager.GetComponent<Trap_Inventory>().selectedSlotIndex].ToString();
 
                         Collider[] boxCollider = Physics.OverlapBox(previewTrap.transform.position + (Vector3.up * colliderCube.y + Vector3.up * trapStats.offsetPositions[0]), colliderCube, previewTrap.transform.rotation, cantTrapLayer);
 
@@ -225,9 +230,10 @@ public class Trap_Manager : MonoBehaviour
     {
         if (inventoryActive == false)
         {
-            ui_Inventory.SetActive(true);
-            ui_nbTraps.gameObject.SetActive(true);
+            Vector2 desiredPos = new Vector2(ui_Inventory.rectTransform.anchoredPosition.x, inventoryTransforms.x);
+            ui_Inventory.rectTransform.anchoredPosition = desiredPos;
             ui_trapDescription.SetActive(true);
+            ui_trapInfos.SetActive(true);
             inventoryActive = true;
         }
     }
@@ -235,9 +241,10 @@ public class Trap_Manager : MonoBehaviour
     {
         if (inventoryActive == true)
         {
-            ui_Inventory.SetActive(false);
-            ui_nbTraps.gameObject.SetActive(false);
+            Vector2 desiredPos = new Vector2(ui_Inventory.rectTransform.anchoredPosition.x, inventoryTransforms.y);
+            ui_Inventory.rectTransform.anchoredPosition = desiredPos;
             ui_trapDescription.SetActive(false);
+            ui_trapInfos.SetActive(false);
             inventoryActive = false;
         }
     }

@@ -69,6 +69,7 @@ public class Switch_Mode : MonoBehaviour
                 Cursor.visible = true;
                 ui_PausePanel.SetActive(true);
                 realPause = true;
+                Time.timeScale = 0;
             }
             if (pause == false && ui_PausePanel.activeInHierarchy == true)
             {
@@ -76,6 +77,7 @@ public class Switch_Mode : MonoBehaviour
                 Cursor.visible = false;
                 ui_PausePanel.SetActive(false);
                 realPause = false;
+                Time.timeScale = 1;
             }
         }
     }
@@ -129,6 +131,7 @@ public class Switch_Mode : MonoBehaviour
     {
         pause = false;
         realPause = false;
+        Time.timeScale = 1;
         ui_PausePanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -84,10 +84,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dfda99dc1de317e4c8979de33545a095, type: 3}
   - {fileID: 21300000, guid: addafd5a22428b84f82bce4da03f956c, type: 3}
   - {fileID: 21300000, guid: 9e7cf52834d0f36479f54f28c4e7a756, type: 3}
-  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite le porteur de
-    presse se dirige vers l'entit\xE9 non-alli\xE9e la plus proche dans sa zone d'action
-    et une fois \xE0 port\xE9 lui donne {1} points d'esprit critique toute les {2}
-    secondes."
+  description: "Se dirige vers l'ennemi le plus proche dans sa zone d'action et lui
+    conf\xE8re {0} point d'esprit critique toutes les {1} secondes."
   trapName: Crieur de presse
 --- !u!65 &2108486276045888227
 BoxCollider:

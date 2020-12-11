@@ -84,11 +84,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 77c8f09b30d4a104db29c846a8143325, type: 3}
   - {fileID: 21300000, guid: b27a7c2e474bc664d8da75dd6e3fda12, type: 3}
   - {fileID: 21300000, guid: 903b23358c7710e4da4358e4dfd15e53, type: 3}
-  description: "Spawn apr\xE8s {0} secondes de chargement. Les entit\xE9s ennemies
-    qui passe dans le tapis roulant son ralenties \xE0 {1} points de MoveSpeedUnits 
-    si elles se deplacent dans le sens inverse du tapis. Si les entit\xE9s se deplace
-    dans le sens du tapis elle sont boost\xE9 \xE0 {2} points de MoveSpeedUnits. 
-    (Vitesse de base des ennemis : 5 MoveSpeedUnits)"
+  description: Ralenti les ennemis de {0} point de vitesse s'ils passent dessus en
+    sens inverse. Dans le bon sens, la vitesse augmente de {1} points.
   trapName: Tapis roulant
 --- !u!65 &-6272607322716721369
 BoxCollider:

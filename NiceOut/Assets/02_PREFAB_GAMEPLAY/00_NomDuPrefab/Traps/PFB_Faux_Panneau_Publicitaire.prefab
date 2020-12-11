@@ -84,8 +84,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c0a1aabe5239a7e408c0087d37fba1c2, type: 3}
   - {fileID: 21300000, guid: 491cddf4ffba3c046bf59159b24433e8, type: 3}
   - {fileID: 21300000, guid: 6aa44d564cc44894ca134a42e43174ef, type: 3}
-  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite attire en son
-    centre tous les ennemis qui passe dans son rayon d'action jusqu'a son usure complete."
+  description: "Attire tous les ennemis vers lui jusqu'\xE0 son usure compl\xE8te."
   trapName: Faux panneau
 --- !u!65 &-75400321051341522
 BoxCollider:
