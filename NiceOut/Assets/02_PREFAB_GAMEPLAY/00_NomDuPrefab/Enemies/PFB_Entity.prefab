@@ -37972,9 +37972,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8539083494893854118}
+  - component: {fileID: 3794689537272578078}
   - component: {fileID: 6343466456876240757}
+  - component: {fileID: 4033999321332675911}
   - component: {fileID: 7014327665131691280}
-  - component: {fileID: 8651292940131210654}
   - component: {fileID: 1322425481945263789}
   m_Layer: 13
   m_Name: PFB_Entity
@@ -38000,7 +38001,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6343466456876240757
+--- !u!114 &3794689537272578078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38009,36 +38010,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6547376902778127861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c879128def1e3f44882d860ab4eeda1, type: 3}
+  m_Script: {fileID: 11500000, guid: b60a9b98fc9b0344dbaa3b965ae73037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFinding: 0
-  neutral: 0
-  hostile: 0
-  allie: 0
-  enmTransform: {fileID: 8539083494893854118}
-  playerDetectionLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  enmSpeed: 5
-  targetTreshold: 0.2
-  targetTresholdNeutral: 0.5
-  gizmo1Radius: 10
-  resetTransformPicker: 2
-  resetWaitingTime: 3
-  gizmo1Color: {r: 1, g: 0, b: 1, a: 1}
-  enmHealth: 0
-  damage: 5
-  attackRadius: 3
-  damageCooldown: 2
-  attackRadiusDebugColor: {r: 0, g: 0, b: 0, a: 1}
-  isAttracted: 0
-  attractTarget: {fileID: 0}
-  isSlowed: 0
-  isFastened: 0
-  isStunned: 0
-  hasDot: 0
-  modifiedSpeed: 0
+  status: 0
+  distanceMaxPlayer: 25
+  healthbar: {fileID: 7534105158628510663}
   healthImage: {fileID: 6005379366830359802}
   healthColor:
     serializedVersion: 2
@@ -38069,16 +38046,77 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
-  stateText: {fileID: 314147533773495349}
   convertBadEnemyParticle: {fileID: 2078426681}
   convertGoodEnemyParticle: {fileID: 2037859348}
   convertedToGood: {fileID: 1091499226}
   convertedToBad: {fileID: 364230300676721241}
   parfumed: {fileID: 1918394086023856454}
   mats:
-  - {fileID: 2100000, guid: aae9c63fe1f00534d8030a8c63242144, type: 2}
   - {fileID: 2100000, guid: b5814b581687d7147838823675c9ef92, type: 2}
   - {fileID: 2100000, guid: a47370a74e7cc9848b0559f64d7b0ca6, type: 2}
+  - {fileID: 2100000, guid: aae9c63fe1f00534d8030a8c63242144, type: 2}
+  enmHealth: 0
+  hasDot: 0
+--- !u!114 &6343466456876240757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547376902778127861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c879128def1e3f44882d860ab4eeda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauser: {fileID: 0}
+  pathFinding: 0
+  enmTransform: {fileID: 8539083494893854118}
+  playerDetectionLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  enmSpeed: 5
+  targetTreshold: 0.2
+  targetTresholdNeutral: 0.5
+  gizmo1Radius: 20
+  resetTransformPicker: 2
+  maxWaitingTime: 0
+  gizmo1Color: {r: 1, g: 0.1071461, b: 0, a: 1}
+  enmNavMesh: {fileID: 0}
+  target: {fileID: 0}
+  start: 1
+  isAttracted: 0
+  attractTarget: {fileID: 0}
+  isSlowed: 0
+  isFastened: 0
+  isStunned: 0
+  modifiedSpeed: 0
+  stateText: {fileID: 314147533773495349}
+--- !u!114 &4033999321332675911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547376902778127861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccb36c52caa6b9468cf1e0052a4df8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDamages: 5
+  allyDamages: 5
+  attackRadius: 3
+  enemyDamageCooldown: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 163840
+  firmeLayer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!195 &7014327665131691280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -38101,18 +38139,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8651292940131210654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547376902778127861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f838de63ae4de4c9efa3f1e006b823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &1322425481945263789
 CapsuleCollider:
   m_ObjectHideFlags: 0

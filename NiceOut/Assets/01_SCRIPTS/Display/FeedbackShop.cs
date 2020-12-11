@@ -32,7 +32,5 @@ public class FeedbackShop : MonoBehaviour
         else
         {
             anm.SetFloat("DistancePlayer", 10);
-        }
-        shopTexts.transform.LookAt(Camera.main.transform.position);
-    }
+        }    }
 }

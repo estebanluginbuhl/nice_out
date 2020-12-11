@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 7623199504368096722}
   - component: {fileID: 7623199504368096721}
   - component: {fileID: 5866072686668005527}
+  - component: {fileID: 6429859727683100136}
   m_Layer: 5
   m_Name: PFB_UI_Usurebar_Trap
   m_TagString: Untagged
@@ -402,3 +403,15 @@ MonoBehaviour:
   barOlder: {fileID: 7623199503612068505}
   ui_UsureBar: {fileID: 5914048201598737133}
   distancePlayer: 15
+--- !u!114 &6429859727683100136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623199504368096720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d142c800406ce64393efd8d9f47893d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

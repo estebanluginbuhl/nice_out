@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 7623199504368096723}
   - component: {fileID: 7623199504368096722}
   - component: {fileID: 7623199504368096721}
-  - component: {fileID: 5866072686668005527}
+  - component: {fileID: 3505724026718592747}
   m_Layer: 5
   m_Name: PFB_UI_Enemy_Life
   m_TagString: Untagged
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5866072686668005527
+--- !u!114 &3505724026718592747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -394,11 +394,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7623199504368096720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3530133ac33143446a686cd772b7dc61, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d142c800406ce64393efd8d9f47893d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7413206124061644211, guid: 5597ff108d4f37d489db09c58114e9d8, type: 3}
-  trap: {fileID: 0}
-  barOlder: {fileID: 7623199503612068505}
-  ui_UsureBar: {fileID: 5914048201598737133}
-  distancePlayer: 15

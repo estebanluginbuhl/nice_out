@@ -84,8 +84,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 97143fb0f7d5a5e4a94b2c72645a7350, type: 3}
   - {fileID: 21300000, guid: 5a9932f08c65f1849885573ff4de7fea, type: 3}
   - {fileID: 21300000, guid: a3a60d2e8d169aa478f6210d152e3ed5, type: 3}
-  description: "Spawn apr\xE8s {0} secondes de chargement. Ensuite donne {1} points
-    d'esprit critique aux entit\xE9s non-alli\xE9es toutes les {2} secondes"
+  description: Donne {0} point d'esprit critique aux ennemis toutes les {1} secondes.
   trapName: Bar
 --- !u!65 &4771299929711459252
 BoxCollider:

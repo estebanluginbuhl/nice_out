@@ -10,6 +10,8 @@ TagManager:
   - Objectives
   - FxTemporaire
   - Shop
+  - Maisons
+  - Firmes
   layers:
   - Default
   - TransparentFX
@@ -27,8 +29,8 @@ TagManager:
   - Ennemis
   - Shop
   - Neutral
-  - 
-  - 
+  - Firmes
+  - Ally
   - 
   - 
   - 

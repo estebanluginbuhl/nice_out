@@ -43,7 +43,6 @@ public class Trap_Stats : MonoBehaviour
             }
             else
             {
-                GetComponent<RectTransform>().LookAt(Camera.main.transform.position);
                 ui_UsureBar.transform.localScale = new Vector3(trap.UsurePercentage, ui_UsureBar.transform.localScale.y, ui_UsureBar.transform.localScale.z);
             }
         }
