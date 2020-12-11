@@ -5,41 +5,42 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
-    //a conserver
-    public GameObject firmePFB1, firmePFB2, firmePFB3, firmePFB4, firmePFB5, firmePFB6, shopPFB;
+    public GameObject[] firmePFB;
+    public GameObject shopPFB;
     GameObject selectedFirmePFB;
     GameObject[] maisons, alreadyDone, firme;
     Transform replaceFirme;
-    int choosenHouses;
+    int choosenHouses, choosenThatWave, recallHouseIndex;
+    int[] recallHouseBoard;
 
+    //
     //a retirer
-    public int buildingPerWave;
-    public bool selectHouse, callShop;
+    public int buildingPerWave, houseIndex;
+    public bool changeHouses, placeShop, recallHouse;
 
-    //a conserver
-    void Awake()
-    {
-        GetHouses();
-    }
-
-    //a retirer
     void FixedUpdate()
     {
-        if (selectHouse == true)
+        if (changeHouses == true)
         {
-            selectHouse = false;
+            changeHouses = false;
             SelectHouses(buildingPerWave);
             return;
         }
-        if (callShop == true)
+        if (placeShop == true)
         {
-            callShop = false;
+            placeShop = false;
             CallShop();
             return;
         }
+        if (recallHouse == true)
+        {
+            recallHouse = false;
+            RecallHouse(houseIndex);
+            return;
+        }
     }
+    //
 
-    //a conserver
     void GetHouses()//stock tous les prefabs tagués "Maisons" présents dans la scène, dans le tableau "maisons" et créer le tableau dans lequel seront stockés les batiments déjà changés !!!!!A appelé au début de chaque vague
     {
         maisons = null;
@@ -49,12 +50,14 @@ public class BuildingManager : MonoBehaviour
         {
             maisons = GameObject.FindGameObjectsWithTag("Maisons");
             alreadyDone = new GameObject[maisons.Length];
+            recallHouseBoard = new int[maisons.Length];
         }
     }
 
-    //a conserver
-    void SelectHouses(int howManyChoosen)//"howManyChoosen" défini par vague dans le WaveManager
+    public void SelectHouses(int howManyChoosen)//"howManyChoosen" défini par vague dans le WaveManager
     {
+        GetHouses();
+        choosenThatWave = howManyChoosen;
         for (int i = 0; i < howManyChoosen; i++)
         {
             choosenHouses = Random.Range(0, maisons.Length);
@@ -63,17 +66,16 @@ public class BuildingManager : MonoBehaviour
         return;
     }
 
-    //a conserver
-    //desactiver le GameObject pas supprimer pour pouvoir le remettre apres
-    void ChangeHouses(int thisOneIsChanged)
+    void ChangeHouses(int thisOneIsChanged)//desactive le GameObject pas supprimer pour pouvoir le remettre apres
     {
-        //Random.st
-        //selectedFirmePFB = 
+        selectedFirmePFB = firmePFB[Random.Range(0, firmePFB.Length)];
         maisons[choosenHouses].gameObject.SetActive(false);
-        if (alreadyDone[choosenHouses] == null)//verifie si le game object n'est pas selectionné
+        if (alreadyDone[choosenHouses] == null)//verifie si le game object n'est déjà pas selectionné
         {
             alreadyDone[choosenHouses] = maisons[choosenHouses];
             Instantiate(selectedFirmePFB, maisons[choosenHouses].transform.position, maisons[choosenHouses].transform.rotation);
+            recallHouseIndex += 1;
+            recallHouseBoard[recallHouseIndex] = choosenHouses;
         }
         else if (alreadyDone[choosenHouses] != null)//relance une selection si le game object est deja changé
         {
@@ -82,9 +84,7 @@ public class BuildingManager : MonoBehaviour
         return;
     }
 
-    //a conserver
-    //récupere le transform du dernier batiment detruit
-    void CallShop()
+    public void CallShop()//récupere le transform du dernier batiment detruit
     {
         firme = null;//reset le tableau
         firme = GameObject.FindGameObjectsWithTag("Firmes");
@@ -95,14 +95,26 @@ public class BuildingManager : MonoBehaviour
         else if (firme.Length == 1)
         {
             replaceFirme = firme[0].transform;
+            PlaceShop();
         }
         else return;
     }
 
-    //a conserver
-    //change la firme par le shop
-    void PlaceShop()
+    void PlaceShop()//change la firme par le shop
     {
+        replaceFirme.gameObject.SetActive(false);
         Instantiate(shopPFB, replaceFirme.position, replaceFirme.rotation);
+    }
+
+    public void RecallHouse(int recallThatOne)//rappel la maison sous laquelle se trouve le batiment de firme détruit
+    {
+        //ranger dans un tableau les maisons qui viennent d'être désactivé pour pouvoir les rappeler
+        for (int i = 1; i <= choosenThatWave; i++)
+        {
+            Debug.Log("recall " + i);
+            alreadyDone[recallHouseBoard[i]].gameObject.SetActive(true);
+        }
+        recallHouseIndex = 0;
+        recallHouseBoard = null;
     }
 }
