@@ -18,7 +18,7 @@ public class Trap_Preview_Timer : MonoBehaviour
     {
         transform.LookAt(Camera.main.transform.position);
         percentage = (trap.cooldownCountdown / trap.cooldownSpawn[trap.upgradeIndex]);
-        cooldown.text = Mathf.FloorToInt(trap.cooldownCountdown) + "s";
+        cooldown.text = Mathf.CeilToInt(trap.cooldownCountdown) + "s";
         jauge.fillAmount = percentage;
     }
 }

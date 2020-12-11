@@ -16,7 +16,6 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     public float UsurePercentage;
 
     [Header("Cooldowns")]
-    public float[] cooldownPose;
     public float[] cooldownSpawn;
     GameObject preview;
     Canvas previewTimer;
@@ -54,7 +53,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
     private void Awake()
     {
-        cooldownCountdown = 0;
+        cooldownCountdown = cooldownSpawn[upgradeIndex];
         hasSPawned = false;
     }
     private void Start()
@@ -72,11 +71,11 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
         isPaused = player.GetComponent<Switch_Mode>().GetPause();
         if (isPaused == false)
         {
-            if (cooldownCountdown < cooldownSpawn[upgradeIndex])
+            if (cooldownCountdown > 0)
             {
-                cooldownCountdown += Time.deltaTime;
+                cooldownCountdown -= Time.deltaTime;
             }
-            if (cooldownCountdown >= cooldownSpawn[upgradeIndex] && hasSPawned == false)
+            if (cooldownCountdown <= 0 && hasSPawned == false)
             {
                 box = GetComponent<BoxCollider>();
                 if (box != null)
@@ -102,7 +101,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
 
                 hasSPawned = true;
             }
-            if (cooldownCountdown >= cooldownSpawn[upgradeIndex] && hasSPawned == true)
+            if (cooldownCountdown <= 0 && hasSPawned == true)
             {
                 usure -= Time.deltaTime;
 
