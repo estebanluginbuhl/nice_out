@@ -288,7 +288,7 @@ public class EnmMovementTest : MonoBehaviour
                     Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
                     foreach (Collider c in transferTarget)
                     {
-                        if (c.GetComponent<EnmMovement>().hasDot == false)
+                        if (c.GetComponent<EnmMovementTest>().hasDot == false)
                         {
                             float dist = Vector3.Distance(transform.position, c.transform.position);
                             if (dist <= minDist)
@@ -316,7 +316,7 @@ public class EnmMovementTest : MonoBehaviour
                         {
                             _duration = 0;
                         }
-                        target.GetComponent<EnmMovement>().StartCoroutine(DamagesOverTime(_damage, _duration, _range, _index));
+                        target.GetComponent<EnmMovementTest>().StartCoroutine(DamagesOverTime(_damage, _duration, _range, _index));
                         target = null;
                     }
 

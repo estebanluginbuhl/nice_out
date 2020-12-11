@@ -4,36 +4,45 @@ using UnityEngine;
 
 public class Speed_Boost : MonoBehaviour
 {
+    
     public float boostValue;
     public float boostTime;
-    public float respawnTime;
-
-    float oldValue;
-    float oldTime;
+    [SerializeField]
+    float respawnTime;
+    bool spawned = false;
+    float cptRespawn;
     GameObject child;
 
     private void Start()
     {
         child = transform.GetChild(0).gameObject;
-        oldValue = boostValue;
-        oldTime = boostTime;
+        spawned = true;
+    }
+
+    private void Update()
+    {
+        if (cptRespawn > 0)
+        {
+            cptRespawn -= Time.deltaTime;
+        }
+        else
+        {
+            if(spawned == false)
+            {
+                Respawn();
+            }
+        }
     }
 
     public void StartRespawn()
     {
-        StartCoroutine(BoostRespawn());
-    }
-
-     IEnumerator BoostRespawn()
-    {
+        spawned = false;
+        cptRespawn = respawnTime;
         child.SetActive(false);
-        boostValue = 0;
-        boostTime = 0;
-
-        yield return new WaitForSeconds(respawnTime);
-
+    }
+    void Respawn()
+    {
+        spawned = true;
         child.SetActive(true);
-        boostValue = oldValue;
-        boostTime = oldTime;
     }
 }
