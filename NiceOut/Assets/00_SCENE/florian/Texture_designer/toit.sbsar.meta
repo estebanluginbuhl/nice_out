@@ -17,15 +17,16 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://toit\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
-      uid=\"3606432195\" type=\"8\" value=\"9,9\" />\n </sbspreset>\n"
-    shaderName: Standard
+      uid=\"3606432195\" type=\"8\" value=\"11,11\" />\n  <presetinput identifier=\"opacitymult\"
+      uid=\"3209369330\" type=\"0\" value=\"1\" />\n </sbspreset>\n"
+    shaderName: Standard (Specular setup)
     materialProperties:
-      shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-      shaderKeywords: _MAINTEX _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+      shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+      shaderKeywords: _ALPHAPREMULTIPLY_ON _MAINTEX _NORMALMAP _PARALLAXMAP
       lightmapFlags: 4
       enableInstancingVariants: 0
       doubleSidedGI: 0
-      customRenderQueue: -1
+      customRenderQueue: 3000
       texEnvs:
       - name: _BumpMap
         texture: {fileID: 3598807173818597678, guid: 895fc87bc18fced449fc8c4f07e9636d,
@@ -46,16 +47,12 @@ ScriptedImporter:
         offset: {x: 0, y: 0}
       - name: _EmissionMap
         texture: {instanceID: 0}
-        scale: {x: 5, y: 5}
+        scale: {x: 1.5, y: 1.5}
         offset: {x: 0, y: 0}
       - name: _MainTex
         texture: {fileID: 3343093124191804282, guid: 895fc87bc18fced449fc8c4f07e9636d,
           type: 3}
-        scale: {x: 5, y: 5}
-        offset: {x: 0, y: 0}
-      - name: _MetallicGlossMap
-        texture: {fileID: 2800000, guid: c6da27ef9794bf74ca18eb935feeff4e, type: 3}
-        scale: {x: 1, y: 1}
+        scale: {x: 1.5, y: 1.5}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
         texture: {instanceID: 0}
@@ -66,6 +63,10 @@ ScriptedImporter:
           type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
+      - name: _SpecGlossMap
+        texture: {instanceID: 0}
+        scale: {x: 1, y: 1}
+        offset: {x: 0, y: 0}
       floats:
       - name: _BumpScale
         float: 1
@@ -74,21 +75,19 @@ ScriptedImporter:
       - name: _DetailNormalMapScale
         float: 1
       - name: _DstBlend
-        float: 0
+        float: 10
       - name: _GlossMapScale
-        float: 0.45
+        float: 1
       - name: _Glossiness
-        float: 0.5
+        float: 0
       - name: _GlossyReflections
         float: 1
-      - name: _Metallic
-        float: 0
       - name: _Mode
-        float: 0
+        float: 3
       - name: _OcclusionStrength
         float: 1
       - name: _Parallax
-        float: 0.02
+        float: 0.08
       - name: _SmoothnessTextureChannel
         float: 0
       - name: _SpecularHighlights
@@ -98,12 +97,14 @@ ScriptedImporter:
       - name: _UVSec
         float: 0
       - name: _ZWrite
-        float: 1
+        float: 0
       colors:
       - name: _Color
         color: {r: 1, g: 1, b: 1, a: 1}
       - name: _EmissionColor
         color: {r: 0, g: 0, b: 0, a: 1}
+      - name: _SpecColor
+        color: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     outputDescList:
     - outputName: baseColor
       identifier: basecolor
@@ -203,8 +204,8 @@ ScriptedImporter:
     - label: Default
       bOverride: 0
       bLockRatio: 1
-      textureWidth: 512
-      textureHeight: 512
+      textureWidth: 2048
+      textureHeight: 2048
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
