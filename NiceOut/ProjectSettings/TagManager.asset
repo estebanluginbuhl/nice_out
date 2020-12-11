@@ -10,6 +10,8 @@ TagManager:
   - Objectives
   - FxTemporaire
   - Shop
+  - Maisons
+  - Firmes
   layers:
   - Default
   - TransparentFX
