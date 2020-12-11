@@ -113,6 +113,7 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 2)
             {
                 status = 2;
+                gameObject.layer = 13;
                 GetComponentInChildren<MeshRenderer>().material = mats[2];
                 convertedToBad.Play();
             }
@@ -122,6 +123,7 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 1)
             {
                 status = 1;
+                gameObject.layer = 17;
                 GetComponentInChildren<MeshRenderer>().material = mats[1];
                 convertedToGood.Play();
                 player.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
@@ -132,6 +134,7 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 0)
             {
                 status = 0;
+                gameObject.layer = 15;
                 GetComponentInChildren<MeshRenderer>().material = mats[0];
             }
         }

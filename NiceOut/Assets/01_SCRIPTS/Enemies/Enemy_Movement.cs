@@ -87,7 +87,6 @@ public class Enemy_Movement : MonoBehaviour
                 status = 0;
 
                 target.position = transform.position;
-                gameObject.layer = 15;
                 ChangeStatus("Se Balade");
                 randomTransformPickerTimer -= Time.deltaTime;
                 delayBeforeGo -= Time.deltaTime;
@@ -119,7 +118,6 @@ public class Enemy_Movement : MonoBehaviour
             #region
             case 1:
                 status = 1;
-                gameObject.layer = 0;
                 ObjectiveSelection();
                 ChangeStatus("Attaque les firmes");
                 break;
@@ -128,8 +126,6 @@ public class Enemy_Movement : MonoBehaviour
             #region
             case 2:
                 status = 2;
-                gameObject.layer = 13;
-
 
                 if (isAttracted == false)
                 {

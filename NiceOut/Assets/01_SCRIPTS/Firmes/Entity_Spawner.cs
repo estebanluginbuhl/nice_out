@@ -7,8 +7,8 @@ public class Entity_Spawner : MonoBehaviour
 {
     [SerializeField]
     GameObject entityToSpawn;
-    Wave_Manager waveManager;
-    public int type;
+    [HideInInspector]
+    public Wave_Manager waveManager;
     [SerializeField]
     int nbEntityToSpawn;
     [SerializeField]
@@ -19,7 +19,7 @@ public class Entity_Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waveManager = GameObject.Find("PFB_Game_Manager").GetComponent<Wave_Manager>();
+        waveManager = GameObject.Find("PFB_Game_Manager").GetComponent<Wave_Manager>();//temp
         cptTimeBetweenSpawn = timeBetweenSpawn;
     }
 
@@ -29,7 +29,7 @@ public class Entity_Spawner : MonoBehaviour
         GameObject newEntity = Instantiate(entityToSpawn, _spawnPoint, Quaternion.identity);
         print("Spawned");
     }
-    Vector3 ChooseSpawnPoint(float _radius)
+    Vector3 ChooseSpawnPoint(float _radius)//choisi un point dans la range de la firme sur le navmesh pour faire spawn l'entité
     {
         Vector3 randomDirection = Random.insideUnitSphere * _radius;
         randomDirection += transform.position;
@@ -45,35 +45,26 @@ public class Entity_Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
+        if(waveManager.waveStarted== true)
         {
-            if (cptTimeBetweenSpawn > 0)
+            if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
             {
-                cptTimeBetweenSpawn -= Time.deltaTime;
-            }
-            else
-            {/*
-                for (int i = 0; i < nbEntityToSpawn; i++)
+                if (cptTimeBetweenSpawn > 0)
                 {
-                    if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
-                    {
-                        SpawnEntity(ChooseSpawnPoint(spawnRange));
-                        cptTimeBetweenSpawn = timeBetweenSpawn;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }*/
-                SpawnEntity(ChooseSpawnPoint(spawnRange));
-                cptTimeBetweenSpawn = timeBetweenSpawn / nbEntityToSpawn;
+                    cptTimeBetweenSpawn -= Time.deltaTime;
+                }
+                else
+                {
+                    SpawnEntity(ChooseSpawnPoint(spawnRange));
+                    cptTimeBetweenSpawn = timeBetweenSpawn / nbEntityToSpawn;
+                }
             }
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position + Vector3.down * (transform.localScale.y / 2), spawnRange);
     }
 }

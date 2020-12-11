@@ -36,7 +36,7 @@ public class Wave_Manager : MonoBehaviour
 
     }
 
-    void AddLootType(int destroyedFirmeType) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
+    public void AddLootType(int destroyedFirmeType) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
     {
         lootType[lootIndex] = destroyedFirmeType;
         lootIndex += 1;

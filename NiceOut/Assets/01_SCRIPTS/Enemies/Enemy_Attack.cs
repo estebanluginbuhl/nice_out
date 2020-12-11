@@ -5,57 +5,123 @@ using UnityEngine;
 public class Enemy_Attack : MonoBehaviour
 {
     [SerializeField]
-    private int damage;
-    public float attackRadius, damageCooldown;
+    private int enemyDamages, allyDamages;
+    public float attackRadius, enemyDamageCooldown;
     private GameObject attackTarget;
     bool wantsToAttack;
-
+    bool isDead;
     [SerializeField]
     LayerMask playerLayer = -1;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    LayerMask allyLayer = -1;
+    [SerializeField]
+    LayerMask firmeLayer = -1;
 
     // Update is called once per frame
     void Update()
     {
-        wantsToAttack = GetComponent<Enemy_Movement>().pathFinding;
-        if (damageCooldown < 1)
+        switch (GetComponent<Enemy_Stats>().status)
         {
-            damageCooldown += Time.deltaTime;
-        }
-        if (wantsToAttack)
-        {
-            Collider[] playerTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerLayer);
-            if (playerTarget.Length == 0)
-            {
-                return;
-            }
-            else
-            {
-                foreach (Collider c in playerTarget)
+            case 0:
+                break;
+
+            case 1:
+                Collider[] allyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, firmeLayer);
+                if (allyTarget.Length == 0)
                 {
-                    attackTarget = c.gameObject;
+                    return;
                 }
-                if (damageCooldown >= 1)
+                else
                 {
-                    if (attackTarget != false)
+                    if(isDead == false)
                     {
-                        Attack(attackTarget);
+                        AllieAttack(allyTarget[0].gameObject);
                     }
                 }
-            }
+                break;
+
+            case 2:
+                wantsToAttack = GetComponent<Enemy_Movement>().pathFinding;
+                if (wantsToAttack)//si l'ennemi foxus le joueur il attaque que le joueur 
+                {
+                    if (enemyDamageCooldown < 1)
+                    {
+                        enemyDamageCooldown += Time.deltaTime;
+                    }
+                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerLayer);
+                    if (enemyTarget.Length == 0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        foreach (Collider c in enemyTarget)
+                        {
+                            attackTarget = c.gameObject;
+                        }
+                        if (enemyDamageCooldown >= 1)
+                        {
+                            if (attackTarget != false)
+                            {
+                                EnemyAttackPlayer(attackTarget);
+                            }
+                        }
+                    }
+                }
+                else//sinon il attaque les entités allié 
+                {
+                    if (enemyDamageCooldown < 1)
+                    {
+                        enemyDamageCooldown += Time.deltaTime;
+                    }
+                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, allyLayer);
+                    if (enemyTarget.Length == 0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        foreach (Collider c in enemyTarget)
+                        {
+                            attackTarget = c.gameObject;
+                        }
+                        if (enemyDamageCooldown >= 1)
+                        {
+                            if (attackTarget != false)
+                            {
+                                EnemyAttackAlly(attackTarget);
+                            }
+                        }
+                    }
+                }
+                break;
         }
     }
 
-    void Attack(GameObject _target)
+    void EnemyAttackPlayer(GameObject _enemyTarget)
     {
-        if (_target != null)
+        if (_enemyTarget != null)
         {
-            _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
-            damageCooldown = 0;
+            _enemyTarget.GetComponent<StatsPlayer>().DamagePlayer(enemyDamages);
+            enemyDamageCooldown = 0;
+        }
+    }    
+    void EnemyAttackAlly(GameObject _enemyTarget)
+    {
+        if (_enemyTarget != null)
+        {
+            _enemyTarget.GetComponent<Enemy_Stats>().DamageGoodEnemy(enemyDamages);
+            enemyDamageCooldown = 0;
+        }
+    }
+
+    void AllieAttack(GameObject _allieTarget)
+    {
+        if (_allieTarget != null)
+        {
+            _allieTarget.GetComponent<Firme_Stats>().DamageFirme(allyDamages);
+            isDead = true;
+            Destroy(this.gameObject);
         }
     }
 
