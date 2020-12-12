@@ -38069,25 +38069,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c879128def1e3f44882d860ab4eeda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauser: {fileID: 0}
   pathFinding: 0
-  enmTransform: {fileID: 8539083494893854118}
+  status: 0
   playerDetectionLayer:
     serializedVersion: 2
     m_Bits: 1024
   enmSpeed: 5
-  targetTreshold: 0.2
+  targetTresholdEnemy: 1
   targetTresholdNeutral: 0.5
+  targetTresholdAlly: 1
   gizmo1Radius: 20
   resetTransformPicker: 2
-  maxWaitingTime: 0
+  minWaitingTime: 2
+  maxWaitingTime: 5
   gizmo1Color: {r: 1, g: 0.1071461, b: 0, a: 1}
-  enmNavMesh: {fileID: 0}
-  neutralTarget: {fileID: 0}
+  entityNavMesh: {fileID: 0}
+  neutralTarget: {x: 0, y: 0, z: 0}
   enemyTarget: {fileID: 0}
-  start: 1
   isAttracted: 0
-  attractTarget: {fileID: 0}
+  attractTarget: {x: 0, y: 0, z: 0}
   isSlowed: 0
   isFastened: 0
   isStunned: 0
