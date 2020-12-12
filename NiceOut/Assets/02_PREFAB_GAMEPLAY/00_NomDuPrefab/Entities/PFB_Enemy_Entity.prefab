@@ -37978,7 +37978,7 @@ GameObject:
   - component: {fileID: 7014327665131691280}
   - component: {fileID: 1322425481945263789}
   m_Layer: 13
-  m_Name: PFB_Entity
+  m_Name: PFB_Enemy_Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38083,7 +38083,8 @@ MonoBehaviour:
   maxWaitingTime: 0
   gizmo1Color: {r: 1, g: 0.1071461, b: 0, a: 1}
   enmNavMesh: {fileID: 0}
-  target: {fileID: 0}
+  neutralTarget: {fileID: 0}
+  enemyTarget: {fileID: 0}
   start: 1
   isAttracted: 0
   attractTarget: {fileID: 0}
@@ -38106,8 +38107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDamages: 5
   allyDamages: 5
-  attackRadius: 3
-  enemyDamageCooldown: 0
+  enemyAttackRadius: 2
+  allieAttackRadius: 1
+  enemyDamageCooldown: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024

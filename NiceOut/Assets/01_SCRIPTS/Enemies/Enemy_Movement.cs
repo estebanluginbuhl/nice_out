@@ -15,14 +15,17 @@ public class Enemy_Movement : MonoBehaviour
     [Header("status neutral = 0")]
     int status;
     public Transform enmTransform;
-    public LayerMask playerDetectionLayer;
+    [SerializeField]
+    LayerMask playerDetectionLayer;
     public float enmSpeed, targetTreshold, targetTresholdNeutral, gizmo1Radius, resetTransformPicker, maxWaitingTime;
     public Color gizmo1Color;
 
     [HideInInspector]
     public NavMeshAgent enmNavMesh;
     [HideInInspector]
-    public Transform target;
+    public Transform neutralTarget;
+    [HideInInspector]
+    public Transform enemyTarget;
     NavMeshHit navHit;
     GameObject player;
     GameObject choosenObjective = null;
@@ -51,23 +54,28 @@ public class Enemy_Movement : MonoBehaviour
         enmTransform = gameObject.transform;
         enmNavMesh = GetComponent<NavMeshAgent>();
         enmNavMesh.speed = enmSpeed;
-        target = PathNode.nodeTransform[0];
-
+        //target = PathNode.nodeTransform[0];
         randomPosition = Random.insideUnitSphere * gizmo1Radius;
         status = GetComponent<Enemy_Stats>().status;
     }
 
     void FixedUpdate()
     {
-        Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmo1Radius, playerDetectionLayer);
-        if (PathFinderTrigger.Length != 0)
+        if(status == 2)
         {
-            player = PathFinderTrigger[0].gameObject;
-            pathFinding = true;
-        }
-        else
-        {
-            pathFinding = false;
+            Collider[] PathFinderTrigger = Physics.OverlapSphere(enmTransform.position, gizmo1Radius, playerDetectionLayer);
+            if (PathFinderTrigger.Length != 0)
+            {
+                if (player == false)
+                {
+                    player = PathFinderTrigger[0].gameObject;
+                    pathFinding = true;
+                }
+            }
+            else
+            {
+                pathFinding = false;
+            }
         }
     }
 
@@ -75,8 +83,11 @@ public class Enemy_Movement : MonoBehaviour
     {
         if (start == true && status == 0)
         {
-            target.position = transform.position;
-            start = false;
+            if (neutralTarget != null)
+            {
+                neutralTarget.position = transform.position;
+                start = false;
+            }
         }
         status = GetComponent<Enemy_Stats>().status;
         switch (status)
@@ -85,26 +96,38 @@ public class Enemy_Movement : MonoBehaviour
             #region
             case 0:
                 status = 0;
-
-                target.position = transform.position;
+                enemyTarget = null;
+                if(neutralTarget != null)
+                {
+                    neutralTarget.position = transform.position;
+                }
                 ChangeStatus("Se Balade");
-                randomTransformPickerTimer -= Time.deltaTime;
-                delayBeforeGo -= Time.deltaTime;
+                if(randomTransformPickerTimer > 0)
+                {
+                    randomTransformPickerTimer -= Time.deltaTime;
+                }
+                if (delayBeforeGo > 0)
+                {
+                    delayBeforeGo -= Time.deltaTime;
+                }
 
                 if (randomTransformPickerTimer <= 0 && delayBeforeGo <= 0)
                 {
                     randomPosition = Random.insideUnitSphere * gizmo1Radius;
                     randomPosition.y = transform.position.y;
 
-                    if (Vector3.Distance(transform.position, target.position) <= targetTresholdNeutral)
+                    if (Vector3.Distance(transform.position, neutralTarget.position) <= targetTresholdNeutral)
                     {
                         delayBeforeGo = Random.Range(1, maxWaitingTime);
                         randomTransformPickerTimer = resetTransformPicker;
 
                         if (NavMesh.SamplePosition(transform.position + randomPosition, out navHit, gizmo1Radius, NavMesh.AllAreas))
                         {
-                            target.position = navHit.position;
-                            enmNavMesh.destination = target.position;
+                            neutralTarget.position = navHit.position;
+                            if(neutralTarget != null)
+                            {
+                                enmNavMesh.destination = neutralTarget.position;
+                            }
                         }
                         else
                         {
@@ -136,29 +159,73 @@ public class Enemy_Movement : MonoBehaviour
                     }
                     else if (pathFinding == false)
                     {
-                        ChangeStatus("Attaque les alliés");
-                        enmNavMesh.destination = target.position;
-
-                        if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                        if (enemyTarget == null)
                         {
-                            if (nodeIndex >= PathNode.nodeTransform.Length - 1)
+                            ChangeStatus("Attaque les alliés");
+                            float minDist = Mathf.Infinity;
+                            Transform temporaryTarget = null;
+                            GameObject[] possibleTargets = GameObject.FindGameObjectsWithTag("enemyTarget");
+                            for (int i = 0; i < possibleTargets.Length; i++)//trouve la cible la plus proche
+                            {
+                                float dist = Vector3.Distance(transform.position, possibleTargets[i].transform.position);
+                                if (dist <= minDist)
+                                {
+                                    temporaryTarget = possibleTargets[i].transform;
+                                    minDist = dist;
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                            }
+
+                            if (temporaryTarget != null)
+                            {
+                                enemyTarget = temporaryTarget;
+                            }
+                            else
                             {
                                 return;
                             }
-                            nodeIndex++;
-                            target = PathNode.nodeTransform[nodeIndex];
+
+
+                            /*enmNavMesh.destination = target.position;
+
+                            if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                            {
+                                if (nodeIndex >= PathNode.nodeTransform.Length - 1)
+                                {
+                                    return;
+                                }
+                                nodeIndex++;
+                                target = PathNode.nodeTransform[nodeIndex];
+                            }*/
                         }
-                    }
-                    else
-                    {
-                        return;
+                        else
+                        {
+                            if (enemyTarget != null)
+                            {
+                                if(enemyTarget.GetComponent<Enemy_Stats>().status != 2)
+                                {
+                                    enmNavMesh.destination = enemyTarget.position;
+                                }
+                                else
+                                {
+                                    enemyTarget = null;
+                                }
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
                     }
                 }
                 else
                 {
                     if (attractTarget != null)
                     {
-                        if (Vector3.Distance(transform.position, target.position) <= targetTreshold)
+                        if (Vector3.Distance(transform.position, enemyTarget.position) <= targetTreshold)
                         {
                             enmNavMesh.destination = attractTarget.position;
                         }
@@ -180,13 +247,10 @@ public class Enemy_Movement : MonoBehaviour
                 }
                 break;
             #endregion
+
             default:
                 return;
         }
-        /*if(pauser.realPause == true)
-        {
-
-        }*/
     }
 
     void ObjectiveSelection()
@@ -216,7 +280,7 @@ public class Enemy_Movement : MonoBehaviour
         isStunned = false;
     }
 
-    void ChangeStatus(string _statusText)
+    void ChangeStatus(string _statusText)//A changer : mettre des points de couleur
     {
         stateText.text = _statusText;
     }
