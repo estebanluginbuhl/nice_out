@@ -7,7 +7,8 @@ public class Wave_Manager : MonoBehaviour
     //Les firmes on un int "type" comme les pièges allant de 0 à 4 comme les pièges
     // Aussi il faut que tu fasse le choix des differente firme de la wave aprés le wavestart, demande quand t'en est la je texpliquerai pk
     Reward reward;//Utilises shop.canShop = true quand la vague est terminée pour que le joueur puisse recevoir un piege ou une upgrade
-    BuildingManager builder;
+    //BuildingManager builder;
+    Test_Builder builder;
     public int waveIndex; //Numéro de la vague
     public int nbMaxWaves; //Nombre de vagues
     public bool initializeWave; //Début de la vague, les batiments sont choisis et remplacés, tout se remet a l'etat initial
@@ -22,15 +23,15 @@ public class Wave_Manager : MonoBehaviour
 
     void Start()
     {
+        nbFirmesOnMap = nbMaxFirmes[waveIndex];
         reward = GetComponent<Reward>();
-        builder = GetComponent<BuildingManager>();
+        //builder = GetComponent<BuildingManager>();
+        builder = GetComponent<Test_Builder>();
         fullyUpgraded = new bool[reward.ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
-        StartWave();
     }
 
     void Update()
     {
-        
         if (initializeWave)
         {
             StartWave();
@@ -49,7 +50,7 @@ public class Wave_Manager : MonoBehaviour
         lootIndex = 0;
         nbFirmesOnMap = nbMaxFirmes[waveIndex]; //nombre de firme sur la map = le nb pour cette wave en particulier
         lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
-        builder.SelectHouses(nbFirmesOnMap);
+        builder.ReplaceHousesByFirmes(nbFirmesOnMap);
         initializeWave = false;
     }
     void EndWave()

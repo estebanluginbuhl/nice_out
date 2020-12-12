@@ -124,7 +124,7 @@ public class Enemy_Stats : MonoBehaviour
                 convertedToGood.Play();
                 if(player != null)
                 {
-                    player.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
+                    player.GetComponent<Player_Stats>().RincePlayer(50);//PrixDuMonstre
                 }
             }
         }

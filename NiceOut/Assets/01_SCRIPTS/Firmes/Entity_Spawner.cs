@@ -46,7 +46,7 @@ public class Entity_Spawner : MonoBehaviour
     {
         if(waveManager.play == true)
         {
-            if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
+            if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.waveIndex])
             {
                 if (cptTimeBetweenSpawn > 0)
                 {

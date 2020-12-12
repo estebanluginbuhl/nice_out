@@ -117,7 +117,7 @@ public class Switch_Mode : MonoBehaviour
     {
         mort = false;
         ui_DeathPanel.SetActive(false);
-        GetComponent<StatsPlayer>().Respawn();
+        GetComponent<Player_Stats>().Respawn();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Debug.Log("Retry");

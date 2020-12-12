@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class StatsPlayer : MonoBehaviour
+public class Player_Stats : MonoBehaviour
 {
     public float health;
     public float maxHealth;
