@@ -185,6 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2519995990761097119}
   - component: {fileID: 4125109224421620019}
+  - component: {fileID: 724020973271512885}
   - component: {fileID: 5635583681213479290}
   m_Layer: 0
   m_Name: PFB_Game_Manager
@@ -220,11 +221,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73aeff0ec17dd9c428ab24778d5e443d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbWaves: 10
+  waveIndex: 0
+  nbMaxWaves: 0
   waveStarted: 0
+  nbEntity: 0
+  nbMaxEntity: 
   nbFirmesOnMap: 8
   lootType: 0700000006000000050000000400000003000000020000000100000000000000
   fullyUpgraded: 
+--- !u!114 &724020973271512885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519995990761097118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32f9f8205fe06b4ea876dda2de44e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firmePFB: []
+  shopPFB: {fileID: 2670406486222251781, guid: 900fa49772f1fd8469d34ed251fba173, type: 3}
+  buildingPerWave: 0
+  houseIndex: 0
+  changeHouses: 0
+  placeShop: 0
+  recallHouse: 0
 --- !u!114 &5635583681213479290
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -147,11 +147,10 @@ public class Trap_Attack : MonoBehaviour
                 if (isGonnaDie == false)
                 {
                     c.GetComponent<Enemy_Movement>().isAttracted = true;
-                    c.GetComponent<Enemy_Movement>().attractTarget = parentTrap.transform;
+                    c.GetComponent<Enemy_Movement>().attractTarget = parentTrap.transform.position;
                 }
                 else
                 {
-                    c.GetComponent<Enemy_Movement>().attractTarget = null;
                     c.GetComponent<Enemy_Movement>().isAttracted = false;
                 }
             }
@@ -297,7 +296,7 @@ public class Trap_Attack : MonoBehaviour
                 if (isGonnaDie == false)
                 {
                     c.GetComponent<Enemy_Movement>().isAttracted = true;
-                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform;
+                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform.position;
                     if (cptCooldown == 0)
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
@@ -309,21 +308,20 @@ public class Trap_Attack : MonoBehaviour
                 }
                 else
                 {
-                    c.GetComponent<Enemy_Movement>().attractTarget = null;
                     c.GetComponent<Enemy_Movement>().isAttracted = false;
                 }
             }
         }
     }
 
-    IEnumerator  Cooldown(float _duration)
+    IEnumerator Cooldown(float _duration)
     {
         cptCooldown = 1;
         yield return new WaitForSecondsRealtime(_duration);
         cptCooldown = 0;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (parentTrap != null)
         {

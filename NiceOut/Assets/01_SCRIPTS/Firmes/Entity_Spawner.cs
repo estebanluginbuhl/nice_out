@@ -31,8 +31,7 @@ public class Entity_Spawner : MonoBehaviour
     }
     Vector3 ChooseSpawnPoint(float _radius)//choisi un point dans la range de la firme sur le navmesh pour faire spawn l'entité
     {
-        Vector3 randomDirection = Random.insideUnitSphere * _radius;
-        randomDirection += transform.position;
+        Vector3 randomDirection = transform.position + Random.insideUnitSphere * _radius;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
         if (NavMesh.SamplePosition(randomDirection, out hit, _radius, NavMesh.AllAreas))
@@ -45,7 +44,7 @@ public class Entity_Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(waveManager.waveStarted== true)
+        if(waveManager.play == true)
         {
             if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
             {

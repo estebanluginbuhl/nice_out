@@ -12,8 +12,6 @@ public class Enemy_Stats : MonoBehaviour
     public int status;
 
     GameObject player;
-    bool pause;
-
     [Header("Affichage")]
     //Visuel
     [SerializeField]
@@ -41,6 +39,7 @@ public class Enemy_Stats : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.Find("PFB_Player_Controller");
         healthbar.SetActive(false);
         healthPercentage = enmHealth / healthValues.w;
         healthImage.color = healthColor.Evaluate(healthPercentage);
@@ -51,11 +50,6 @@ public class Enemy_Stats : MonoBehaviour
 
     private void Update()
     {
-        if(player == null && GetComponent<Enemy_Movement>().pauser != null) 
-        {
-            pause = GetComponent<Enemy_Movement>().pauser.GetPause();
-            player = GetComponent<Enemy_Movement>().pauser.gameObject;
-        }
         if(player != null)
         {
             distancePlayer = Vector3.Distance(transform.position, player.transform.position);
