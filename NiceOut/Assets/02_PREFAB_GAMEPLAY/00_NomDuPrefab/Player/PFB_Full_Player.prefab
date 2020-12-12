@@ -401,6 +401,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4549441851817546168}
     m_Modifications:
+    - target: {fileID: 724020973271512885, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: firmePFB.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 724020973271512885, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: firmePFB.Array.data[0]
+      value: 
+      objectReference: {fileID: 1780317100766443828, guid: 1b1004b935463754bae6eed6743b4e25,
+        type: 3}
+    - target: {fileID: 724020973271512885, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: firmePFB.Array.data[1]
+      value: 
+      objectReference: {fileID: 7662000161684836162, guid: 586ef78e8021b8b4a8f7675ba3d7dfae,
+        type: 3}
+    - target: {fileID: 724020973271512885, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: firmePFB.Array.data[2]
+      value: 
+      objectReference: {fileID: 4183513129489557899, guid: 743c42f3ca61eed48979e38eb50fb39b,
+        type: 3}
     - target: {fileID: 2519995990761097118, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
       propertyPath: m_Name
