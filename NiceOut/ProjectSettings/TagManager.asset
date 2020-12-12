@@ -12,6 +12,7 @@ TagManager:
   - Shop
   - Maisons
   - Firmes
+  - enemyTarget
   layers:
   - Default
   - TransparentFX

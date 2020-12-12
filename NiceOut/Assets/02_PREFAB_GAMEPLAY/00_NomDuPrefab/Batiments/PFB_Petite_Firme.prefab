@@ -338,14 +338,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33621535529201833}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb66de6937e07f646b9e90ba76c9d88d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityToSpawn: {fileID: 6547376902778127861, guid: 02192d29f66effb4e805db1e93714636,
     type: 3}
-  type: 0
+  waveManager: {fileID: 0}
   nbEntityToSpawn: 1
   timeBetweenSpawn: 8
   spawnRange: 20
@@ -361,8 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c147583805c944cbf319da2626b0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firmeType: 0
-  lifeBar: {fileID: 345028996}
+  firme_Health_Bar: {fileID: 345028996}
   healthMax: 80
 --- !u!65 &3123486655784336819
 BoxCollider:

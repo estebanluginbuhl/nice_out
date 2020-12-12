@@ -7,7 +7,7 @@ public class Firme_Stats : MonoBehaviour
 {
     int firmeType;
     Wave_Manager waveManager;
-
+    BuildingManager buildManager;
     [SerializeField]
     Image firme_Health_Bar;
     float health;
@@ -25,7 +25,10 @@ public class Firme_Stats : MonoBehaviour
     // Update is called once per frame
     void Update() //update la barre de vie
     {
-        firme_Health_Bar.fillAmount = health / healthMax;
+        if(health/healthMax >= 0 && firme_Health_Bar != null)
+        {
+            firme_Health_Bar.fillAmount = health / healthMax;
+        }
     }
     
     public void DamageFirme(int _damages)//fait des  dégats à ce batiment de firme
@@ -37,14 +40,15 @@ public class Firme_Stats : MonoBehaviour
     void Destroy()//detruit ce batiment de firme
     {
         waveManager.AddLootType(firmeType);
+        //buildManager.callShop();
         Destroy(this.gameObject);
     }
 
-    void InitializeFirme(int _type, Wave_Manager _waveManager)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
+    void InitializeFirme(int _type, Wave_Manager _waveManager, BuildingManager _buildingManager)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
     {
         waveManager = _waveManager;
         firmeType = _type;
-
+        buildManager = _buildingManager;
         GetComponent<Entity_Spawner>().waveManager = _waveManager;
     }
 }

@@ -71,18 +71,18 @@ public class Character_Controller : MonoBehaviour
                 if (move != Vector2.zero)
                 {
                     PlayerAnimator.SetBool("Forward", true);
-                    moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity * Time.fixedDeltaTime;
+                    moveDir = Quaternion.Euler(0f, targetRotation, 0f) * Vector3.forward + Vector3.down * gravity;
                 }
                 else
                 {
                     PlayerAnimator.SetBool("Forward", false);
-                    moveDir = Vector3.down * gravity * Time.fixedDeltaTime;
+                    moveDir = Vector3.down * gravity;
                 }
                 
                 if (isRolling == false)
                 {
                     transform.rotation = Quaternion.Euler(rotation);
-                    charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed));//Mouvement
+                    charaCtrl.Move(moveDir.normalized * (baseSpeed + boostSpeed) * Time.deltaTime);//Mouvement
                 }
                 if(boostCountdown > 0)
                 {
@@ -114,7 +114,7 @@ public class Character_Controller : MonoBehaviour
                 if (invincibleCount > 0)
                 {
                     transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
-                    charaCtrl.Move(moveDir.normalized * (dashSpeed + boostSpeed));
+                    charaCtrl.Move(moveDir.normalized * (dashSpeed + boostSpeed) * Time.deltaTime);
                     GetComponent<StatsPlayer>().Invincibility(true);
                     invincibleCount -= Time.deltaTime;
                 }

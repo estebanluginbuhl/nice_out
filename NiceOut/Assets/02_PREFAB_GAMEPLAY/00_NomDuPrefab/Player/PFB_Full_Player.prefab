@@ -461,6 +461,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxEntity.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxEntity.Array.data[0]
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5635583681213479290, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
       propertyPath: player
@@ -1908,6 +1918,16 @@ PrefabInstance:
       propertyPath: afficheBoost
       value: 
       objectReference: {fileID: 2530590514346787537}
+    - target: {fileID: 7413206124061644213, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: baseSpeed
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644213, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: dashSpeed
+      value: 1700
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_Manager
