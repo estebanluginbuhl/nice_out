@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
+    Wave_Manager waveManager;
     public GameObject[] firmePFB;
     public GameObject shopPFB;
     GameObject selectedFirmePFB;
@@ -18,6 +19,10 @@ public class BuildingManager : MonoBehaviour
     public int buildingPerWave, houseIndex;
     public bool changeHouses, placeShop, recallHouse;
 
+    void Start()
+    {
+        waveManager = GetComponent<Wave_Manager>();
+    }
     void FixedUpdate()
     {
         if (changeHouses == true)
@@ -35,7 +40,7 @@ public class BuildingManager : MonoBehaviour
         if (recallHouse == true)
         {
             recallHouse = false;
-            RecallHouse(houseIndex);
+            RecallHouse();
             return;
         }
     }
@@ -61,12 +66,12 @@ public class BuildingManager : MonoBehaviour
         for (int i = 0; i < howManyChoosen; i++)
         {
             choosenHouses = Random.Range(0, maisons.Length);
-            ChangeHouses(choosenHouses);
+            ChangeHouses();
         }
         return;
     }
 
-    void ChangeHouses(int thisOneIsChanged)//desactive le GameObject pas supprimer pour pouvoir le remettre apres
+    void ChangeHouses()//desactive le GameObject pas supprimer pour pouvoir le remettre apres
     {
         selectedFirmePFB = firmePFB[Random.Range(0, firmePFB.Length)];
         maisons[choosenHouses].gameObject.SetActive(false);
@@ -106,7 +111,7 @@ public class BuildingManager : MonoBehaviour
         Instantiate(shopPFB, replaceFirme.position, replaceFirme.rotation);
     }
 
-    public void RecallHouse(int recallThatOne)//rappel la maison sous laquelle se trouve le batiment de firme détruit
+    public void RecallHouse()//rappel la maison sous laquelle se trouve le batiment de firme détruit
     {
         //ranger dans un tableau les maisons qui viennent d'être désactivé pour pouvoir les rappeler
         for (int i = 1; i <= choosenThatWave; i++)

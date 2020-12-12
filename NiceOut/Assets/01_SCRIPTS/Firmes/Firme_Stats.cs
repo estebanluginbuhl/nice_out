@@ -35,13 +35,17 @@ public class Firme_Stats : MonoBehaviour
     {
         health -= _damages;
         waveManager.AddRemoveEntity(false);
+        if(health <= 0)
+        {
+            DestroyFirme();
+        }
     }
 
-    void Destroy()//detruit ce batiment de firme
+    void DestroyFirme()//detruit ce batiment de firme
     {
         waveManager.AddLootType(firmeType);
-        //buildManager.callShop();
-        Destroy(this.gameObject);
+        buildManager.CallShop();
+        buildManager.RecallHouse();//Faut le rechangé en maison pas le detruire
     }
 
     void InitializeFirme(int _type, Wave_Manager _waveManager, BuildingManager _buildingManager)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes

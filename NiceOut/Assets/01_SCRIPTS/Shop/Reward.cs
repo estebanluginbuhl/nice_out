@@ -197,7 +197,8 @@ public class Reward : MonoBehaviour
             rewardTime = false;
             nbTrapAdded += 1;
         }
-        waveManager.waveStarted = true;
+        waveManager.initializeWave = true;
+        waveManager.play = true;
     }
 
     public void AllTraps()//temporaire, donne tous les traps au joueur

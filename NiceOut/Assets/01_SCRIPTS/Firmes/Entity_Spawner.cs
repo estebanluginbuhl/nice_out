@@ -44,7 +44,7 @@ public class Entity_Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(waveManager.waveStarted== true)
+        if(waveManager.play == true)
         {
             if (waveManager.nbEntity < waveManager.nbMaxEntity[waveManager.nbMaxWaves])
             {

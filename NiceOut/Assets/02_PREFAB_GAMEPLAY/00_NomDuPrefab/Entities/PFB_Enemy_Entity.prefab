@@ -37979,7 +37979,7 @@ GameObject:
   - component: {fileID: 1322425481945263789}
   m_Layer: 13
   m_Name: PFB_Enemy_Entity
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
