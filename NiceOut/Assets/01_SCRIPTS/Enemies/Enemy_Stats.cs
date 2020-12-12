@@ -112,6 +112,7 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 2)
             {
+                transform.gameObject.tag = "Untagged";
                 status = 2;
                 gameObject.layer = 13;
                 GetComponentInChildren<MeshRenderer>().material = mats[2];
@@ -122,17 +123,22 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 1)
             {
+                transform.gameObject.tag = "enemyTarget";
                 status = 1;
                 gameObject.layer = 17;
                 GetComponentInChildren<MeshRenderer>().material = mats[1];
                 convertedToGood.Play();
-                player.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
+                if(player != null)
+                {
+                    player.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
+                }
             }
         }
         else if (enmHealth >= healthValues.y && enmHealth <= healthValues.z)//entre 45 et 55 neutral
         {
             if (status != 0)
             {
+                transform.gameObject.tag = "enemyTarget";
                 status = 0;
                 gameObject.layer = 15;
                 GetComponentInChildren<MeshRenderer>().material = mats[0];

@@ -6,7 +6,7 @@ public class Enemy_Attack : MonoBehaviour
 {
     [SerializeField]
     private int enemyDamages, allyDamages;
-    public float attackRadius, enemyDamageCooldown;
+    public float enemyAttackRadius, allieAttackRadius, enemyDamageCooldown;
     private GameObject attackTarget;
     bool wantsToAttack;
     bool isDead;
@@ -26,7 +26,7 @@ public class Enemy_Attack : MonoBehaviour
                 break;
 
             case 1:
-                Collider[] allyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, firmeLayer);
+                Collider[] allyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, allieAttackRadius, firmeLayer);
                 if (allyTarget.Length == 0)
                 {
                     return;
@@ -48,7 +48,7 @@ public class Enemy_Attack : MonoBehaviour
                     {
                         enemyDamageCooldown += Time.deltaTime;
                     }
-                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, playerLayer);
+                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, enemyAttackRadius, playerLayer);
                     if (enemyTarget.Length == 0)
                     {
                         return;
@@ -74,7 +74,7 @@ public class Enemy_Attack : MonoBehaviour
                     {
                         enemyDamageCooldown += Time.deltaTime;
                     }
-                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, attackRadius, allyLayer);
+                    Collider[] enemyTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, enemyAttackRadius, allyLayer);
                     if (enemyTarget.Length == 0)
                     {
                         return;
@@ -128,6 +128,6 @@ public class Enemy_Attack : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * 2.25f, enemyAttackRadius);
     }
 }
