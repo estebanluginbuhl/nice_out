@@ -48,18 +48,8 @@ public class Firme_Stats : MonoBehaviour
         waveManager.AddLootType(firmeType);
         buildManager.RecallModifiedHouses(firmeIndex);
         Destroy(this.gameObject);
-       // buildManager.CallShop();
-       // buildManager.RecallHouse();//Faut le rechangé en maison pas le detruire
     }
 
-    /*public void InitializeFirme(int _type, int _index, Wave_Manager _waveManager, BuildingManager _buildingManager)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
-    {
-        waveManager = _waveManager;
-        firmeType = _type;
-        firmeIndex = _index;
-        buildManager = _buildingManager;
-        GetComponent<Entity_Spawner>().waveManager = _waveManager;
-    }*/
     public void InitializeFirmeTest(int _type, int _index, Wave_Manager _waveManager, Test_Builder _testBuilder)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
     {
         waveManager = _waveManager;

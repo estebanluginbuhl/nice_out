@@ -19,15 +19,13 @@ public class Entity_Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waveManager = GameObject.Find("PFB_Game_Manager").GetComponent<Wave_Manager>();//temp
         cptTimeBetweenSpawn = timeBetweenSpawn;
     }
-
     void SpawnEntity(Vector3 _spawnPoint)
     {
         waveManager.AddRemoveEntity(true);
         GameObject newEntity = Instantiate(entityToSpawn, _spawnPoint, Quaternion.identity);
-        print("Spawned");
+        newEntity.GetComponent<Enemy_Stats>().wavemanager = waveManager;
     }
     Vector3 ChooseSpawnPoint(float _radius)//choisi un point dans la range de la firme sur le navmesh pour faire spawn l'entité
     {

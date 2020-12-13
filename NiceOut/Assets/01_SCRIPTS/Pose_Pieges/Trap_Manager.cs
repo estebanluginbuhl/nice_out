@@ -13,6 +13,7 @@ public class Trap_Manager : MonoBehaviour
     [Header("UI Elements")]
     public Canvas ui_Manager;//menus en gros
     public Image ui_Inventory;//inventaire
+    public GameObject[] ui_Inputs_Infos;//inventaire
     public GameObject ui_trapDescription;//inventaire
     public GameObject ui_trapInfos;//inventaire
     bool inventoryActive;
@@ -68,6 +69,11 @@ public class Trap_Manager : MonoBehaviour
     private void Start()
     {
         ui_Inventory.rectTransform.position = new Vector3(ui_Inventory.rectTransform.position.x, inventoryTransforms.y, ui_Inventory.rectTransform.position.z);
+        foreach (GameObject g in ui_Inputs_Infos)
+        {
+            g.SetActive(false);
+        }
+
         ui_trapDescription.SetActive(false);
         ui_trapInfos.SetActive(false);
         inventoryActive = false;
@@ -232,6 +238,10 @@ public class Trap_Manager : MonoBehaviour
         {
             Vector2 desiredPos = new Vector2(ui_Inventory.rectTransform.anchoredPosition.x, inventoryTransforms.x);
             ui_Inventory.rectTransform.anchoredPosition = desiredPos;
+            foreach (GameObject g in ui_Inputs_Infos)
+            {
+                g.SetActive(true);
+            }
             ui_trapDescription.SetActive(true);
             ui_trapInfos.SetActive(true);
             inventoryActive = true;
@@ -243,6 +253,10 @@ public class Trap_Manager : MonoBehaviour
         {
             Vector2 desiredPos = new Vector2(ui_Inventory.rectTransform.anchoredPosition.x, inventoryTransforms.y);
             ui_Inventory.rectTransform.anchoredPosition = desiredPos;
+            foreach (GameObject g in ui_Inputs_Infos)
+            {
+                g.SetActive(false);
+            }
             ui_trapDescription.SetActive(false);
             ui_trapInfos.SetActive(false);
             inventoryActive = false;
