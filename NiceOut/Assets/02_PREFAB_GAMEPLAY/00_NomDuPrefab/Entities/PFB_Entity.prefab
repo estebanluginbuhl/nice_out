@@ -37977,9 +37977,9 @@ GameObject:
   - component: {fileID: 4033999321332675911}
   - component: {fileID: 7014327665131691280}
   - component: {fileID: 1322425481945263789}
-  m_Layer: 15
-  m_Name: PFB_Neutral_Entity
-  m_TagString: enemyTarget
+  m_Layer: 13
+  m_Name: PFB_Entity
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38013,6 +38013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60a9b98fc9b0344dbaa3b965ae73037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   wavemanager: {fileID: 0}
   status: 0
   distanceMaxPlayer: 25
@@ -38056,7 +38057,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b5814b581687d7147838823675c9ef92, type: 2}
   - {fileID: 2100000, guid: a47370a74e7cc9848b0559f64d7b0ca6, type: 2}
   - {fileID: 2100000, guid: aae9c63fe1f00534d8030a8c63242144, type: 2}
-  enmHealth: 50
+  enmHealth: 0
   hasDot: 0
 --- !u!114 &6343466456876240757
 MonoBehaviour:

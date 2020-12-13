@@ -11,7 +11,7 @@ public class Wave_Manager : MonoBehaviour
     // Aussi il faut que tu fasse le choix des differente firme de la wave aprés le wavestart, demande quand t'en est la je texpliquerai pk
     Reward reward;//Utilises shop.canShop = true quand la vague est terminée pour que le joueur puisse recevoir un piege ou une upgrade
     public Switch_Mode mode;
-    Test_Builder builder;
+    Firme_Builder builder;
     public int waveIndex; //Numéro de la vague
     public int nbMaxWaves; //Nombre de vagues
     public bool initializeWave; //Début de la vague, les batiments sont choisis et remplacés, tout se remet a l'etat initial
@@ -41,7 +41,7 @@ public class Wave_Manager : MonoBehaviour
         enemyBar.fillAmount = 0;
         nbFirmesOnMap = nbMaxFirmes[waveIndex];
         reward = GetComponent<Reward>();
-        builder = GetComponent<Test_Builder>();
+        builder = GetComponent<Firme_Builder>();
         fullyUpgraded = new bool[reward.ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
         winPanel.SetActive(false);
         losePanel.SetActive(false);
@@ -76,7 +76,7 @@ public class Wave_Manager : MonoBehaviour
         lootIndex = 0;
         nbFirmesOnMap = nbMaxFirmes[waveIndex]; //nombre de firme sur la map = le nb pour cette wave en particulier
         lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
-        builder.ReplaceHousesByFirmes(nbFirmesOnMap);
+        builder.ReplaceHousesByFirmes(waveIndex);
         initializeWave = false;
     }
     void EndWave()
@@ -93,9 +93,7 @@ public class Wave_Manager : MonoBehaviour
         }
         else
         {
-            play = false;
-            reward.rewardTime = true;//Ouvre le reward panel
-                                     //Enleve les entités de la map
+            //Enleve les entités de la map
             GameObject[] entities1 = GameObject.FindGameObjectsWithTag("enemyTarget");
             GameObject[] entities2 = GameObject.FindGameObjectsWithTag("enemy");
             foreach (GameObject g1 in entities1)
@@ -106,6 +104,9 @@ public class Wave_Manager : MonoBehaviour
             {
                 Destroy(g2);
             }
+            play = false;
+            reward.rewardTime = true;//Ouvre le reward panel
+            Debug.Log("DestroyEntities");
         }
     }
     void AddBaseNeutrals()
@@ -127,6 +128,7 @@ public class Wave_Manager : MonoBehaviour
             }
 
             GameObject newNeutral = Instantiate(neutralEntityPrefab, spawnPlace, Quaternion.identity);
+            newNeutral.GetComponent<Enemy_Stats>().InitializeEntity(0, 50, this);
             AddRemoveEntity(true);
         }
     }

@@ -32729,7 +32729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413206122574030981}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: spherePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32744,7 +32744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7413206122574030978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 3.5}
+  m_LocalPosition: {x: 0, y: 2, z: 6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7413206124061644210}
@@ -32762,7 +32762,7 @@ GameObject:
   - component: {fileID: 7413206122974435175}
   - component: {fileID: 7413206122974435172}
   - component: {fileID: 1140486815}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Corp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32811,7 +32811,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: d86a533750a65a04baa643c481f8d17d, type: 3}
+  - {fileID: 5561349426305759274, guid: c8b2d5725978a4042b80905157b4a504, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -32869,7 +32869,7 @@ GameObject:
   - component: {fileID: 218604027}
   m_Layer: 10
   m_Name: PFB_Player_Controller
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32907,11 +32907,11 @@ MonoBehaviour:
   floor:
     serializedVersion: 2
     m_Bits: 256
-  baseSpeed: 0.5
-  boostSpeed: 0
+  baseSpeed: 1500
   turnSmooth: 10
   gravity: 60
-  dashSpeed: 0.8
+  afficheBoost: {fileID: 0}
+  dashSpeed: 1700
   invincibleDuration: 0.5
   cdRoll: 1
   isBoosted: {fileID: 198796712655902167}
@@ -32931,11 +32931,8 @@ MonoBehaviour:
   maxHealth: 40
   healthPercentage: 0
   gold: 2234
-  chargeSpeed: 1
-  tempsMort: 20
   healthValue: {fileID: 0}
   goldValue_Text: {fileID: 0}
-  chargeSpeed_Text: {fileID: 0}
   healthBar: {fileID: 0}
   getDamaged: {fileID: 2084319788}
 --- !u!114 &7413206124061644215
@@ -32950,6 +32947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b8e0758828f9f49b05c1e7ebe814ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuScene: GameStartMenu
   mode: 0
   pause: 0
   realPause: 0
@@ -32972,7 +32970,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui_Manager: {fileID: 0}
   ui_Inventory: {fileID: 0}
+  ui_Inputs_Infos:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ui_trapDescription: {fileID: 0}
+  ui_trapInfos: {fileID: 0}
+  inventoryTransforms: {x: 0, y: -170}
+  smoothingOpening: 0.107
   trapped:
     serializedVersion: 2
     m_Bits: 512
@@ -32985,7 +32990,7 @@ MonoBehaviour:
   cantTrapLayer:
     serializedVersion: 2
     m_Bits: 29440
-  detectionRadius: 1
+  detectionRadius: 2
   spherePosition: {fileID: 7413206122574030978}
   selectedTrap: {fileID: 0}
   previewTrap: {fileID: 0}
@@ -33026,6 +33031,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  curentGold: {fileID: 0}
   shopPanel: {fileID: 0}
   shopRange: 8
   shopLayer:
@@ -33072,7 +33078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413206124288006484}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Camera_Focus_Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

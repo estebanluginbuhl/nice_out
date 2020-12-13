@@ -10,7 +10,6 @@ public class Player_Stats : MonoBehaviour
     public float maxHealth;
     public float healthPercentage;
     public int gold;
-    public int tempsMort;
 
     //Invincibility
     bool isInvincible = false;
@@ -96,5 +95,7 @@ public class Player_Stats : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         leSwitch.mort = true;
+        leSwitch.realPause = true;
+        leSwitch.pause = true;
     }
 }

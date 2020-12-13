@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b4b4ffe99564a9044876d564f64efd68, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 352787187758087752}
   - component: {fileID: 2808261199477151920}
   m_Layer: 16
-  m_Name: PFB_Moyenne_Firme
+  m_Name: PFB_Medium_Firme_Fastfood
   m_TagString: Objectives
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,8 +218,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c147583805c944cbf319da2626b0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firmeType: 0
+  mshRdr: {fileID: 5842574580320958747}
   firme_Health_Bar: {fileID: 2151168148623890870}
   healthMax: 10
+  typeMats:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 66efda431af036f47bb8bd0838540b26, type: 2}
+  - {fileID: 2100000, guid: c6131864e7e026948a5651c25ee994ea, type: 2}
+  - {fileID: 2100000, guid: b4b4ffe99564a9044876d564f64efd68, type: 2}
+  - {fileID: 2100000, guid: 9552b893cc7c94448acd9af8975991c1, type: 2}
+  - {fileID: 2100000, guid: 60e95759c40fc1f4daa6488173a7c4b0, type: 2}
+  - {fileID: 2100000, guid: 02d68c819da82644da0c1f6cfdd70b83, type: 2}
 --- !u!65 &2808261199477151920
 BoxCollider:
   m_ObjectHideFlags: 0

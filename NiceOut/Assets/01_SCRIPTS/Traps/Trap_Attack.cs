@@ -127,7 +127,7 @@ public class Trap_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
+                        target.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -236,7 +236,7 @@ public class Trap_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
+                    c.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
@@ -294,7 +294,7 @@ public class Trap_Attack : MonoBehaviour
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<Enemy_Stats>().DamageBadEnemy(damages);
+                            c.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }

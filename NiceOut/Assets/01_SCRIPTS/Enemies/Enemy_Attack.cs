@@ -110,7 +110,7 @@ public class Enemy_Attack : MonoBehaviour
     {
         if (_enemyTarget != null)
         {
-            _enemyTarget.GetComponent<Enemy_Stats>().DamageGoodEnemy(enemyDamages);
+            _enemyTarget.GetComponent<Enemy_Stats>().DamageGoodEntity(enemyDamages, GetComponent<Enemy_Stats>().entityType);
             enemyDamageCooldown = 0;
         }
     }

@@ -9,8 +9,7 @@ public class Reward : MonoBehaviour
     Inputs inputs;
 
     [Header("References")]
-    [SerializeField]
-    private GameObject player;
+    public GameObject player;
     Wave_Manager waveManager;
     [SerializeField]
     private Shop shop;
