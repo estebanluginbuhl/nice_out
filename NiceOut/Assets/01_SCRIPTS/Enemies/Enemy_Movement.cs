@@ -176,10 +176,9 @@ public class Enemy_Movement : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log(pathFinding);
                         if (hasAnEnemyTarget == false)
                         {
-                            ChangeStatus("Attaque les alliés");
+
                             float minDist = Mathf.Infinity;
                             Transform temporaryTarget = null;
                             GameObject[] possibleTargets = GameObject.FindGameObjectsWithTag("enemyTarget");
@@ -210,6 +209,7 @@ public class Enemy_Movement : MonoBehaviour
                                     }
                                     else
                                     {
+                                        ChangeStatus("Se Balade");
                                         entityNavMesh.destination = neutralTarget;
                                     }
                                 }
@@ -237,6 +237,7 @@ public class Enemy_Movement : MonoBehaviour
                                 {
                                     if (Vector3.Distance(transform.position, enemyTarget.position) > targetTresholdEnemy)
                                     {
+                                        ChangeStatus("Attaque les alliés");
                                         entityNavMesh.destination = enemyTarget.position;
                                     }
                                     else

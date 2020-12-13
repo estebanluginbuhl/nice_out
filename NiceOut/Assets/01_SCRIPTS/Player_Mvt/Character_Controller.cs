@@ -11,7 +11,7 @@ public class Character_Controller : MonoBehaviour
     Transform cam;
     CharacterController charaCtrl;
     CapsuleCollider charaColl;
-    StatsPlayer playerStats;
+    Player_Stats playerStats;
     public Animator PlayerAnimator;
     public LayerMask floor;
 
@@ -56,7 +56,7 @@ public class Character_Controller : MonoBehaviour
         cam = Camera.main.transform;
         charaCtrl = GetComponent<CharacterController>();
         charaColl = GetComponent<CapsuleCollider>();
-        playerStats = GetComponent<StatsPlayer>();
+        playerStats = GetComponent<Player_Stats>();
     }
     void Update()
     {
@@ -115,7 +115,7 @@ public class Character_Controller : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(0, Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg + cam.eulerAngles.y, 0);
                     charaCtrl.Move(moveDir.normalized * (dashSpeed + boostSpeed) * Time.deltaTime);
-                    GetComponent<StatsPlayer>().Invincibility(true);
+                    GetComponent<Player_Stats>().Invincibility(true);
                     invincibleCount -= Time.deltaTime;
                 }
                 else
@@ -124,7 +124,7 @@ public class Character_Controller : MonoBehaviour
                     {
                         charaColl.enabled = true;
                         PlayerAnimator.ResetTrigger("Roulade");
-                        GetComponent<StatsPlayer>().Invincibility(false);
+                        GetComponent<Player_Stats>().Invincibility(false);
                         isRolling = false;
                     }
                 }

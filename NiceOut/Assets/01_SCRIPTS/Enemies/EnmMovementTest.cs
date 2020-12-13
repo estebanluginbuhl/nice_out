@@ -375,7 +375,7 @@ public class EnmMovementTest : MonoBehaviour
     {
         if (_target != null)
         {
-            _target.GetComponent<StatsPlayer>().DamagePlayer(damage);
+            _target.GetComponent<Player_Stats>().DamagePlayer(damage);
             damageCooldown = 0;
         }
     }

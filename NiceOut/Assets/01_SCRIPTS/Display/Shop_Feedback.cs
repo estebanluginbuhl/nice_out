@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FeedbackShop : MonoBehaviour
+public class Shop_Feedback : MonoBehaviour
 {
     public GameObject player;
     [SerializeField]

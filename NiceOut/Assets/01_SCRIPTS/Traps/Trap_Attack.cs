@@ -77,7 +77,7 @@ public class Trap_Attack : MonoBehaviour
 
     void AttaquePorteurDePresse()//Valide
     {
-        float attackRange = 2f;
+        float attackRange = 3f;
         NavMeshAgent nav = GetComponent<NavMeshAgent>();
 
         Collider[] ennemis = Physics.OverlapSphere(parentTrap.transform.position, rangeSphere, ennemisMask);
@@ -156,7 +156,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     void AttaqueBacAFruit()
     {
         Vector3 forwardVector = transform.rotation * Vector3.forward;
@@ -176,7 +175,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     void AttaqueParfum()
     {
         int dotDuration = Mathf.RoundToInt(cooldown);
@@ -212,7 +210,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     void AttaqueAntenneBrouilleur()//Valide
     {
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
@@ -229,7 +226,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     void AttaqueBar()//Valide
     {
         Collider[] ennemis = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
@@ -246,7 +242,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     /*void AttaqueTapisRoulant()
     {
         //Devant : accélérer
@@ -281,8 +276,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }*/
-
-
     void AttaqueStandCommerce()
     {
         float attaqueRange = 2f;

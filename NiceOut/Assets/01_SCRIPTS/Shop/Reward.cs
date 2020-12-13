@@ -29,6 +29,7 @@ public class Reward : MonoBehaviour
     [Header("UI Elements")]
     public Canvas ui_Manager;
     public GameObject uiRewardPanel;
+    public GameObject uiFirstTrapsPanel;
     public Image uiRewardImage;
     public TextMeshProUGUI uiRewardText;
 
@@ -41,8 +42,24 @@ public class Reward : MonoBehaviour
 
     private void Awake()
     {
-        uiRewardPanel.SetActive(false);
         waveManager = GetComponent<Wave_Manager>();
+        upgradeIndexes = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
+        addedTraps = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
+
+        for (int i = 0; i < ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax; i++)
+        {
+            upgradeIndexes[i] = 0;
+            addedTraps[i] = 0;
+        }
+        uiRewardPanel.SetActive(false);
+        uiFirstTrapsPanel.SetActive(true);
+        player.GetComponent<Switch_Mode>().pause = true;
+        player.GetComponent<Switch_Mode>().realPause = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0;
+        rewardTime = false;
+        lootSelected = false;
 
         inputs = new Inputs();
         inputs.Actions.Reward.started += ctx => rewardTime = true;
@@ -56,19 +73,10 @@ public class Reward : MonoBehaviour
         {
             item.GetComponent<Traps>().upgradeIndex = 0;
         }
-        upgradeIndexes = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
-        addedTraps = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
-
-        for (int i = 0; i < ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax; i++)
-        {
-            upgradeIndexes[i] = 0;
-            addedTraps[i] = 0;
-        }
     }
 
     private void Update()
     {
-
         if (rewardTime == true)
         {
             if (lootSelected == false)
@@ -86,7 +94,6 @@ public class Reward : MonoBehaviour
             }
         }
     }
-
     public void RewardPanelOpenClose()
     {
         if (player.GetComponent<Switch_Mode>().realPause == false)
@@ -105,7 +112,6 @@ public class Reward : MonoBehaviour
             }
         }
     }
-
     public void RewardSelection()
     {
         rewardTrapIndex = waveManager.lootType[waveManager.nbFirmesOnMap - 1];//Engros c'est le type de batiment et piège sélectionné au final. 
@@ -200,7 +206,27 @@ public class Reward : MonoBehaviour
         waveManager.initializeWave = true;
         waveManager.play = true;
     }
-
+    public void AddFirstTraps()
+    {
+        for (int i = 0; i < 3; i++)//3 premier pieges
+        {
+            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i], i);
+            upgradeIndexes[i] = 0;
+            addedTraps[i] = 1;
+            shop.AddShopTrap(i);
+            nbTrapAdded += 1;
+        }
+        rewardTime = false;
+        lootSelected = false;
+        uiFirstTrapsPanel.SetActive(false);
+        player.GetComponent<Switch_Mode>().pause = false;
+        player.GetComponent<Switch_Mode>().realPause = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1;
+        waveManager.initializeWave = true;
+        waveManager.play = true;
+    }//ajoute les 3 premier traps
     public void AllTraps()//temporaire, donne tous les traps au joueur
     {
         for (int i = 0; i < allTraps.Length * 3; i++)
@@ -212,7 +238,6 @@ public class Reward : MonoBehaviour
         RewardPanelOpenClose();
         rewardTime = false;
     }
-
     private void OnEnable()
     {
         inputs.Actions.Enable();

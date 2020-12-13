@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Switch_Mode : MonoBehaviour
 {
     Inputs inputs;
     
+    public string menuScene;
     [HideInInspector]
     public bool mode = false; //variable du mode de gameplay : true = posage de piège / false = combat
     //[HideInInspector]
@@ -117,10 +119,9 @@ public class Switch_Mode : MonoBehaviour
     {
         mort = false;
         ui_DeathPanel.SetActive(false);
-        GetComponent<StatsPlayer>().Respawn();
+        GetComponent<Player_Stats>().Respawn();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Debug.Log("Retry");
     }   
     
     public void Restart()
@@ -140,5 +141,10 @@ public class Switch_Mode : MonoBehaviour
     {
         Debug.Log("Quitter");
         Application.Quit();
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(menuScene);
     }
 }

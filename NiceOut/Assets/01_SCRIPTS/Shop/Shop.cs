@@ -10,7 +10,7 @@ public class Shop : MonoBehaviour
     Inputs inputs;
 
     public bool buyingTime = false;
-    StatsPlayer stats;
+    Player_Stats stats;
     Switch_Mode switchMode;
     public Trap_Inventory inventory;
     public Text[] costTexts;
@@ -28,7 +28,7 @@ public class Shop : MonoBehaviour
         inputs = new Inputs();
         inputs.Actions.Shop.started += ctx => buyingTime = !buyingTime;
 
-        stats = GetComponent<StatsPlayer>();
+        stats = GetComponent<Player_Stats>();
         switchMode = GetComponent<Switch_Mode>();
         shopPanel.SetActive(false);
         foreach(GameObject b in buttons)
@@ -40,7 +40,7 @@ public class Shop : MonoBehaviour
         GameObject[] detectShops = GameObject.FindGameObjectsWithTag("Shop");
         foreach (GameObject s in detectShops)
         {
-            s.GetComponent<FeedbackShop>().player = this.gameObject;
+            s.GetComponent<Shop_Feedback>().player = this.gameObject;
         }
     }
 
@@ -48,7 +48,7 @@ public class Shop : MonoBehaviour
     {
         OpenShop();
         if (buyingTime)
-            curentGold.text = GetComponent<StatsPlayer>().gold.ToString();
+            curentGold.text = GetComponent<Player_Stats>().gold.ToString();
     }
 
     public void OpenShop()
