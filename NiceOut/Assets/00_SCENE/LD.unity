@@ -52633,75 +52633,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145799070}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &5261195602686951693
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5261195603358915936, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_Name
-      value: ColliderNavMesh
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261195603358915939, guid: 0b6383dae2f18814295b452c6a956e5a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0b6383dae2f18814295b452c6a956e5a, type: 3}
 --- !u!1001 &7303318663570200579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52709,26 +52640,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 270075689925471817, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2442576424292311867, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
-        type: 3}
-      propertyPath: m_Carve
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5694037983472257920, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
-        type: 3}
-      propertyPath: m_Carve
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6766197856389489728, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
-        type: 3}
-      propertyPath: m_Carve
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7303318664014447458, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52788,11 +52699,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Group_LD
-      objectReference: {fileID: 0}
-    - target: {fileID: 9175149923294882672, guid: 74c67f4c542fc7e43bb01a6e850bd93e,
-        type: 3}
-      propertyPath: m_Carve
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74c67f4c542fc7e43bb01a6e850bd93e, type: 3}
