@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:NiceOut/Assets/02_PREFAB_GAMEPLAY/01_Meshes/Player.meta
 guid: b0a2af57e68a5234b87900397a96db73
+=======
+guid: 52f23fc9a3e5c3843a8fc23b5850214d
+>>>>>>> Main:NiceOut/Assets/03_PROPS/03_Textures/diorama/Pot4.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
