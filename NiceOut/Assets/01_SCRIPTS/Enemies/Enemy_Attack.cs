@@ -102,7 +102,7 @@ public class Enemy_Attack : MonoBehaviour
     {
         if (_enemyTarget != null)
         {
-            _enemyTarget.GetComponent<StatsPlayer>().DamagePlayer(enemyDamages);
+            _enemyTarget.GetComponent<Player_Stats>().DamagePlayer(enemyDamages);
             enemyDamageCooldown = 0;
         }
     }    

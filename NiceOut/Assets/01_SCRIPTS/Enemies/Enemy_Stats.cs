@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Enemy_Stats : MonoBehaviour
 {
+    public Wave_Manager wavemanager;
     [Header("status bad enm = 2")]
     [Header("status allie = 1")]
     [Header("status neutral = 0")]
@@ -106,6 +107,7 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 2)
             {
+                wavemanager.AddRemoveEnemy(true);
                 transform.gameObject.tag = "Untagged";
                 status = 2;
                 gameObject.layer = 13;
@@ -117,6 +119,8 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 1)
             {
+                wavemanager.AddRemoveEnemy(false);
+                wavemanager.AddRemoveAlly(false);
                 transform.gameObject.tag = "enemyTarget";
                 status = 1;
                 gameObject.layer = 17;
@@ -124,7 +128,7 @@ public class Enemy_Stats : MonoBehaviour
                 convertedToGood.Play();
                 if(player != null)
                 {
-                    player.GetComponent<StatsPlayer>().RincePlayer(50);//PrixDuMonstre
+                    player.GetComponent<Player_Stats>().RincePlayer(50);//PrixDuMonstre
                 }
             }
         }
@@ -132,6 +136,7 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 0)
             {
+                wavemanager.AddRemoveAlly(true);
                 transform.gameObject.tag = "enemyTarget";
                 status = 0;
                 gameObject.layer = 15;
@@ -139,7 +144,6 @@ public class Enemy_Stats : MonoBehaviour
             }
         }
     }
-
     public IEnumerator DamagesOverTime(int _damage, int _duration, float _range, int _index)//DOT parfum
     {
         Debug.Log(_index);

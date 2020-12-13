@@ -14,6 +14,7 @@ TagManager:
   - Firmes
   - enemyTarget
   - enemy
+  - ModifiedHouse
   layers:
   - Default
   - TransparentFX

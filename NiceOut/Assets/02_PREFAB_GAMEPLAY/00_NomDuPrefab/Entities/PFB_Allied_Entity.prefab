@@ -38013,6 +38013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60a9b98fc9b0344dbaa3b965ae73037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wavemanager: {fileID: 0}
   status: 0
   distanceMaxPlayer: 25
   healthbar: {fileID: 7534105158628510663}
@@ -38105,7 +38106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccb36c52caa6b9468cf1e0052a4df8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamages: 5
+  enemyDamages: 1
   allyDamages: 5
   enemyAttackRadius: 2
   allieAttackRadius: 1

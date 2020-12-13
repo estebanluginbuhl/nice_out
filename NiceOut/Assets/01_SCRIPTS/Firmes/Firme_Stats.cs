@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class Firme_Stats : MonoBehaviour
 {
     int firmeType;
+    int firmeIndex;
     Wave_Manager waveManager;
-    BuildingManager buildManager;
+    Test_Builder buildManager;
+    //BuildingManager buildManager;
     [SerializeField]
     Image firme_Health_Bar;
     float health;
@@ -44,15 +46,16 @@ public class Firme_Stats : MonoBehaviour
     void DestroyFirme()//detruit ce batiment de firme
     {
         waveManager.AddLootType(firmeType);
-        buildManager.CallShop();
-        buildManager.RecallHouse();//Faut le rechangé en maison pas le detruire
+        buildManager.RecallModifiedHouses(firmeIndex);
+        Destroy(this.gameObject);
     }
 
-    void InitializeFirme(int _type, Wave_Manager _waveManager, BuildingManager _buildingManager)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
+    public void InitializeFirmeTest(int _type, int _index, Wave_Manager _waveManager, Test_Builder _testBuilder)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
     {
         waveManager = _waveManager;
         firmeType = _type;
-        buildManager = _buildingManager;
+        firmeIndex = _index;
+        buildManager = _testBuilder;
         GetComponent<Entity_Spawner>().waveManager = _waveManager;
     }
 }
