@@ -84,7 +84,7 @@ public class Enemy_Stats : MonoBehaviour
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
         convertGoodEnemyParticle.Play();
-        UpdateEnemyState();
+        //UpdateEnemyState();
     }
 
     public void DamageBadEntity(int takenDamage)

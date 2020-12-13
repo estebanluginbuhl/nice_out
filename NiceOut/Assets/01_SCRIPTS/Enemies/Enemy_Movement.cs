@@ -167,6 +167,14 @@ public class Enemy_Movement : MonoBehaviour
             //bad enm   status 2
             #region
             case 2:
+                if (isSlowed || isFastened)
+                {
+                    entityNavMesh.speed = modifiedSpeed;
+                }
+                else if (entityNavMesh.speed != enmSpeed)
+                {
+                    entityNavMesh.speed = enmSpeed;
+                }
                 if (isAttracted == false)
                 {
                     if (pathFinding == true)
@@ -271,15 +279,6 @@ public class Enemy_Movement : MonoBehaviour
                         entityNavMesh.destination = transform.position;
                         return;
                     }
-                }
-
-                if (isSlowed || isFastened)
-                {
-                    entityNavMesh.speed = modifiedSpeed;
-                }
-                else if (entityNavMesh.speed != enmSpeed)
-                {
-                    entityNavMesh.speed = enmSpeed;
                 }
                 break;
             #endregion
