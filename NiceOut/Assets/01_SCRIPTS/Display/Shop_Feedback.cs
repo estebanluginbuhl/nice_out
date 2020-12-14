@@ -20,7 +20,7 @@ public class Shop_Feedback : MonoBehaviour
         if(player!= null)
         {
             anm.SetFloat("DistancePlayer", Vector3.Distance(player.transform.position, transform.position));
-            if (Vector3.Distance(player.transform.position, transform.position) < 8)
+            if (Vector3.Distance(player.transform.position, transform.position) < 12)
             {
                 shopOpenInfo.SetActive(true);
             }
@@ -31,6 +31,6 @@ public class Shop_Feedback : MonoBehaviour
         }
         else
         {
-            anm.SetFloat("DistancePlayer", 10);
+            anm.SetFloat("DistancePlayer", 12);
         }    }
 }

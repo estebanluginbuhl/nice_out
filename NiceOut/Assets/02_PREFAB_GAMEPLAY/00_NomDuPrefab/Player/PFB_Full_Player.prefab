@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -779,6 +779,12 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0.8980392
       objectReference: {fileID: 0}
+    - target: {fileID: 4420611347591971824, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8e1ae7f96b6a8e45ac66ea5ca0f698d,
+        type: 3}
     - target: {fileID: 4627871248272188348, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
       propertyPath: m_Color.g
@@ -834,6 +840,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4549441852797316757}
+    - target: {fileID: 7325908064057738493, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_Name
+      value: UI_Cerveau
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349706438954429365, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 107.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8349706439056476017, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -968,6 +984,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624884776250632808, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -233.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624884776250632808, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624884776250632808, guid: 0829cee19679f1a4a868899ba950d838,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8649792687852402501, guid: 0829cee19679f1a4a868899ba950d838,
         type: 3}
