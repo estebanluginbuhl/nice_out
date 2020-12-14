@@ -25,6 +25,12 @@ public class Enemy_Stats : MonoBehaviour
     [SerializeField]
     private Image healthImage;
     [SerializeField]
+    GameObject minimap_Enemy_Color;    
+    [SerializeField]
+    GameObject minimap_Ally_Color;    
+    [SerializeField]
+    GameObject minimap_Neutral_Color;
+    [SerializeField]
     private Gradient healthColor;
     [SerializeField]
     ParticleSystem convertBadEnemyParticle, convertGoodEnemyParticle, convertedToGood, convertedToBad, parfumed;
@@ -164,6 +170,8 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 2)
             {
                 wavemanager.AddRemoveEnemy(true);
+                minimap_Neutral_Color.SetActive(false);
+                minimap_Enemy_Color.SetActive(true);
                 transform.gameObject.tag = "enemy";
                 status = 2;
                 gameObject.layer = 13;
@@ -176,6 +184,8 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 1)
             {
                 wavemanager.AddRemoveAlly(true);
+                minimap_Neutral_Color.SetActive(false);
+                minimap_Ally_Color.SetActive(true);
                 transform.gameObject.tag = "enemyTarget";
                 status = 1;
                 gameObject.layer = 17;
@@ -193,6 +203,9 @@ public class Enemy_Stats : MonoBehaviour
             {
                 wavemanager.AddRemoveAlly(false);
                 wavemanager.AddRemoveEnemy(false);
+                minimap_Neutral_Color.SetActive(true);
+                minimap_Ally_Color.SetActive(false);
+                minimap_Enemy_Color.SetActive(false);
                 transform.gameObject.tag = "enemyTarget";
                 status = 0;
                 gameObject.layer = 15;
