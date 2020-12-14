@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 8d5b35aced6ba8e4985efa39aaaba0c1, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!1001 &28569680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6546,14 +6546,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606249836}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.99961746, z: 0, w: -0.027659805}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1791254143}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -183.17, z: 0}
 --- !u!1001 &1612419052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7487,6 +7487,7 @@ GameObject:
   - component: {fileID: 1791254142}
   - component: {fileID: 1791254141}
   - component: {fileID: 1791254144}
+  - component: {fileID: 1791254145}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -7566,13 +7567,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791254140}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bea5138a8ebdcab4ca6f0b28d0d706d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   camTurningPoint: {fileID: 1606249837}
   camSpeed: 25
+--- !u!114 &1791254145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791254140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef2a74f4778d644ab5d99f0690424c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMaxRot: {x: -120, y: -180}
+  turnPoint: {fileID: 1606249837}
+  angle: -150
+  speed: 1
 --- !u!1001 &1804625808
 PrefabInstance:
   m_ObjectHideFlags: 0
