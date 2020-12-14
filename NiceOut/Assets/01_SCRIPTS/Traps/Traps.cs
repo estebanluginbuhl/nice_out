@@ -68,8 +68,7 @@ public class Traps : MonoBehaviour // detail d'achat et d'upgrade des pieges
     }
     private void Update()
     {
-        //isPaused = player.GetComponent<Switch_Mode>().GetPause();
-        isPaused = false;
+        isPaused = player.GetComponent<Switch_Mode>().GetPause();
         if (isPaused == false)
         {
             if (cooldownCountdown > 0)

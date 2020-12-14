@@ -115,18 +115,10 @@ public class Switch_Mode : MonoBehaviour
         inputs.Actions.Disable();
     }
     
-    public void Retry()
-    {
-        mort = false;
-        ui_DeathPanel.SetActive(false);
-        GetComponent<Player_Stats>().Respawn();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }   
-    
     public void Restart()
     {
-        Debug.Log("Retry");
+        Scene thisScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(thisScene.name.ToString());
     }
     public void Resume()
     {

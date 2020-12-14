@@ -98,10 +98,10 @@ MonoBehaviour:
   parentTrap: {fileID: 452467482325948768}
   type: 6
   rangeSphere: 0
-  rangeBox: {x: 4.75, y: 3.8, z: 3.2}
-  offsetForward: 1.6
-  damages: 2
-  cooldown: 10
+  rangeBox: {x: 4.75, y: 3.8, z: 6.4}
+  offsetForward: 0
+  damages: 10
+  cooldown: 2
   isGonnaDie: 0
   ennemisMask:
     serializedVersion: 2

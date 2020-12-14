@@ -23829,7 +23829,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -24617,7 +24617,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 1
+        scalar: 3
         minScalar: 1
         maxCurve:
           serializedVersion: 2
@@ -24667,7 +24667,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 1
+      cycleCount: 4
       repeatInterval: 0.01
       probability: 1
   SizeModule:
@@ -28657,8 +28657,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.95453596, g: 0.30980396, b: 1, a: 0.39215687}
-      maxColor: {r: 0.81479734, g: 0.30980396, b: 1, a: 0.78431374}
+      minColor: {r: 0.95453596, g: 0.30980396, b: 1, a: 1}
+      maxColor: {r: 0.89544916, g: 0.6084906, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -28720,7 +28720,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.92
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29229,7 +29229,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -38013,9 +38013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b60a9b98fc9b0344dbaa3b965ae73037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  entityType: 0
   wavemanager: {fileID: 0}
-  status: 0
+  status: 3
   distanceMaxPlayer: 25
   healthbar: {fileID: 7534105158628510663}
   healthImage: {fileID: 6005379366830359802}
@@ -38090,8 +38090,7 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   isAttracted: 0
   attractTarget: {x: 0, y: 0, z: 0}
-  isSlowed: 0
-  isFastened: 0
+  speedIsModified: 0
   isStunned: 0
   modifiedSpeed: 0
   stateText: {fileID: 314147533773495349}

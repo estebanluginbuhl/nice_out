@@ -63,8 +63,7 @@ public class Trap_Attack : MonoBehaviour
                         AttaqueBar();
                         break;
                     case 6:
-                        Debug.Log("pas ouf gros");
-                        //AttaqueTapisRoulant();
+                        AttaqueTapisRoulant();
                         break;
                     case 7:
                         AttaqueStandCommerce();
@@ -134,7 +133,6 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-
     void AttaquePanneauPublicitaire()
     {
         Vector3 forwardVector = transform.rotation * Vector3.forward;
@@ -164,7 +162,7 @@ public class Trap_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
-                if (c.GetComponent<Enemy_Movement>().isSlowed == false)
+                if (c.GetComponent<Enemy_Movement>().speedIsModified == false)
                 {
                     StartCoroutine(c.GetComponent<Enemy_Movement>().ModifieSpeed(cooldown, damages, false));
                 }
@@ -177,7 +175,7 @@ public class Trap_Attack : MonoBehaviour
     }
     void AttaqueParfum()
     {
-        int dotDuration = Mathf.RoundToInt(cooldown);
+        int dotDuration = Mathf.RoundToInt(cooldown) + 5;
         int nbTransmission = dotDuration - 2;
         float rangeTransmission = 3f;
         Collider[] units = Physics.OverlapSphere(transform.position, rangeSphere, ennemisMask);
@@ -203,7 +201,7 @@ public class Trap_Attack : MonoBehaviour
                 }
                 if (target != null)
                 {
-                    StartCoroutine(target.GetComponent<Enemy_Stats>().DamagesOverTime(damages, dotDuration, rangeTransmission, nbTransmission));
+                    StartCoroutine(target.GetComponent<Enemy_Stats>().Parfume(damages, dotDuration, rangeTransmission, nbTransmission, ennemisMask));
                     StartCoroutine(Cooldown(cooldown));
                     target = null;
                 }
@@ -242,54 +240,47 @@ public class Trap_Attack : MonoBehaviour
             }
         }
     }
-    /*void AttaqueTapisRoulant()
+    void AttaqueTapisRoulant()
     {
-        //Devant : accélérer
-        Vector3 forwardVector = transform.rotation * Vector3.forward;
-        Vector3 backwardVector = transform.rotation * Vector3.backward;
-
-        Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + forwardVector * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemisToEject = Physics.OverlapBox(parentTrap.transform.position + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemisToEject.Length != 0)
         {
             foreach (Collider e in ennemisToEject)
             {
-                if (e.GetComponent<EnmMovement>().isSlowed == false)
+                if(e.transform.rotation.eulerAngles.y < parentTrap.transform.rotation.eulerAngles.y + 90 % 360)
                 {
-                    e.GetComponent<EnmMovement>().isFastened = true;
-                    e.GetComponent<EnmMovement>().modifiedSpeed = cooldown;//cooldown doit etre egale a la vitesse de l'ennemi fastened pour ce piege
-                    Debug.Log("Fastened");
+                    if (e.GetComponent<Enemy_Movement>().speedIsModified == false)
+                    {
+                        StartCoroutine(e.GetComponent<Enemy_Movement>().ModifieSpeed(0.1f, cooldown, false));//cooldown doit etre egale a la vitesse de l'ennemi slowed pour ce piege
+                    }
+                    else
+                        return;
+                }
+                else
+                {
+                    if (e.GetComponent<Enemy_Movement>().speedIsModified == false)
+                    {
+                        StartCoroutine(e.GetComponent<Enemy_Movement>().ModifieSpeed(0.1f, damages, false));//damages doit etre egale a la vitesse de l'ennemi fastened pour ce piege
+                    }
+                    else
+                        return;
                 }
             }
         }
-        //Deriere : ralentir
-        Collider[] ennemisToSlow = Physics.OverlapBox(parentTrap.transform.position + backwardVector * offsetForward + Vector3.up * rangeBox.y / 2, rangeBox / 2, transform.rotation, ennemisMask);
-        if (ennemisToSlow.Length != 0)
-        {
-            foreach (Collider s in ennemisToSlow)
-            {
-                if (s.GetComponent<EnmMovement>().isFastened == false)
-                {
-                    s.GetComponent<EnmMovement>().isSlowed = true;
-                    s.GetComponent<EnmMovement>().modifiedSpeed = damages;//damages doit etre egale a la vitesse de l'ennemi slow pour ce piege
-                    Debug.Log("Slowed");
-                }
-            }
-        }
-    }*/
+    }
     void AttaqueStandCommerce()
     {
-        float attaqueRange = 2f;
+        float attaqueRange = 4f;
         Vector3 forwardVector = transform.rotation * Vector3.forward;
-        Collider[] ennemis = Physics.OverlapBox(Vector3.up * rangeBox.y / 2 + forwardVector * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
+        Collider[] ennemis = Physics.OverlapBox(parentTrap.transform.position + Vector3.up * rangeBox.y / 2 + forwardVector * offsetForward, rangeBox / 2, transform.rotation, ennemisMask);
         if (ennemis.Length != 0)
         {
-            Debug.Log("stand");
             foreach (Collider c in ennemis)
             {
                 if (isGonnaDie == false)
                 {
                     c.GetComponent<Enemy_Movement>().isAttracted = true;
-                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform.position;
+                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform.position + forwardVector * (attaqueRange - 3);
                     if (cptCooldown == 0)
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
@@ -353,11 +344,6 @@ public class Trap_Attack : MonoBehaviour
             if (type == 6)
             {
                 Gizmos.matrix = transform.localToWorldMatrix;
-
-                Gizmos.color = Color.blue;
-                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.forward * offsetForward, rangeBox);
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2 + Vector3.back * offsetForward, rangeBox);
                 Gizmos.color = Color.black;
                 Gizmos.DrawWireCube(Vector3.up * rangeBox.y / 2, new Vector3(rangeBox.x, rangeBox.y, rangeBox.z * 2));
             }

@@ -48,14 +48,17 @@ public class Wave_Manager : MonoBehaviour
     }
     void Update()
     {
-        if(nbEnemy >= nbLoseEnemy[waveIndex])
+        if (waveIndex < nbMaxWaves)
         {
-            mode.realPause = true;
-            mode.pause = true;
-            Time.timeScale = 0;
-            losePanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if (nbEnemy >= nbLoseEnemy[waveIndex])
+            {
+                mode.realPause = true;
+                mode.pause = true;
+                Time.timeScale = 0;
+                losePanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
         if (initializeWave)
         {
@@ -104,6 +107,9 @@ public class Wave_Manager : MonoBehaviour
             {
                 Destroy(g2);
             }
+            nbEnemy = 0;
+            nbAlly = 0;
+            nbEntity = 0;
             play = false;
             reward.rewardTime = true;//Ouvre le reward panel
             Debug.Log("DestroyEntities");
