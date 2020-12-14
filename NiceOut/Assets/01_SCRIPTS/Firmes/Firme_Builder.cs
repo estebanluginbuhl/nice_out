@@ -29,7 +29,11 @@ public class Firme_Builder : MonoBehaviour
         int nbSmallFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].x);
         int nbMediumFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].y);
         int nbBigFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].z);
-        int howManyFirms = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].x + howManyFirmesPerWaves[_waveIndex].y + howManyFirmesPerWaves[_waveIndex].z); //nb de firmes a spawn 
+        Debug.Log(nbSmallFirmes);
+        Debug.Log(nbMediumFirmes);
+        Debug.Log(nbBigFirmes);
+
+        int howManyFirms = Mathf.RoundToInt(nbSmallFirmes + nbMediumFirmes + nbBigFirmes); //nb de firmes a spawn 
         modifiedHouses = new GameObject[howManyFirms];
 
         int maxType;//Max type de piège debloquable pour pas avoir les boss en vague 1 quoi
@@ -42,7 +46,6 @@ public class Firme_Builder : MonoBehaviour
         else
         {
             maxType = waveManager.fullyUpgraded.Length;
-            Debug.Log(maxType);
         }
 
         int indexModifiedHouses = 0;
@@ -81,7 +84,7 @@ public class Firme_Builder : MonoBehaviour
         }
         //Selectionne et modif les maisons et MOYENNE firmes
         if (nbMediumFirmes > 0)
-        {
+        {  
             for (int y = 0; y < nbMediumFirmes; y++)
             {
                 int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases

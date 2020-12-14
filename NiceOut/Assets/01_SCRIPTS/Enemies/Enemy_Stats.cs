@@ -37,8 +37,13 @@ public class Enemy_Stats : MonoBehaviour
     Vector4 healthValues = new Vector4(0, 45, 55, 100);
     float healthPercentage;
     public bool hasDot = false;
-
-
+    int damages;
+    float range;
+    int index;
+    int duration;
+    float cptCooldownBtweenContamination;
+    GameObject temporaryTarget;
+    LayerMask contaminationlayer;
     void Start()
     {
         player = GameObject.Find("PFB_Player_Controller");
@@ -46,6 +51,7 @@ public class Enemy_Stats : MonoBehaviour
         healthPercentage = enmHealth / healthValues.w;
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
+        UpdateEnemyState();
     }
 
     private void Update()
@@ -70,6 +76,58 @@ public class Enemy_Stats : MonoBehaviour
                 }
             }
         }
+        //Contamination
+        if (duration > 0 && hasDot == true)
+        {
+            if(cptCooldownBtweenContamination <= 0)
+            {
+                Collider[] closeEnemies = Physics.OverlapSphere(transform.position, range, contaminationlayer);
+                if (closeEnemies.Length != 0)
+                {
+                    if(temporaryTarget == null)
+                    {
+                        float minDist = Mathf.Infinity;
+                        foreach (Collider c in closeEnemies)
+                        {
+                            float dist = Vector3.Distance(transform.position, c.transform.position);
+                            if(c.gameObject.GetComponent<Enemy_Stats>().hasDot == false)
+                            {
+                                if (dist < minDist)
+                                {
+                                    minDist = dist;
+                                    temporaryTarget = c.gameObject;
+                                }
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        damages -= 1;
+                        duration -= 1;
+                        index -= 1;
+                        if(damages == 0 || duration == 0 || index == 0)
+                        {
+                            duration = 0;
+                            index = 0;
+                            temporaryTarget = null;
+                            hasDot = false;
+                            parfumed.Stop();
+                            return;
+                        }
+                        else
+                        {
+                            StartCoroutine(temporaryTarget.GetComponent<Enemy_Stats>().Parfume(damages, duration, range, index, contaminationlayer));
+                            cptCooldownBtweenContamination = 1;
+                            temporaryTarget = null;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void DamageGoodEntity(int takenDamage, int _type)
@@ -84,9 +142,8 @@ public class Enemy_Stats : MonoBehaviour
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
         convertGoodEnemyParticle.Play();
-        //UpdateEnemyState();
+        UpdateEnemyState();
     }
-
     public void DamageBadEntity(int takenDamage)
     {
         enmHealth += takenDamage;
@@ -100,7 +157,6 @@ public class Enemy_Stats : MonoBehaviour
         convertBadEnemyParticle.Play();
         UpdateEnemyState();
     }
-
     void UpdateEnemyState()
     {
         if (enmHealth < healthValues.y)//45 et 0 hostile
@@ -144,7 +200,6 @@ public class Enemy_Stats : MonoBehaviour
             }
         }
     }
-
     public void InitializeEntity(int _type, int _spawnHealth, Wave_Manager _waveManager)
     {
         entityType = _type;
@@ -152,75 +207,25 @@ public class Enemy_Stats : MonoBehaviour
         wavemanager = _waveManager;
         UpdateEnemyState();
     }
-    public IEnumerator DamagesOverTime(int _damage, int _duration, float _range, int _index)//DOT parfum
+    public IEnumerator Parfume(int _damage, int _duration, float _range, int _index, LayerMask _contaminationlayer)//DOT parfum
     {
-        Debug.Log(_index);
-        if (_index != 0)
+        damages = _damage;
+        duration = _duration;
+        range = _range;
+        index = _index;
+        contaminationlayer = _contaminationlayer;
+        hasDot = true;
+        parfumed.Play();
+        while (duration > 0 && index > 0)
         {
-            parfumed.Play();
-            hasDot = true;
-            if (_duration > 0)
+            DamageBadEntity(damages);
+            yield return new WaitForSecondsRealtime(1);
+            duration -= 1;
+            if(duration < 1)
             {
-                if (status == 2 || status == 0)
-                {
-                    float minDist = Mathf.Infinity;
-                    GameObject target = null;
-
-                    Collider[] transferTarget = Physics.OverlapSphere(transform.position + Vector3.up * 2.25f, _range, 13);
-                    foreach (Collider c in transferTarget)
-                    {
-                        if (c.GetComponent<Enemy_Stats>().hasDot == false)
-                        {
-                            float dist = Vector3.Distance(transform.position, c.transform.position);
-                            if (dist <= minDist)
-                            {
-                                target = c.gameObject;
-                                minDist = dist;
-                            }
-                        }
-
-                    }
-                    if (target != null)
-                    {
-                        _index -= 1;
-                        _duration -= 1;
-                        _damage -= 1;
-                        if (_damage < 1)
-                        {
-                            _damage = 1;
-                        }
-                        if (_duration < 1)
-                        {
-                            _duration = 1;
-                        }
-                        if (_index < 1)
-                        {
-                            _duration = 0;
-                        }
-                        target.GetComponent<Enemy_Movement>().StartCoroutine(DamagesOverTime(_damage, _duration, _range, _index));
-                        target = null;
-                    }
-
-                    yield return new WaitForSecondsRealtime(1);
-                    DamageBadEntity(_damage);
-                    _duration -= 1;
-                }
-                else
-                {
-                    _duration = 0;
-                }
-                Debug.Log(_duration);
-            }
-            else
-            {
-                hasDot = false;
                 parfumed.Stop();
+                hasDot = false;
             }
-        }
-        else
-        {
-            hasDot = false;
-            parfumed.Stop();
         }
     }
 }

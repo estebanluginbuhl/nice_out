@@ -39,7 +39,7 @@ public class Enemy_Movement : MonoBehaviour
     public bool isAttracted;
     public Vector3 attractTarget;
 
-    public bool isSlowed, isFastened, isStunned;
+    public bool speedIsModified, isStunned;
     public float modifiedSpeed;
 
     [SerializeField]
@@ -167,7 +167,7 @@ public class Enemy_Movement : MonoBehaviour
             //bad enm   status 2
             #region
             case 2:
-                if (isSlowed || isFastened)
+                if (speedIsModified)
                 {
                     entityNavMesh.speed = modifiedSpeed;
                 }
@@ -335,10 +335,10 @@ public class Enemy_Movement : MonoBehaviour
     public IEnumerator ModifieSpeed(float _ModifieTime, float _ModifiedSpeed, bool _stun)//Slow/Accélération/Stuns
     {
         isStunned = _stun;
-        isSlowed = true;
+        speedIsModified = true;
         modifiedSpeed = _ModifiedSpeed;
         yield return new WaitForSecondsRealtime(_ModifieTime);
-        isSlowed = false;
+        speedIsModified = false;
         isStunned = false;
     }
 

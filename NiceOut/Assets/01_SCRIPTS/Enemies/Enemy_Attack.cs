@@ -120,6 +120,7 @@ public class Enemy_Attack : MonoBehaviour
         if (_allieTarget != null)
         {
             _allieTarget.GetComponent<Firme_Stats>().DamageFirme(allyDamages);
+            GetComponent<Enemy_Stats>().DamageGoodEntity(100, 0);
             isDead = true;
             Destroy(this.gameObject);
         }

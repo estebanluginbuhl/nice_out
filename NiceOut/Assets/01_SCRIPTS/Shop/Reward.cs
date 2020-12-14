@@ -6,8 +6,6 @@ using TMPro;
 
 public class Reward : MonoBehaviour
 {
-    Inputs inputs;
-
     [Header("References")]
     public GameObject player;
     Wave_Manager waveManager;
@@ -59,10 +57,6 @@ public class Reward : MonoBehaviour
         Time.timeScale = 0;
         rewardTime = false;
         lootSelected = false;
-
-        inputs = new Inputs();
-        inputs.Actions.Reward.started += ctx => rewardTime = true;
-        inputs.Actions.Reward.canceled += ctx => rewardTime = false;
     }
 
     private void Start()
@@ -76,6 +70,11 @@ public class Reward : MonoBehaviour
 
     private void Update()
     {
+        if(waveManager.play == false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         if (rewardTime == true)
         {
             if (lootSelected == false)
@@ -236,13 +235,5 @@ public class Reward : MonoBehaviour
         }
         RewardPanelOpenClose();
         rewardTime = false;
-    }
-    private void OnEnable()
-    {
-        inputs.Actions.Enable();
-    }
-    private void OnDisable()
-    {
-        inputs.Actions.Disable();
     }
 }

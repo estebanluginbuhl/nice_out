@@ -17,6 +17,8 @@ public class Menu_Start : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(gameScene);
     }    
     public void OpenCloseCredits()
