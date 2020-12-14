@@ -175,8 +175,7 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 1)
             {
-                wavemanager.AddRemoveEnemy(false);
-                wavemanager.AddRemoveAlly(false);
+                wavemanager.AddRemoveAlly(true);
                 transform.gameObject.tag = "enemyTarget";
                 status = 1;
                 gameObject.layer = 17;
@@ -192,7 +191,8 @@ public class Enemy_Stats : MonoBehaviour
         {
             if (status != 0)
             {
-                wavemanager.AddRemoveAlly(true);
+                wavemanager.AddRemoveAlly(false);
+                wavemanager.AddRemoveEnemy(false);
                 transform.gameObject.tag = "enemyTarget";
                 status = 0;
                 gameObject.layer = 15;
