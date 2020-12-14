@@ -28,3 +28,6 @@ NiceOut/NiceOut.sln
 NiceOut/ProjectSettings/EditorBuildSettings.asset
 NiceOut/ProjectSettings/PackageManagerSettings.asset
 NiceOut/Assembly-CSharp-Editor.csproj
+NiceOut/Assets/Built-inShaderArchive/builtin_shaders-2019.4.13f1/Editor.meta
+NiceOut/Assets/Built-inShaderArchive/builtin_shaders-2019.4.13f1.meta
+NiceOut/Assets/Built-inShaderArchive.meta
