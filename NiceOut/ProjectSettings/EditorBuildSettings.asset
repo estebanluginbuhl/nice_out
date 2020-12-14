@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_SCENE/GameStartMenu.unity
     guid: ca17493984b37494eab8ca158c6493c7
-  - enabled: 1
+  - enabled: 0
     path: Assets/00_SCENE/Sandbox.unity
     guid: 1ce41e1fb422a5d44882c0673d7b11df
+  - enabled: 1
+    path: Assets/00_SCENE/TestBuildScene.unity
+    guid: fae0c16f482f07848900983e00371600
   m_configObjects: {}
