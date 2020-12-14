@@ -7586,10 +7586,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef2a74f4778d644ab5d99f0690424c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMaxRot: {x: -120, y: -180}
+  minMaxRot: {x: -70, y: -160}
   turnPoint: {fileID: 1606249837}
   angle: -150
-  speed: 1
+  speed: 10
 --- !u!1001 &1804625808
 PrefabInstance:
   m_ObjectHideFlags: 0
