@@ -99,10 +99,10 @@ MonoBehaviour:
   verticalSensitivity: 0.5
   switchMode: {fileID: 0}
   focus: {fileID: 0}
-  distance: 8
-  height: 2
-  focusRadius: 1
-  focusCentering: 0.8
+  distance: 12
+  height: 4
+  focusRadius: 2
+  focusCentering: 0.5
   rotationSpeed: 6
   minVerticalAngle: -10
   maxVerticalAngle: 85
@@ -112,4 +112,5 @@ MonoBehaviour:
     m_Bits: 4864
   shakePower: 0.5
   shakeDuration: 0.2
+  damagePanel: {fileID: 0}
   shake: 0

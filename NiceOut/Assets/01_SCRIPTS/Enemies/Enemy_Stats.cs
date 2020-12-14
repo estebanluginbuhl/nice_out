@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Enemy_Stats : MonoBehaviour
 {
+    public int entityType;//correspon au type des traps et des firmes
     public Wave_Manager wavemanager;
     [Header("status bad enm = 2")]
     [Header("status allie = 1")]
@@ -45,8 +46,6 @@ public class Enemy_Stats : MonoBehaviour
         healthPercentage = enmHealth / healthValues.w;
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
-
-        UpdateEnemyState();
     }
 
     private void Update()
@@ -73,9 +72,10 @@ public class Enemy_Stats : MonoBehaviour
         }
     }
 
-    public void DamageGoodEnemy(int takenDamage)
+    public void DamageGoodEntity(int takenDamage, int _type)
     {
         enmHealth -= takenDamage;
+        entityType = _type;
         if (enmHealth <= healthValues.x)
         {
             enmHealth = healthValues.x;
@@ -84,10 +84,10 @@ public class Enemy_Stats : MonoBehaviour
         healthImage.color = healthColor.Evaluate(healthPercentage);
         healthImage.rectTransform.localScale = new Vector3(healthPercentage, 1, 1);
         convertGoodEnemyParticle.Play();
-        UpdateEnemyState();
+        //UpdateEnemyState();
     }
 
-    public void DamageBadEnemy(int takenDamage)
+    public void DamageBadEntity(int takenDamage)
     {
         enmHealth += takenDamage;
         if (enmHealth >= healthValues.w)
@@ -108,7 +108,7 @@ public class Enemy_Stats : MonoBehaviour
             if (status != 2)
             {
                 wavemanager.AddRemoveEnemy(true);
-                transform.gameObject.tag = "Untagged";
+                transform.gameObject.tag = "enemy";
                 status = 2;
                 gameObject.layer = 13;
                 GetComponentInChildren<MeshRenderer>().material = mats[2];
@@ -143,6 +143,14 @@ public class Enemy_Stats : MonoBehaviour
                 GetComponentInChildren<MeshRenderer>().material = mats[0];
             }
         }
+    }
+
+    public void InitializeEntity(int _type, int _spawnHealth, Wave_Manager _waveManager)
+    {
+        entityType = _type;
+        enmHealth = _spawnHealth;
+        wavemanager = _waveManager;
+        UpdateEnemyState();
     }
     public IEnumerator DamagesOverTime(int _damage, int _duration, float _range, int _index)//DOT parfum
     {
@@ -194,7 +202,7 @@ public class Enemy_Stats : MonoBehaviour
                     }
 
                     yield return new WaitForSecondsRealtime(1);
-                    DamageBadEnemy(_damage);
+                    DamageBadEntity(_damage);
                     _duration -= 1;
                 }
                 else

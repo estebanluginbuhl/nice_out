@@ -51,10 +51,6 @@ MonoBehaviour:
   - 35
   - 40
   UsurePercentage: 0
-  cooldownPose:
-  - 0
-  - 0
-  - 0
   cooldownSpawn:
   - 1
   - 2
@@ -76,7 +72,7 @@ MonoBehaviour:
   child: {fileID: 0}
   transformTrap: {x: 0, y: 0, z: 0}
   costs: b4000000d2000000e6000000
-  upgradeIndex: 0
+  upgradeIndex: 2
   ui_healthBar: {fileID: 7623199504368096723, guid: d42ffd0f5d147d34e9cebdbb9b6b36f9,
     type: 3}
   ui_hbHeight: 7

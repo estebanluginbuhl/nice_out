@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class Firme_Stats : MonoBehaviour
 {
-    int firmeType;
+    public int firmeType;
     int firmeIndex;
     Wave_Manager waveManager;
-    Test_Builder buildManager;
+    Firme_Builder buildManager;
     //BuildingManager buildManager;
+    public MeshRenderer mshRdr;
+
     [SerializeField]
     Image firme_Health_Bar;
     float health;
     [SerializeField]
     float healthMax; //Vie de base de ce batiment de firme
-
+    public Material[] typeMats;
 
     // Start is called before the first frame update
     void Start()
@@ -50,12 +52,13 @@ public class Firme_Stats : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void InitializeFirmeTest(int _type, int _index, Wave_Manager _waveManager, Test_Builder _testBuilder)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
+    public void InitializeFirmeTest(int _type, int _index, Wave_Manager _waveManager, Firme_Builder _testBuilder)//Methode à invoquer à 100% pour chaqsue nouveaux batiments de firmes
     {
         waveManager = _waveManager;
         firmeType = _type;
         firmeIndex = _index;
         buildManager = _testBuilder;
         GetComponent<Entity_Spawner>().waveManager = _waveManager;
+        mshRdr.material = typeMats[_type];
     }
 }
