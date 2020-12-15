@@ -135,7 +135,6 @@ public class Wave_Manager : MonoBehaviour
 
             GameObject newNeutral = Instantiate(neutralEntityPrefab, spawnPlace, Quaternion.identity);
             newNeutral.GetComponent<Enemy_Stats>().InitializeEntity(0, 50, this);
-            AddRemoveEntity(true);
         }
     }
     public void AddLootType(int destroyedFirmeType) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
