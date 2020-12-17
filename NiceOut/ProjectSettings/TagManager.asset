@@ -15,6 +15,7 @@ TagManager:
   - enemyTarget
   - enemy
   - ModifiedHouse
+  - Minimap_Cam
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - Neutral
   - Firmes
   - Ally
-  - 
+  - Location
   - 
   - 
   - 

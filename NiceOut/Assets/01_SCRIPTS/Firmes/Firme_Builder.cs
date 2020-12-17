@@ -29,9 +29,6 @@ public class Firme_Builder : MonoBehaviour
         int nbSmallFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].x);
         int nbMediumFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].y);
         int nbBigFirmes = Mathf.RoundToInt(howManyFirmesPerWaves[_waveIndex].z);
-        Debug.Log(nbSmallFirmes);
-        Debug.Log(nbMediumFirmes);
-        Debug.Log(nbBigFirmes);
 
         int howManyFirms = Mathf.RoundToInt(nbSmallFirmes + nbMediumFirmes + nbBigFirmes); //nb de firmes a spawn 
         modifiedHouses = new GameObject[howManyFirms];

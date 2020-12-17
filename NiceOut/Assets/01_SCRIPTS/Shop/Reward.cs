@@ -40,10 +40,10 @@ public class Reward : MonoBehaviour
     private void Awake()
     {
         waveManager = GetComponent<Wave_Manager>();
-        upgradeIndexes = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
-        addedTraps = new int[ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
+        upgradeIndexes = new int[ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax];
+        addedTraps = new int[ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax];
 
-        for (int i = 0; i < ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax; i++)
+        for (int i = 0; i < ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax; i++)
         {
             upgradeIndexes[i] = 0;
             addedTraps[i] = 0;
@@ -64,7 +64,7 @@ public class Reward : MonoBehaviour
         nbTrapAdded = 0;
         foreach (GameObject item in allTraps)
         {
-            item.GetComponent<Traps>().upgradeIndex = 0;
+            item.GetComponent<Baits>().upgradeIndex = 0;
         }
     }
 
@@ -117,7 +117,7 @@ public class Reward : MonoBehaviour
         {
             //Debug.Log(lootTrapIndex);
             //Debug.Log("turn " + i);
-            if (nbTrapAdded < ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax)////Si tosu les pièges n'ont pas déjà étaient obtenuent par le joueur
+            if (nbTrapAdded < ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax)////Si tosu les pièges n'ont pas déjà étaient obtenuent par le joueur
             {
                 //Debug.Log("Pas tous les pièges");
 
@@ -167,33 +167,33 @@ public class Reward : MonoBehaviour
 
         if (mustUpgrade)
         {
-            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Traps>().ui_Image[upgradeIndexes[rewardTrapIndex] + 1];
+            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Baits>().ui_Image[upgradeIndexes[rewardTrapIndex] + 1];
         }
         else
         {
-            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Traps>().ui_Image[0];
+            uiRewardImage.sprite = allTraps[rewardTrapIndex].GetComponent<Baits>().ui_Image[0];
         }
     }
     public void AddReward()
     {
         if (mustUpgrade)//UpgradeTrap
         {
-            int _type = ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Traps>().trapType; //Getle type du piege a upgrade dans l'inventaire
-            ui_Manager.GetComponent<Trap_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Traps>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorés
+            int _type = ui_Manager.GetComponent<Bait_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Baits>().trapType; //Getle type du piege a upgrade dans l'inventaire
+            ui_Manager.GetComponent<Bait_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Baits>().UpgradeForInventory(); //Ameliore le piege de l'inventaire pour que le joueur pose des piege améliorés
 
             upgradeIndexes[rewardTrapIndex] += 1;
             if (upgradeIndexes[rewardTrapIndex] == 2)
             {
                 waveManager.fullyUpgraded[rewardTrapIndex] = true;
             }
-            ui_Manager.GetComponent<Trap_Inventory>().UpgradeTrapInventory(rewardTrapIndex, upgradeIndexes[rewardTrapIndex]);
+            ui_Manager.GetComponent<Bait_Inventory>().UpgradeTrapInventory(rewardTrapIndex, upgradeIndexes[rewardTrapIndex]);
             shop.UpgradeShopTrap(rewardTrapIndex, upgradeIndexes[rewardTrapIndex]);
             RewardPanelOpenClose();
             rewardTime = false;
         }
         else//AddTrap
         {
-            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[rewardTrapIndex], rewardTrapIndex);
+            ui_Manager.GetComponent<Bait_Inventory>().UpdateInventory(allTraps[rewardTrapIndex], rewardTrapIndex);
             shop.AddShopTrap(rewardTrapIndex);
             upgradeIndexes[rewardTrapIndex] = 0;
             addedTraps[rewardTrapIndex] = 1;
@@ -208,7 +208,7 @@ public class Reward : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)//3 premier pieges
         {
-            ui_Manager.GetComponent<Trap_Inventory>().UpdateInventory(allTraps[i], i);
+            ui_Manager.GetComponent<Bait_Inventory>().UpdateInventory(allTraps[i], i);
             upgradeIndexes[i] = 0;
             addedTraps[i] = 1;
             shop.AddShopTrap(i);

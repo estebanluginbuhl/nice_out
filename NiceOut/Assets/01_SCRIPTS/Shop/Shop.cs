@@ -12,7 +12,7 @@ public class Shop : MonoBehaviour
     public bool buyingTime = false;
     Player_Stats stats;
     Switch_Mode switchMode;
-    public Trap_Inventory inventory;
+    public Bait_Inventory inventory;
     public Text[] costTexts;
     public GameObject[] buttons;
     public TextMeshProUGUI curentGold;
@@ -76,19 +76,19 @@ public class Shop : MonoBehaviour
     public void AddShopTrap(int _Index)
     {
         buttons[_Index].SetActive(true);
-        costTexts[_Index].text = inventory.trapsItem[_Index].GetComponent<Traps>().costs[0].ToString();
-        buttons[_Index].GetComponent<Image>().sprite = inventory.trapsItem[_Index].GetComponent<Traps>().ui_Image[0];
+        costTexts[_Index].text = inventory.trapsItem[_Index].GetComponent<Baits>().costs[0].ToString();
+        buttons[_Index].GetComponent<Image>().sprite = inventory.trapsItem[_Index].GetComponent<Baits>().ui_Image[0];
     }
 
     public void UpgradeShopTrap(int _Index, int _upgradeIndex)
     {
-        costTexts[_Index].text = inventory.trapsItem[_Index].GetComponent<Traps>().costs[_upgradeIndex].ToString();
-        buttons[_Index].GetComponent<Image>().sprite = inventory.trapsItem[_Index].GetComponent<Traps>().ui_Image[_upgradeIndex];
+        costTexts[_Index].text = inventory.trapsItem[_Index].GetComponent<Baits>().costs[_upgradeIndex].ToString();
+        buttons[_Index].GetComponent<Image>().sprite = inventory.trapsItem[_Index].GetComponent<Baits>().ui_Image[_upgradeIndex];
     }
 
     public void BuyTrap(int _BuyIndex)
     {
-        int cost = inventory.trapsItem[_BuyIndex].GetComponent<Traps>().costs[upgradeIndexes[_BuyIndex]];
+        int cost = inventory.trapsItem[_BuyIndex].GetComponent<Baits>().costs[upgradeIndexes[_BuyIndex]];
         if (stats.gold >= cost)
         {
             stats.PlayerBuy(cost);

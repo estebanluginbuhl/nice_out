@@ -42,7 +42,7 @@ public class Wave_Manager : MonoBehaviour
         nbFirmesOnMap = nbMaxFirmes[waveIndex];
         reward = GetComponent<Reward>();
         builder = GetComponent<Firme_Builder>();
-        fullyUpgraded = new bool[reward.ui_Manager.GetComponent<Trap_Inventory>().nbTrapMax];
+        fullyUpgraded = new bool[reward.ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax];
         winPanel.SetActive(false);
         losePanel.SetActive(false);
     }
