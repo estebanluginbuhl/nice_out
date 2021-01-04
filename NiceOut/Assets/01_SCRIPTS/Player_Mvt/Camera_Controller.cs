@@ -157,7 +157,7 @@ public class Camera_Controller : MonoBehaviour
         const float e = 0.001f;
         if(moveCam.x < -e || moveCam.x > e || moveCam.y < -e || moveCam.y > e)
         {
-            orbitAngles += rotationSpeed * Time.unscaledDeltaTime * new Vector2(moveCam.y * verticalSensitivity, moveCam.x);
+            orbitAngles += rotationSpeed * Time.unscaledDeltaTime * new Vector2(-moveCam.y * verticalSensitivity, moveCam.x);
             lastManualRotationTime = Time.unscaledTime;
             return true;
         }

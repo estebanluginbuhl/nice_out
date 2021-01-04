@@ -38113,7 +38113,7 @@ MonoBehaviour:
   enemyDamages: 1
   allyDamages: 5
   enemyAttackRadius: 2
-  allieAttackRadius: 1
+  allieAttackRadius: 2
   enemyDamageCooldown: 2
   playerLayer:
     serializedVersion: 2
