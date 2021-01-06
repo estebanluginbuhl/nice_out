@@ -248,7 +248,7 @@ Camera:
     m_Bits: 262144
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 42594830478ed1147a57ea141da2f7b4, type: 2}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -531,6 +531,10 @@ PrefabInstance:
       propertyPath: damagePanel
       value: 
       objectReference: {fileID: 1068338556518960105}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: maxVerticalAngle
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 8731416418560567864, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1370,6 +1374,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4549441851817546168}
     m_Modifications:
+    - target: {fileID: 1166301809207112372, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 3573179106791367579}
     - target: {fileID: 1166301809207112379, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1460,6 +1469,11 @@ PrefabInstance:
       propertyPath: afficheBoost
       value: 
       objectReference: {fileID: 8060517733523796379}
+    - target: {fileID: 7413206124061644213, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: dashSpeed
+      value: 3000
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_Manager
@@ -1500,6 +1514,11 @@ PrefabInstance:
       propertyPath: previewTrap
       value: 
       objectReference: {fileID: 4549441853088516941}
+    - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: locationLayer.m_Bits
+      value: 262144
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
