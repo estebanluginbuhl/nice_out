@@ -109,7 +109,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2230862895595104664}
   - component: {fileID: 2230862895595104667}
-  - component: {fileID: 2230862895595104665}
   m_Layer: 18
   m_Name: PFB_Bait_Location
   m_TagString: Untagged
@@ -145,21 +144,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.2, z: 5}
   m_Center: {x: 0, y: 0.1, z: 0}
---- !u!114 &2230862895595104665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2230862895595104666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad210490dae63ac4bbccc73717d38038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationAnm: {fileID: 2230862895509378084}
-  mshRndr: {fileID: 2230862895509378086}
-  locationMats:
-  - {fileID: 2100000, guid: 7a6b453860cf4a34fb6c17e39f4af449, type: 2}
-  - {fileID: 2100000, guid: c4cec5a8efd493a419b6f6acc5dd2143, type: 2}
-  - {fileID: 2100000, guid: be16801738ecfa047b3fbcf44c153e82, type: 2}
