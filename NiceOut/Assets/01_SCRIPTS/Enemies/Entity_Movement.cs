@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using TMPro;
 
-public class Enemy_Movement : MonoBehaviour
+public class Entity_Movement : MonoBehaviour
 {
     public bool pathFinding;
     [Header("status bad enm = 2")]
@@ -50,7 +50,7 @@ public class Enemy_Movement : MonoBehaviour
         entityNavMesh.speed = enmSpeed;
         //target = PathNode.nodeTransform[0];
         //randomPosition = Random.insideUnitSphere * gizmo1Radius;
-        status = GetComponent<Enemy_Stats>().status;
+        status = GetComponent<Entity_Stats>().status;
         if(status == 0)
         {
             neutralTarget = GetNewNeutralTarget();
@@ -81,7 +81,7 @@ public class Enemy_Movement : MonoBehaviour
 
     void Update()
     {
-        status = GetComponent<Enemy_Stats>().status;
+        status = GetComponent<Entity_Stats>().status;
         switch (status)
         {
             //neutral   status 0
@@ -241,7 +241,7 @@ public class Enemy_Movement : MonoBehaviour
                         {
                             if(enemyTarget != null)
                             {
-                                if (enemyTarget.GetComponent<Enemy_Stats>().status != 2)
+                                if (enemyTarget.GetComponent<Entity_Stats>().status != 2)
                                 {
                                     if (Vector3.Distance(transform.position, enemyTarget.position) > targetTresholdEnemy)
                                     {

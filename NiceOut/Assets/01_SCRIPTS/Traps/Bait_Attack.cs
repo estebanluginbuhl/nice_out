@@ -99,7 +99,7 @@ public class Bait_Attack : MonoBehaviour
             }
             else
             {
-                if (target.GetComponent<Enemy_Stats>().status == 1)
+                if (target.GetComponent<Entity_Stats>().status == 1)
                 {
                     target = null;
                     return;
@@ -126,7 +126,7 @@ public class Bait_Attack : MonoBehaviour
                 {
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
-                        target.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
+                        target.GetComponent<Entity_Stats>().DamageBadEntity(damages);
                         StartCoroutine(Cooldown(cooldown));
                     }
                 }
@@ -144,12 +144,12 @@ public class Bait_Attack : MonoBehaviour
             {
                 if (isGonnaDie == false)
                 {
-                    c.GetComponent<Enemy_Movement>().isAttracted = true;
-                    c.GetComponent<Enemy_Movement>().attractTarget = parentTrap.transform.position;
+                    c.GetComponent<Entity_Movement>().isAttracted = true;
+                    c.GetComponent<Entity_Movement>().attractTarget = parentTrap.transform.position;
                 }
                 else
                 {
-                    c.GetComponent<Enemy_Movement>().isAttracted = false;
+                    c.GetComponent<Entity_Movement>().isAttracted = false;
                 }
             }
         }
@@ -162,9 +162,9 @@ public class Bait_Attack : MonoBehaviour
         {
             foreach (Collider c in ennemis)
             {
-                if (c.GetComponent<Enemy_Movement>().speedIsModified == false)
+                if (c.GetComponent<Entity_Movement>().speedIsModified == false)
                 {
-                    StartCoroutine(c.GetComponent<Enemy_Movement>().ModifieSpeed(cooldown, damages, false));
+                    StartCoroutine(c.GetComponent<Entity_Movement>().ModifieSpeed(cooldown, damages, false));
                 }
                 else
                 {
@@ -184,11 +184,11 @@ public class Bait_Attack : MonoBehaviour
         {
             if (cptCooldown == 0)
             {
-                if(units[0].GetComponent<Enemy_Stats>().hasDot == true)
+                if(units[0].GetComponent<Entity_Stats>().hasDot == true)
                 {
                     foreach(Collider c in units)
                     {
-                        if (c.GetComponent<Enemy_Stats>().hasDot == false)
+                        if (c.GetComponent<Entity_Stats>().hasDot == false)
                         {
                             target = c.transform;
                             break;
@@ -201,7 +201,7 @@ public class Bait_Attack : MonoBehaviour
                 }
                 if (target != null)
                 {
-                    StartCoroutine(target.GetComponent<Enemy_Stats>().Parfume(damages, dotDuration, rangeTransmission, nbTransmission, ennemisMask));
+                    StartCoroutine(target.GetComponent<Entity_Stats>().Parfume(damages, dotDuration, rangeTransmission, nbTransmission, ennemisMask));
                     StartCoroutine(Cooldown(cooldown));
                     target = null;
                 }
@@ -218,7 +218,7 @@ public class Bait_Attack : MonoBehaviour
             {
                 foreach (Collider c in units)
                 {
-                    StartCoroutine(c.GetComponent<Enemy_Movement>().ModifieSpeed(damages, 0f, true));
+                    StartCoroutine(c.GetComponent<Entity_Movement>().ModifieSpeed(damages, 0f, true));
                     StartCoroutine(Cooldown(cooldown));
                 }
             }
@@ -234,7 +234,7 @@ public class Bait_Attack : MonoBehaviour
             {
                 foreach (Collider c in ennemis)
                 {
-                    c.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
+                    c.GetComponent<Entity_Stats>().DamageBadEntity(damages);
                 }
                 StartCoroutine(Cooldown(this.cooldown));
             }
@@ -249,18 +249,18 @@ public class Bait_Attack : MonoBehaviour
             {
                 if(e.transform.rotation.eulerAngles.y < parentTrap.transform.rotation.eulerAngles.y + 90 % 360)
                 {
-                    if (e.GetComponent<Enemy_Movement>().speedIsModified == false)
+                    if (e.GetComponent<Entity_Movement>().speedIsModified == false)
                     {
-                        StartCoroutine(e.GetComponent<Enemy_Movement>().ModifieSpeed(0.1f, cooldown, false));//cooldown doit etre egale a la vitesse de l'ennemi slowed pour ce piege
+                        StartCoroutine(e.GetComponent<Entity_Movement>().ModifieSpeed(0.1f, cooldown, false));//cooldown doit etre egale a la vitesse de l'ennemi slowed pour ce piege
                     }
                     else
                         return;
                 }
                 else
                 {
-                    if (e.GetComponent<Enemy_Movement>().speedIsModified == false)
+                    if (e.GetComponent<Entity_Movement>().speedIsModified == false)
                     {
-                        StartCoroutine(e.GetComponent<Enemy_Movement>().ModifieSpeed(0.1f, damages, false));//damages doit etre egale a la vitesse de l'ennemi fastened pour ce piege
+                        StartCoroutine(e.GetComponent<Entity_Movement>().ModifieSpeed(0.1f, damages, false));//damages doit etre egale a la vitesse de l'ennemi fastened pour ce piege
                     }
                     else
                         return;
@@ -279,20 +279,20 @@ public class Bait_Attack : MonoBehaviour
             {
                 if (isGonnaDie == false)
                 {
-                    c.GetComponent<Enemy_Movement>().isAttracted = true;
-                    c.GetComponent<Enemy_Movement>().attractTarget = this.parentTrap.transform.position + forwardVector * (attaqueRange - 3);
+                    c.GetComponent<Entity_Movement>().isAttracted = true;
+                    c.GetComponent<Entity_Movement>().attractTarget = this.parentTrap.transform.position + forwardVector * (attaqueRange - 3);
                     if (cptCooldown == 0)
                     {
                         if (Vector3.Distance(c.transform.position, transform.position) <= attaqueRange)
                         {
-                            c.GetComponent<Enemy_Stats>().DamageBadEntity(damages);
+                            c.GetComponent<Entity_Stats>().DamageBadEntity(damages);
                         }
                         StartCoroutine(Cooldown(this.cooldown));
                     }
                 }
                 else
                 {
-                    c.GetComponent<Enemy_Movement>().isAttracted = false;
+                    c.GetComponent<Entity_Movement>().isAttracted = false;
                 }
             }
         }

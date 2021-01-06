@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class Enemy_Stats : MonoBehaviour
+public class Entity_Stats : MonoBehaviour
 {
     public int entityType;//correspon au type des traps et des firmes
     public Wave_Manager wavemanager;
@@ -96,7 +96,7 @@ public class Enemy_Stats : MonoBehaviour
                         foreach (Collider c in closeEnemies)
                         {
                             float dist = Vector3.Distance(transform.position, c.transform.position);
-                            if(c.gameObject.GetComponent<Enemy_Stats>().hasDot == false)
+                            if(c.gameObject.GetComponent<Entity_Stats>().hasDot == false)
                             {
                                 if (dist < minDist)
                                 {
@@ -126,7 +126,7 @@ public class Enemy_Stats : MonoBehaviour
                         }
                         else
                         {
-                            StartCoroutine(temporaryTarget.GetComponent<Enemy_Stats>().Parfume(damages, duration, range, index, contaminationlayer));
+                            StartCoroutine(temporaryTarget.GetComponent<Entity_Stats>().Parfume(damages, duration, range, index, contaminationlayer));
                             cptCooldownBtweenContamination = 1;
                             temporaryTarget = null;
                         }

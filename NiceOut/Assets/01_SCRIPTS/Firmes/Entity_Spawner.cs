@@ -25,7 +25,7 @@ public class Entity_Spawner : MonoBehaviour
     {
         waveManager.AddRemoveEntity(true);
         GameObject newEntity = Instantiate(entityToSpawn, _spawnPoint, Quaternion.identity);
-        newEntity.GetComponent<Enemy_Stats>().InitializeEntity(GetComponent<Firme_Stats>().firmeType, 0, waveManager);
+        newEntity.GetComponent<Entity_Stats>().InitializeEntity(GetComponent<Firme_Stats>().firmeType, 0, waveManager);
     }
     Vector3 ChooseSpawnPoint(float _radius)//choisi un point dans la range de la firme sur le navmesh pour faire spawn l'entité
     {

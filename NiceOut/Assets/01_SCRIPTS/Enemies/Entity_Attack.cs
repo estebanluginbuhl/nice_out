@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Attack : MonoBehaviour
+public class Entity_Attack : MonoBehaviour
 {
     [SerializeField]
     private int enemyDamages, allyDamages;
@@ -20,7 +20,7 @@ public class Enemy_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (GetComponent<Enemy_Stats>().status)
+        switch (GetComponent<Entity_Stats>().status)
         {
             case 0:
                 break;
@@ -41,7 +41,7 @@ public class Enemy_Attack : MonoBehaviour
                 break;
 
             case 2:
-                wantsToAttack = GetComponent<Enemy_Movement>().pathFinding;
+                wantsToAttack = GetComponent<Entity_Movement>().pathFinding;
                 if (wantsToAttack)//si l'ennemi foxus le joueur il attaque que le joueur 
                 {
                     if (enemyDamageCooldown < 1)
@@ -110,7 +110,7 @@ public class Enemy_Attack : MonoBehaviour
     {
         if (_enemyTarget != null)
         {
-            _enemyTarget.GetComponent<Enemy_Stats>().DamageGoodEntity(enemyDamages, GetComponent<Enemy_Stats>().entityType);
+            _enemyTarget.GetComponent<Entity_Stats>().DamageGoodEntity(enemyDamages, GetComponent<Entity_Stats>().entityType);
             enemyDamageCooldown = 0;
         }
     }
@@ -120,7 +120,7 @@ public class Enemy_Attack : MonoBehaviour
         if (_allieTarget != null)
         {
             _allieTarget.GetComponent<Firme_Stats>().DamageFirme(allyDamages);
-            GetComponent<Enemy_Stats>().DamageGoodEntity(100, 0);
+            GetComponent<Entity_Stats>().DamageGoodEntity(100, 0);
             isDead = true;
             Destroy(this.gameObject);
         }
