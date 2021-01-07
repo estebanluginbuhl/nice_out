@@ -904,7 +904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: {fileID: 0}
   waveIndex: 0
-  nbMaxWaves: 10
+  nbMaxWaves: 5
   initializeWave: 0
   play: 0
   nbEntity: 0
