@@ -42,6 +42,8 @@ public class Bait_Manager : MonoBehaviour
     GameObject location;
 
     [Header("Preview Trap Placement")]
+    public float timerAntiSpam;
+    float delayAntiSpam;
     public GameObject previewTrap;
     public Vector3 colliderCube;
     public Material[] mat;
@@ -58,6 +60,8 @@ public class Bait_Manager : MonoBehaviour
 
     private void Awake() //Detection input
     {
+        delayAntiSpam = 1;
+
         inputs = new Inputs();
 
         inputs.Actions.Place.started += ctx => place = true;
@@ -188,14 +192,16 @@ public class Bait_Manager : MonoBehaviour
 
                             if (selectedTrap == null)
                             {
+                                delayAntiSpam += Time.deltaTime;
                                 //appel du placement du pieges
-                                if (detectCollision == false)
+                                if (detectCollision == false && delayAntiSpam >= timerAntiSpam)
                                 {
                                     if (place)
                                     {
                                         PlaceTrap(inventorySelection, ui_Manager.GetComponent<Bait_Inventory>().selectedSlotIndex, location);
                                         location.GetComponent<Bait_Location_State>().SetOccupation(true);
                                         place = false;
+                                        delayAntiSpam = 0;
                                     }
                                 }
                             }
