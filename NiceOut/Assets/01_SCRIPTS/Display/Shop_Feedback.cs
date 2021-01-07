@@ -32,5 +32,6 @@ public class Shop_Feedback : MonoBehaviour
         else
         {
             anm.SetFloat("DistancePlayer", 12);
-        }    }
+        }    
+    }
 }
