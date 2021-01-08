@@ -19388,9 +19388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathFinding: 0
-  neutral: 1
-  hostile: 0
-  allie: 0
+  status: 0
   enmTransform: {fileID: 8539083494893854118}
   playerDetectionLayer:
     serializedVersion: 2
@@ -19405,6 +19403,7 @@ MonoBehaviour:
   enmNavMesh: {fileID: 0}
   target: {fileID: 0}
   enmHealth: 0
+  start: 1
   damage: 0
   attackRadius: 0
   damageCooldown: 0

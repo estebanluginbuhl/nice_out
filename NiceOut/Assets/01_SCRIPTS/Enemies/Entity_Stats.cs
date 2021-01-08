@@ -16,6 +16,7 @@ public class Entity_Stats : MonoBehaviour
     GameObject player;
     [Header("Affichage")]
     //Visuel
+    public GameObject smileyPrefab;
     [SerializeField]
     float distanceMaxPlayer;
     float distancePlayer;
@@ -138,6 +139,12 @@ public class Entity_Stats : MonoBehaviour
 
     public void DamageGoodEntity(int takenDamage, int _type)
     {
+        if (smileyPrefab != null)//smiley
+        {
+            ChangeSmileyColor(1);
+            ShowSmiley();
+        }
+
         enmHealth -= takenDamage;
         entityType = _type;
         if (enmHealth <= healthValues.x)
@@ -152,6 +159,12 @@ public class Entity_Stats : MonoBehaviour
     }
     public void DamageBadEntity(int takenDamage)
     {
+        if (smileyPrefab != null)//smiley
+        {
+            ChangeSmileyColor(2);
+            ShowSmiley();
+        }
+
         enmHealth += takenDamage;
         if (enmHealth >= healthValues.w)
         {
@@ -220,6 +233,24 @@ public class Entity_Stats : MonoBehaviour
         wavemanager = _waveManager;
         UpdateEnemyState();
     }
+
+    void ChangeSmileyColor(int i)
+    {
+        if (i == 1)
+        {
+            smileyPrefab.GetComponent<RawImage>().color = Color.green;
+        }
+        else if (i == 2)
+        {
+            smileyPrefab.GetComponent<RawImage>().color = Color.red;
+        }
+        else return;
+    }
+    void ShowSmiley()
+    {
+        Instantiate(smileyPrefab, transform.position, Quaternion.identity, transform);
+    }
+
     public IEnumerator Parfume(int _damage, int _duration, float _range, int _index, LayerMask _contaminationlayer)//DOT parfum
     {
         damages = _damage;
