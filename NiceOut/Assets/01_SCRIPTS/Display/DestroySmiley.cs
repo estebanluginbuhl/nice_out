@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroySmiley : MonoBehaviour
 {
     public float height = 2;
+    public float randomizerTreshold = 0.5f;
     Vector3 offset;
     public float destroyTime = 1f;
 
@@ -18,5 +19,6 @@ public class DestroySmiley : MonoBehaviour
         Destroy(gameObject, destroyTime);
 
         transform.localPosition += offset;
+        transform.localPosition += new Vector3(Random.Range(-randomizerTreshold, randomizerTreshold), Random.Range(-randomizerTreshold, randomizerTreshold), Random.Range(-randomizerTreshold, randomizerTreshold));
     }
 }
