@@ -238,11 +238,11 @@ public class Entity_Stats : MonoBehaviour
     {
         if (i == 1)
         {
-            smileyPrefab.GetComponent<RawImage>().color = Color.green;
+            smileyPrefab.GetComponentInChildren<RawImage>().color = Color.red;
         }
         else if (i == 2)
         {
-            smileyPrefab.GetComponent<RawImage>().color = Color.red;
+            smileyPrefab.GetComponentInChildren<RawImage>().color = Color.green;
         }
         else return;
     }

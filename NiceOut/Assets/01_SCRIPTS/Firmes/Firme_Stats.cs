@@ -47,7 +47,7 @@ public class Firme_Stats : MonoBehaviour
 
     void DestroyFirme()//detruit ce batiment de firme
     {
-        waveManager.AddLootType(firmeType);
+        waveManager.AddLootType(firmeType, this.gameObject);
         buildManager.RecallModifiedHouses(firmeIndex);
         Destroy(this.gameObject);
     }

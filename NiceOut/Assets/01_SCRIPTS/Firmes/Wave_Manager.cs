@@ -32,6 +32,7 @@ public class Wave_Manager : MonoBehaviour
     public bool[] fullyUpgraded; //Pour le choix des type d'entreprise : en gros quand ta desja toute les upgrade de ce trap faut pas que l'entreprise repop. l'index des cases du tableau correspond au type de l'entreprise.
     [Header("Affichage")]
     public GameObject losePanel, winPanel;
+    public GameObject endCamera, lastDestroyedFirme;
     public Image enemyBar, allyBar;
     public TextMeshProUGUI waveText;
     void Start()
@@ -68,7 +69,7 @@ public class Wave_Manager : MonoBehaviour
         {
             if(initializeWave == false && lootIndex == nbFirmesOnMap)
             {
-                EndWave();
+                endCamera.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
             }
         }
     }
@@ -82,7 +83,7 @@ public class Wave_Manager : MonoBehaviour
         builder.ReplaceHousesByFirmes(waveIndex);
         initializeWave = false;
     }
-    void EndWave()
+    public void EndWave()
     {
         waveIndex += 1;
         if(waveIndex == nbMaxWaves)
@@ -137,8 +138,9 @@ public class Wave_Manager : MonoBehaviour
             newNeutral.GetComponent<Entity_Stats>().InitializeEntity(0, 50, this);
         }
     }
-    public void AddLootType(int destroyedFirmeType) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
+    public void AddLootType(int destroyedFirmeType, GameObject destroyedFirme) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
     {
+        lastDestroyedFirme = destroyedFirme;
         lootType[lootIndex] = destroyedFirmeType;
         lootIndex += 1;
     }

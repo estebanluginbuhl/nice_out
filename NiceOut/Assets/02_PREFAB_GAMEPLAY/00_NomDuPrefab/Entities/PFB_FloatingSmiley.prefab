@@ -85,8 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5d2a27ee6f1734e85b9c31dfac22e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 2
-  destroyTime: 1
+  height: 5
+  randomizerTreshold: 2
+  destroyTime: 1.5
 --- !u!1 &3998109901854986079
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1769400229156451037
 CanvasRenderer:
@@ -146,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
