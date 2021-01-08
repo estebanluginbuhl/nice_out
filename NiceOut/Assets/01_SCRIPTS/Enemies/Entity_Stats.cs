@@ -61,7 +61,7 @@ public class Entity_Stats : MonoBehaviour
         UpdateEnemyState();
     }
 
-    private void Update()
+    void Update()
     {
         if(player != null)
         {
