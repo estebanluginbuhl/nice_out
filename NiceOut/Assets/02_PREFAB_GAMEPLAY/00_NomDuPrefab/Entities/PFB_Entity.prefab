@@ -38017,6 +38017,8 @@ MonoBehaviour:
   entityType: 0
   wavemanager: {fileID: 0}
   status: 3
+  smileyPrefab: {fileID: 5806397109210874740, guid: a6b16a59a84745e4ab5233bd0b6aa423,
+    type: 3}
   distanceMaxPlayer: 25
   healthbar: {fileID: 7534105158628510663}
   healthImage: {fileID: 6005379366830359802}

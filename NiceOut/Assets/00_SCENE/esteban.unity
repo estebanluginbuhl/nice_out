@@ -806,19 +806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32f9f8205fe06b4ea876dda2de44e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firmePFB:
-  - {fileID: 7355742482789837044, guid: 1d205ce4a5e2da14b8fd360edd50fad5, type: 3}
-  - {fileID: 5107091061257986687, guid: e969c1eff51a68b43ae14364e55a55ba, type: 3}
-  - {fileID: 133613597885165732, guid: f5204a44a56e25247ab948a21466cafd, type: 3}
-  - {fileID: 4270362295300999630, guid: 3a6cb18aa54182e40b1354271b861b69, type: 3}
-  - {fileID: 4577399760605783000, guid: 00279525ad3c6e245ba742126a83e4b2, type: 3}
-  - {fileID: 4139347199066735316, guid: f987cf90113d6b948a737590908c0093, type: 3}
-  shopPFB: {fileID: 626291625308161375, guid: ca6130e48cfb339479b67b3246549ef0, type: 3}
-  buildingPerWave: 3
-  houseIndex: 0
-  changeHouses: 0
-  placeShop: 0
-  recallHouse: 0
 --- !u!1 &217377717
 GameObject:
   m_ObjectHideFlags: 0
