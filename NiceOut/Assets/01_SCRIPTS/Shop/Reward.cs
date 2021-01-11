@@ -179,6 +179,7 @@ public class Reward : MonoBehaviour
     }
     public void AddReward()
     {
+        player.GetComponent<Player_Stats>().RincePlayer(waveManager.waveValue[waveManager.waveIndex]);
         if (mustUpgrade)//UpgradeTrap
         {
             int _type = ui_Manager.GetComponent<Bait_Inventory>().trapsItem[rewardTrapIndex].GetComponent<Baits>().trapType; //Getle type du piege a upgrade dans l'inventaire
