@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Bravo vous avez d\xE9bloqu\xE9 un nouvel appat en battant la vague"
       objectReference: {fileID: 0}
+    - target: {fileID: 1502596755, guid: 37bdbb7996b48c84c88c32f681425a70, type: 3}
+      propertyPath: howManyFirmesPerWaves.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1610623127, guid: 37bdbb7996b48c84c88c32f681425a70, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -661,6 +665,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
+      propertyPath: waveValue.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxFirmes.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
       propertyPath: mode
       value: 
       objectReference: {fileID: 4549441852797316757}
@@ -695,6 +709,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4114657604093807703, guid: b3e8d7e82679d9346aea46bb5d9a9fbe,
         type: 3}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxWaves
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[0]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[1]
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[2]
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[3]
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[4]
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[5]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[6]
+      value: 1700
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxFirmes.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5635583681213479290, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
       propertyPath: player

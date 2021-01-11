@@ -10,6 +10,9 @@ public class Firme_Builder : MonoBehaviour
     public GameObject[] allFirmes;//Prefabs de firmes
     [SerializeField]
     Vector3[] howManyFirmesPerWaves;//x = cb de petite firmes, y = cb de moyenne firmes et z = cb de grande firmes
+    [SerializeField]
+    Vector3[] typesOfFirmesPerWave;
+
     public GameObject pfb_Shop;
     GameObject[] modifiedHouses;
     
