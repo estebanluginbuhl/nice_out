@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9084500801107010433}
   - component: {fileID: 9084500801107010434}
   - component: {fileID: -54516380959286210}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: PFB_UI_Minimap_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 9084500801213703952}
   - component: {fileID: 9084500801213703966}
   - component: {fileID: 9084500801213703967}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Player_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}

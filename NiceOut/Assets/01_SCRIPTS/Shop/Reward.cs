@@ -34,11 +34,13 @@ public class Reward : MonoBehaviour
     bool open, isOpened = false;
     bool lootSelected;
 
+    GameObject mainCam;
 
     // Start is called before the first frame update
 
     private void Awake()
     {
+        mainCam = Camera.main.gameObject;
         waveManager = GetComponent<Wave_Manager>();
         upgradeIndexes = new int[ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax];
         addedTraps = new int[ui_Manager.GetComponent<Bait_Inventory>().nbTrapMax];
@@ -98,6 +100,7 @@ public class Reward : MonoBehaviour
         {
             if (isOpened == false)
             {
+                mainCam.GetComponent<Camera>().enabled = true;
                 player.GetComponent<Switch_Mode>().SetShopping();
                 uiRewardPanel.SetActive(true);
                 isOpened = true;

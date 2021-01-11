@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2649931168703751197}
   - component: {fileID: 2649931168703751171}
   - component: {fileID: 2649931168703751170}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Shop_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2649931169193169206}
   - component: {fileID: 2649931169193169201}
   - component: {fileID: 7578966475596247760}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: PFB_UI_Minimap_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

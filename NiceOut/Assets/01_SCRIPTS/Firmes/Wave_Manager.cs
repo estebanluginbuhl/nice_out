@@ -32,7 +32,10 @@ public class Wave_Manager : MonoBehaviour
     public bool[] fullyUpgraded; //Pour le choix des type d'entreprise : en gros quand ta desja toute les upgrade de ce trap faut pas que l'entreprise repop. l'index des cases du tableau correspond au type de l'entreprise.
     [Header("Affichage")]
     public GameObject losePanel, winPanel;
-    public GameObject endCamera, lastDestroyedFirme;
+    public GameObject endCamera;
+    Camera mainCamera;
+    public bool endOfWave;
+    public Transform lastDestroyedFirme;
     public Image enemyBar, allyBar;
     public TextMeshProUGUI waveText;
     void Start()
@@ -69,7 +72,13 @@ public class Wave_Manager : MonoBehaviour
         {
             if(initializeWave == false && lootIndex == nbFirmesOnMap)
             {
-                endCamera.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
+                if(endOfWave == false)
+                {
+                    GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
+                    endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
+                    Camera.main.enabled = false;
+                    endOfWave = true;
+                }
             }
         }
     }
@@ -82,6 +91,7 @@ public class Wave_Manager : MonoBehaviour
         lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
         builder.ReplaceHousesByFirmes(waveIndex);
         initializeWave = false;
+        endOfWave = false;
     }
     public void EndWave()
     {
@@ -113,7 +123,6 @@ public class Wave_Manager : MonoBehaviour
             nbEntity = 0;
             play = false;
             reward.rewardTime = true;//Ouvre le reward panel
-            Debug.Log("DestroyEntities");
         }
     }
     void AddBaseNeutrals()
@@ -138,7 +147,7 @@ public class Wave_Manager : MonoBehaviour
             newNeutral.GetComponent<Entity_Stats>().InitializeEntity(0, 50, this);
         }
     }
-    public void AddLootType(int destroyedFirmeType, GameObject destroyedFirme) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
+    public void AddLootType(int destroyedFirmeType, Transform destroyedFirme) //Quand un batiment de firme est detruit, il active cette fonction en rentrant son type.
     {
         lastDestroyedFirme = destroyedFirme;
         lootType[lootIndex] = destroyedFirmeType;

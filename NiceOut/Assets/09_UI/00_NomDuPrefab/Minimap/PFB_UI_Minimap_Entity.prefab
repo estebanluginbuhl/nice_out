@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4592129115086502969}
   - component: {fileID: 4592129115086502975}
   - component: {fileID: 4592129115086502974}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Ally_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4592129115717663173}
   - component: {fileID: 4592129115717663179}
   - component: {fileID: 4592129115717663178}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Neutral_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 4592129115799570759}
   - component: {fileID: 8846840500150519586}
   - component: {fileID: 7019707444131881457}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: PFB_UI_Minimap_Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 4592129115948945261}
   - component: {fileID: 4592129115948945235}
   - component: {fileID: 4592129115948945234}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Enemy_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}

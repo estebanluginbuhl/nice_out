@@ -7,38 +7,42 @@ public class CameraEndWave : MonoBehaviour
     [SerializeField]
     LayerMask cameraCollisionLayer = -1;
     [SerializeField]
+
     LayerMask rayCollisionLayer = -1;
     public Camera endCam;
-    public GameObject lastFirme;
+    public Transform lastFirme;
     public float adjustSpeed;
-    float endTimer;
+    float endTimer = 5;
     public float endTiming;
     bool startEnd;
     Vector3 camTranslation;
     float zPos = 0;
-    float collisionRange;
+    public float collisionRange;
     Wave_Manager waveManager;
     void Update()
     {
         if(startEnd == true)
         {
             endTimer -= Time.deltaTime;
-            if(endTimer<= 0)
+            if(endTimer <= 0)
             {
                 waveManager.EndWave();
+                Destroy(this.gameObject);
             }
         }
 
-        endCam.gameObject.transform.LookAt(transform.position);
+        Vector3 firmeFocusPoint = transform.position + (Vector3.up * 5);
 
-        Vector3 camToFirme = transform.position - endCam.transform.position;
+        endCam.gameObject.transform.LookAt(firmeFocusPoint);
+
+        /*Vector3 camToFirme = firmeFocusPoint - endCam.transform.position;
         float camDistance = camToFirme.magnitude;
         Vector3 camLookDir = camToFirme.normalized;
 
         bool rayCollides = Physics.Raycast(endCam.transform.position, camLookDir, camDistance, rayCollisionLayer);
         Collider[] camCollides = Physics.OverlapSphere(endCam.transform.position, collisionRange, cameraCollisionLayer);
 
-        if(rayCollides || camCollides.Length > 0)
+        if(rayCollides)
         {
             zPos += Time.deltaTime * adjustSpeed;
         }
@@ -47,17 +51,29 @@ public class CameraEndWave : MonoBehaviour
             zPos -= Time.deltaTime * adjustSpeed;
         }
 
-        camTranslation = endCam.gameObject.transform.position + new Vector3(0, 0, zPos);
-        endCam.gameObject.transform.position = camTranslation;
+        if (camCollides.Length > 0)
+        {
+
+        }
+
+        camTranslation = endCam.gameObject.transform.position + camLookDir * zPos;
+        endCam.gameObject.transform.position = camTranslation;*/
     }
 
-    public void StartEndWave(GameObject _firme, Wave_Manager _waveManager)
+    public void StartEndWave(Transform _firme, Wave_Manager _waveManager)
     {
-        lastFirme = _firme;
+        lastFirme = _firme.transform;
         waveManager = _waveManager;
-        transform.rotation = lastFirme.transform.rotation;
-        transform.position = lastFirme.transform.position + (Vector3.up * (lastFirme.transform.localScale.y / 2));
+
+        Quaternion wantedCamRotation = Quaternion.Euler(lastFirme.transform.eulerAngles.x, lastFirme.transform.eulerAngles.y - 90, lastFirme.transform.eulerAngles.z);
+        transform.rotation = wantedCamRotation;
+        transform.position = lastFirme.transform.position + (Vector3.up * 5);
         endTimer = endTiming;
         startEnd = true;
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(endCam.transform.position, collisionRange);
     }
 }

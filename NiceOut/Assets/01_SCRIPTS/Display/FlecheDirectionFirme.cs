@@ -45,7 +45,6 @@ public class FlecheDirectionFirme : MonoBehaviour
                 billy.transform.LookAt(choosenObjective.transform.position);
 
                 float rotY = billy.transform.localEulerAngles.y;
-                Debug.Log(rotY);
                 centre.transform.rotation = Quaternion.Euler(0, 0, -rotY);
                 fleche.transform.localScale = new Vector3((currentdist / maxDist), (currentdist / maxDist), (currentdist / maxDist));
             }

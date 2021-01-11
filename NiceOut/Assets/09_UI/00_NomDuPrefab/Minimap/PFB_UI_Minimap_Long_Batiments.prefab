@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8023765184089450278}
   - component: {fileID: 8023765184089450457}
   - component: {fileID: -1512732974592924859}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: PFB_UI_Minimap_Long_Batiments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 8023765184512439131}
   - component: {fileID: 8023765184512439129}
   - component: {fileID: 8023765184512439128}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Long_Batiments_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}

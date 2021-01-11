@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2051105294953395848}
   - component: {fileID: 2051105294953395851}
   - component: {fileID: 4691098812044680043}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: PFB_UI_Minimap_Firme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2051105295503808513}
   - component: {fileID: 2051105295503808527}
   - component: {fileID: 2051105295503808526}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Firme_Map_Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -41,13 +41,19 @@ public class Firme_Stats : MonoBehaviour
         waveManager.AddRemoveEntity(false);
         if(health <= 0)
         {
-            DestroyFirme();
+            StartFirmeDestruction();
         }
+    }
+
+    void StartFirmeDestruction()
+    {
+        waveManager.AddLootType(firmeType, this.gameObject.transform);
+        gameObject.layer = 0;
+        DestroyFirme();
     }
 
     void DestroyFirme()//detruit ce batiment de firme
     {
-        waveManager.AddLootType(firmeType, this.gameObject);
         buildManager.RecallModifiedHouses(firmeIndex);
         Destroy(this.gameObject);
     }

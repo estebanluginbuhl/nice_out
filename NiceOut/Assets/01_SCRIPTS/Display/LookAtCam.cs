@@ -11,6 +11,7 @@ public class LookAtCam : MonoBehaviour
     }
     private void Update()
     {
-        transform.LookAt(cam.transform);
+        if(cam!= null)
+            transform.LookAt(cam.transform);
     }
 }

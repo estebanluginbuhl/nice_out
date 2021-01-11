@@ -14952,10 +14952,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6b16a59a84745e4ab5233bd0b6aa423, type: 3}
---- !u!224 &836954043 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3513683424079780629, guid: a6b16a59a84745e4ab5233bd0b6aa423,
-    type: 3}
+--- !u!4 &836954043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 836954042}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &845322847 stripped
@@ -29151,6 +29150,7 @@ MonoBehaviour:
   losePanel: {fileID: 1603510149}
   winPanel: {fileID: 1362501617}
   endCamera: {fileID: 0}
+  endOfWave: 0
   lastDestroyedFirme: {fileID: 0}
   enemyBar: {fileID: 531078946}
   allyBar: {fileID: 1462568750}
