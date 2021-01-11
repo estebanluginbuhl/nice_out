@@ -10,6 +10,9 @@ public class Player_Stats : MonoBehaviour
     public float maxHealth;
     public float healthPercentage;
     public int gold;
+    public int goldPerRateAmount;
+    public float goldRate;
+    public float goldCpt;
 
     //Invincibility
     bool isInvincible = false;
@@ -43,6 +46,12 @@ public class Player_Stats : MonoBehaviour
         {
             Death();
         }
+        if (goldCpt <= 0)
+        {
+            RincePlayer(goldPerRateAmount);
+            goldCpt = goldRate;
+        }
+        goldCpt -= Time.deltaTime;
     }
 
     public void RincePlayer(int monsterValue)

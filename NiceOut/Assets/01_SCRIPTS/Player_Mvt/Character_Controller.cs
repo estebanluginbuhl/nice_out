@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Character_Controller : MonoBehaviour
 {
-    Inputs inputs;
+    PapogayInputs playerInputs;
 
     Transform cam;
     CharacterController charaCtrl;
@@ -42,12 +42,12 @@ public class Character_Controller : MonoBehaviour
 
     private void Awake()
     {
-        inputs = new Inputs();
+        playerInputs = new PapogayInputs();
 
-        inputs.Actions.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        inputs.Actions.Move.canceled += ctx => move = Vector2.zero;
-        inputs.Actions.Jump.started += ctx => roll = true;
-        inputs.Actions.Jump.canceled += ctx => roll = false;
+        playerInputs.Actions.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        playerInputs.Actions.Move.canceled += ctx => move = Vector2.zero;
+        playerInputs.Actions.Jump.started += ctx => roll = true;
+        playerInputs.Actions.Jump.canceled += ctx => roll = false;
 
         isBoosted.Stop();
     }
@@ -172,10 +172,10 @@ public class Character_Controller : MonoBehaviour
 
     private void OnEnable()
     {
-        inputs.Actions.Enable();
+        playerInputs.Actions.Enable();
     }
     private void OnDisable()
     {
-        inputs.Actions.Disable();
+        playerInputs.Actions.Disable();
     }
 }
