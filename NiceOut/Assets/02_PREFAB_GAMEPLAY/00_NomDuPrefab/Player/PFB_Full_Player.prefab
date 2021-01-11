@@ -502,7 +502,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 786432
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 42594830478ed1147a57ea141da2f7b4, type: 2}
   m_TargetDisplay: 0
@@ -918,7 +918,7 @@ PrefabInstance:
     - target: {fileID: 8731416418560567865, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 261943
+      value: 524087
       objectReference: {fileID: 0}
     - target: {fileID: 8731416418560567867, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
@@ -1844,6 +1844,11 @@ PrefabInstance:
       propertyPath: locationLayer.m_Bits
       value: 262144
       objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: timerAntiSpam
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -1878,6 +1883,11 @@ PrefabInstance:
         type: 3}
       propertyPath: goldRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: health
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7413206124288006484, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}

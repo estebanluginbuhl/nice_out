@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Bait_Manager : MonoBehaviour
 {
-    Inputs inputs;
+    PapogayInputs inputs;
     bool place, rotatingRight, rotatingLeft;
 
     [Header("UI Elements")]
@@ -62,7 +62,7 @@ public class Bait_Manager : MonoBehaviour
     {
         delayAntiSpam = 1;
 
-        inputs = new Inputs();
+        inputs = new PapogayInputs();
 
         inputs.Actions.Place.started += ctx => place = true;
         inputs.Actions.Place.canceled += ctx => place = false;
