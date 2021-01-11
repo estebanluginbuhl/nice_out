@@ -14952,11 +14952,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6b16a59a84745e4ab5233bd0b6aa423, type: 3}
---- !u!4 &836954043 stripped
+--- !u!4 &836954043
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 836954042}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195038912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1345863411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &845322847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2230862895595104664, guid: 88ed740dabd8cc346a6dc7c8fd53abcb,
@@ -18059,7 +18068,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 29.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 836954043}
+  - {fileID: 1345863411}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19472,6 +19481,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1189520280}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1195038912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 836954042}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 836954043}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &1204988006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21941,6 +21966,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1345529903}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1345863410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 836954042}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1345863411}
+  m_Layer: 0
+  m_Name: FloatingSmiley (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1345863411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 836954042}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345863410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 836954043}
+  m_Father: {fileID: 1090292603}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1357363899
 PrefabInstance:
   m_ObjectHideFlags: 0
