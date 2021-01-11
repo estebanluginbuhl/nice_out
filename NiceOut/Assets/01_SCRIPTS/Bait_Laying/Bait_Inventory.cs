@@ -8,7 +8,7 @@ using TMPro;
 public class Bait_Inventory : MonoBehaviour
 {
 
-    Inputs inputs;
+    PapogayInputs inputs;
     public int nbTrapMax;
 
     [HideInInspector]
@@ -42,7 +42,7 @@ public class Bait_Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        inputs = new Inputs();
+        inputs = new PapogayInputs();
 
         inputs.Actions.MouseScroll.performed += ctx => scrolling = ctx.ReadValue<Vector2>();
         inputs.Actions.MouseScroll.canceled += ctx => scrolling = Vector2.zero;

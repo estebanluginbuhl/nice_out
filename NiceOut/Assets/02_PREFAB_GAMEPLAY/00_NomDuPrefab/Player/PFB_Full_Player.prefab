@@ -502,7 +502,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 786432
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 42594830478ed1147a57ea141da2f7b4, type: 2}
   m_TargetDisplay: 0
@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Bravo vous avez d\xE9bloqu\xE9 un nouvel appat en battant la vague"
       objectReference: {fileID: 0}
+    - target: {fileID: 1502596755, guid: 37bdbb7996b48c84c88c32f681425a70, type: 3}
+      propertyPath: howManyFirmesPerWaves.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1610623127, guid: 37bdbb7996b48c84c88c32f681425a70, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -661,6 +665,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
+      propertyPath: waveValue.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxFirmes.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
       propertyPath: mode
       value: 
       objectReference: {fileID: 4549441852797316757}
@@ -695,6 +709,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4114657604093807703, guid: b3e8d7e82679d9346aea46bb5d9a9fbe,
         type: 3}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxWaves
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[0]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[1]
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[2]
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[3]
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[4]
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[5]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: waveValue.Array.data[6]
+      value: 1700
+      objectReference: {fileID: 0}
+    - target: {fileID: 4125109224421620019, guid: 37bdbb7996b48c84c88c32f681425a70,
+        type: 3}
+      propertyPath: nbMaxFirmes.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5635583681213479290, guid: 37bdbb7996b48c84c88c32f681425a70,
         type: 3}
       propertyPath: player
@@ -918,7 +977,7 @@ PrefabInstance:
     - target: {fileID: 8731416418560567865, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 261943
+      value: 524087
       objectReference: {fileID: 0}
     - target: {fileID: 8731416418560567867, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
@@ -1844,6 +1903,11 @@ PrefabInstance:
       propertyPath: locationLayer.m_Bits
       value: 262144
       objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644214, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: timerAntiSpam
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124061644215, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: ui_DeathPanel
@@ -1878,6 +1942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: goldRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: health
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7413206124288006484, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}

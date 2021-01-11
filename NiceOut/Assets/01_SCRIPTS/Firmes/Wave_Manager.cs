@@ -14,6 +14,8 @@ public class Wave_Manager : MonoBehaviour
     Firme_Builder builder;
     public int waveIndex; //Numéro de la vague
     public int nbMaxWaves; //Nombre de vagues
+    public int[] waveValue;
+
     public bool initializeWave; //Début de la vague, les batiments sont choisis et remplacés, tout se remet a l'etat initial
     public bool play = false;
     public int nbEntity;
@@ -74,10 +76,11 @@ public class Wave_Manager : MonoBehaviour
             {
                 if(endOfWave == false)
                 {
-                    GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
-                    endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
-                    Camera.main.enabled = false;
-                    endOfWave = true;
+                    EndWave();
+                    //GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
+                    //endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
+                    //Camera.main.enabled = false;
+                    //endOfWave = true;
                 }
             }
         }
