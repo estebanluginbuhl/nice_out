@@ -74,10 +74,11 @@ public class Wave_Manager : MonoBehaviour
             {
                 if(endOfWave == false)
                 {
-                    GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
-                    endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
-                    Camera.main.enabled = false;
-                    endOfWave = true;
+                    EndWave();
+                    //GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
+                    //endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
+                    //Camera.main.enabled = false;
+                    //endOfWave = true;
                 }
             }
         }
