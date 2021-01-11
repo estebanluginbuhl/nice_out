@@ -852,6 +852,14 @@ PrefabInstance:
       propertyPath: maxVerticalAngle
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: distance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583257361, guid: 2d59160e08743d64ab98abd29595b463, type: 3}
+      propertyPath: height
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8731416418560567864, guid: 2d59160e08743d64ab98abd29595b463,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1861,6 +1869,16 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 4549441851682172206}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: goldPerRateAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413206124061644217, guid: 5597ff108d4f37d489db09c58114e9d8,
+        type: 3}
+      propertyPath: goldRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7413206124288006484, guid: 5597ff108d4f37d489db09c58114e9d8,
         type: 3}
       propertyPath: m_LocalPosition.y

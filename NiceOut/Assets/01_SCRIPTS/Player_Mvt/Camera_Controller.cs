@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Camera_Controller : MonoBehaviour
 {
-    Inputs inputs;
+    PapogayInputs cameraInputs;
     Vector2 moveCam;
     Vector2 scroll;
     
@@ -51,13 +51,13 @@ public class Camera_Controller : MonoBehaviour
 
     private void Awake()
     {
-        inputs = new Inputs();
+        cameraInputs = new PapogayInputs();
         //move in tps
-        inputs.Actions.CameraMove.performed += ctx => moveCam = ctx.ReadValue<Vector2>();
-        inputs.Actions.CameraMove.canceled += ctx => moveCam = Vector2.zero;
+        cameraInputs.Actions.CameraMove.performed += ctx => moveCam = ctx.ReadValue<Vector2>();
+        cameraInputs.Actions.CameraMove.canceled += ctx => moveCam = Vector2.zero;
 
-        inputs.Actions.MouseScroll.performed += ctx => scroll = ctx.ReadValue<Vector2>();
-        inputs.Actions.MouseScroll.canceled += ctx => scroll = Vector2.zero;
+        cameraInputs.Actions.MouseScroll.performed += ctx => scroll = ctx.ReadValue<Vector2>();
+        cameraInputs.Actions.MouseScroll.canceled += ctx => scroll = Vector2.zero;
 
         regularCamera = GetComponent<Camera>();
         focusPoint = focus.position;
@@ -205,11 +205,11 @@ public class Camera_Controller : MonoBehaviour
 
     private void OnEnable()
     {
-        inputs.Actions.Enable();
+        cameraInputs.Actions.Enable();
     }
 
     private void OnDisable()
     {
-        inputs.Actions.Disable();
+        cameraInputs.Actions.Disable();
     }
 }

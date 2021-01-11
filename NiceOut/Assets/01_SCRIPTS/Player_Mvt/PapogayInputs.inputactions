@@ -124,6 +124,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "LeaveShop",
+                    "type": "Button",
+                    "id": "cce359ae-93d2-4bbd-a527-1ffa45d67a87",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -399,6 +407,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Shop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d0d043c-9d89-41b6-9f94-790f3ad06e05",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeaveShop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

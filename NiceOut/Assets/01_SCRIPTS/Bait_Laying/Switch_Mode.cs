@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Switch_Mode : MonoBehaviour
 {
-    Inputs inputs;
+    PapogayInputs modeInputs;
     
     public string menuScene;
     [HideInInspector]
@@ -29,10 +29,10 @@ public class Switch_Mode : MonoBehaviour
 
     private void Awake()
     {
-        inputs = new Inputs();
+        modeInputs = new PapogayInputs();
 
-        inputs.Actions.Switch.started += ctx => SwitchMode();
-        inputs.Actions.Echap.started += ctx => SetPause();
+        modeInputs.Actions.Switch.started += ctx => SwitchMode();
+        modeInputs.Actions.Echap.started += ctx => SetPause();
         ui_DeathPanel.SetActive(false);
         ui_PausePanel.SetActive(false);
     }
@@ -82,6 +82,11 @@ public class Switch_Mode : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
     public void SetShopping()
     {
@@ -107,12 +112,12 @@ public class Switch_Mode : MonoBehaviour
 
     private void OnEnable()
     {
-        inputs.Actions.Enable();
+        modeInputs.Actions.Enable();
     }
 
     private void OnDisable()
     {
-        inputs.Actions.Disable();
+        modeInputs.Actions.Disable();
     }
     
     public void Restart()
