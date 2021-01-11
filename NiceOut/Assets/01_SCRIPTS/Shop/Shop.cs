@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Shop : MonoBehaviour
 {
-    Inputs inputs;
+    PapogayInputs shopInputs;
 
     public bool buyingTime = false;
     Player_Stats stats;
@@ -25,8 +25,9 @@ public class Shop : MonoBehaviour
     GameObject[] oldShop;    
     private void Awake()
     {
-        inputs = new Inputs();
-        inputs.Actions.Shop.started += ctx => buyingTime = !buyingTime;
+        shopInputs = new PapogayInputs();
+        shopInputs.Actions.Shop.started += ctx => buyingTime = !buyingTime;
+        shopInputs.Actions.LeaveShop.started += ctx => buyingTime = false;
 
         stats = GetComponent<Player_Stats>();
         switchMode = GetComponent<Switch_Mode>();
@@ -98,11 +99,11 @@ public class Shop : MonoBehaviour
 
     private void OnEnable()
     {
-        inputs.Actions.Enable();
+        shopInputs.Actions.Enable();
     }
     private void OnDisable()
     {
-        inputs.Actions.Disable();
+        shopInputs.Actions.Disable();
     }
 }
 
