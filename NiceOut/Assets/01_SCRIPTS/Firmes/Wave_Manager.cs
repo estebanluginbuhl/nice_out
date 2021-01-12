@@ -34,7 +34,8 @@ public class Wave_Manager : MonoBehaviour
     public bool[] fullyUpgraded; //Pour le choix des type d'entreprise : en gros quand ta desja toute les upgrade de ce trap faut pas que l'entreprise repop. l'index des cases du tableau correspond au type de l'entreprise.
     [Header("Affichage")]
     public GameObject losePanel, winPanel;
-    public GameObject endCamera;
+    public GameObject endCamera; 
+    GameObject endCamInstance;
     Camera mainCamera;
     public bool endOfWave;
     public Transform lastDestroyedFirme;
@@ -75,12 +76,11 @@ public class Wave_Manager : MonoBehaviour
             if(initializeWave == false && lootIndex == nbFirmesOnMap)
             {
                 if(endOfWave == false)
-                {
-                    EndWave();
-                    //GameObject endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
-                    //endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
-                    //Camera.main.enabled = false;
-                    //endOfWave = true;
+                {                   
+                    endCamInstance = Instantiate(endCamera, transform.position, Quaternion.identity);
+                    endCamInstance.GetComponent<CameraEndWave>().StartEndWave(lastDestroyedFirme, this);
+                    Camera.main.enabled = false;
+                    endOfWave = true;
                 }
             }
         }
@@ -90,14 +90,30 @@ public class Wave_Manager : MonoBehaviour
         AddBaseNeutrals();
         StartCoroutine(DisplayWaveText());
         lootIndex = 0;
+        endOfWave = false;
         nbFirmesOnMap = nbMaxFirmes[waveIndex]; //nombre de firme sur la map = le nb pour cette wave en particulier
         lootType = new int[nbFirmesOnMap]; //A chaque nouvelle wave le tableau reset en fonction du nb de firmes de la wave;
         builder.ReplaceHousesByFirmes(waveIndex);
         initializeWave = false;
-        endOfWave = false;
+    }
+
+    public void CanEndWave()
+    {
+        if (lootIndex == nbFirmesOnMap)
+        {
+            EndWave();
+        }
+        else
+            return;
     }
     public void EndWave()
     {
+        if (endCamInstance != null)
+        {
+            endCamInstance.GetComponent<CameraEndWave>().DestroyEndCam();
+            endCamInstance = null;
+            //Camera.main.enabled = false;
+        }
         waveIndex += 1;
         if(waveIndex == nbMaxWaves)
         {

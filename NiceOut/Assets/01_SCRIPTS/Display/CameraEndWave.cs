@@ -12,25 +12,12 @@ public class CameraEndWave : MonoBehaviour
     public Camera endCam;
     public Transform lastFirme;
     public float adjustSpeed;
-    float endTimer = 5;
-    public float endTiming;
-    bool startEnd;
     Vector3 camTranslation;
     float zPos = 0;
     public float collisionRange;
     Wave_Manager waveManager;
     void Update()
     {
-        if(startEnd == true)
-        {
-            endTimer -= Time.deltaTime;
-            if(endTimer <= 0)
-            {
-                waveManager.EndWave();
-                Destroy(this.gameObject);
-            }
-        }
-
         Vector3 firmeFocusPoint = transform.position + (Vector3.up * 5);
 
         endCam.gameObject.transform.LookAt(firmeFocusPoint);
@@ -68,8 +55,11 @@ public class CameraEndWave : MonoBehaviour
         Quaternion wantedCamRotation = Quaternion.Euler(lastFirme.transform.eulerAngles.x, lastFirme.transform.eulerAngles.y - 90, lastFirme.transform.eulerAngles.z);
         transform.rotation = wantedCamRotation;
         transform.position = lastFirme.transform.position + (Vector3.up * 5);
-        endTimer = endTiming;
-        startEnd = true;
+    }
+
+    public void DestroyEndCam()
+    {
+        Destroy(this.gameObject);
     }
     void OnDrawGizmos()
     {

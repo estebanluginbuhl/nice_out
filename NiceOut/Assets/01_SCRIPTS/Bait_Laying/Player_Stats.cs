@@ -89,8 +89,11 @@ public class Player_Stats : MonoBehaviour
     }
     public void UpdateHealth()
     {
-        healthValue.text = health.ToString();
-        healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
+        if(health >= 0)
+        {
+            healthValue.text = health.ToString();
+            healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.rectTransform.localScale.y, healthBar.rectTransform.localScale.z);
+        }
     }
 
     public void Respawn()

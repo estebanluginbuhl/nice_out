@@ -11,7 +11,8 @@ public class Firme_Builder : MonoBehaviour
     [SerializeField]
     Vector3[] howManyFirmesPerWaves;//x = cb de petite firmes, y = cb de moyenne firmes et z = cb de grande firmes
     [SerializeField]
-    Vector3[] typesOfFirmesPerWave;
+    int[] typesOfFirmesPerWave;
+    int indexTypeArray = 0;
 
     public GameObject pfb_Shop;
     GameObject[] modifiedHouses;
@@ -55,14 +56,14 @@ public class Firme_Builder : MonoBehaviour
         {
             for (int x = 0; x < nbSmallFirmes; x++)
             {
-                int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
+                /*int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
                 if (waveManager.fullyUpgraded[randomFirmeType] == true)
                 {
                     while (waveManager.fullyUpgraded[randomFirmeType] == true)
                     {
                         randomFirmeType = Random.Range(3, maxType);
                     }
-                }
+                }*/
 
                 int houseIndex = Random.Range(0, allHouses.Length - 1);
                 if (allHouses[houseIndex].tag.Equals("ModifiedHouse"))
@@ -72,13 +73,15 @@ public class Firme_Builder : MonoBehaviour
                         houseIndex = Random.Range(0, allHouses.Length - 1);
                     }
                 }
-
+                
                 modifiedHouses[indexModifiedHouses] = allHouses[houseIndex];
                 modifiedHouses[indexModifiedHouses].tag = "ModifiedHouse";
                 modifiedHouses[indexModifiedHouses].SetActive(false);
                 GameObject firmeToInstanciate = allFirmes[0];//small firme
                 GameObject firmeInstance = Instantiate(firmeToInstanciate, modifiedHouses[indexModifiedHouses].transform.position, modifiedHouses[indexModifiedHouses].transform.rotation);
-                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                //firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(typesOfFirmesPerWave[indexTypeArray], indexModifiedHouses, waveManager, this);
+                indexTypeArray += 1;
                 indexModifiedHouses += 1;
             }
         }
@@ -87,14 +90,14 @@ public class Firme_Builder : MonoBehaviour
         {  
             for (int y = 0; y < nbMediumFirmes; y++)
             {
-                int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
+                /*int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
                 if (waveManager.fullyUpgraded[randomFirmeType] == true)
                 {
                     while (waveManager.fullyUpgraded[randomFirmeType] == true)
                     {
                         randomFirmeType = Random.Range(3, maxType);
                     }
-                }
+                }*/
 
                 int houseIndex = Random.Range(0, allHouses.Length - 1);
                 if (allHouses[houseIndex].tag.Equals("ModifiedHouse"))
@@ -110,7 +113,9 @@ public class Firme_Builder : MonoBehaviour
                 modifiedHouses[indexModifiedHouses].SetActive(false);
                 GameObject firmeToInstanciate = allFirmes[1];//small firme
                 GameObject firmeInstance = Instantiate(firmeToInstanciate, modifiedHouses[indexModifiedHouses].transform.position, modifiedHouses[indexModifiedHouses].transform.rotation);
-                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                //firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(typesOfFirmesPerWave[indexTypeArray], indexModifiedHouses, waveManager, this);
+                indexTypeArray += 1;
                 indexModifiedHouses += 1;
             }
         }
@@ -119,14 +124,14 @@ public class Firme_Builder : MonoBehaviour
         {
             for (int z = 0; z < nbBigFirmes; z++)
             {
-                int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
+                /*int randomFirmeType = Random.Range(3, maxType);//pas en dessous de 3 pcq type des pièges de bases
                 if (waveManager.fullyUpgraded[randomFirmeType] == true)
                 {
                     while (waveManager.fullyUpgraded[randomFirmeType] == true)
                     {
                         randomFirmeType = Random.Range(3, maxType);
                     }
-                }
+                }*/
 
                 int houseIndex = Random.Range(0, allHouses.Length - 1);
                 if (allHouses[houseIndex].tag.Equals("ModifiedHouse"))
@@ -142,7 +147,9 @@ public class Firme_Builder : MonoBehaviour
                 modifiedHouses[indexModifiedHouses].SetActive(false);
                 GameObject firmeToInstanciate = allFirmes[2];//big firme
                 GameObject firmeInstance = Instantiate(firmeToInstanciate, modifiedHouses[indexModifiedHouses].transform.position, modifiedHouses[indexModifiedHouses].transform.rotation);
-                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                //firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(randomFirmeType, indexModifiedHouses, waveManager, this);
+                firmeInstance.GetComponent<Firme_Stats>().InitializeFirmeTest(typesOfFirmesPerWave[indexTypeArray], indexModifiedHouses, waveManager, this);
+                indexTypeArray += 1;
                 indexModifiedHouses += 1;
             }
 

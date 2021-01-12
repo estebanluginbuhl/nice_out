@@ -16,13 +16,17 @@ public class Entity_Spawner : MonoBehaviour
     float cptTimeBetweenSpawn;
     [SerializeField]
     float spawnRange;
+
+    Animator anm;
     // Start is called before the first frame update
     void Start()
     {
+        anm = GetComponentInChildren<Animator>();
         cptTimeBetweenSpawn = timeBetweenSpawn;
     }
     void SpawnEntity(Vector3 _spawnPoint)
     {
+        anm.SetTrigger("Spawn");
         waveManager.AddRemoveEntity(true);
         GameObject newEntity = Instantiate(entityToSpawn, _spawnPoint, Quaternion.identity);
         newEntity.GetComponent<Entity_Stats>().InitializeEntity(GetComponent<Firme_Stats>().firmeType, 0, waveManager);
