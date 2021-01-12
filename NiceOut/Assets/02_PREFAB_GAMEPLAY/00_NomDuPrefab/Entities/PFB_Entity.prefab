@@ -38113,7 +38113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamages: 1
-  allyDamages: 5
+  allyDamages: 2
   enemyAttackRadius: 2
   allieAttackRadius: 2
   enemyDamageCooldown: 2
