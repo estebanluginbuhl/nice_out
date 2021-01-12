@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2359489502302805038}
   m_Layer: 0
   m_Name: Maison_Type_4
-  m_TagString: Untagged
+  m_TagString: Maisons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,6 +779,7 @@ GameObject:
   - component: {fileID: 3006571659579665180}
   - component: {fileID: 3006571659579665183}
   - component: {fileID: 3006571659579665182}
+  - component: {fileID: 7113978994246823168}
   m_Layer: 0
   m_Name: pPlane1183
   m_TagString: Untagged
@@ -847,6 +848,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7113978994246823168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006571659579665177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.725676, y: 1.65, z: 0.1833484}
+  m_Center: {x: -0.6108748, y: -0.00000013245477, z: 0}
 --- !u!1 &3006571659787538687
 GameObject:
   m_ObjectHideFlags: 0

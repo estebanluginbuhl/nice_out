@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 247810541281752159}
   m_Layer: 0
   m_Name: Maison_Type_3
-  m_TagString: Untagged
+  m_TagString: Maisons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,6 +505,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5490877119617557850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759391767957371624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.033967, y: 1.4499999, z: 0.09070072}
+  m_Center: {x: 0.5479596, y: 0.00000023841858, z: -6.22958e-15}
 --- !u!1 &2759391768058597741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,6 +1911,12 @@ PrefabInstance:
 --- !u!4 &2759391767957371627 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7549656668792954124, guid: daed438fe785c66409755eecd31b1f67,
+    type: 3}
+  m_PrefabInstance: {fileID: 5660620716424062951}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2759391767957371624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7549656668792954127, guid: daed438fe785c66409755eecd31b1f67,
     type: 3}
   m_PrefabInstance: {fileID: 5660620716424062951}
   m_PrefabAsset: {fileID: 0}
