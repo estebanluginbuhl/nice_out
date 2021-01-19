@@ -17,7 +17,7 @@ public class Bait_Attack : MonoBehaviour
     public float cooldown;
     float cptCooldown;
     public bool isGonnaDie;
-
+    bool inCooldown;
     [SerializeField]
     LayerMask ennemisMask = -1;
 
@@ -69,6 +69,18 @@ public class Bait_Attack : MonoBehaviour
                         AttaqueStandCommerce();
                         break;
                     default: return;
+                }
+            }
+
+            if(inCooldown == true)
+            {
+                if(cptCooldown <= 0)
+                {
+                    inCooldown = false;
+                }
+                else
+                {
+                    cptCooldown -= Time.deltaTime;
                 }
             }
         }
@@ -127,7 +139,7 @@ public class Bait_Attack : MonoBehaviour
                     if (Vector3.Distance(target.position, transform.position) <= attackRange)
                     {
                         target.GetComponent<Entity_Stats>().DamageBadEntity(damages);
-                        StartCoroutine(Cooldown(cooldown));
+                        Cooldown(cooldown);
                     }
                 }
             }
@@ -202,7 +214,7 @@ public class Bait_Attack : MonoBehaviour
                 if (target != null)
                 {
                     StartCoroutine(target.GetComponent<Entity_Stats>().Parfume(damages, dotDuration, rangeTransmission, nbTransmission, ennemisMask));
-                    StartCoroutine(Cooldown(cooldown));
+                    Cooldown(cooldown);
                     target = null;
                 }
             }
@@ -219,7 +231,7 @@ public class Bait_Attack : MonoBehaviour
                 foreach (Collider c in units)
                 {
                     StartCoroutine(c.GetComponent<Entity_Movement>().ModifieSpeed(damages, 0f, true));
-                    StartCoroutine(Cooldown(cooldown));
+                    Cooldown(cooldown);
                 }
             }
         }
@@ -236,7 +248,7 @@ public class Bait_Attack : MonoBehaviour
                 {
                     c.GetComponent<Entity_Stats>().DamageBadEntity(damages);
                 }
-                StartCoroutine(Cooldown(this.cooldown));
+                Cooldown(cooldown);
             }
         }
     }
@@ -287,7 +299,7 @@ public class Bait_Attack : MonoBehaviour
                         {
                             c.GetComponent<Entity_Stats>().DamageBadEntity(damages);
                         }
-                        StartCoroutine(Cooldown(this.cooldown));
+                        Cooldown(cooldown);
                     }
                 }
                 else
@@ -298,11 +310,10 @@ public class Bait_Attack : MonoBehaviour
         }
     }
 
-    IEnumerator Cooldown(float _duration)
+    void Cooldown(float _duration)
     {
-        cptCooldown = 1;
-        yield return new WaitForSecondsRealtime(_duration);
-        cptCooldown = 0;
+        cptCooldown = _duration;
+        inCooldown = true;
     }
 
     private void OnDrawGizmosSelected()

@@ -13,7 +13,7 @@ public class Camera_Controller : MonoBehaviour
     float verticalSensitivity = 0.5f;
 
     [SerializeField]
-     Switch_Mode switchMode;
+    Switch_Mode switchMode;
 
     [SerializeField]
     Transform focus = default;
