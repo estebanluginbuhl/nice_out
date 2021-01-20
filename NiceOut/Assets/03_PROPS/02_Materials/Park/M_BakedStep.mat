@@ -74,7 +74,7 @@ Material:
     - _DiffuseAO: 0
     - _DispOffset: 0.5
     - _DispPhong: 0
-    - _Displacement: 0.15
+    - _Displacement: 0.1
     - _DstBlend: 0
     - _GI_AO: 0
     - _GlossMapScale: 1
@@ -93,7 +93,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Strength: 0.5
-    - _Tess: 1
+    - _Tess: 32
     - _TessMode: 1
     - _UVSec: 0
     - _ZWrite: 1
